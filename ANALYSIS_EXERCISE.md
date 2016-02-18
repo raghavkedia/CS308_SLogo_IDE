@@ -1,4 +1,4 @@
-Discussion from: Raghav Kedia (rk145), Jane Yu (), Christine Zhou (clz4)
+Discussion from: Raghav Kedia (rk145), Jane Yu (jy190), Christine Zhou (clz4)
 
 ```
 package cellsociety_team01;
