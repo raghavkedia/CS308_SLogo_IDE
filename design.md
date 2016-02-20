@@ -10,7 +10,7 @@
 
 #User Interface Jane
 
-![GUI](https://github.com/duke-compsci308-spring2016/cellsociety_team20/blob/master/Design.md_images/GUI.jpg  "GUI")
+![GUI](https://github.com/duke-compsci308-spring2016/slogo_team09/blob/master/GUI.jpg "GUI")
 
 The is a graphic display window to display the turtle and its trajectory, a console to type command, a history box to display past command, a variable box to display variables that has been defined.
 
