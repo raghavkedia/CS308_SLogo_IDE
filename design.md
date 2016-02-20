@@ -34,4 +34,7 @@ The console window will also report error whenever user’s command has type err
 
 
 #Team Responsibilities
+Front-end: Richard & Jane
+
+Back-end:Raghav & Christine 
 
