@@ -9,7 +9,7 @@ For this project, we have decided to divide our program into two main components
 
 Here is a diagram of our design: 
 
-
+![Design](https://github.com/duke-compsci308-spring2016/slogo_team09/blob/master/Design.Diagram.jpg "Design")
 
 Our Frontend has one main Manager, and this is responsible for communicating with the Backend, and sending information to the GUI. Our GUI has four main components: Display, Console, History, and Variables. The Display is where the turtle will be shown and moved. The Console is where the user types in commands and sees the output. The History module displays all the past commands that the user typed in, and the Variables module displays all the current variables that the user has created. 
 
@@ -17,24 +17,24 @@ Our Backend also has a Manager, and it is responsible for controlling all the ac
 
 For this project we have four main API's: Frontend Internal/External, and Backend Internal/External:
 
--Frontend Internal is responsible for:
-  Displaying output/exceptions in the Console
-  Displaying past user inputs in History box
-  Updating Display variable values
-  Mirror Backend data in Display
+* Frontend Internal is responsible for:
+  * Displaying output/exceptions in the Console
+  * Displaying past user inputs in History box
+  * Updating Display variable values
+  * Mirror Backend data in Display
 
--Frontend External is responsible for:
-  Pass user input to Backend
-  Recieve updated data/ exceptions
+* Frontend External is responsible for:
+  * Pass user input to Backend
+  * Recieve updated data/ exceptions
   
--Backend Internal is respobsible for:
-  Sending text to Parser
-  Sending Parser text to CommandHandler
-  Sending calculated output to Backend Manager
-  Manager receiving exceptions
+* Backend Internal is responsible for:
+  * Sending text to Parser
+  * Sending Parser text to CommandHandler
+  * Sending calculated output to Backend Manager
+  * Manager receiving exceptions
 
--Backend External is respobsible for:
-  Passing current state of all data to Frontend Manager
+* Backend External is responsible for:
+  * Passing current state of all data to Frontend Manager
 
 #User Interface Jane
 
