@@ -75,6 +75,21 @@ public turtle.update(command)
 public history.update(command)
 ```
 
+HOME:
+```java
+String input = consoleInputListener() returns String containing user input
+public frontEndManager.receiveUserInput(String input) 
+public backEndMangager.receiveUserInput(String input)
+public parser.receiveInput(String input)
+public commandHandler.receive(parsed input)
+public Data.returnTotalDistanceTraveled()
+public backEndManager.receiveCommand(command) 
+public frontEndManager.receiveCommand(command)
+public console.receiveOutput(command)
+public turtle.update(command)
+public history.update(command)
+```
+
 
 #Design Considerations 
 
