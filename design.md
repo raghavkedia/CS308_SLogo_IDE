@@ -54,7 +54,26 @@ The console window will also report error whenever user’s command has type err
 
 
 #API Example Code - Christine 
-
+Fd 50:
+```java
+String input = consoleInputListener() returns String containing user input
+public frontEndManager.receiveUserInput(String input) 
+//Console sends front end manager the user input
+public backEndMangager.receiveUserInput(String input)
+//Front end manager send user input to backend manager
+public parser.receiveInput(String input)
+//Back end manager sends user input to parser
+public commandHandler.receive(parsed input)
+//command handler receives some sort of parsed input from parser
+public backEndManager.receiveCommand(command) 
+//command handler sends back end manager commands
+public frontEndManager.receiveCommand(command)
+//Back end manager sends commands to front end manager
+//Also possible that exception was thrown and back end manager sends message to print to console
+public console.receiveOutput(command)
+public turtle.update(command)
+public history.update(command)
+```
 
 
 #Design Considerations 
