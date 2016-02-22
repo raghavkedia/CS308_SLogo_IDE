@@ -61,8 +61,42 @@ We might make turtle a dragable object, so user can drag the turtle to a certain
 The console window will also report error whenever user’s command has type error or execution error. These errors are detected by the back-end, which will pass error messages to the front-end to be displayed.
 
 
-#API Details Richard
+#API Details
 
+Our project will generally follow the rule of utilizing four API’s to solve the problem, which correspond to external and internal usage for both backend and frontend. 
+
+####Frontend Internal
+
+Responsibilities: 
+
+* To display information in the correct component (errors will be displayed in console, variables and values will be displayed in variable section)
+  * See the results of the turtle commands
+
+####Frontend External
+
+Responsibilities:
+
+* To transmit the user input and other user-designated changes to the backend for the correct transformation of data
+  * Entering commands to the user input
+  * See errors displayed in the console
+  * See variables currently assigned in the GUI
+  * See a history of past commands
+
+####Backend Internal
+
+Responsibilities:
+
+* To parse the data of the user input and translate that input into a command 
+
+* To execute certain commands to transform the data stored in the Backend Manager class
+
+####Backend External
+
+Responsibilities:
+
+* To return the data in the current state for purposes of display
+
+We would need at least two types of Exceptions, those that are related to the user input and one related to the state of or action upon the data. For example, if the turtle was told to move off the screen we may want to create an exception that relates to us the information that the last command could not be completed. An exception related to the user input might be a command that does not exist.
 
 
 #API Example Code - Christine 
@@ -109,3 +143,8 @@ public history.update(command)
 
 #Team Responsibilities
 
+###Richard
+
+* Implementing processes to display and update back-end data in the GUI
+
+* Allow the user to interact with the program through console and buttons
