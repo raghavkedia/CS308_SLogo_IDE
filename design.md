@@ -162,5 +162,6 @@ We decided to keep the parser on the Backend because this would help us adhere t
 
 ###Raghav
 
-* Implement Backend Manager to communicate with Frontend, work on Parser
+* Implement Backend Manager to communicate with Frontend
+* Work with Christine on Parser
 
