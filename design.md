@@ -1,6 +1,18 @@
-#Introduction Richard
+#Introduction
 
+The problem that our team is trying to solve is to create a basic integrated development environment for the programming language Logo. In this project, we will follow the Model-View Controller (MVC) design paradigm where the frontend display interacts as little with the data-processing backend as possible. 
 
+The general responsibility for the frontend display is to:
+Provide an interface through which the user can interact with the program by inputting commands, changing variable assignments, etc.
+Display the current state of the back-end data which includes the position of the turtle, lines that were drawn, past inputs, etc.
+The general responsibility for the backend is to:
+Keep track of all the necessary data, which includes the exact position of the turtle and the locations of lines that need to be drawn
+Translate the input of the user into an action upon the data
+Detect errors when the user input is in an incorrect format
+
+To increase modularity, our design will have just one class in the backend open to one class in the frontend and vice versa. These two classes will be the “managers” of the frontend and backend and each will be responsible for delegating duties to other classes in the frontend and backend respectively. In that manner, the class responsible for translating commands will be closed to the class that receives the user input. 
+
+Our design goals is to make our IDE as extensible as possible. We want it to be simple to implement new commands, display a variety of different objects and have display windows for many aspects of the data. To this end, we believe that it’s important to have a class dedicated to translating commands into actions so that new commands can be added easier. On the frontend, extensibility relies on ease of access of information through the Backend Manager so we want to make that channel as efficient as possible.
 
 
 #Design Overview
