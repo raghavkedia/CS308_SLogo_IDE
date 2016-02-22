@@ -156,6 +156,11 @@ We decided to keep the parser on the Backend because this would help us adhere t
 
 ###Richard
 
-* Implementing processes to display and update back-end data in the GUI
+* Implement processes to display and update back-end data in the GUI
 
 * Allow the user to interact with the program through console and buttons
+
+###Raghav
+
+* Implement Backend Manager to communicate with Frontend, work on Parser
+
