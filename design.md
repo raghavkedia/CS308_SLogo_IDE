@@ -178,3 +178,6 @@ We decided to keep the parser on the Backend because this would help us adhere t
 * Implement Backend Manager to communicate with Frontend
 * Work with Christine on Parser
 
+###Christine
+* Working on the parser with Raghav 
+* Working on the command handler for turtle command, math commands, and boolean commands
