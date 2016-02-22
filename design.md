@@ -136,6 +136,15 @@ public turtle.update(command)
 public history.update(command)
 ```
 
+DISPLAY:
+```java
+public void displayData(){
+  myLines = backendManager.retrieveLines();
+  myTurtle = backendManager.retrieveTurtle();
+  myDisplay.display(myLines);
+  myDisplay.display(myTurtle);
+}
+```
 
 #Design Considerations 
 
