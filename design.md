@@ -148,7 +148,9 @@ public void displayData(){
 
 #Design Considerations 
 
+Our biggest discussion with regards to design was how to divide up the functionality between the Backend and Frontend. We considered different designs where the Frontend and Backend would take responsibility over certain tasks. For example, we debated whether or not the Parsing of user input should be done on the Frontend or Backend (the reason why we considered parsing on the Frontend was because that is where the use text is ultimately first read). 
 
+We decided to keep the parser on the Backend because this would help us adhere to the MVC design paradigm. More generally, we decided to keep all functionality with regards to command computation and execution (parsing, handling, computing, error checking, etc…) in the Backend, and thus all the Frontend would be responsible for would be the different displays (console, history, display), text input, text output, and turtle actions (the calculations for turtle actions will be done in the Backend, the Frontend will simply update the turtle state accordingly). 
 
 #Team Responsibilities
 
