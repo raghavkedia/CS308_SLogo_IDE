@@ -48,7 +48,7 @@ For this project we have four main API's: Frontend Internal/External, and Backen
 * Backend External is responsible for:
   * Passing current state of all data to Frontend Manager
 
-#User Interface Jane
+#User Interface
 
 ![GUI](https://github.com/duke-compsci308-spring2016/slogo_team09/blob/master/GUI.jpg "GUI")
 
@@ -99,7 +99,7 @@ Responsibilities:
 We would need at least two types of Exceptions, those that are related to the user input and one related to the state of or action upon the data. For example, if the turtle was told to move off the screen we may want to create an exception that relates to us the information that the last command could not be completed. An exception related to the user input might be a command that does not exist.
 
 
-#API Example Code - Christine 
+#API Example Code 
 Fd 50:
 ```java
 String input = consoleInputListener() returns String containing user input
@@ -170,8 +170,11 @@ We decided to keep the parser on the Backend because this would help us adhere t
 ###Richard
 
 * Implement processes to display and update back-end data in the GUI
-
 * Allow the user to interact with the program through console and buttons
+
+###Jane
+* Allow the turtle to receive information from the front end and show state on display 
+* Store user commands in history 
 
 ###Raghav
 
