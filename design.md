@@ -146,6 +146,19 @@ public void displayData(){
 }
 ```
 
+LESS? expr1 expr2
+```java
+public frontEndManager.receiveUserInput(String input) 
+public backEndMangager.receiveUserInput(String input)
+public parser.receiveInput(String input)
+public commandHandler.receive(parsed input)
+private int commandHandler.compareExpr(parsed input) {
+ return expr1 > expr2 ? 1 : -1;
+}
+public frontEndManager.receiveCommand(command)
+public console.receiveOutput(command)
+```
+
 #Design Considerations 
 
 Our biggest discussion with regards to design was how to divide up the functionality between the Backend and Frontend. We considered different designs where the Frontend and Backend would take responsibility over certain tasks. For example, we debated whether or not the Parsing of user input should be done on the Frontend or Backend (the reason why we considered parsing on the Frontend was because that is where the use text is ultimately first read). 
