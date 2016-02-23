@@ -1,9 +1,9 @@
 package slogo_team09;
 
-public class BackendManager {
+public class BackendManager implements InterpreturInterface{
 	
-	private Parser myParser;
-	private CommandHandler myCommandHandler;
+	private ParserInterface myParser;
+	private CommandHandlerInterface myCommandHandler;
 	private Result myResult;
 	private ParsedInput myParsedInput;
 	

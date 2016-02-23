@@ -1,6 +1,6 @@
 package slogo_team09;
 
-public interface Command {
+public interface CommandInterface {
 	
 	public Result execute(ParsedInput myInput);
 	

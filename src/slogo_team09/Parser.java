@@ -1,6 +1,6 @@
 package slogo_team09;
 
-public class Parser {
+public class Parser implements ParserInterface{
 	
 	private ParsedInput myParsedInput;
 	

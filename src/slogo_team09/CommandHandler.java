@@ -1,6 +1,6 @@
 package slogo_team09;
 
-public class CommandHandler {
+public class CommandHandler implements CommandHandlerInterface{
 	
 	private Result myResult;
 	
@@ -10,7 +10,7 @@ public class CommandHandler {
 	
 	//returns Result object;
 	public Result handleCommand(ParsedInput parsedInput){
-		//for now
+		//for now, in the future we may not need an actual instance variable of Result
 		return myResult;
 	}
 }
