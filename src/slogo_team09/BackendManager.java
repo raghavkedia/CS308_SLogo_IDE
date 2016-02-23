@@ -14,8 +14,13 @@ public class BackendManager {
 	}
 	
 	public Result executeCommand(String input){
+		//This will send user input to parser and get back a ParsedInput Object
 		myParsedInput = myParser.parseInput(input);
+		
+		//this will send ParsedInput object to CommandHandler and receive Result object
 		myResult = myCommandHandler.handleCommand(myParsedInput);
+		
+		//this will return Result object
 		return myResult;
 	}
 	

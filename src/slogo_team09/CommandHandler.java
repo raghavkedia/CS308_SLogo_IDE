@@ -8,6 +8,7 @@ public class CommandHandler {
 		// TODO Auto-generated constructor stub
 	}
 	
+	//returns Result object;
 	public Result handleCommand(ParsedInput parsedInput){
 		//for now
 		return myResult;

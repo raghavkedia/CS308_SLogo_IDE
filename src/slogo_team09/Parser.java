@@ -8,8 +8,9 @@ public class Parser {
 		// TODO Auto-generated constructor stub
 	}
 	
+	//return ParsedInput Object
 	public ParsedInput parseInput(String input){
-		//for now
+		//for now, in the future we may not need an actual instance variable of ParsedInput
 		return myParsedInput;
 	}
 }
