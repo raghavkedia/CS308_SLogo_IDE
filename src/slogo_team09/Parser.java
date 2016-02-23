@@ -1,6 +1,6 @@
 package slogo_team09;
 
-public class Parser implements ParserInterface{
+public class Parser implements Parseable{
 	
 	private ParsedInput myParsedInput;
 	
@@ -9,7 +9,7 @@ public class Parser implements ParserInterface{
 	}
 	
 	//return ParsedInput Object
-	public ParsedInput parseInput(String input){
+	public ParsedInput parse(String input){
 		//for now, in the future we may not need an actual instance variable of ParsedInput
 		return myParsedInput;
 	}
