@@ -12,7 +12,7 @@ public class testExpressionTree {
 	
 	public static void main(String[] args) {
 		BinaryCommandNode root = new BinaryCommandNode(Command.SUM);
-		root.leftChild = new BinaryCommandNode(Command.PRODUCT);
+		root.leftChild = new BinaryCommandNode(Command.LESS);
 		BinaryCommandNode leftleftChild = (BinaryCommandNode) root.leftChild;
 		root.rightChild = new ConstantNode(1);
 		leftleftChild.leftChild = new ConstantNode(2);

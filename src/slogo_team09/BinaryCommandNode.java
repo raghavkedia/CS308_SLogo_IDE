@@ -7,44 +7,58 @@ public class BinaryCommandNode implements ExpressionNode {
 	Command type;
 	ExpressionNode leftChild;
 	ExpressionNode rightChild;
+	Result result;
 	
 	public BinaryCommandNode(Command type) {
 		this.type = type;
+		result = new Result();
 	}
 	
 	@Override
-	public double execute() {
-		double leftValue = leftChild.execute();
-		double rightValue = rightChild.execute();
+	public Result execute() {
+		double leftValue = leftChild.execute().getMyDouble();
+		double rightValue = rightChild.execute().getMyDouble();
 		switch(type) {
 			case SUM:
-				return leftValue + rightValue;
+				result.setMyDouble(leftValue + rightValue);
+				return result;
 			case DIFFERENCE:
-				return leftValue - rightValue;
+				result.setMyDouble(leftValue - rightValue);
+				return result;
 			case PRODUCT:
-				return leftValue * rightValue;
+				result.setMyDouble(leftValue * rightValue);
+				return result;
 			case QUOTIENT:
-				return leftValue / rightValue;
+				result.setMyDouble(leftValue / rightValue);
+				return result;
 			case REMAINDER:
-				return leftValue % rightValue;
+				result.setMyDouble(leftValue % rightValue);
+				return result;
 			case POW:
-				return Math.pow(leftValue, rightValue);
+				result.setMyDouble(Math.pow(leftValue, rightValue));
+				return result;
 			case LESS:
-				return leftValue < rightValue ? 1 : 0;
+				result.setMyDouble(leftValue < rightValue ? 1 : 0);
+				return result;
 			case GREATER:
-				return leftValue > rightValue ? 1 : 0;
+				result.setMyDouble(leftValue > rightValue ? 1 : 0);
+				return result;
 			case EQUAL:
-				return leftValue == rightValue ? 1 : 0;
+				result.setMyDouble(leftValue == rightValue ? 1 : 0);
+				return result;
 			case NOTEQUAL:
-				return leftValue != rightValue ? 1 : 0;
+				result.setMyDouble(leftValue != rightValue ? 1 : 0);
+				return result;
 			case AND:
-				return ((leftValue != 0) && (rightValue != 0)) ? 1 : 0;
+				result.setMyDouble(((leftValue != 0) && (rightValue != 0)) ? 1 : 0);
+				return result;
 			case OR:
-				return ((leftValue != 0) || (rightValue != 0)) ? 1 : 0;
+				result.setMyDouble(((leftValue != 0) || (rightValue != 0)) ? 1 : 0);
+				return result;
 			default:
 				break;
 		}
-		return 0;
+		return result;
 	}
 
 }
