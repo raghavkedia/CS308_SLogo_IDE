@@ -11,7 +11,7 @@ public class BinaryCommandNode implements ExpressionNode {
 	
 	public BinaryCommandNode(Command type) {
 		this.type = type;
-		result = new Result();
+		result = new GeneralResult();
 	}
 	
 	@Override

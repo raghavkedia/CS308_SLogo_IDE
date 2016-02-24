@@ -12,13 +12,13 @@ public class testExpressionTree {
 	
 	public static void main(String[] args) {
 		BinaryCommandNode root = new BinaryCommandNode(Command.SUM);
-		root.leftChild = new BinaryCommandNode(Command.LESS);
+		root.leftChild = new BinaryCommandNode(Command.SUM);
 		BinaryCommandNode leftleftChild = (BinaryCommandNode) root.leftChild;
 		root.rightChild = new ConstantNode(1);
 		leftleftChild.leftChild = new ConstantNode(2);
 		leftleftChild.rightChild = new ConstantNode(1);
-		double result = root.execute();
-		System.out.println(result);
+		Result result = root.execute();
+		System.out.println(result.getMyDouble());
 	}
 
 }
