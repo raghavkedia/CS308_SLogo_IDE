@@ -1,4 +1,4 @@
-package slogo_team09;
+package backend;
 
 public enum Command {
 	FORWARD, BACKWARD, SUM, DIFFERENCE, PRODUCT, QUOTIENT, REMAINDER, MINUS, RANDOM, SIN,

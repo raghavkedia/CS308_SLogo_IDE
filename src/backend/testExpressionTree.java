@@ -1,8 +1,8 @@
-package slogo_team09;
+package backend;
 
-import slogo_team09.BinaryCommandNode;
-import slogo_team09.Command;
-import slogo_team09.ConstantNode;
+import backend.BinaryCommandNode;
+import backend.Command;
+import backend.ConstantNode;
 
 public class testExpressionTree {
 
