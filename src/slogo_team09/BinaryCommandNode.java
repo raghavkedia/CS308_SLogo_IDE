@@ -14,6 +14,11 @@ public class BinaryCommandNode implements ExpressionNode {
 		result = new GeneralResult();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see slogo_team09.ExpressionNode#execute()
+	 * Returns a Result object modified according to the following commands
+	 */
 	@Override
 	public Result execute() {
 		double leftValue = leftChild.execute().getMyDouble();
