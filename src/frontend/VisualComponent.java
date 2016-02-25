@@ -1,10 +1,19 @@
 package frontend;
 
+import javafx.scene.paint.Color;
+
 abstract class VisualComponent {
 	private double myX;
 	private double myY;
 	private double myWidth;
 	private double myHeight;
+	private Color myColor;
+	
+	public VisualComponent(double w, double h){
+		this.myWidth = w;
+		this.myHeight = h;
+		this.myColor = Color.GREY;
+	}
 	
 	public void bind(double xCor, double yCor){
 		this.myX = xCor;
@@ -19,4 +28,5 @@ abstract class VisualComponent {
 	public void setMyWidth(double myWidth) {this.myWidth = myWidth;}
 	public double getMyHeight() {return myHeight;}
 	public void setMyHeight(double myHeight) {this.myHeight = myHeight;}
+	public void setColor(Color newColor){ this.myColor = newColor; }
 }
