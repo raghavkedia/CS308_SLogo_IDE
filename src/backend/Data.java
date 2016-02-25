@@ -31,5 +31,9 @@ public class Data implements Querryable{
 		// TODO Auto-generated method stub
 		return myCharacters;
 	}
-
+	
+	public void addCharacter(Character c){
+		myCharacters.add(c);
+	}
+	
 }
