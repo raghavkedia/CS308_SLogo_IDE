@@ -2,10 +2,10 @@ package backend;
 
 import java.util.List;
 import java.util.Map;
-
+import java.util.Observable;
 import javafx.scene.image.Image;
 
-public class Character implements Updateable{
+public class Character extends Observable implements Getable, Setable{
 	
 	private int myCoordX, myCoordY;
 	private String myName;
@@ -21,6 +21,10 @@ public class Character implements Updateable{
 		penDown = true;
 	}
 
+	public void hasUpdated(){
+		setChanged();
+		notifyObservers(this);
+	}
 	
 	public void setCurrCoord(int x, int y) {
 		// TODO Auto-generated method stub

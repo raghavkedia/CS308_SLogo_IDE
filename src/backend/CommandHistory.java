@@ -18,5 +18,5 @@ public class CommandHistory extends Observable{
 		setChanged();
 		notifyObservers(command);
 	}
-
+	
 }

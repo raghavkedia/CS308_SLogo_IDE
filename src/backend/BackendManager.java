@@ -7,23 +7,25 @@ public class BackendManager implements InterpreturInterface{
 	private Result myResult;
 	private ParsedInput myParsedInput;
 	private Querryable myData;
+	private CommandHistory myCommandHistory;
+	private VariablesList myVariablesList;
+	private CharactersList myCharactersList;
 	
 	public BackendManager() {
 		// TODO Auto-generated constructor stub
 		myParser = new Parser();
 		myCommandHandler = new CommandHandler();
 		myData = new Data();
+		myCommandHistory = new CommandHistory();
+		myVariablesList = new VariablesList();
+		myCharactersList = new CharactersList();
 	}
 	
-	public Result executeCommand(String input){
-		//This will send user input to parser and get back a ParsedInput Object
-		myParsedInput = myParser.parse(input);
+	public String executeCommand(String input){
 		
-		//this will send ParsedInput object to CommandHandler and receive Result object
-		myResult = myCommandHandler.handleCommand(myParsedInput);
+		//make the appropriate calls
 		
-		//this will return Result object
-		return myResult;
+		return "";
 	}
 	
 	public Querryable getData(){
