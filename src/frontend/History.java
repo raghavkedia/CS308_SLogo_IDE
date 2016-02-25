@@ -1,5 +1,5 @@
 package frontend;
 
-public class History extends VisualComponent{
+public class History extends ListView{
 
 }

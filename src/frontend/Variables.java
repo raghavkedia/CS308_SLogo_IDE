@@ -1,5 +1,5 @@
 package frontend;
 
-public class Variables extends VisualComponent{
+public class Variables extends ListView{
 
 }
