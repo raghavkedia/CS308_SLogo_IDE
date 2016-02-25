@@ -1,4 +1,4 @@
-package slogo_team09;
+package backend;
 
 import java.util.List;
 
@@ -7,6 +7,8 @@ public abstract class Result {
 	private String myString;
 	private List<String> myList;
 	private int[] myArr;
+	private double myDouble;
+	
 	public String getMyString() {
 		return myString;
 	}
@@ -24,6 +26,12 @@ public abstract class Result {
 	}
 	public void setMyArr(int[] myArr) {
 		this.myArr = myArr;
+	}
+	public double getMyDouble() {
+		return myDouble;
+	}
+	public void setMyDouble(double myDouble) {
+		this.myDouble = myDouble;
 	}
 
 }
