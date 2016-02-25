@@ -2,7 +2,7 @@ package frontend;
 
 import javafx.scene.paint.Color;
 
-public class VisualComponent {
+abstract class VisualComponent {
 	private double myX;
 	private double myY;
 	private double myWidth;
