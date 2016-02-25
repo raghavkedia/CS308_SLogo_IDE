@@ -6,6 +6,11 @@ abstract class VisualComponent {
 	private double myWidth;
 	private double myHeight;
 	
+	public void bind(double xCor, double yCor){
+		this.myX = xCor;
+		this.myY = yCor;
+	}
+	
 	public double getMyX() {return myX;}
 	public void setMyX(double myX) {this.myX = myX;}
 	public double getMyY() {return myY;}
