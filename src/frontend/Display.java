@@ -10,8 +10,6 @@ public class Display extends VisualComponent{
 	Display(){
 		super.setMyHeight(500);
 		super.setMyWidth(500);
-		super.setMyX(10);
-		super.setMyY(10);
 		this.myRoot = new Group();
 	}
 	
