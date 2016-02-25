@@ -8,14 +8,12 @@ public class Display extends VisualComponent{
 	private Scene myScene;
 
 	Display(){
-		super.setMyHeight(500);
-		super.setMyWidth(500);
+		super(500, 500);
 		this.myRoot = new Group();
 	}
 	
-	Display(double height, double width){
-		super.setMyHeight(height);
-		super.setMyWidth(width);
+	Display(double width, double height){
+		super(width, height);
 		this.myRoot = new Group();
 	}
 

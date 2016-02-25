@@ -1,8 +1,8 @@
 package frontend;
 
 abstract class Button extends VisualComponent implements IClickable{
-	Button(double w, double h){
-		super(w, h);
+	Button(double width, double height){
+		super(width, height);
 	}
 
 	@Override

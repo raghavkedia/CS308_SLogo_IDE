@@ -9,9 +9,9 @@ abstract class VisualComponent {
 	private double myHeight;
 	private Color myColor;
 	
-	public VisualComponent(double w, double h){
-		this.myWidth = w;
-		this.myHeight = h;
+	public VisualComponent(double width, double height){
+		this.myWidth = width;
+		this.myHeight = height;
 		this.myColor = Color.GREY;
 	}
 	
