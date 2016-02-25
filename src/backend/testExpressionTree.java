@@ -1,8 +1,8 @@
-package slogo_team09;
+package backend;
 
-import slogo_team09.BinaryCommandNode;
-import slogo_team09.Command;
-import slogo_team09.ConstantNode;
+import backend.BinaryCommandNode;
+import backend.Command;
+import backend.ConstantNode;
 
 public class testExpressionTree {
 
@@ -11,11 +11,12 @@ public class testExpressionTree {
 	}
 	
 	public static void main(String[] args) {
-		BinaryCommandNode root = new BinaryCommandNode(Command.SUM);
+		BinaryCommandNode root = new BinaryCommandNode(Command.PRODUCT);
 		root.leftChild = new BinaryCommandNode(Command.SUM);
 		BinaryCommandNode leftleftChild = (BinaryCommandNode) root.leftChild;
 		root.rightChild = new ConstantNode(1);
-		leftleftChild.leftChild = new ConstantNode(2);
+		ConstantNode c = new ConstantNode(2);
+		leftleftChild.leftChild = c;
 		leftleftChild.rightChild = new ConstantNode(1);
 		Result result = root.execute();
 		System.out.println(result.getMyDouble());

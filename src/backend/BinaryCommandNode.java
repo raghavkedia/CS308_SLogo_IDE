@@ -1,7 +1,7 @@
-package slogo_team09;
+package backend;
 
-import slogo_team09.Command;
-import slogo_team09.ExpressionNode;
+import backend.Command;
+import backend.ExpressionNode;
 
 public class BinaryCommandNode implements ExpressionNode {
 	Command type;
