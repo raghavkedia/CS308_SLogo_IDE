@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.ResourceBundle;
+
 public class BackendManager implements InterpreturInterface{
 	
 	private Parseable myParser;
@@ -10,6 +12,8 @@ public class BackendManager implements InterpreturInterface{
 	private CommandHistory myCommandHistory;
 	private VariablesList myVariablesList;
 	private CharactersList myCharactersList;
+    private ResourceBundle myResources;
+    public static final String DEFAULT_RESOURCE_PACKAGE = "resources/languages/";
 	
 	public BackendManager() {
 		// TODO Auto-generated constructor stub
@@ -19,6 +23,7 @@ public class BackendManager implements InterpreturInterface{
 		myCommandHistory = new CommandHistory();
 		myVariablesList = new VariablesList();
 		myCharactersList = new CharactersList();
+		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages"); 
 	}
 	
 	public String executeCommand(String input){
