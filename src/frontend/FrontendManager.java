@@ -30,6 +30,7 @@ public class FrontendManager {
 	
 	public void initComponents(){
 		myComponents.add(ComponentFactory.makeNewDisplay(400, 400));
+		myComponents.add(ComponentFactory.makeNewHistory(200, 200));
 		
 		updateDisplay();
 		

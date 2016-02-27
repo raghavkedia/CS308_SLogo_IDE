@@ -8,4 +8,8 @@ public class ComponentFactory {
 	public static Display makeNewDisplay(double width, double height){
 		return new Display(width, height);
 	}
+	
+	public static History makeNewHistory(double width, double height){
+		return new History(width, height);
+	}
 }
