@@ -28,7 +28,8 @@ public class BackendManager implements InterpreturInterface{
 	
 	public String executeCommand(String input){
 		
-		myParser.runInput(input, myCharactersList, myVariablesList, myCommandHistory, myResources);
+		myCommandHistory.addCommand(input);
+		myParser.runInput(input, myCharactersList, myVariablesList, myResources);
 		
 		return "";
 	}

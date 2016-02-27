@@ -29,8 +29,7 @@ public class SimpleSplitParse implements Parseable {
 	}
 
 	@Override
-	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList,
-			CommandHistory myCommandHistroy, ResourceBundle myResources) {
+	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, ResourceBundle myResources) {
 		// TODO Auto-generated method stub
 		Collection<String> myStrings = new ArrayList<String>(Arrays.asList(input.split("\\s+")));
 		return null;
