@@ -1,7 +1,7 @@
 package backend;
 
 public enum Command {
-	FORWARD, BACK, LEFT, RIGHT, SETHEADING, TOWARDS, SETXY, SUM, DIFFERENCE, PRODUCT, QUOTIENT, REMAINDER, MINUS, RANDOM, SIN,
-	COS, TAN, ATAN, LOG, POW, PI, LESS, GREATER, EQUAL, NOTEQUAL, AND, OR, NOT;
+	Forward, Back, Left, Right, SetHeading, SetTowards, SetPosition, Sum, Difference, Product, Quotient, Remainder, 
+	Minus, Random, Sine, Cos, Tan, ArcTangent, NaturalLog, Power, Pi, LessThan, GreaterThan, Equal, NotEqual, And, Or, Not;
 }
 

@@ -7,11 +7,15 @@ public class CommandFactory {
 		NORMAL, ALL;
 	}
 	private FactoryType myType;
+	private Character myCharacter;
 	
 	public CommandFactory() {
 		myType = FactoryType.NORMAL;
 	}
 	
+	public void setCharacter(Character myCharacter) {
+		this.myCharacter = myCharacter;
+	}
 	public void setType(FactoryType myType) {
 		this.myType = myType;
 	}
@@ -21,59 +25,69 @@ public class CommandFactory {
 		double leftValue = 0;
 		double rightValue = 0;
 		switch(type) {
-		case SUM:
+		case Forward:
+			break;
+		case Back:
+			break;
+		case Left:
+			break;
+		case Right:
+			break;
+		case SetHeading:
+			break;
+		case Sum:
 			for (Double d : myResults) {
 				result += d;
 			}
 			return result;
-		case DIFFERENCE:
+		case Difference:
 			result = myResults.get(0) * 2;
 			for (Double d : myResults) {
 				result -= d;
 			}
 			return result;
-		case PRODUCT:
+		case Product:
 			result = 1;
 			for (Double d : myResults) {
 				result = result * d;
 			}
 			return result;
-		case QUOTIENT:
+		case Quotient:
 			result = myResults.get(0) * myResults.get(0);
 			for (Double d : myResults) {
 				result = result / d;
 			}
 			return result;
-		case REMAINDER:
+		case Remainder:
 			result = myResults.get(0) + myResults.get(0);
 			for (Double d : myResults) {
 				result = result % d;
 			}
-		case POW:
+		case Power:
 			double base = myResults.get(0); 
 			double exp = myResults.get(1);
 			return Math.pow(base, exp);
-		case LESS:
+		case LessThan:
 			leftValue =  myResults.get(0);
 			rightValue = myResults.get(1);
 			return (leftValue < rightValue ? 1 : 0);
-		case GREATER:
+		case GreaterThan:
 			leftValue =  myResults.get(0);
 			rightValue = myResults.get(1);
 			return (leftValue > rightValue ? 1 : 0);
-		case EQUAL:
+		case Equal:
 			leftValue =  myResults.get(0);
 			rightValue = myResults.get(1);
 			return(leftValue == rightValue ? 1 : 0);
-		case NOTEQUAL:
+		case NotEqual:
 			leftValue =  myResults.get(0);
 			rightValue = myResults.get(1);
 			return (leftValue != rightValue ? 1 : 0);
-		case AND:
+		case And:
 			leftValue =  myResults.get(0);
 			rightValue = myResults.get(1);
 			return (((leftValue != 0) && (rightValue != 0)) ? 1 : 0);
-		case OR:
+		case Or:
 			leftValue =  myResults.get(0);
 			rightValue = myResults.get(1);
 			return (((leftValue != 0) || (rightValue != 0)) ? 1 : 0);
