@@ -16,6 +16,7 @@ public class History extends ListVisual{
 	public void addToHistory(String pastCommand){
 		myData.add(pastCommand);
 	}
+
 	
     public void handleUI() {
         this.addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
