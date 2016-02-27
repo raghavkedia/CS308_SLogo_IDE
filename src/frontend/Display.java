@@ -1,20 +1,22 @@
 package frontend;
 
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 
 public class Display extends VisualComponent{
-	private Group myRoot;
-	private Scene myScene;
+	private Shape myShape;
 
-	Display(){
+	public Display(){
 		super(500, 500);
-		this.myRoot = new Group();
+		myShape = new Rectangle(super.getMyWidth(), super.getMyHeight(), Color.WHITE);
 	}
 	
-	Display(double width, double height){
+	public Display(double width, double height){
 		super(width, height);
-		this.myRoot = new Group();
+		myShape = new Rectangle(super.getMyWidth(), super.getMyHeight(), Color.WHITE);
 	}
-
+	
+	
+	
 }

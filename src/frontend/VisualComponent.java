@@ -1,5 +1,6 @@
 package frontend;
 
+import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
 abstract class VisualComponent {
@@ -7,6 +8,7 @@ abstract class VisualComponent {
 	private double myY;
 	private double myWidth;
 	private double myHeight;
+	private Group myRoot;
 	private Color myColor;
 	
 	public VisualComponent(double width, double height){
