@@ -12,9 +12,8 @@ public class ConstantNode implements ExpressionNode{
 	}
 
 	@Override
-	public Result execute() {
-		result.setMyDouble(value);
-		return result;
+	public double execute() {
+		return value;
 	}
 
 }
