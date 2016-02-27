@@ -3,6 +3,7 @@ package backend;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.ResourceBundle;
 
 public class SimpleSplitParse implements Parseable {
 
@@ -15,12 +16,6 @@ public class SimpleSplitParse implements Parseable {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-	public String runInput(String input) {
-		Collection<String> myStrings = new ArrayList<String>(Arrays.asList(input.split("\\s+")));
-		return null;
-	}
 	
 	private Collection<String> cleanStrings(Collection<String> myStrings) {
 		boolean foundComment = false;
@@ -30,6 +25,14 @@ public class SimpleSplitParse implements Parseable {
 	@Override
 	public Collection<String> stringParse(String input) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList,
+			CommandHistory myCommandHistroy, ResourceBundle myResources) {
+		// TODO Auto-generated method stub
+		Collection<String> myStrings = new ArrayList<String>(Arrays.asList(input.split("\\s+")));
 		return null;
 	}
 

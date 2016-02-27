@@ -16,4 +16,8 @@ public class CharactersList {
 		characters.put(character.getName(), character);
 	}
 	
+	public Character getCharacter(String characterKey){
+		return characters.get(characterKey);
+	}
+	
 }

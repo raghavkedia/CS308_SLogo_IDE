@@ -6,9 +6,9 @@ public class BackendManager implements InterpreturInterface{
 	
 	private Parseable myParser;
 	private CommandHandlerInterface myCommandHandler;
-	private Result myResult;
-	private ParsedInput myParsedInput;
-	private Querryable myData;
+	//private Result myResult;
+	//private ParsedInput myParsedInput;
+	//private Querryable myData;
 	private CommandHistory myCommandHistory;
 	private VariablesList myVariablesList;
 	private CharactersList myCharactersList;
@@ -17,18 +17,18 @@ public class BackendManager implements InterpreturInterface{
 	
 	public BackendManager() {
 		// TODO Auto-generated constructor stub
-		myParser = new Parser();
+		myParser = new SimpleSplitParse();
 		myCommandHandler = new CommandHandler();
-		myData = new Data();
+		//myData = new Data();
 		myCommandHistory = new CommandHistory();
 		myVariablesList = new VariablesList();
 		myCharactersList = new CharactersList();
-		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages"); 
+		//myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages"); 
 	}
 	
 	public String executeCommand(String input){
 		
-		//make the appropriate calls
+		myParser.runInput(input, myCharactersList, myVariablesList, myCommandHistory, myResources);
 		
 		return "";
 	}
