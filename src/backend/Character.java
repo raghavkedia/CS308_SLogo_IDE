@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 public class Character extends Observable implements Getable, Setable{
 	
 	private int myCoordX, myCoordY;
+	private double myAngle;
 	private String myName;
 	private Image myImage;
 	private boolean visable;
@@ -85,6 +86,14 @@ public class Character extends Observable implements Getable, Setable{
 	public List<List<int[]>> getLines() {
 		// TODO Auto-generated method stub
 		return myLinesList;
+	}
+
+	public double getMyAngle() {
+		return myAngle;
+	}
+
+	public void setMyAngle(double myAngle) {
+		this.myAngle = myAngle;
 	}
 
 

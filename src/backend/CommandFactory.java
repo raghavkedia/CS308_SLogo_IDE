@@ -16,8 +16,22 @@ public class CommandFactory {
 	public void setCharacter(Character myCharacter) {
 		this.myCharacter = myCharacter;
 	}
+	
 	public void setType(FactoryType myType) {
 		this.myType = myType;
+	}
+	
+	private void translateCoor(double [] transCoords) {
+		double translateX = transCoords[0] * Math.cos(convertDegrees(myCharacter.getMyAngle())) 
+				+ transCoords[1] * Math.sin(convertDegrees(myCharacter.getMyAngle()));
+		double translateY = transCoords[1] * Math.sin(convertDegrees(myCharacter.getMyAngle()));
+		myCharacter.setCurrCoord((int) Math.floor(myCharacter.getCoordX() + translateX),
+				(int) Math.floor(myCharacter.getCoordY() + translateY));
+		myCharacter.hasUpdated();
+		}
+
+	private double convertDegrees(double angle) {
+		return Math.PI * angle / 180;
 	}
 	
 	public double generateResult(Command type, List<Double> myResults) {
@@ -26,15 +40,37 @@ public class CommandFactory {
 		double rightValue = 0;
 		switch(type) {
 		case Forward:
-			break;
+			translateCoor(new double[]{0, myResults.get(0)});
+			return myResults.get(0);
 		case Back:
-			break;
+			translateCoor(new double[]{0, -1 * myResults.get(0)});
+			return myResults.get(0);
 		case Left:
-			break;
+			myCharacter.setMyAngle(myCharacter.getMyAngle() - myResults.get(0));
+			myCharacter.hasUpdated();
+			return myResults.get(0);
 		case Right:
-			break;
+			myCharacter.setMyAngle(myCharacter.getMyAngle() + myResults.get(0));
+			myCharacter.hasUpdated();
+			return myResults.get(0);
 		case SetHeading:
-			break;
+			result = Math.abs(myCharacter.getMyAngle() - myResults.get(0));
+			myCharacter.setMyAngle(myResults.get(0));
+			return result;
+		case SetTowards:
+			double newAngle = 
+				90 - Math.atan2(myResults.get(1) - myCharacter.getCoordY(), myResults.get(0) - myCharacter.getCoordX());
+			result = Math.abs(newAngle - myCharacter.getMyAngle());
+			myCharacter.setMyAngle(newAngle);
+			myCharacter.hasUpdated();
+			return result;
+		case SetPosition:
+			double deltaX = myResults.get(0) - myCharacter.getCoordX();
+			double deltaY = myResults.get(1) - myCharacter.getCoordY();
+			result = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
+			myCharacter.setCurrCoord((int) Math.round(myResults.get(0)), (int) Math.round(myResults.get(1)));
+			myCharacter.hasUpdated();
+			return result;
 		case Sum:
 			for (Double d : myResults) {
 				result += d;
