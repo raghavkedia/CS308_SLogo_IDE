@@ -15,6 +15,4 @@ abstract class ListVisual extends VisualComponent{
 		myList.setPrefWidth(width);
 		this.setVisual(myList);
 	}
-	
-	
 }
