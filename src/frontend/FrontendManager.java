@@ -2,8 +2,10 @@ package frontend;
 
 import backend.*;
 import javafx.scene.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.*;
 import java.util.*;
 
@@ -22,10 +24,19 @@ public class FrontendManager {
 		myWindow = new Stage();
 		myScene = new Scene(myRoot, SIZE, SIZE, Color.WHITE);
 		myComponents = new ArrayList<VisualComponent>();
+		
+		initComponents();
+	}
+	
+	public void initComponents(){
+		myComponents.add(ComponentFactory.makeNewDisplay(400, 400));
+		
+		updateDisplay();
+		
 	}
 	
 	public void updateDisplay(){
-		myRoot = new StackPane();
+		myRoot.getChildren().clear();
 		for (VisualComponent component : myComponents){
 			myRoot.getChildren().add(component.getVisual());
 		}
