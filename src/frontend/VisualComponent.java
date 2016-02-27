@@ -7,7 +7,7 @@ abstract class VisualComponent {
 	private Node myVisual;
 	private Color myColor;
 	
-	public VisualComponent(){
+	public VisualComponent() {
 		this.myColor = Color.GREY;
 	}
 	
