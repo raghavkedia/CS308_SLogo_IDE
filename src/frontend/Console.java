@@ -3,6 +3,7 @@ package frontend;
 import javafx.scene.control.TextArea;
 
 class Console extends VisualComponent{
+
 	private TextArea commandArea;
 	
 	Console(double width, double height){
