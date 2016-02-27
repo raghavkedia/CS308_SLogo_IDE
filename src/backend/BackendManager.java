@@ -19,7 +19,7 @@ public class BackendManager implements InterpreturInterface{
 	
 	public BackendManager() {
 		// TODO Auto-generated constructor stub
-		myParser = new SimpleSplitParse();
+		myParser = new SimpleSplitParse("English");
 		myCommandHandler = new CommandHandler();
 		//myData = new Data();
 		myCommandHistory = new CommandHistory();
