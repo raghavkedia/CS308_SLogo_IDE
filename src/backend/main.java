@@ -1,4 +1,4 @@
-package slogo_team09;
+package backend;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

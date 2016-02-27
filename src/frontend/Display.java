@@ -1,27 +1,21 @@
 package frontend;
 
-import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 
 public class Display extends VisualComponent{
-	private Group myRoot;
-	private Scene myScene;
-	private Turtle myTurtle;
 
-	Display(){
-		super.setMyHeight(500);
-		super.setMyWidth(500);
-		super.setMyX(10);
-		super.setMyY(10);
-		this.myRoot = new Group();
+	public Display(double width, double height){
+		super.setVisual(new Canvas(width, height));
 	}
 	
-	Display(double height, double width, double xPos, double yPos){
-		super.setMyHeight(height);
-		super.setMyWidth(width);
-		super.setMyX(xPos);
-		super.setMyY(yPos);
-		this.myRoot = new Group();
+	public void drawLine(double xCor, double yCor){
+		/*get current coordinate of turtle(s)
+		draw line from that turtle's current location to new location
+		using GraphicsContext gc = canvas.getGraphicsContext2D();
+		gc.beginPath()
+		gc.moveTo(currentcoord)
+		gc.lineTo(newCoord)
+		gc.stroke()
+		*/
 	}
-
 }

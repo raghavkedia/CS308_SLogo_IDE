@@ -1,5 +1,9 @@
 package frontend;
 
-public class Variables extends VisualComponent{
-
+public class Variables extends ListVisual{
+	
+	public Variables(double width, double height){
+		super(width, height);
+	}
+	
 }
