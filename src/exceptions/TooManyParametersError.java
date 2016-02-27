@@ -2,9 +2,7 @@ package exceptions;
 
 public class TooManyParametersError extends InvalidParametersError{
 	
-	private static final String errorMessage = "Too few parameters ";
-	
-	public TooManyParametersError() {
+	public TooManyParametersError(String errorMessage) {
 		// TODO Auto-generated constructor stub
 		super(errorMessage);
 	}

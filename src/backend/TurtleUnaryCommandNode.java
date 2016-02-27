@@ -10,7 +10,6 @@ public class TurtleUnaryCommandNode implements ExpressionNode {
 		result = new GeneralResult();
 	}
 
-	@Override
 	public Result execute() {
 		double value = child.execute().getMyDouble();
 		//add in other stuff for turtle?

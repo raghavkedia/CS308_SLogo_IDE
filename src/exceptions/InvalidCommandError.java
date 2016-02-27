@@ -2,9 +2,7 @@ package exceptions;
 
 public class InvalidCommandError extends SyntaxError{
 	
-	private static final String errorMessage = "Invalid Command: ";
-	
-	public InvalidCommandError() {
+	public InvalidCommandError(String errorMessage) {
 		// TODO Auto-generated constructor stub
 		super(errorMessage);
 	}
