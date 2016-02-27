@@ -16,8 +16,8 @@ public class SimpleSplitParse implements Parseable {
 		return null;
 	}
 
-	@Override
-	public Collection<String> stringParse(String input) {
+
+	public String runInput(String input) {
 		Collection<String> myStrings = new ArrayList<String>(Arrays.asList(input.split("\\s+")));
 		return null;
 	}
@@ -25,6 +25,12 @@ public class SimpleSplitParse implements Parseable {
 	private Collection<String> cleanStrings(Collection<String> myStrings) {
 		boolean foundComment = false;
 										   
+	}
+
+	@Override
+	public Collection<String> stringParse(String input) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
