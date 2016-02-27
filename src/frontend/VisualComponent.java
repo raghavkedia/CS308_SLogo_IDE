@@ -13,4 +13,5 @@ abstract class VisualComponent {
 	
 	public void setColor(Color newColor){ this.myColor = newColor; }
 	public void setVisual(Node newVis){this.myVisual = newVis;}
+	public Node getVisual(){return this.myVisual;}
 }
