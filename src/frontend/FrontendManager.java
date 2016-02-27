@@ -40,9 +40,12 @@ public class FrontendManager {
 		myComponents.add(myDisplay);
 		myHistory = ComponentFactory.makeNewHistory(200, 200);
 		myComponents.add(myHistory);
+		myConsole = ComponentFactory.makeNewConsole(200, 200);
+		myComponents.add(myConsole);
 		
 		myRoot.setCenter(myDisplay.getVisual());
 		myRoot.setRight(myHistory.getVisual());
+		myRoot.setBottom(myConsole.getVisual());
 //		updateDisplay();
 		
 	}

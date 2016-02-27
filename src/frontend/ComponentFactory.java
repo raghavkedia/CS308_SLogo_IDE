@@ -12,4 +12,8 @@ public class ComponentFactory {
 	public static History makeNewHistory(double width, double height){
 		return new History(width, height);
 	}
+	
+	public static Console makeNewConsole(double width, double height){
+		return new Console(width, height);
+	}
 }
