@@ -34,6 +34,12 @@ public class CommandFactory {
 		return Math.PI * angle / 180;
 	}
 	
+	private double findDistance(double x1, double x2, double y1, double y2) {
+		double deltaX = x1 - x2; 
+		double deltaY = y1 - y2;
+		return Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
+	}
+	
 	public double generateResult(Command type, List<Double> myResults) {
 		double result = 0;
 		double leftValue = 0;
@@ -56,6 +62,7 @@ public class CommandFactory {
 		case SetHeading:
 			result = Math.abs(myCharacter.getMyAngle() - myResults.get(0));
 			myCharacter.setMyAngle(myResults.get(0));
+			myCharacter.hasUpdated();
 			return result;
 		case SetTowards:
 			double newAngle = 
@@ -65,37 +72,63 @@ public class CommandFactory {
 			myCharacter.hasUpdated();
 			return result;
 		case SetPosition:
-			double deltaX = myResults.get(0) - myCharacter.getCoordX();
-			double deltaY = myResults.get(1) - myCharacter.getCoordY();
-			result = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
+			result = findDistance(myResults.get(0), myCharacter.getCoordX(), myResults.get(1), myCharacter.getCoordY());
 			myCharacter.setCurrCoord((int) Math.round(myResults.get(0)), (int) Math.round(myResults.get(1)));
 			myCharacter.hasUpdated();
 			return result;
+		case PenDown:
+			myCharacter.setPenState(true);
+			myCharacter.hasUpdated();
+			return 1;
+		case PenUp:
+			myCharacter.hasUpdated();
+			myCharacter.setPenState(false);
+			return 0;
+		case ShowTurtle:
+			myCharacter.setVisability(true);
+			myCharacter.hasUpdated();
+			return 1;
+		case HideTurtle:
+			myCharacter.setVisability(false);
+			myCharacter.hasUpdated();
+			return 0;
+		case Home:
+			result = findDistance(0, myCharacter.getCoordX(), 0, myCharacter.getCoordY());
+			myCharacter.setCurrCoord(0, 0);
+			myCharacter.hasUpdated();
+			return result;
+		case ClearScreen:
+			//How to do this? for erasing all lines? deleting list?
+			break;
 		case Sum:
 			for (Double d : myResults) {
 				result += d;
 			}
 			return result;
 		case Difference:
-			result = myResults.get(0) * 2;
+			result = myResults.get(0);
+			myResults.remove(0);
 			for (Double d : myResults) {
 				result -= d;
 			}
 			return result;
 		case Product:
-			result = 1;
+			result = myResults.get(0);
+			myResults.remove(0);
 			for (Double d : myResults) {
 				result = result * d;
 			}
 			return result;
 		case Quotient:
-			result = myResults.get(0) * myResults.get(0);
+			result = myResults.get(0);
+			myResults.remove(0);
 			for (Double d : myResults) {
 				result = result / d;
 			}
 			return result;
 		case Remainder:
-			result = myResults.get(0) + myResults.get(0);
+			result = myResults.get(0);
+			myResults.remove(0);
 			for (Double d : myResults) {
 				result = result % d;
 			}
@@ -132,4 +165,5 @@ public class CommandFactory {
 	}
 		return 0;
 	}
+
 }
