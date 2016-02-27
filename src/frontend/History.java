@@ -18,25 +18,27 @@ public class History extends ListVisual{
 	}
 
 	
-    public void handleUI() {
-        this.addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
-            switch (keyEvent.getCode()) {
-                case UP:
-                    if (historyPointer == 0) {
-                        break;
-                    }
-                    historyPointer--;
-                    break;
-                case DOWN:
-                    if (historyPointer == history.size() - 1) {
-                        break;
-                    }
-                    historyPointer++;
-                    break;
-                default:
-                    break;
-            }
-        });
+//    public void handleUI() {
+//        this.addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
+//            switch (keyEvent.getCode()) {
+//                case UP:
+//                    if (historyPointer == 0) {
+//                        break;
+//                    }
+//                    historyPointer--;
+//                    break;
+//                case DOWN:
+//                    if (historyPointer == history.size() - 1) {
+//                        break;
+//                    }
+//                    historyPointer++;
+//                    break;
+//                default:
+//                    break;
+//            }
+//        });
+        
+        // TODO: event handler for mouse clicks
         //setText(pastCommands.get(historyPointer));
-    }
+//    }
 }
