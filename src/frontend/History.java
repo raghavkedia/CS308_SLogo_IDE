@@ -7,7 +7,7 @@ public class History extends ListVisual{
 	
 	public History(double width, double height){
 		super(width, height);
-		myData.add("Hello");
+		myData.add("World");
 		this.myList.setItems(myData);
 	}
 

@@ -2,6 +2,7 @@ package frontend;
 
 import backend.*;
 import javafx.scene.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -13,35 +14,45 @@ public class FrontendManager {
 	public static final int SIZE = 700;
     
     private Scene myScene;
-    private StackPane myRoot;
+    private BorderPane myRoot;
     private Stage myWindow;
     private List<VisualComponent> myComponents;
 	private InterpreturInterface myBackend;
 	
+	private Display myDisplay;
+	private History myHistory;
+	private Variables myVariables;
+	private Console myConsole;
+	
 	public FrontendManager(){
 		myBackend = new BackendManager();
-		myRoot = new StackPane();
+		myRoot = new BorderPane();
 		myWindow = new Stage();
 		myScene = new Scene(myRoot, SIZE, SIZE, Color.WHITE);
 		myComponents = new ArrayList<VisualComponent>();
+		
 		
 		initComponents();
 	}
 	
 	public void initComponents(){
-		myComponents.add(ComponentFactory.makeNewDisplay(400, 400));
-		myComponents.add(ComponentFactory.makeNewHistory(200, 200));
+		myDisplay = ComponentFactory.makeNewDisplay(400, 400);
+		myComponents.add(myDisplay);
+		myHistory = ComponentFactory.makeNewHistory(200, 200);
+		myComponents.add(myHistory);
 		
-		updateDisplay();
+		myRoot.setCenter(myDisplay.getVisual());
+		myRoot.setRight(myHistory.getVisual());
+//		updateDisplay();
 		
 	}
 	
-	public void updateDisplay(){
-		myRoot.getChildren().clear();
-		for (VisualComponent component : myComponents){
-			myRoot.getChildren().add(component.getVisual());
-		}
-	}
+//	public void updateDisplay(){
+//		myRoot.getChildren().clear();
+//		for (VisualComponent component : myComponents){
+//			myRoot.getChildren().add(component.getVisual());
+//		}
+//	}
 	
 	public Scene getMyScene(){ return this.myScene;}
 }

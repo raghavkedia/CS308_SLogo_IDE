@@ -14,7 +14,7 @@ public class Display extends VisualComponent{
 		myPane.setPrefSize(width, height);
 		super.setVisual(myPane);
 		
-//		drawLine(0, 0, 100, 100);
+		drawLine(0, 0, 100, 100);
 	}
 	
 	/**
