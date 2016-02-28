@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Stack;
 import java.util.regex.Pattern;
 
 public class SimpleSplitParse implements Parseable {
@@ -30,10 +31,11 @@ public class SimpleSplitParse implements Parseable {
 
 	@Override
 	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, ResourceBundle myResources) {
-		// TODO Auto-generated method stub
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
 		List<ExpressionNode> myNodes = convertToNodes(myStrings);
-		return null;
+		double result = executeExpressions(myNodes);
+		String statement = "The result is " + result;
+		return statement;
 	}
 
 	private Collection<String> cleanStrings(String[] mySplitString) {
@@ -66,6 +68,40 @@ public class SimpleSplitParse implements Parseable {
 		return myNodes;
 	}
 
+	private double executeExpressions(List<ExpressionNode> myNodes) {
+		List<ExpressionNode> myNodeCopies = new ArrayList<ExpressionNode>(myNodes);
+		Stack<ExpressionNode> myStack = new Stack<ExpressionNode>();
+		ExpressionNode curr = myNodeCopies.get(0);
+		double result = 0;
+		while (!myNodeCopies.isEmpty()) {
+			if (isSatisfied(curr)) {
+				myNodeCopies.remove(curr);
+				if (myStack.isEmpty()) {
+					//throws an exception for not enough arguments
+				}
+				else {
+					ExpressionNode parent = myStack.pop();
+					parent.addChild(curr);
+					if (myStack.isEmpty()) {
+						result = parent.execute();
+					}
+					else {
+						curr = parent;
+					}
+				}
+			}
+			else {
+				myStack.push(curr);
+				curr = myNodeCopies.get(0);
+			}
+		}
+		return result;
+	}
+	
+	private boolean isSatisfied(ExpressionNode node) {
+		return node.currentNumChildren() < node.getMyCommandType().numArgs();
+	}
+	
 	@Override
 	public ParsedInput parse(String input) {
 		// TODO Auto-generated method stub

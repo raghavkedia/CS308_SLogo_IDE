@@ -3,10 +3,11 @@ package backend;
 public enum Command {
 	Forward, Back, Left, Right, SetHeading, SetTowards, SetPosition, PenDown, PenUp, ShowTurtle, HideTurtle, Home, ClearScreen,
 	XCoordinate, YCoordinate, Heading, IsPenDown, IsShowing, Sum, Difference, Product, Quotient, Remainder, Minus, Random, 
-	Sine, Cosine, Tangent, ArcTangent, NaturalLog, Power, Pi, LessThan, GreaterThan, Equal, NotEqual, And, Or, Not;
+	Sine, Cosine, Tangent, ArcTangent, NaturalLog, Power, Pi, LessThan, GreaterThan, Equal, NotEqual, And, Or, Not, Variable,
+	Constant;
 
-	public int numArgs(Command type) {
-		switch(type) {
+	public int numArgs() {
+		switch(this) {
 			case Forward:
 				return 1;
 			case Back:
@@ -84,6 +85,10 @@ public enum Command {
 			case Or:
 				return 2;
 			case Not:
+				return 0;
+			case Variable:
+				return 0;
+			case Constant:
 				return 0;
 			default:
 				break;

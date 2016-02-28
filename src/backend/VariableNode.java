@@ -12,4 +12,19 @@ public class VariableNode implements ExpressionNode {
 		return 0;
 	}
 
+	@Override
+	public int currentNumChildren() {
+		return 0;
+	}
+
+	@Override
+	public Command getMyCommandType() {
+		return Command.Variable;
+	}
+
+	@Override
+	public void addChild(ExpressionNode n) {
+		//throws exception
+	}
+
 }

@@ -24,7 +24,18 @@ public class CommandNode implements ExpressionNode {
 		double result = myFactory.generateResult(type, executed);
 		return result;
 	}
-	
+
+	@Override
+	public int currentNumChildren() {
+		return myChildren.size();
+	}
+
+	@Override
+	public Command getMyCommandType() {
+		return type;
+	}
+
+	@Override
 	public void addChild(ExpressionNode n) {
 		myChildren.add(n);
 	}

@@ -16,4 +16,19 @@ public class ConstantNode implements ExpressionNode{
 		return value;
 	}
 
+	@Override
+	public int currentNumChildren() {
+		return 0;
+	}
+
+	@Override
+	public Command getMyCommandType() {
+		return Command.Constant;
+	}
+
+	@Override
+	public void addChild(ExpressionNode n) {
+		//throw exception
+	}
+
 }
