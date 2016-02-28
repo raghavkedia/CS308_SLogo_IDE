@@ -3,6 +3,7 @@ package backend;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
 
 public class VariablesList extends Observable{
 	
@@ -26,4 +27,5 @@ public class VariablesList extends Observable{
 	public Variable getVariable(String key){
 		return variables.get(key);
 	}
+
 }

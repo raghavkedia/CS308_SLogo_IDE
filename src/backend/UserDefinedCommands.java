@@ -2,8 +2,9 @@ package backend;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
-public class UserDefinedCommands {
+public class UserDefinedCommands extends Observable{
 
 	private Map<String, String> myUserDefinedCommands;
 	
@@ -18,6 +19,8 @@ public class UserDefinedCommands {
 	
 	public void addUserDefinedCommand(String id, String command){
 		myUserDefinedCommands.put(id, command);
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	public String getCommand(String id){

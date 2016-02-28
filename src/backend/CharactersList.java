@@ -2,8 +2,10 @@ package backend;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
-public class CharactersList {
+public class CharactersList extends Observable{
 	
 	private Map<String, Character> characters;
 	
@@ -18,6 +20,11 @@ public class CharactersList {
 	
 	public Character getCharacter(String characterKey){
 		return characters.get(characterKey);
+	}
+	
+	public void hasUpdated(){
+		setChanged();
+		notifyObservers(this);
 	}
 	
 }
