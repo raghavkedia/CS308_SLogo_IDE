@@ -15,9 +15,10 @@ public class SimpleSplitParse implements Parseable {
 	public static final String SYNTAX = "Syntax";
 	private ResourceBundle myLanguageResources;
 	private ResourceBundle mySyntaxResources;
+	private String language;
 	
 	public SimpleSplitParse(String language) {
-		// TODO Auto-generated constructor stub
+		this.language = language;
 		myLanguageResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 		mySyntaxResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SYNTAX);
 	}
@@ -31,7 +32,7 @@ public class SimpleSplitParse implements Parseable {
 	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, ResourceBundle myResources) {
 		// TODO Auto-generated method stub
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
-		
+		List<ExpressionNode> myNodes = convertToNodes(myStrings);
 		return null;
 	}
 
@@ -57,9 +58,10 @@ public class SimpleSplitParse implements Parseable {
 	
 	private List<ExpressionNode> convertToNodes(Collection<String> myStrings) {
 		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory();
+		Tokenizer myTokenizer = new Tokenizer(language);
 		List<ExpressionNode> myNodes = new ArrayList<ExpressionNode>();
 		for (String s : myStrings) {
-			
+			myNodes.add(myNodeFactory.createNode(myTokenizer.createToken(s)));
 		}
 		return myNodes;
 	}

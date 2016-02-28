@@ -11,7 +11,7 @@ public class Tokenizer {
 	private ResourceBundle myLanguageResources;
 	private ResourceBundle mySyntaxResources;
 	
-	public Tokenizer(ResourceBundle myResources, String language) {
+	public Tokenizer(String language) {
 		myLanguageResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 		mySyntaxResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SYNTAX); 
 	}

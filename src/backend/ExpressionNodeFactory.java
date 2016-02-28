@@ -9,7 +9,10 @@ public class ExpressionNodeFactory {
 		
 	}
 	
-	public ExpressionNode createNode(NodeType myNode, Command myCommand, double myValue) {
+	public ExpressionNode createNode(Token myToken) {
+		NodeType myNode = myToken.getMyNodeType();
+		Command myCommand = myToken.getMyCommand();
+		double myValue = myToken.getValue();
 		if (myNode == NodeType.Command) {
 			return new CommandNode(myCommand);
 		} 
