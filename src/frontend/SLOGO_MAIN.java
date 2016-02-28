@@ -11,6 +11,7 @@ public class SLOGO_MAIN extends Application{
 	public void start(Stage s){
 		myFrontendManager = new FrontendManager();
 		s.setScene(myFrontendManager.getMyScene());
+		s.setTitle("SLOGO IDE");
 		s.show();
 	}
 	

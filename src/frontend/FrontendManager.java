@@ -24,14 +24,14 @@ public class FrontendManager {
 	private History myHistory;
 	private Variables myVariables;
 	private Console myConsole;
+	private ToolbarComponent myToolbar;
 	
 	public FrontendManager(){
 		myBackend = new BackendManager();
 		myRoot = new BorderPane();
 		myWindow = new Stage();
-		myScene = new Scene(myRoot, SIZE, SIZE, Color.WHITE);
+		myScene = new Scene(myRoot, 1000, 700, Color.WHITE);
 		myComponents = new ArrayList<VisualComponent>();
-		
 		
 		initComponents();
 	}
@@ -41,18 +41,26 @@ public class FrontendManager {
 		myComponents.add(myDisplay);
 		myConsole = ComponentFactory.makeNewConsole(200, 200);
 		myComponents.add(myConsole);
+
 		myHistory = ComponentFactory.makeNewHistory(200, 200);
 		myComponents.add(myHistory);
 		myConsole.setHistory(myHistory);
 		myHistory.setConsole(myConsole);
+		myVariables = ComponentFactory.makeNewVariables(200, 200);
+		myComponents.add(myVariables);
+		myToolbar = ComponentFactory.makeNewToolbar();
+		myComponents.add(myToolbar);
+
 		
 		myRoot.setCenter(myDisplay.getVisual());
 		myRoot.setRight(myHistory.getVisual());
 		myRoot.setBottom(myConsole.getVisual());
-//		updateDisplay();
+		myRoot.setLeft(myVariables.getVisual());
+		myRoot.setTop(myToolbar.getVisual());
 		
 	}
 	
+
     private void setupKeyboardCommands () {
         myScene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
@@ -61,12 +69,7 @@ public class FrontendManager {
         });
     }
 	
-//	public void updateDisplay(){
-//		myRoot.getChildren().clear();
-//		for (VisualComponent component : myComponents){
-//			myRoot.getChildren().add(component.getVisual());
-//		}
-//	}
-	
+
+
 	public Scene getMyScene(){ return this.myScene;}
 }

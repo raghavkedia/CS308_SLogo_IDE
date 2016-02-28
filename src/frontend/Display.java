@@ -1,17 +1,22 @@
 package frontend;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class Display extends VisualComponent{
 	private Pane myPane;
+	private Color myLineColor;
 
 	public Display(double width, double height){
 		super.setColor(Color.GREY);
+		myLineColor = Color.BLACK;
 		myPane = new Pane();
 		myPane.setPrefSize(width, height);
+		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
 		super.setVisual(myPane);
 		
 		drawLine(0, 0, 100, 100);
@@ -27,7 +32,7 @@ public class Display extends VisualComponent{
 	 */
 	public void drawLine(double x1, double y1, double x2, double y2){
 		Line newLine = new Line(x1, y1, x2, y2);
-		newLine.setStroke(Color.BLACK);
+		newLine.setStroke(myLineColor);
 		myPane.getChildren().add(newLine);
 	}
 	
@@ -38,4 +43,12 @@ public class Display extends VisualComponent{
 		img.setX(x);
 		img.setY(y);
 	}
+	
+	@Override
+	public void setColor(Color c){
+		super.setColor(c);
+		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
+	}
+	
+	public void setLineColor(Color c){this.myLineColor = c;}
 }
