@@ -1,44 +1,53 @@
 package frontend;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
-public class History extends ListVisual{
+
+class History extends ListVisual{
 	private int historyPointer = 0;
-	
-	public History(double width, double height){
+	private Console myConsole;
+	History(double width, double height){
 		super(width, height);
-		myData.add("World");
 		this.myList.setItems(myData);
+		handleUI();
 	}
 
-	public void addToHistory(String pastCommand){
+	void addToHistory(String pastCommand){
 		myData.add(pastCommand);
 	}
 
+	void setConsole(Console c) {
+		myConsole = c;
+	}
 	
-//    public void handleUI() {
-//        this.addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
-//            switch (keyEvent.getCode()) {
-//                case UP:
-//                    if (historyPointer == 0) {
-//                        break;
-//                    }
-//                    historyPointer--;
-//                    break;
-//                case DOWN:
-//                    if (historyPointer == history.size() - 1) {
-//                        break;
-//                    }
-//                    historyPointer++;
-//                    break;
-//                default:
-//                    break;
-//            }
-//        });
-        
-        // TODO: event handler for mouse clicks
-        //setText(pastCommands.get(historyPointer));
-//    }
+    private void handleUI() {
+        this.myList.addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
+            switch (keyEvent.getCode()) {
+                case UP:
+                    if (historyPointer == 0) {
+                        break;
+                    }
+                    historyPointer--;
+                    break;
+                case DOWN:
+                    if (historyPointer == myData.size() - 1) {
+                        break;
+                    }
+                    historyPointer++;
+                    break;
+                default:
+                    break;
+            }
+            myConsole.setText(myData.get(historyPointer));
+        });
+        this.myList.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	myConsole.setText(myList.getSelectionModel().getSelectedItem());
+                historyPointer = myList.getSelectionModel().getSelectedIndex();              
+            }
+        });
+    }
 }

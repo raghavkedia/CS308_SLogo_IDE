@@ -2,6 +2,7 @@ package frontend;
 
 import backend.*;
 import javafx.scene.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -38,10 +39,12 @@ public class FrontendManager {
 	public void initComponents(){
 		myDisplay = ComponentFactory.makeNewDisplay(400, 400);
 		myComponents.add(myDisplay);
-		myHistory = ComponentFactory.makeNewHistory(200, 200);
-		myComponents.add(myHistory);
 		myConsole = ComponentFactory.makeNewConsole(200, 200);
 		myComponents.add(myConsole);
+		myHistory = ComponentFactory.makeNewHistory(200, 200);
+		myComponents.add(myHistory);
+		myConsole.setHistory(myHistory);
+		myHistory.setConsole(myConsole);
 		
 		myRoot.setCenter(myDisplay.getVisual());
 		myRoot.setRight(myHistory.getVisual());
@@ -49,6 +52,14 @@ public class FrontendManager {
 //		updateDisplay();
 		
 	}
+	
+    private void setupKeyboardCommands () {
+        myScene.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+            	//BackendManager.executeCommand();
+            }
+        });
+    }
 	
 //	public void updateDisplay(){
 //		myRoot.getChildren().clear();
