@@ -99,7 +99,7 @@ public class SimpleSplitParse implements Parseable {
 	}
 	
 	private boolean isSatisfied(ExpressionNode node) {
-		return node.currentNumChildren() < node.getMyCommandType().numArgs();
+		return node.currentNumChildren() == node.getMyCommandType().numArgs();
 	}
 	
 	@Override
