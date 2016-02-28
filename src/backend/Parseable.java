@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 public interface Parseable {
 	
 	public ParsedInput parse(String input);
-	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, ResourceBundle myResources);
+	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands, ResourceBundle myResources);
 	public Collection<String> stringParse(String input);
 	
 }
