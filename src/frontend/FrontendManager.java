@@ -28,9 +28,8 @@ public class FrontendManager {
 		myBackend = new BackendManager();
 		myRoot = new BorderPane();
 		myWindow = new Stage();
-		myScene = new Scene(myRoot, SIZE, SIZE, Color.WHITE);
+		myScene = new Scene(myRoot, 1000, 700, Color.WHITE);
 		myComponents = new ArrayList<VisualComponent>();
-		
 		
 		initComponents();
 	}
@@ -42,10 +41,13 @@ public class FrontendManager {
 		myComponents.add(myHistory);
 		myConsole = ComponentFactory.makeNewConsole(200, 200);
 		myComponents.add(myConsole);
+		myVariables = ComponentFactory.makeNewVariables(200, 200);
+		myComponents.add(myVariables);
 		
 		myRoot.setCenter(myDisplay.getVisual());
 		myRoot.setRight(myHistory.getVisual());
 		myRoot.setBottom(myConsole.getVisual());
+		myRoot.setLeft(myVariables.getVisual());
 //		updateDisplay();
 		
 	}
