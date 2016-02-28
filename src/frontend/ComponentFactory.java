@@ -28,8 +28,8 @@ public class ComponentFactory {
 		return new Variables(width, height);
 	}
 	
-	public static PopupWindow makeNewPopupWindow(String s){
-		return new PopupWindow(s);
+	public static VariablesPopupWindow makeNewVariablesPopupWindow(String s){
+		return new VariablesPopupWindow(s);
 	}
 	
 	public static ToolbarComponent makeNewToolbar(){
