@@ -24,10 +24,6 @@ public class Character implements Getable, Setable{
 		penDown = true;
 	}
 	
-	public void addObserver(Observer o){
-		this.addObserver(o);
-	}
-	
 	public void setCurrCoord(int x, int y) {
 		// TODO Auto-generated method stub
 		myCoordX = x;
