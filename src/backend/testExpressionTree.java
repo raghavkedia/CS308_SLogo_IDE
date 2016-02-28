@@ -11,12 +11,11 @@ public class testExpressionTree {
 	}
 	
 	public static void main(String[] args) {
-		CommandNode root = new CommandNode(Command.PRODUCT);
-		CommandNode newChild = new CommandNode(Command.SUM);
+		CommandNode root = new CommandNode(Command.Product);
+		CommandNode newChild = new CommandNode(Command.Cosine);
 		root.addChild(newChild);
 		root.addChild(new ConstantNode(1));
-		newChild.addChild(new ConstantNode(2));
-		newChild.addChild(new ConstantNode(1));
+		newChild.addChild(new ConstantNode(20));
 		double result = root.execute();
 //		BinaryCommandNode leftleftChild = (BinaryCommandNode) root.leftChild;
 //		root.rightChild = new ConstantNode(1);
