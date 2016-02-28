@@ -31,4 +31,8 @@ public class ComponentFactory {
 	public static PopupWindow makeNewPopupWindow(String s){
 		return new PopupWindow(s);
 	}
+	
+	public static ToolbarComponent makeNewToolbar(){
+		return new ToolbarComponent();
+	}
 }

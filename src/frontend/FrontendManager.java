@@ -23,6 +23,7 @@ public class FrontendManager {
 	private History myHistory;
 	private Variables myVariables;
 	private Console myConsole;
+	private ToolbarComponent myToolbar;
 	
 	public FrontendManager(){
 		myBackend = new BackendManager();
@@ -43,21 +44,16 @@ public class FrontendManager {
 		myComponents.add(myConsole);
 		myVariables = ComponentFactory.makeNewVariables(200, 200);
 		myComponents.add(myVariables);
+		myToolbar = ComponentFactory.makeNewToolbar();
+		myComponents.add(myToolbar);
 		
 		myRoot.setCenter(myDisplay.getVisual());
 		myRoot.setRight(myHistory.getVisual());
 		myRoot.setBottom(myConsole.getVisual());
 		myRoot.setLeft(myVariables.getVisual());
-//		updateDisplay();
+		myRoot.setTop(myToolbar.getVisual());
 		
 	}
-	
-//	public void updateDisplay(){
-//		myRoot.getChildren().clear();
-//		for (VisualComponent component : myComponents){
-//			myRoot.getChildren().add(component.getVisual());
-//		}
-//	}
 	
 	public Scene getMyScene(){ return this.myScene;}
 }
