@@ -100,6 +100,16 @@ public class CommandFactory {
 		case ClearScreen:
 			//How to do this? for erasing all lines? deleting list?
 			break;
+		case XCoordinate:
+			return myCharacter.getCoordX();
+		case YCoordinate:
+			return myCharacter.getCoordY();
+		case Heading:
+			return myCharacter.getMyAngle();
+		case IsPenDown:
+			return myCharacter.getPenState() ? 1 : 0;
+		case IsShowing:
+			return myCharacter.getVisability() ? 1 : 0;
 		case Sum:
 			for (Double d : myResults) {
 				result += d;
@@ -132,10 +142,28 @@ public class CommandFactory {
 			for (Double d : myResults) {
 				result = result % d;
 			}
+		case Minus:
+			return -1 * myResults.get(0);
+		case Random:
+			return Math.floor(Math.random() * myResults.get(0));
+		case Sine:
+			return Math.sin(convertDegrees(myResults.get(0)));
+		case Cosine:
+			return Math.cos(convertDegrees(myResults.get(0)));
+		case Tangent:
+			return Math.tan(convertDegrees(myResults.get(0)));
+		case ArcTangent:
+			//may throw exception here
+			return Math.atan(convertDegrees(myResults.get(0)));
+		case NaturalLog:
+			//may also throw exception here
+			return Math.log(myResults.get(0));
 		case Power:
 			double base = myResults.get(0); 
 			double exp = myResults.get(1);
 			return Math.pow(base, exp);
+		case Pi:
+			return Math.PI;
 		case LessThan:
 			leftValue =  myResults.get(0);
 			rightValue = myResults.get(1);
