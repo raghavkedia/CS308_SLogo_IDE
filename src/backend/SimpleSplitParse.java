@@ -30,7 +30,7 @@ public class SimpleSplitParse implements Parseable {
 	}
 
 	@Override
-	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, ResourceBundle myResources) {
+	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands, ResourceBundle myResources) {
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
 		List<ExpressionNode> myNodes = convertToNodes(myStrings);
 		double result = executeExpressions(myNodes);

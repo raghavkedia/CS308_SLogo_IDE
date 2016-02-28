@@ -3,9 +3,11 @@ package backend;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
+
 import javafx.scene.image.Image;
 
-public class Character extends Observable implements Getable, Setable{
+public class Character implements Getable, Setable{
 	
 	private int myCoordX, myCoordY;
 	private double myAngle;
@@ -20,11 +22,6 @@ public class Character extends Observable implements Getable, Setable{
 		myCoordY = 0;
 		visable = true;
 		penDown = true;
-	}
-
-	public void hasUpdated(){
-		setChanged();
-		notifyObservers(this);
 	}
 	
 	public void setCurrCoord(int x, int y) {
