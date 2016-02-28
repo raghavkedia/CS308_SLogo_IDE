@@ -3,6 +3,7 @@ package backend;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -30,6 +31,7 @@ public class SimpleSplitParse implements Parseable {
 	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, ResourceBundle myResources) {
 		// TODO Auto-generated method stub
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
+		
 		return null;
 	}
 
@@ -51,6 +53,15 @@ public class SimpleSplitParse implements Parseable {
 		Collection<String> myStrings = new ArrayList<String>(Arrays.asList(mySplitString));
 		myStrings.removeIf(p -> p.equals(""));
 		return myStrings;
+	}
+	
+	private List<ExpressionNode> convertToNodes(Collection<String> myStrings) {
+		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory();
+		List<ExpressionNode> myNodes = new ArrayList<ExpressionNode>();
+		for (String s : myStrings) {
+			
+		}
+		return myNodes;
 	}
 
 	@Override
