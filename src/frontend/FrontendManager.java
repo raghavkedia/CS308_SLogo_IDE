@@ -4,10 +4,7 @@ import backend.*;
 import javafx.scene.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.stage.*;
 import java.util.*;
 
@@ -25,6 +22,8 @@ public class FrontendManager {
 	private Variables myVariables;
 	private Console myConsole;
 	private ToolbarComponent myToolbar;
+	private List<Portrait> myPortraits;
+	private Portrait currentPortrait; // all commands typed to the console will be executed on this portrait
 	
 	public FrontendManager(){
 		myBackend = new BackendManager();
@@ -46,10 +45,13 @@ public class FrontendManager {
 		myComponents.add(myHistory);
 		myConsole.setHistory(myHistory);
 		myHistory.setConsole(myConsole);
+		
 		myVariables = ComponentFactory.makeNewVariables(200, 200);
 		myComponents.add(myVariables);
 		myToolbar = ComponentFactory.makeNewToolbar();
 		myComponents.add(myToolbar);
+		
+		myPortraits = new ArrayList<Portrait>();
 
 		
 		myRoot.setCenter(myDisplay.getVisual());

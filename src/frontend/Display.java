@@ -50,5 +50,16 @@ public class Display extends VisualComponent{
 		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
 	}
 	
+	/**
+	 * Maps coordinates x,y in Slogo space to JavaFX space.
+	 * @param x 
+	 * @param y
+	 * @return
+	 */
+	public double[] mapCoords(double x, double y){
+		double[] out = new double[] {x+this.myPane.getWidth()/2, y+this.myPane.getHeight()/2};
+		return out;
+	}
+	
 	public void setLineColor(Color c){this.myLineColor = c;}
 }
