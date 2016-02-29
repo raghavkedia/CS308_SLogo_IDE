@@ -5,17 +5,25 @@ import java.util.Collection;
 
 public class ForwardBracketNode implements ExpressionNode {
 	private Collection<ExpressionNode> myChildren;
+	private boolean hasBeenExecuted;
+	private double result;
 	
 	public ForwardBracketNode() {
 		myChildren = new ArrayList<ExpressionNode>();
+		hasBeenExecuted = false;
+		result = 0;
 	}
 
 	@Override
 	public double execute() {
-		LogoExpressionTreeBuilder myTreeBuilder = new LogoExpressionTreeBuilder();
-		double result = 0;
-		result = myTreeBuilder.executeExpressions(myChildren);
-		return result;
+		if (hasBeenExecuted) {
+			return result;
+		} else {
+			LogoExpressionTreeBuilder myTreeBuilder = new LogoExpressionTreeBuilder();
+			result = myTreeBuilder.executeExpressions(myChildren);
+			hasBeenExecuted = true;
+			return result;			
+		}
 	}
 
 	@Override

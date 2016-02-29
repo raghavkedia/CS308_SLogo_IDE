@@ -26,12 +26,17 @@ public class testParsing {
 	public void testMyParsing() {
 		myLanguageResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
 		mySyntaxResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Syntax");
-		String input = "[ Sum 10 10 Sum 50 50 ]";//"[ Sum Sum Sum Sum 10 20 30 5 5 ]";
+		String input = "[ Sum Sum 10 10 10 ]";//"[ Sum Sum Sum Sum 10 20 30 5 5 ]";
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
 		Collection<ExpressionNode> myNodes = convertToNodes(myStrings);
 		Collection<ExpressionNode> cleanNodes = checkForBrackets(myNodes);
 		double result = executeExpressions(cleanNodes);
+		double result1 = 0;
+		for (ExpressionNode node : cleanNodes) {
+			result1 = node.execute();
+		}
 		System.out.println(result);
+		System.out.println(result1);
 	}
 
 	public static void main(String[] args) {
