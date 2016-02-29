@@ -29,6 +29,7 @@ public class testParsing {
 		List<ExpressionNode> myNodes = convertToNodes(myStrings);
 		double result = executeExpressions(myNodes);
 		System.out.println(result);
+		
 	}
 
 	public static void main(String[] args) {
