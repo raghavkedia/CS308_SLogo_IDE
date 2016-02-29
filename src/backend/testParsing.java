@@ -3,9 +3,12 @@ package backend;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.Stack;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 public class testParsing {
@@ -21,23 +24,25 @@ public class testParsing {
 	}
 	
 	public void testMyParsing() {
-		
 		myLanguageResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
 		mySyntaxResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Syntax");
-		String input = "[ Sum 10 20 ]";
+		String input = "[ Sum 10 10 Sum 50 50 ]";//"[ Sum Sum Sum Sum 10 20 30 5 5 ]";
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
 		Collection<ExpressionNode> myNodes = convertToNodes(myStrings);
-		double result = executeExpressions(myNodes);
+		Collection<ExpressionNode> cleanNodes = checkForBrackets(myNodes);
+		double result = executeExpressions(cleanNodes);
 		System.out.println(result);
 	}
 
 	public static void main(String[] args) {
 		testParsing t = new testParsing();
 		t.testMyParsing();
+		System.out.println("MEOW");
 	}
 	
-	private void checkForBrackets(List<ExpressionNode> myNodes) {
-		List<ExpressionNode> toRemove = new ArrayList<ExpressionNode>();	
+	private Collection<ExpressionNode> checkForBrackets(Collection<ExpressionNode> myCurrentNodes) {
+		List<ExpressionNode> toRemove = new ArrayList<ExpressionNode>();
+		List<ExpressionNode> myNodes = new ArrayList<ExpressionNode>(myCurrentNodes);
 		boolean unfinished = true;
 		boolean foundForwardBracket = false;
 		boolean foundBackwardBracket = false;
@@ -68,21 +73,25 @@ public class testParsing {
 			}
 			myNodes.removeAll(toRemove);
 		}
-		
+		return myNodes;
 	}
 	
 	public double executeExpressions(Collection<ExpressionNode> myNodes) {
 		List<ExpressionNode> myNodeCopies = new ArrayList<ExpressionNode>(myNodes);
-		checkForBrackets(myNodeCopies);
 		Stack<ExpressionNode> myStack = new Stack<ExpressionNode>();
 		ExpressionNode curr = myNodeCopies.get(0);
+		List<ExpressionNode> toExecute = new ArrayList<ExpressionNode>();
 		double result = 0;
 		while (!myNodeCopies.isEmpty()) {
 			myNodeCopies.remove(curr);
 			if (isSatisfied(curr)) {
 				if (myStack.isEmpty()) {
-					result = curr.execute();
-					curr = myNodeCopies.get(0);
+					if (!toExecute.contains(curr)) {
+						toExecute.add(curr);
+					}
+					if(!myNodeCopies.isEmpty()) {
+						curr = myNodeCopies.get(0);
+					}
 				}
 				else {
 					ExpressionNode parent = myStack.pop();
@@ -95,12 +104,17 @@ public class testParsing {
 				curr = myNodeCopies.get(0);
 			}
 		}
-		result = curr.execute();
+		if (!toExecute.contains(curr)) {
+			toExecute.add(curr);
+		}
+		for (ExpressionNode node : toExecute) {
+			result = node.execute();
+		}
 		return result;
 	}
 	
 	private boolean isSatisfied(ExpressionNode node) {
-		return node.currentNumChildren() == node.getMyCommandType().numArgs();
+		return node.currentNumChildren() >= node.getMyCommandType().numArgs();
 	}
 	
 	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings) {

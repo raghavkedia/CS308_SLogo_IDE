@@ -2,8 +2,11 @@ package backend;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
+import java.util.TreeSet;
 
 public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 
@@ -12,16 +15,20 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 	
 	public double executeExpressions(Collection<ExpressionNode> myNodes) {
 		List<ExpressionNode> myNodeCopies = new ArrayList<ExpressionNode>(myNodes);
-		checkForBrackets(myNodeCopies);
 		Stack<ExpressionNode> myStack = new Stack<ExpressionNode>();
 		ExpressionNode curr = myNodeCopies.get(0);
+		List<ExpressionNode> toExecute = new ArrayList<ExpressionNode>();
 		double result = 0;
 		while (!myNodeCopies.isEmpty()) {
 			myNodeCopies.remove(curr);
 			if (isSatisfied(curr)) {
 				if (myStack.isEmpty()) {
-					result = curr.execute();
-					curr = myNodeCopies.get(0);
+					if (!toExecute.contains(curr)) {
+						toExecute.add(curr);
+					}
+					if(!myNodeCopies.isEmpty()) {
+						curr = myNodeCopies.get(0);
+					}
 				}
 				else {
 					ExpressionNode parent = myStack.pop();
@@ -34,43 +41,13 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 				curr = myNodeCopies.get(0);
 			}
 		}
-		result = curr.execute();
-		return result;
-	}
-	
-	private void checkForBrackets(List<ExpressionNode> myNodes) {
-		List<ExpressionNode> toRemove = new ArrayList<ExpressionNode>();	
-		boolean unfinished = true;
-		boolean foundForwardBracket = false;
-		boolean foundBackwardBracket = false;
-		while (unfinished) {
-			unfinished = false;
-			for (ExpressionNode node : myNodes) {
-				if (node instanceof ForwardBracketNode) {
-					foundForwardBracket = true;
-					int index =  myNodes.indexOf(node);
-					//check for errors with indexing
-					for (int k = index -1; k < myNodes.size(); k++) {
-						ExpressionNode child = myNodes.get(k);
-						if (!(child instanceof BackBracketNode)) {
-							node.addChild(child);
-							toRemove.add(child);
-						}
-						else {
-							unfinished = true;
-							foundBackwardBracket = true;
-							toRemove.add(child);
-							break;
-						}
-					}
-				}
-				if (foundForwardBracket != foundBackwardBracket) {
-					//throw exception
-				}
-			}
-			myNodes.removeAll(toRemove);
+		if (!toExecute.contains(curr)) {
+			toExecute.add(curr);
 		}
-		
+		for (ExpressionNode node : toExecute) {
+			result = node.execute();
+		}
+		return result;
 	}
 
 	private boolean isSatisfied(ExpressionNode node) {

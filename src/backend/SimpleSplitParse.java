@@ -3,6 +3,7 @@ package backend;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -61,6 +62,42 @@ public class SimpleSplitParse implements Parseable {
 		Collection<ExpressionNode> myNodes = new ArrayList<ExpressionNode>();
 		for (String s : myStrings) {
 			myNodes.add(myNodeFactory.createNode(myTokenizer.createToken(s)));
+		}
+		return myNodes;
+	}
+	
+	private Collection<ExpressionNode> checkForBrackets(Collection<ExpressionNode> myCurrentNodes) {
+		List<ExpressionNode> toRemove = new ArrayList<ExpressionNode>();
+		List<ExpressionNode> myNodes = new ArrayList<ExpressionNode>(myCurrentNodes);
+		boolean unfinished = true;
+		boolean foundForwardBracket = false;
+		boolean foundBackwardBracket = false;
+		while (unfinished) {
+			unfinished = false;
+			for (ExpressionNode node : myNodes) {
+				if (node instanceof ForwardBracketNode) {
+					foundForwardBracket = true;
+					int index =  myNodes.indexOf(node);
+					//check for errors with indexing
+					for (int k = index + 1; k < myNodes.size(); k++) {
+						ExpressionNode child = myNodes.get(k);
+						if (!(child instanceof BackBracketNode)) {
+							node.addChild(child);
+							toRemove.add(child);
+						}
+						else {
+							unfinished = true;
+							foundBackwardBracket = true;
+							toRemove.add(child);
+							break;
+						}
+					}
+				}
+				if (foundForwardBracket != foundBackwardBracket) {
+					//throw exception
+				}
+			}
+			myNodes.removeAll(toRemove);
 		}
 		return myNodes;
 	}
