@@ -1,25 +1,34 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
+import java.util.TreeSet;
 
 public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 
 	public LogoExpressionTreeBuilder() {
 	}
 	
-	public double executeExpressions(List<ExpressionNode> myNodes) {
+	public double executeExpressions(Collection<ExpressionNode> myNodes) {
 		List<ExpressionNode> myNodeCopies = new ArrayList<ExpressionNode>(myNodes);
 		Stack<ExpressionNode> myStack = new Stack<ExpressionNode>();
 		ExpressionNode curr = myNodeCopies.get(0);
+		List<ExpressionNode> toExecute = new ArrayList<ExpressionNode>();
 		double result = 0;
 		while (!myNodeCopies.isEmpty()) {
 			myNodeCopies.remove(curr);
 			if (isSatisfied(curr)) {
 				if (myStack.isEmpty()) {
-					result = curr.execute();
-					curr = myNodeCopies.get(0);
+					if (!toExecute.contains(curr)) {
+						toExecute.add(curr);
+					}
+					if(!myNodeCopies.isEmpty()) {
+						curr = myNodeCopies.get(0);
+					}
 				}
 				else {
 					ExpressionNode parent = myStack.pop();
@@ -32,9 +41,15 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 				curr = myNodeCopies.get(0);
 			}
 		}
-		return curr.execute();
+		if (!toExecute.contains(curr)) {
+			toExecute.add(curr);
+		}
+		for (ExpressionNode node : toExecute) {
+			result = node.execute();
+		}
+		return result;
 	}
-	
+
 	private boolean isSatisfied(ExpressionNode node) {
 		return node.currentNumChildren() == node.getMyCommandType().numArgs();
 	}

@@ -1,8 +1,8 @@
 package backend;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface ExpressionTreeBuilder {
 	
-	public double executeExpressions(List<ExpressionNode> myNodes);
+	public double executeExpressions(Collection<ExpressionNode> myNodes);
 }
