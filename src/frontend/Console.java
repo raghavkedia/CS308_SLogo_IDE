@@ -7,6 +7,7 @@ class Console extends VisualComponent{
 
 	private TextArea commandArea;
 	private History myHistory;
+	
 	Console(double width, double height){
 		super();
 		commandArea = new TextArea();
