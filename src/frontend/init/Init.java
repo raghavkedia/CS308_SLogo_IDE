@@ -45,21 +45,18 @@ public class Init {
 	}
 
 	
-    private ComboBox<String> makeLanguageBox() {
+    private ComboBox<String> makeLanguageBox() throws IOException {
     	ComboBox<String> comboBox = new ComboBox<String>();
-    	try {
-    		Properties prop = PropertyLoader.load(LANG_OPTION);   		
-    		for(String key : prop.stringPropertyNames()) {
-    			  String value = prop.getProperty(key);
-    			  comboBox.getItems().add(value);
-    		}
-    		comboBox.setValue(prop.getProperty(LANG_DEFAULT));
-    		comboBox.setTranslateX(SCENE_WIDTH * 2/3);
-    		comboBox.setTranslateY(SCENE_HEIGHT/3);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		Properties prop = PropertyLoader.load(LANG_OPTION);   		
+		for(String key : prop.stringPropertyNames()) {
+			  String value = prop.getProperty(key);
+			  comboBox.getItems().add(value);
 		}
+		comboBox.setValue(prop.getProperty(LANG_DEFAULT));
+		comboBox.setTranslateX(SCENE_WIDTH * 2/3);
+		comboBox.setTranslateY(SCENE_HEIGHT/3);
+
     	myGroup.getChildren().add(comboBox);
     	return comboBox;
     }
