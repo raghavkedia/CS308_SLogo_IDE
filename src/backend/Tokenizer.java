@@ -1,5 +1,6 @@
 package backend;
 
+import java.util.Enumeration;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -24,7 +25,19 @@ public class Tokenizer {
 			return new Token(NodeType.Variable, null, 0);
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), s)) {
-			return new Token(NodeType.Command, Command.valueOf(myLanguageResources.getString(s)), 0);
+			Enumeration<String> myKeys = myLanguageResources.getKeys();
+			Command myCommand = null;
+			while (myKeys.hasMoreElements()) {
+				String myKey = myKeys.nextElement();
+				if (Pattern.matches(myLanguageResources.getString(myKey), s)) {
+					myCommand = Command.valueOf(myKey);
+					break;
+				}
+			}
+			if (myCommand == null) {
+				//throw exception
+			}
+			return new Token(NodeType.Command, myCommand, 0);
 		}
 		return null;
 	}
