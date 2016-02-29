@@ -24,6 +24,12 @@ public class Tokenizer {
 		else if (Pattern.matches(mySyntaxResources.getString("Variable"), s)) {
 			return new Token(NodeType.Variable, null, 0);
 		}
+		else if (Pattern.matches(mySyntaxResources.getString("ListStart"), s)) {
+			return new Token(NodeType.ListStart, null, 0);
+		}
+		else if (Pattern.matches(mySyntaxResources.getString("ListEnd"), s)) {
+			return new Token(NodeType.ListEnd, null, 0);
+		}
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), s)) {
 			Enumeration<String> myKeys = myLanguageResources.getKeys();
 			Command myCommand = null;

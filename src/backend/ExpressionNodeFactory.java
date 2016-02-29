@@ -2,7 +2,7 @@ package backend;
 
 public class ExpressionNodeFactory {
 	public enum NodeType{
-		Command, Variable, Constant;
+		Command, Variable, Constant, ListStart, ListEnd;
 	}
 	
 	public ExpressionNodeFactory() {
@@ -21,6 +21,15 @@ public class ExpressionNodeFactory {
 		}
 		else if (myNode == NodeType.Constant) {
 			return new ConstantNode(myValue);
+		}
+		else if (myNode == NodeType.Variable) {
+			return new VariableNode();
+		}
+		else if (myNode == NodeType.ListStart) {
+			return new ForwardBracketNode();
+		}
+		else if (myNode == NodeType.ListEnd) {
+			return new BackBracketNode();
 		}
 		return null;
 	}
