@@ -19,15 +19,14 @@ public class PropertyLoader {
 		}
 		prop.load(input);
 		input.close();
+//		System.out.println(fileName);
 		return prop;
 	}
-	
+//	
 //	public static void main(String[] args) {
 //		try {
-//		       System.out.println("Working Directory = " +
-//		               System.getProperty("user.dir"));
-//			Properties prop = PropertyLoader.load("languages/English");
-//			System.out.println(prop.getProperty("Forward"));
+//			Properties prop = PropertyLoader.load("GUI");
+//			System.out.println(prop.getProperty("title"));
 //		
 //		} catch (IOException e) {
 //			System.out.println("No file");
