@@ -25,8 +25,9 @@ public class FrontendManager {
 	private Variables myVariables;
 	private Console myConsole;
 	private ToolbarComponent myToolbar;
+	private Properties myProp;
 	
-	public FrontendManager(){
+	public FrontendManager(Properties myProp){
 		myBackend = new BackendManager();
 		myRoot = new BorderPane();
 		myWindow = new Stage();
