@@ -74,20 +74,16 @@ public class SimpleSplitParse implements Parseable {
 		ExpressionNode curr = myNodeCopies.get(0);
 		double result = 0;
 		while (!myNodeCopies.isEmpty()) {
+			myNodeCopies.remove(curr);
 			if (isSatisfied(curr)) {
-				myNodeCopies.remove(curr);
 				if (myStack.isEmpty()) {
-					//throws an exception for not enough arguments
+					result = curr.execute();
+					curr = myNodeCopies.get(0);
 				}
 				else {
 					ExpressionNode parent = myStack.pop();
 					parent.addChild(curr);
-					if (myStack.isEmpty()) {
-						result = parent.execute();
-					}
-					else {
-						curr = parent;
-					}
+					curr = parent;
 				}
 			}
 			else {
@@ -95,7 +91,7 @@ public class SimpleSplitParse implements Parseable {
 				curr = myNodeCopies.get(0);
 			}
 		}
-		return result;
+		return curr.execute();
 	}
 	
 	private boolean isSatisfied(ExpressionNode node) {

@@ -27,7 +27,7 @@ public class CommandFactory {
 		double translateY = transCoords[1] * Math.sin(convertDegrees(myCharacter.getMyAngle()));
 		myCharacter.setCurrCoord((int) Math.floor(myCharacter.getCoordX() + translateX),
 				(int) Math.floor(myCharacter.getCoordY() + translateY));
-		myCharacter.hasUpdated();
+		//myCharacter.hasUpdated();
 		}
 
 	private double convertDegrees(double angle) {
@@ -53,49 +53,49 @@ public class CommandFactory {
 				return myResults.get(0);
 			case Left:
 				myCharacter.setMyAngle(myCharacter.getMyAngle() - myResults.get(0));
-				myCharacter.hasUpdated();
+				//myCharacter.hasUpdated();
 				return myResults.get(0);
 			case Right:
 				myCharacter.setMyAngle(myCharacter.getMyAngle() + myResults.get(0));
-				myCharacter.hasUpdated();
+				//myCharacter.hasUpdated();
 				return myResults.get(0);
 			case SetHeading:
 				result = Math.abs(myCharacter.getMyAngle() - myResults.get(0));
 				myCharacter.setMyAngle(myResults.get(0));
-				myCharacter.hasUpdated();
+				//myCharacter.hasUpdated();
 				return result;
 			case SetTowards:
 				double newAngle = 
 					90 - Math.atan2(myResults.get(1) - myCharacter.getCoordY(), myResults.get(0) - myCharacter.getCoordX());
 				result = Math.abs(newAngle - myCharacter.getMyAngle());
 				myCharacter.setMyAngle(newAngle);
-				myCharacter.hasUpdated();
+				//myCharacter.hasUpdated();
 				return result;
 			case SetPosition:
 				result = findDistance(myResults.get(0), myCharacter.getCoordX(), myResults.get(1), myCharacter.getCoordY());
 				myCharacter.setCurrCoord((int) Math.round(myResults.get(0)), (int) Math.round(myResults.get(1)));
-				myCharacter.hasUpdated();
+				//myCharacter.hasUpdated();
 				return result;
 			case PenDown:
 				myCharacter.setPenState(true);
-				myCharacter.hasUpdated();
+				//myCharacter.hasUpdated();
 				return 1;
 			case PenUp:
-				myCharacter.hasUpdated();
 				myCharacter.setPenState(false);
+				//myCharacter.hasUpdated();
 				return 0;
 			case ShowTurtle:
 				myCharacter.setVisability(true);
-				myCharacter.hasUpdated();
+				//myCharacter.hasUpdated();
 				return 1;
 			case HideTurtle:
 				myCharacter.setVisability(false);
-				myCharacter.hasUpdated();
+				//myCharacter.hasUpdated();
 				return 0;
 			case Home:
 				result = findDistance(0, myCharacter.getCoordX(), 0, myCharacter.getCoordY());
 				myCharacter.setCurrCoord(0, 0);
-				myCharacter.hasUpdated();
+				//myCharacter.hasUpdated();
 				return result;
 			case ClearScreen:
 				//How to do this? for erasing all lines? deleting list?

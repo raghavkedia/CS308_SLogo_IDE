@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Stack;
 import java.util.regex.Pattern;
 
 public class testParsing {
@@ -26,11 +27,43 @@ public class testParsing {
 		String input = "Sum Sum Sum Sum 10 20 30 5 5";
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
 		List<ExpressionNode> myNodes = convertToNodes(myStrings);
+		double result = executeExpressions(myNodes);
+		System.out.println(result);
 	}
 
 	public static void main(String[] args) {
 		testParsing t = new testParsing();
 		t.testMyParsing();
+	}
+	
+	private double executeExpressions(List<ExpressionNode> myNodes) {
+		List<ExpressionNode> myNodeCopies = new ArrayList<ExpressionNode>(myNodes);
+		Stack<ExpressionNode> myStack = new Stack<ExpressionNode>();
+		ExpressionNode curr = myNodeCopies.get(0);
+		double result = 0;
+		while (!myNodeCopies.isEmpty()) {
+			myNodeCopies.remove(curr);
+			if (isSatisfied(curr)) {
+				if (myStack.isEmpty()) {
+					result = curr.execute();
+					curr = myNodeCopies.get(0);
+				}
+				else {
+					ExpressionNode parent = myStack.pop();
+					parent.addChild(curr);
+					curr = parent;
+				}
+			}
+			else {
+				myStack.push(curr);
+				curr = myNodeCopies.get(0);
+			}
+		}
+		return curr.execute();
+	}
+	
+	private boolean isSatisfied(ExpressionNode node) {
+		return node.currentNumChildren() == node.getMyCommandType().numArgs();
 	}
 	
 	private List<ExpressionNode> convertToNodes(Collection<String> myStrings) {
