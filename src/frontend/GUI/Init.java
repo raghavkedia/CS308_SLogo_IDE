@@ -1,9 +1,10 @@
-package frontend.init;
+package frontend.GUI;
 
 import java.io.IOException;
 import java.util.Properties;
 
 import frontend.FrontendManager;
+
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -32,11 +33,11 @@ public class Init {
 		myStage = s;
 		myGroup = new Group();
 		myScene = new Scene(myGroup, SCENE_HEIGHT, SCENE_WIDTH);
-		myComboBox = makeLanguageBox();
-		display();
+		myComboBox = makeLanguageBox();	
 		myGUIProp = PropertyLoader.load(GUI_FILE_NAME);
 		s.setTitle(myGUIProp.getProperty(TITLE));
 		makeStartButton();
+		display();
 	}
 	
 	private void display() {

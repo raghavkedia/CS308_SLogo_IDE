@@ -2,6 +2,7 @@ package frontend;
 
 import backend.*;
 import javafx.scene.*;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;

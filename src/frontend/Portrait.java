@@ -2,19 +2,30 @@ package frontend;
 
 import javafx.scene.image.ImageView;
 
-public class Portrait extends VisualComponent{
+class Portrait extends VisualComponent{
 	private ImageView myPortrait;
 	private double myAngle;
+	private int myID;
 	
-	public Portrait(String imgUrl){
+	Portrait(int ID, String imgUrl){
 		myPortrait = new ImageView(imgUrl);
 		myAngle = 0;
 		super.setVisual(myPortrait);
+		myPortrait.setX(0);
+		myPortrait.setY(0);
+		myID = ID;
 	}
 	
-	public void rotate(double angle){
+	void setCoor(double newX, double newY) {
+		myPortrait.setX(newX);
+		myPortrait.setY(newY);
+	}
+	
+	void rotate(double angle){
 		this.myPortrait.setRotate(angle);
 	}
 	
-	public ImageView getMyPortrait(){return this.myPortrait; }
+	ImageView getMyPortrait(){return this.myPortrait; }
+	
+	
 }

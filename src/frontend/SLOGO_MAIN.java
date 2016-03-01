@@ -2,7 +2,7 @@ package frontend;
 
 import java.io.IOException;
 
-import frontend.init.Init;
+import frontend.GUI.Init;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
