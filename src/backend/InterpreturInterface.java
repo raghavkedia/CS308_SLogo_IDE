@@ -1,8 +1,10 @@
 package backend;
 
+import exceptions.SlogoError;
+
 public interface InterpreturInterface {
 	
-	public String executeCommand(String input) throws Exception;
+	public String executeCommand(String input) throws SlogoError;
 	
 	public CharactersList getCharacterList();
 	public VariablesList getVariablesList();

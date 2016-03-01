@@ -16,7 +16,7 @@ public class FrontendManager {
     private BorderPane myRoot;
     private Stage myWindow;
     private List<VisualComponent> myComponents;
-	private static BackendManager myBackend;
+	private static InterpreturInterface myBackend;
 	
 	private Display myDisplay;
 	private History myHistory;
