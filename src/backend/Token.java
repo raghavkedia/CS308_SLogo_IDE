@@ -4,10 +4,10 @@ import backend.ExpressionNodeFactory.NodeType;
 
 public class Token {
 	private NodeType myNodeType;
-	private Command myCommand;
+	private String myCommand;
 	private double myValue;
 	
-	public Token(NodeType myNodeType, Command myCommand, double myValue) {
+	public Token(NodeType myNodeType, String myCommand, double myValue) {
 		this.myNodeType = myNodeType;
 		this.myCommand = myCommand;
 		this.myValue = myValue;
@@ -17,7 +17,7 @@ public class Token {
 		return myNodeType;
 	}
 	
-	public Command getMyCommand() {
+	public String getMyCommand() {
 		return myCommand;
 	}
 	
