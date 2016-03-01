@@ -5,19 +5,25 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import backend.ExpressionNodeFactory.NodeType;
+import exceptions.InvalidCommandError;
+import exceptions.SlogoError;
+import exceptions.SyntaxError;
 
 public class Tokenizer {
-	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/languages/";
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	public static final String SYNTAX = "Syntax";
 	private ResourceBundle myLanguageResources;
 	private ResourceBundle mySyntaxResources;
+	private ResourceBundle myErrorResources;
+	
 	
 	public Tokenizer(String language) {
-		myLanguageResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
-		mySyntaxResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SYNTAX); 
+		myLanguageResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "languages/" + language);
+		mySyntaxResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "languages/" + SYNTAX); 
+		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
 	}
 	
-	public Token createToken(String s) {
+	public Token createToken(String s) throws SlogoError{
 		if (Pattern.matches(mySyntaxResources.getString("Constant"), s)) {
 			return new Token(NodeType.Constant, null, null, Double.valueOf(s));
 		}
@@ -41,12 +47,14 @@ public class Tokenizer {
 				}
 			}
 			if (myCommand == null) {
+				throw new InvalidCommandError(myErrorResources.getString("InvalidCommand"));
 				//check user commands
 				//throw exception
 			}
 			return new Token(NodeType.Command, myCommand, null, 0);
+			
 		}
-		return null;
+		throw new SyntaxError(myErrorResources.getString("SyntaxError"));
 	}
 
 }

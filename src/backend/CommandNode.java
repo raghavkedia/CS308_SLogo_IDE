@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import exceptions.SlogoError;
+
 public class CommandNode implements ExpressionNode {
 	private Command type;
 	private Collection<ExpressionNode> myChildren;
@@ -16,19 +18,21 @@ public class CommandNode implements ExpressionNode {
 	}
 
 	@Override
-	public double execute() throws Exception {
+	public double execute() throws SlogoError {
 		List<Double> executed = new ArrayList<Double>();
 		for (ExpressionNode n : myChildren) {
 			double r = n.execute();
 			executed.add(r);
 		}
-		try{
-			double result = myFactory.generateResult(type, executed);
-			return result;
-		}
-		catch(Exception e){
-			throw new Exception(e.getMessage());
-		}
+		double result = myFactory.generateResult(type, executed);
+		return result;
+//		try{
+//			double result = myFactory.generateResult(type, executed);
+//			return result;
+//		}
+//		catch(Exception e){
+//			throw new Exception(e.getMessage());
+//		}
 	
 	}
 

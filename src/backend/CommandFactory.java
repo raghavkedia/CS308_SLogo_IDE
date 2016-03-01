@@ -3,10 +3,14 @@ package backend;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import exceptions.InvalidParameterError;
+import exceptions.InvalidParametersError;
 import exceptions.InvalidQuotientError;
+import exceptions.SlogoError;
+import exceptions.TooFewParametersError;
 
 public class CommandFactory {
-	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/languages/";
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private CharactersList myCharacters;
 	private VariablesList myVariablesList;
 	private UserDefinedCommands myUserDefinedCommands; 
@@ -79,7 +83,7 @@ public class CommandFactory {
 		return result;
 	}
 	
-	public double generateResult(Command type, List<Double> myResults) throws Exception{
+	public double generateResult(Command type, List<Double> myResults) throws SlogoError{
 		double result = 0;
 		double leftValue = 0;
 		double rightValue = 0;
@@ -190,11 +194,17 @@ public class CommandFactory {
 				}
 				return result;
 			case Sum:
+				if(myResults.size() < 2){
+					throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
+				}
 				for (Double d : myResults) {
 					result += d;
 				}
 				return result;
 			case Difference:
+				if(myResults.size() < 2){
+					throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
+				}
 				result = myResults.get(0);
 				myResults.remove(0);
 				for (Double d : myResults) {
@@ -202,6 +212,9 @@ public class CommandFactory {
 				}
 				return result;
 			case Product:
+				if(myResults.size() < 2){
+					throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
+				}
 				result = myResults.get(0);
 				myResults.remove(0);
 				for (Double d : myResults) {
@@ -209,6 +222,9 @@ public class CommandFactory {
 				}
 				return result;
 			case Quotient:
+				if(myResults.size() < 2){
+					throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
+				}
 				result = myResults.get(0);
 				myResults.remove(0);
 				for (Double d : myResults) {
@@ -219,6 +235,9 @@ public class CommandFactory {
 				}
 				return result;
 			case Remainder:
+				if(myResults.size() < 2){
+					throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
+				}
 				result = myResults.get(0);
 				myResults.remove(0);
 				for (Double d : myResults) {
@@ -239,35 +258,59 @@ public class CommandFactory {
 				//may throw exception here
 				return Math.atan(convertDegrees(myResults.get(0)));
 			case NaturalLog:
+				if(myResults.get(0) == 0){
+					throw new InvalidParameterError(myErrorResources.getString("InvalidParameter") + "cannot take natural log of 0!");
+				}
 				//may also throw exception here
 				return Math.log(myResults.get(0));
 			case Power:
+				if(myResults.size() != 2){
+					throw new InvalidParametersError(myErrorResources.getString("WrongNumberOfParameters"));
+				}
 				double base = myResults.get(0); 
 				double exp = myResults.get(1);
 				return Math.pow(base, exp);
 			case Pi:
 				return Math.PI;
 			case LessThan:
+				if(myResults.size() != 2){
+					throw new InvalidParametersError(myErrorResources.getString("WrongNumberOfParameters"));
+				}
 				leftValue =  myResults.get(0);
 				rightValue = myResults.get(1);
 				return (leftValue < rightValue ? 1 : 0);
 			case GreaterThan:
+				if(myResults.size() != 2){
+					throw new InvalidParametersError(myErrorResources.getString("WrongNumberOfParameters"));
+				}
 				leftValue =  myResults.get(0);
 				rightValue = myResults.get(1);
 				return (leftValue > rightValue ? 1 : 0);
 			case Equal:
+				if(myResults.size() != 2){
+					throw new InvalidParametersError(myErrorResources.getString("WrongNumberOfParameters"));
+				}
 				leftValue =  myResults.get(0);
 				rightValue = myResults.get(1);
 				return(leftValue == rightValue ? 1 : 0);
 			case NotEqual:
+				if(myResults.size() != 2){
+					throw new InvalidParametersError(myErrorResources.getString("WrongNumberOfParameters"));
+				}
 				leftValue =  myResults.get(0);
 				rightValue = myResults.get(1);
 				return (leftValue != rightValue ? 1 : 0);
 			case And:
+				if(myResults.size() < 2){
+					throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
+				}
 				leftValue =  myResults.get(0);
 				rightValue = myResults.get(1);
 				return (((leftValue != 0) && (rightValue != 0)) ? 1 : 0);
 			case Or:
+				if(myResults.size() < 2){
+					throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
+				}
 				leftValue =  myResults.get(0);
 				rightValue = myResults.get(1);
 				return (((leftValue != 0) || (rightValue != 0)) ? 1 : 0);

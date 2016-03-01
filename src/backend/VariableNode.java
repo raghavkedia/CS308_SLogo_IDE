@@ -3,6 +3,8 @@ package backend;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import exceptions.SlogoError;
+
 public class VariableNode implements ExpressionNode {
 	private Variable myVariable;
 	private Collection<ExpressionNode> myChildren;
@@ -13,7 +15,7 @@ public class VariableNode implements ExpressionNode {
 	}
 
 	@Override
-	public double execute() throws Exception {
+	public double execute() throws SlogoError {
 		double result = 0;
 		for (ExpressionNode node : myChildren) {
 			result =  node.execute();
