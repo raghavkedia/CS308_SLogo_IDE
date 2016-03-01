@@ -62,11 +62,7 @@ public class BackendManager implements InterpreturInterface{
 		}
 	
 	*/
-	
-	
-	public Querryable getData(){
-		return myData;
-	}
+
 	
 	//Add two functions. One for sending recieved text from Frontend Manager to myParser, One for sending Result Object to Frontend Manager. 
 

@@ -13,6 +13,8 @@ public class CommandFactory {
 	private FactoryType myType;
 	private CharactersList myCharacters;
 	private ResourceBundle myErrorResources;
+	private double maxWidth = 500;
+	private double maxHeight = 500;
 	
 	public CommandFactory(CharactersList myCharacters) {
 		myType = FactoryType.NORMAL;
@@ -28,9 +30,36 @@ public class CommandFactory {
 		double translateX = transCoords[0] * Math.cos(convertDegrees(myCharacter.getMyAngle())) 
 				+ transCoords[1] * Math.sin(convertDegrees(myCharacter.getMyAngle()));
 		double translateY = transCoords[1] * Math.sin(convertDegrees(myCharacter.getMyAngle()));
-		myCharacter.setCurrCoord((int) Math.floor(myCharacter.getCoordX() + translateX),
-				(int) Math.floor(myCharacter.getCoordY() + translateY));
+		
+		double [] rawCoords = {translateX, translateY};
+		double [] reducedCoords = reduceCoor(rawCoords);
+		
+		myCharacter.setCurrCoord((int) Math.floor(myCharacter.getCoordX() + reducedCoords[0]),
+				(int) Math.floor(myCharacter.getCoordY() + reducedCoords[1]));
+	}
+	
+	private double[] reduceCoor(double [] coor){
+	
+		double currX = coor[0];
+		double currY = coor[1];
+		double [] newCoor = new double[2];
+		
+		if(Math.abs(currX) <= maxWidth && Math.abs(currY) <= maxHeight){
+			return coor;
 		}
+		
+		if(Math.abs(currX) >= maxWidth){
+			newCoor[0] = maxWidth * (currX / Math.abs(currX));
+			newCoor[1] = (currY / Math.abs(currY)) * currY * (maxWidth / currX);
+		}
+		if(Math.abs(currY) >= maxHeight){
+			newCoor[1] = maxHeight * (currY / Math.abs(currY));
+			newCoor[0] = (currX / Math.abs(currX)) * currX * (maxHeight / currY);
+		}
+		
+		return newCoor;
+		
+	}
 
 	private double convertDegrees(double angle) {
 		return Math.PI * angle / 180;
