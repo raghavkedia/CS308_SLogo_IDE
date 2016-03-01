@@ -319,6 +319,11 @@ public class CommandFactory {
 			case MakeVariable:
 				return myResults.get(myResults.size() - 1);
 			case Repeat:
+				double times = myResults.get(0);
+				int repeatTimes = (int) Math.floor(times);
+				for (int k = 0; k < repeatTimes; k++) {
+					result = myResults.get(1);
+				}
 				return myResults.get(myResults.size() - 1);
 			case DoTimes:
 				return myResults.get(myResults.size() - 1);

@@ -19,6 +19,9 @@ public class ExpressionNodeFactory {
 		double myValue = myToken.getValue();
 		if (myNode == NodeType.Command) {
 			//check for the special ones.
+			if (myCommand == Command.If || myCommand == Command.IfElse) {
+				return new ConditionNode(myCommand, myFactory);
+			}
 			return new CommandNode(myCommand, myFactory);
 		} 
 		else if (myNode == NodeType.Variable) {
