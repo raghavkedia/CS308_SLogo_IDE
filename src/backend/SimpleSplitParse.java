@@ -63,7 +63,7 @@ public class SimpleSplitParse implements Parseable {
 		return myStrings;
 	}
 	
-	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings, CommandFactory myFactory, VariablesList myVariablesList) {
+	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings, CommandFactory myFactory, VariablesList myVariablesList) throws SlogoError{
 		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory(myFactory, myVariablesList);
 		Tokenizer myTokenizer = new Tokenizer(language);
 		Collection<ExpressionNode> myNodes = new ArrayList<ExpressionNode>();
