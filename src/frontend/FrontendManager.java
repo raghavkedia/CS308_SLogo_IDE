@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.*;
+import exceptions.SlogoError;
 import javafx.scene.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
@@ -93,9 +94,10 @@ public class FrontendManager {
     	try {
 			output = myBackend.executeCommand(s);
 			myHistory.resetHistoryPointer();
-		} catch (Exception e) {
+		} catch (SlogoError e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			output = e.getMessage();
+			//e.printStackTrace();
 		}
     	
     	if (output != null){
