@@ -7,7 +7,7 @@ import exceptions.InvalidQuotientError;
 import exceptions.SlogoError;
 
 public class CommandFactory {
-	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/languages/";
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private CharactersList myCharacters;
 	private VariablesList myVariablesList;
 	private UserDefinedCommands myUserDefinedCommands; 
