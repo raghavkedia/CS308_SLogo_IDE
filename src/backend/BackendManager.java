@@ -34,19 +34,27 @@ public class BackendManager implements InterpreturInterface{
 		
 		myCommandHistory.addCommand(input);
 		
+		String output = "error";
 		try{
+			output = myParser.runInput(input, myCharactersList, myVariablesList, myUserDefinedCommands, myResources);
 			
-			myParser.runInput(input, myCharactersList, myVariablesList, myUserDefinedCommands, myResources);
-			
+			return output;
 		}
 		
 		catch(Exception e){
 			return e.getMessage();
 		}
-		
-		return "";
 	}
 	
+	public CharactersList getCharacterList(){
+		return myCharactersList;
+	}
+	public VariablesList getVariablesList(){
+		return myVariablesList;
+	}
+	public CommandHistory getCommandHistory(){
+		return myCommandHistory;
+	}
 	
 	/*
 	 * Suppose you had a function called divide defined as such: 
@@ -64,6 +72,7 @@ public class BackendManager implements InterpreturInterface{
 	
 	//Add two functions. One for sending recieved text from Frontend Manager to myParser, One for sending Result Object to Frontend Manager. 
 
+	
 }
 
 ///////
