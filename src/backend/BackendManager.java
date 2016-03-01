@@ -9,8 +9,7 @@ public class BackendManager implements InterpreturInterface{
 	private Parseable myParser;
 	private CommandHandlerInterface myCommandHandler;
 	//private Result myResult;
-	//private ParsedInput myParsedInput;
-	//private Querryable myData;
+	//private ParsedInput myParsedInput
 	private CommandHistory myCommandHistory;
 	private VariablesList myVariablesList;
 	private CharactersList myCharactersList;
@@ -62,7 +61,6 @@ public class BackendManager implements InterpreturInterface{
 		}
 	
 	*/
-
 	
 	//Add two functions. One for sending recieved text from Frontend Manager to myParser, One for sending Result Object to Frontend Manager. 
 

@@ -26,9 +26,10 @@ public class testParsing {
 	public void testMyParsing() throws Exception{
 		myLanguageResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
 		mySyntaxResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Syntax");
-		String input = "Sum Sum Sum Sum 10 20 30 5 5";//"[ Sum Sum Sum Sum 10 20 30 5 5 ]";
+		String input = "[ Sum 10 10 Sum 5 5 ]";//"[ Sum Sum Sum Sum 10 20 30 5 5 ]";
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
-		Collection<ExpressionNode> myNodes = convertToNodes(myStrings);
+		CommandFactory myFactory = new CommandFactory();
+		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory);
 		Collection<ExpressionNode> cleanNodes = checkForBrackets(myNodes);
 		try{
 			double result = executeExpressions(cleanNodes);
@@ -133,8 +134,8 @@ public class testParsing {
 		return node.currentNumChildren() >= node.getMyCommandType().numArgs();
 	}
 	
-	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings) {
-		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory();
+	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings, CommandFactory myFactory) {
+		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory(myFactory);
 		Tokenizer myTokenizer = new Tokenizer("English");
 		List<ExpressionNode> myNodes = new ArrayList<ExpressionNode>();
 		for (String s : myStrings) {

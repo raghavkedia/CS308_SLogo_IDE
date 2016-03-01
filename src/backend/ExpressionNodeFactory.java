@@ -4,9 +4,10 @@ public class ExpressionNodeFactory {
 	public enum NodeType{
 		Command, Variable, Constant, ListStart, ListEnd;
 	}
+	private CommandFactory myFactory;
 	
-	public ExpressionNodeFactory() {
-		
+	public ExpressionNodeFactory(CommandFactory myFactory) {
+		this.myFactory = myFactory;
 	}
 	
 	public ExpressionNode createNode(Token myToken) {
@@ -14,7 +15,7 @@ public class ExpressionNodeFactory {
 		Command myCommand = myToken.getMyCommand();
 		double myValue = myToken.getValue();
 		if (myNode == NodeType.Command) {
-			return new CommandNode(myCommand);
+			return new CommandNode(myCommand, myFactory);
 		} 
 		else if (myNode == NodeType.Variable) {
 			return new VariableNode();
