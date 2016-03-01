@@ -62,7 +62,6 @@ public class BackendManager implements InterpreturInterface{
 	
 	*/
 	
-	
 	//Add two functions. One for sending recieved text from Frontend Manager to myParser, One for sending Result Object to Frontend Manager. 
 
 }
