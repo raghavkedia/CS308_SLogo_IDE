@@ -1,17 +1,21 @@
 package frontend;
 
+import java.io.IOException;
+
+import frontend.init.Init;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class SLOGO_MAIN extends Application{
 	
-	private static FrontendManager myFrontendManager;
-
 	@Override
-	public void start(Stage s){
-		myFrontendManager = new FrontendManager();
-		s.setScene(myFrontendManager.getMyScene());
-		s.setTitle("SLOGO IDE");
+	public void start(Stage s){		
+		try {
+			new Init(s);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		s.show();
 	}
 	
