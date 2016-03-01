@@ -14,8 +14,9 @@ public class HistoryListObserver implements Observer{
 	
 	@Override
 	public void update(Observable o, Object arg) {
+		FrontendManagerAPI.clearHistory();
 		for (String s : myHistory.getPastCommands()){
-			
+			FrontendManagerAPI.addToHistory(s);
 		}
 	}
 	
