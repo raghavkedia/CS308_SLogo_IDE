@@ -6,7 +6,6 @@ import javafx.scene.input.KeyEvent;
 class Console extends VisualComponent{
 
 	private TextArea commandArea;
-	private History myHistory;
 	
 	Console(double width, double height){
 		super();
@@ -15,15 +14,11 @@ class Console extends VisualComponent{
 		handleUI();
 	}
 	
-	void setHistory(History h) {
-		myHistory = h;
-	}
-	
 	private void handleUI() {
 		commandArea.addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
             switch (keyEvent.getCode()) {
             case ENTER:
-            	myHistory.addToHistory(executeInput());
+            	executeInput();
                 break;
             default:
                 break;
@@ -38,6 +33,7 @@ class Console extends VisualComponent{
     String executeInput() {
          String input =  commandArea.getText();
          commandArea.clear();
+         FrontendManagerAPI.passConsoleInput(input);
          return input;
     } 
 }
