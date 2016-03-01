@@ -14,14 +14,15 @@ public class ExpressionNodeFactory {
 	
 	public ExpressionNode createNode(Token myToken) {
 		NodeType myNode = myToken.getMyNodeType();
-		Command myCommand = Command.valueOf(myToken.getMyCommand());
+		Command myCommand = myToken.getMyCommand();
+		String myName = myToken.getMyName();
 		double myValue = myToken.getValue();
 		if (myNode == NodeType.Command) {
 			//check for the special ones.
 			return new CommandNode(myCommand, myFactory);
 		} 
 		else if (myNode == NodeType.Variable) {
-			Variable myVariable = new Variable(myToken.getMyCommand(), null);
+			Variable myVariable = new Variable(myName , null);
 			myVariablesList.addVariable(myVariable);
 			return new VariableNode(myVariable);
 		}
