@@ -30,7 +30,7 @@ public class SimpleSplitParse implements Parseable {
 	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands, ResourceBundle myResources) throws Exception {
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
 		CommandFactory myFactory = new CommandFactory(myCharactersList, myVariablesList, myUserDefinedCommands);
-		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory);
+		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory, myVariablesList);
 		Collection<ExpressionNode> cleanedNodes = checkForBrackets(myNodes);
 		LogoExpressionTreeBuilder myTreeBuilder = new LogoExpressionTreeBuilder();
 		double result = myTreeBuilder.executeExpressions(cleanedNodes);
@@ -51,6 +51,9 @@ public class SimpleSplitParse implements Parseable {
 			if (foundComment) {
 				mySplitString[k] = "";
 			}
+			if (mySplitString[k].contains(END_LINE)) {
+				mySplitString[k] = mySplitString[k].replace(END_LINE, "");
+			}
 				
 		}
 		Collection<String> myStrings = new ArrayList<String>(Arrays.asList(mySplitString));
@@ -58,8 +61,8 @@ public class SimpleSplitParse implements Parseable {
 		return myStrings;
 	}
 	
-	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings, CommandFactory myFactory) {
-		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory(myFactory);
+	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings, CommandFactory myFactory, VariablesList myVariablesList) {
+		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory(myFactory, myVariablesList);
 		Tokenizer myTokenizer = new Tokenizer(language);
 		Collection<ExpressionNode> myNodes = new ArrayList<ExpressionNode>();
 		for (String s : myStrings) {
