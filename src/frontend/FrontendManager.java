@@ -52,8 +52,6 @@ public class FrontendManager {
 
 		myHistory = ComponentFactory.makeNewHistory(200, 200);
 		myComponents.add(myHistory);
-		myConsole.setHistory(myHistory);
-		myHistory.setConsole(myConsole);
 		
 		myVariables = ComponentFactory.makeNewVariables(200, 200);
 		myComponents.add(myVariables);
@@ -78,11 +76,6 @@ public class FrontendManager {
 		myHistoryObserver = new HistoryListObserver(myBackend.getCommandHistory());
 		myVariablesObserver = new VariableListObserver(myBackend.getVariablesList());
 		
-		
-		
-//		myBackend.getCharacterList().addObserver(myCharactersObserver);
-//		myBackend.getVariablesList().addObserver(myVariablesObserver);
-//		myBackend.getCommandHistory().addObserver(myHistoryObserver);
 	}
 	
 
@@ -96,13 +89,10 @@ public class FrontendManager {
     
     //CONSOLE
     public void passConsoleInput(String s){
-    	//call passConsoleInput from Display.java
-    	//pass s to backend
-    	// get some return result
-    	// display that in console.
     	String output = null;
     	try {
 			output = myBackend.executeCommand(s);
+			myHistory.resetHistoryPointer();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,6 +101,10 @@ public class FrontendManager {
     	if (output != null){
     		myConsole.setText(output);
     	}
+    }
+    
+    public void displayInConsole(String input){
+    	myConsole.setText(input);
     }
     
     //VARIABLES
@@ -127,8 +121,12 @@ public class FrontendManager {
     }
     
     //HISTORY
-    public void updateHistory(){
-    	
+    public void clearHistory(){
+    	myHistory.getMyData().clear();
+    }
+    
+    public void addToHistory(String s){
+    	myHistory.getMyData().add(s);
     }
     
     // DISPLAY
