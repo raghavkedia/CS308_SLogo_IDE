@@ -1,33 +1,35 @@
 package backend;
 
 import java.util.List;
+import java.util.ResourceBundle;
+
+import exceptions.InvalidQuotientError;
 
 public class CommandFactory {
 	enum FactoryType{
 		NORMAL, ALL;
 	}
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/languages/";
 	private FactoryType myType;
-	private Character myCharacter;
+	private CharactersList myCharacters;
+	private ResourceBundle myErrorResources;
 	
-	public CommandFactory() {
+	public CommandFactory(CharactersList myCharacters) {
 		myType = FactoryType.NORMAL;
-	}
-	
-	public void setCharacter(Character myCharacter) {
-		this.myCharacter = myCharacter;
+		this.myCharacters = myCharacters;
+		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
 	}
 	
 	public void setType(FactoryType myType) {
 		this.myType = myType;
 	}
 	
-	private void translateCoor(double [] transCoords) {
+	private void translateCoor(double [] transCoords, Character myCharacter) {
 		double translateX = transCoords[0] * Math.cos(convertDegrees(myCharacter.getMyAngle())) 
 				+ transCoords[1] * Math.sin(convertDegrees(myCharacter.getMyAngle()));
 		double translateY = transCoords[1] * Math.sin(convertDegrees(myCharacter.getMyAngle()));
 		myCharacter.setCurrCoord((int) Math.floor(myCharacter.getCoordX() + translateX),
 				(int) Math.floor(myCharacter.getCoordY() + translateY));
-		//myCharacter.hasUpdated();
 		}
 
 	private double convertDegrees(double angle) {
@@ -40,76 +42,125 @@ public class CommandFactory {
 		return Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
 	}
 	
-	public double generateResult(Command type, List<Double> myResults) {
+	private double findDistanceFromHome() {
+		double result = 0;
+		for (String key : myCharacters.getActiveCharacters()) {
+			result = findDistance(0, myCharacters.getCharacter(key).getCoordX(), 0, myCharacters.getCharacter(key).getCoordY());
+			myCharacters.getCharacter(key).setCurrCoord(0, 0);
+		}
+		return result;
+	}
+	
+	public double generateResult(Command type, List<Double> myResults) throws Exception{
 		double result = 0;
 		double leftValue = 0;
 		double rightValue = 0;
 		switch(type) {
 			case Forward:
-				translateCoor(new double[]{0, myResults.get(0)});
+				for (String key : myCharacters.getActiveCharacters()) {
+					translateCoor(new double[]{0, myResults.get(0)}, myCharacters.getCharacter(key));	
+				}
+				myCharacters.hasUpdated();
 				return myResults.get(0);
 			case Back:
-				translateCoor(new double[]{0, -1 * myResults.get(0)});
+				for (String key : myCharacters.getActiveCharacters()) {
+					translateCoor(new double[]{0, -1 * myResults.get(0)}, myCharacters.getCharacter(key));
+				}
+				myCharacters.hasUpdated();
 				return myResults.get(0);
 			case Left:
-				myCharacter.setMyAngle(myCharacter.getMyAngle() - myResults.get(0));
-				//myCharacter.hasUpdated();
+				for (String key : myCharacters.getActiveCharacters()) {
+					myCharacters.getCharacter(key).setMyAngle((myCharacters.getCharacter(key).getMyAngle() - myResults.get(0)) % 360);
+				}
+				myCharacters.hasUpdated();
 				return myResults.get(0);
 			case Right:
-				myCharacter.setMyAngle(myCharacter.getMyAngle() + myResults.get(0));
-				//myCharacter.hasUpdated();
+				for (String key : myCharacters.getActiveCharacters()) {
+					myCharacters.getCharacter(key).setMyAngle((myCharacters.getCharacter(key).getMyAngle() + myResults.get(0)) % 360);
+				}
+				myCharacters.hasUpdated();
 				return myResults.get(0);
 			case SetHeading:
-				result = Math.abs(myCharacter.getMyAngle() - myResults.get(0));
-				myCharacter.setMyAngle(myResults.get(0));
-				//myCharacter.hasUpdated();
+				for (String key : myCharacters.getActiveCharacters()) {
+					result = Math.abs((myCharacters.getCharacter(key).getMyAngle() - myResults.get(0)) % 360);
+					myCharacters.getCharacter(key).setMyAngle(myResults.get(0));
+				}
+				myCharacters.hasUpdated();
 				return result;
 			case SetTowards:
+				for (String key : myCharacters.getActiveCharacters()) {
 				double newAngle = 
-					90 - Math.atan2(myResults.get(1) - myCharacter.getCoordY(), myResults.get(0) - myCharacter.getCoordX());
-				result = Math.abs(newAngle - myCharacter.getMyAngle());
-				myCharacter.setMyAngle(newAngle);
-				//myCharacter.hasUpdated();
+					90 - Math.atan2(myResults.get(1) - myCharacters.getCharacter(key).getCoordY(), myResults.get(0) - myCharacters.getCharacter(key).getCoordX());
+				result = Math.abs((newAngle - myCharacters.getCharacter(key).getMyAngle()) % 360);
+				myCharacters.getCharacter(key).setMyAngle(newAngle % 360);
+				}
+				myCharacters.hasUpdated();
 				return result;
 			case SetPosition:
-				result = findDistance(myResults.get(0), myCharacter.getCoordX(), myResults.get(1), myCharacter.getCoordY());
-				myCharacter.setCurrCoord((int) Math.round(myResults.get(0)), (int) Math.round(myResults.get(1)));
-				//myCharacter.hasUpdated();
+				for (String key : myCharacters.getActiveCharacters()) {
+				result = findDistance(myResults.get(0), myCharacters.getCharacter(key).getCoordX(), myResults.get(1), myCharacters.getCharacter(key).getCoordY());
+				myCharacters.getCharacter(key).setCurrCoord((int) Math.round(myResults.get(0)), (int) Math.round(myResults.get(1)));
+				}
+				myCharacters.hasUpdated();
 				return result;
 			case PenDown:
-				myCharacter.setPenState(true);
-				//myCharacter.hasUpdated();
+				for (String key : myCharacters.getActiveCharacters()) {
+					myCharacters.getCharacter(key).setPenState(true);
+				}
+				myCharacters.hasUpdated();
 				return 1;
 			case PenUp:
-				myCharacter.setPenState(false);
-				//myCharacter.hasUpdated();
+				for (String key : myCharacters.getActiveCharacters()) {
+					myCharacters.getCharacter(key).setPenState(false);
+				}
+				myCharacters.hasUpdated();
 				return 0;
 			case ShowTurtle:
-				myCharacter.setVisability(true);
-				//myCharacter.hasUpdated();
+				for (String key : myCharacters.getActiveCharacters()) {
+					myCharacters.getCharacter(key).setVisability(true);
+				}
+				myCharacters.hasUpdated();
 				return 1;
 			case HideTurtle:
-				myCharacter.setVisability(false);
-				//myCharacter.hasUpdated();
+				for (String key : myCharacters.getActiveCharacters()) {
+					myCharacters.getCharacter(key).setVisability(false);
+				}
+				myCharacters.hasUpdated();
 				return 0;
 			case Home:
-				result = findDistance(0, myCharacter.getCoordX(), 0, myCharacter.getCoordY());
-				myCharacter.setCurrCoord(0, 0);
-				//myCharacter.hasUpdated();
+				result = findDistanceFromHome();
+				myCharacters.hasUpdated();
 				return result;
 			case ClearScreen:
+				result = findDistanceFromHome();
+				myCharacters.hasUpdated();
 				//How to do this? for erasing all lines? deleting list?
 				break;
 			case XCoordinate:
-				return myCharacter.getCoordX();
+				for (String key : myCharacters.getActiveCharacters()) {
+					result = myCharacters.getCharacter(key).getCoordX();
+				}
+				return result;
 			case YCoordinate:
-				return myCharacter.getCoordY();
+				for (String key : myCharacters.getActiveCharacters()) {
+					result = myCharacters.getCharacter(key).getCoordY();
+				}
+				return result;
 			case Heading:
-				return myCharacter.getMyAngle();
+				for (String key : myCharacters.getActiveCharacters()) {
+					result = myCharacters.getCharacter(key).getMyAngle();
+				}
+				return result;
 			case IsPenDown:
-				return myCharacter.getPenState() ? 1 : 0;
+				for (String key : myCharacters.getActiveCharacters()) {
+					result = myCharacters.getCharacter(key).getPenState() ? 1 : 0;
+				}
+				return result;
 			case IsShowing:
-				return myCharacter.getVisability() ? 1 : 0;
+				for (String key : myCharacters.getActiveCharacters()) {
+					result = myCharacters.getCharacter(key).getVisability() ? 1 : 0;
+				}
+				return result;
 			case Sum:
 				for (Double d : myResults) {
 					result += d;
@@ -133,6 +184,9 @@ public class CommandFactory {
 				result = myResults.get(0);
 				myResults.remove(0);
 				for (Double d : myResults) {
+					if(d == 0){
+						throw new InvalidQuotientError(myErrorResources.getString("QuotientError"));
+					}
 					result = result / d;
 				}
 				return result;

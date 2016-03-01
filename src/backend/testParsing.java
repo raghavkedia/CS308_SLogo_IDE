@@ -23,25 +23,31 @@ public class testParsing {
 		
 	}
 	
-	public void testMyParsing() {
+	public void testMyParsing() throws Exception{
 		myLanguageResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
 		mySyntaxResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Syntax");
-		String input = "[ Sum Sum 10 10 10 ]";//"[ Sum Sum Sum Sum 10 20 30 5 5 ]";
+		String input = "Sum Sum Sum Sum 10 20 30 5 5";//"[ Sum Sum Sum Sum 10 20 30 5 5 ]";
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
 		Collection<ExpressionNode> myNodes = convertToNodes(myStrings);
 		Collection<ExpressionNode> cleanNodes = checkForBrackets(myNodes);
-		double result = executeExpressions(cleanNodes);
-		double result1 = 0;
-		for (ExpressionNode node : cleanNodes) {
-			result1 = node.execute();
+		try{
+			double result = executeExpressions(cleanNodes);
+			System.out.println(result);
 		}
-		System.out.println(result);
-		System.out.println(result1);
+		catch(Exception e){
+			throw new Exception(e.getMessage());
+		}
+		
 	}
 
 	public static void main(String[] args) {
 		testParsing t = new testParsing();
-		t.testMyParsing();
+		try {
+			t.testMyParsing();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());;
+		}
 		System.out.println("MEOW");
 	}
 	
@@ -81,7 +87,7 @@ public class testParsing {
 		return myNodes;
 	}
 	
-	public double executeExpressions(Collection<ExpressionNode> myNodes) {
+	public double executeExpressions(Collection<ExpressionNode> myNodes) throws Exception{
 		List<ExpressionNode> myNodeCopies = new ArrayList<ExpressionNode>(myNodes);
 		Stack<ExpressionNode> myStack = new Stack<ExpressionNode>();
 		ExpressionNode curr = myNodeCopies.get(0);
@@ -113,7 +119,12 @@ public class testParsing {
 			toExecute.add(curr);
 		}
 		for (ExpressionNode node : toExecute) {
-			result = node.execute();
+			try{
+				result = node.execute();
+			}
+			catch(Exception e){
+				throw new Exception(e.getMessage());
+			}
 		}
 		return result;
 	}

@@ -13,7 +13,7 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 	public LogoExpressionTreeBuilder() {
 	}
 	
-	public double executeExpressions(Collection<ExpressionNode> myNodes) {
+	public double executeExpressions(Collection<ExpressionNode> myNodes) throws Exception {
 		List<ExpressionNode> myNodeCopies = new ArrayList<ExpressionNode>(myNodes);
 		Stack<ExpressionNode> myStack = new Stack<ExpressionNode>();
 		ExpressionNode curr = myNodeCopies.get(0);
@@ -45,7 +45,12 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 			toExecute.add(curr);
 		}
 		for (ExpressionNode node : toExecute) {
-			result = node.execute();
+			try {
+				result = node.execute();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				throw new Exception(e.getMessage());
+			}
 		}
 		return result;
 	}

@@ -14,15 +14,21 @@ public class CommandNode implements ExpressionNode {
 	}
 
 	@Override
-	public double execute() {
+	public double execute() throws Exception {
 		List<Double> executed = new ArrayList<Double>();
 		for (ExpressionNode n : myChildren) {
 			double r = n.execute();
 			executed.add(r);
 		}
 		CommandFactory myFactory = new CommandFactory();
-		double result = myFactory.generateResult(type, executed);
-		return result;
+		try{
+			double result = myFactory.generateResult(type, executed);
+			return result;
+		}
+		catch(Exception e){
+			throw new Exception(e.getMessage());
+		}
+	
 	}
 
 	@Override

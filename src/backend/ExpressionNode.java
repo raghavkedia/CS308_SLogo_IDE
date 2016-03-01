@@ -2,7 +2,7 @@ package backend;
 
 public interface ExpressionNode {
 	
-	public double execute();
+	public double execute() throws Exception;
 	
 	public int currentNumChildren();
 	
