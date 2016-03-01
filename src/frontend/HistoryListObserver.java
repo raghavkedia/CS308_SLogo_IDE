@@ -14,8 +14,9 @@ public class HistoryListObserver implements Observer{
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		for (String s : myHistory.getPastCommands()){
+			
+		}
 	}
 	
 }

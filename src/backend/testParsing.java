@@ -26,7 +26,7 @@ public class testParsing {
 	public void testMyParsing() throws Exception{
 		myLanguageResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
 		mySyntaxResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Syntax");
-		String input = "[ Sum 10 10 Sum 5 5 ]";//"[ Sum Sum Sum Sum 10 20 30 5 5 ]";
+		String input = "Product Sum 10 20 10";//"[ Sum Sum Sum Sum 10 20 30 5 5 ]";
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
 		CommandFactory myFactory = new CommandFactory();
 		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory);
@@ -135,7 +135,7 @@ public class testParsing {
 	}
 	
 	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings, CommandFactory myFactory) {
-		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory(myFactory);
+		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory(myFactory, null);
 		Tokenizer myTokenizer = new Tokenizer("English");
 		List<ExpressionNode> myNodes = new ArrayList<ExpressionNode>();
 		for (String s : myStrings) {
