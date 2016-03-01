@@ -108,10 +108,4 @@ public class SimpleSplitParse implements Parseable {
 		}
 		return myNodes;
 	}
-	
-	@Override
-	public ParsedInput parse(String input) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
