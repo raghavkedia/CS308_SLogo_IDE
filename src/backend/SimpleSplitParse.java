@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import exceptions.SlogoError;
+
 public class SimpleSplitParse implements Parseable {
 	private static final String KEEP_END_LINE = "\\\\n";
 	private static final String END_LINE_STRING = "\n";
@@ -27,7 +29,7 @@ public class SimpleSplitParse implements Parseable {
 	}
 
 	@Override
-	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands, ResourceBundle myResources) throws Exception {
+	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands, ResourceBundle myResources) throws SlogoError {
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
 		CommandFactory myFactory = new CommandFactory(myCharactersList, myVariablesList, myUserDefinedCommands);
 		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory, myVariablesList);
@@ -61,7 +63,7 @@ public class SimpleSplitParse implements Parseable {
 		return myStrings;
 	}
 	
-	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings, CommandFactory myFactory, VariablesList myVariablesList) {
+	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings, CommandFactory myFactory, VariablesList myVariablesList) throws SlogoError{
 		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory(myFactory, myVariablesList);
 		Tokenizer myTokenizer = new Tokenizer(language);
 		Collection<ExpressionNode> myNodes = new ArrayList<ExpressionNode>();
@@ -105,11 +107,5 @@ public class SimpleSplitParse implements Parseable {
 			myNodes.removeAll(toRemove);
 		}
 		return myNodes;
-	}
-	
-	@Override
-	public ParsedInput parse(String input) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

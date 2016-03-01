@@ -3,6 +3,8 @@ package backend;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import exceptions.SlogoError;
+
 public class ForwardBracketNode implements ExpressionNode {
 	private Collection<ExpressionNode> myChildren;
 	private boolean hasBeenExecuted;
@@ -15,7 +17,7 @@ public class ForwardBracketNode implements ExpressionNode {
 	}
 
 	@Override
-	public double execute() throws Exception {
+	public double execute() throws SlogoError {
 		if (hasBeenExecuted) {
 			return result;
 		} else {

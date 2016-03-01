@@ -1,6 +1,6 @@
 package exceptions;
 
-public class SyntaxError extends Exception{
+public class SyntaxError extends SlogoError{
 
 	public SyntaxError(String error) {
 		super(error);

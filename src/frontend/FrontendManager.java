@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.*;
+import exceptions.SlogoError;
 import javafx.scene.*;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.input.KeyCode;
@@ -16,7 +17,7 @@ public class FrontendManager {
     private BorderPane myRoot;
     private Stage myWindow;
     private List<VisualComponent> myComponents;
-	private static BackendManager myBackend;
+	private static InterpreturInterface myBackend;
 	
 	private Display myDisplay;
 	private History myHistory;
@@ -93,9 +94,10 @@ public class FrontendManager {
     	try {
 			output = myBackend.executeCommand(s);
 			myHistory.resetHistoryPointer();
-		} catch (Exception e) {
+		} catch (SlogoError e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			output = e.getMessage();
+			//e.printStackTrace();
 		}
     	
     	if (output != null){
