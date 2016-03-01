@@ -41,6 +41,7 @@ public class Tokenizer {
 				}
 			}
 			if (myCommand == null) {
+				//check user commands
 				//throw exception
 			}
 			return new Token(NodeType.Command, myCommand, 0);

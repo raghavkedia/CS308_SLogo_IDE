@@ -245,7 +245,19 @@ public class CommandFactory {
 			case Not:
 				return (myResults.get(0) == 0 ? 1 : 0);
 			case MakeVariable:
-				
+				return myResults.get(myResults.size() - 1);
+			case Repeat:
+				return myResults.get(myResults.size() - 1);
+			case DoTimes:
+				return myResults.get(myResults.size() - 1);
+			case For:
+				return myResults.get(myResults.size() - 1); 
+			case If:
+				return myResults.get(myResults.size() - 1);
+			case IfElse:
+				return myResults.get(myResults.size() - 1);
+			case MakeUserInstruction:
+				return myResults.get(myResults.size() - 1);
 			default:
 				break;
 		}

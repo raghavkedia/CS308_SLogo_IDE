@@ -1,9 +1,10 @@
 package backend;
 
 public class VariableNode implements ExpressionNode {
-
-	public VariableNode() {
-		// TODO Auto-generated constructor stub
+	private Variable myVariable;
+	
+	public VariableNode(Variable myVariable) {
+		
 	}
 
 	@Override
