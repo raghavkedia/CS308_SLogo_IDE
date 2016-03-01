@@ -4,6 +4,12 @@ import java.util.Observable;
 import java.util.Observer;
 import backend.*;
 
+/**
+ * Observes a CommandHistory from the backend package. 
+ * @author richardliu
+ *
+ */
+
 public class HistoryListObserver implements Observer{
 	CommandHistory myHistory;
 	
@@ -12,6 +18,10 @@ public class HistoryListObserver implements Observer{
 		myHistory.addObserver(this);
 	}
 	
+	/**
+	 * Updates frontend to mirror backend.
+	 * When the backend changes, clear the frontend and redisplay the entire backend.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		FrontendManagerAPI.clearHistory();

@@ -67,16 +67,15 @@ public class FrontendManager {
 		myRoot.setBottom(myConsole.getVisual());
 		myRoot.setLeft(myVariables.getVisual());
 		myRoot.setTop(myToolbar.getVisual());
-		
-		myRoot.applyCss();
-		myRoot.layout();
 	}
 	
+	/**
+	 * Set up the observers for the backend side of the components.
+	 */
 	public void initObserver(){
 //		myCharactersObserver = new CharacterListObserver();
 		myHistoryObserver = new HistoryListObserver(myBackend.getCommandHistory());
 		myVariablesObserver = new VariableListObserver(myBackend.getVariablesList());
-		
 	}
 	
 

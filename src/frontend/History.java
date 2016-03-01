@@ -14,6 +14,10 @@ class History extends ListVisual{
 		handleUI();
 	}
 
+	/**
+	 * Pushes a command to the history as the most recent command.
+	 * @param pastCommand
+	 */
 	void addToHistory(String pastCommand){
 		myData.add(pastCommand);
 	}
@@ -47,5 +51,9 @@ class History extends ListVisual{
         });
     }
     
+    /**
+     * Resets the historyPointer variable. 
+     * Use case: if the history of commands is ever updated, historyPointer should be reset.
+     */
     public void resetHistoryPointer(){historyPointer = 0;}
 }

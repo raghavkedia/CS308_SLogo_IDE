@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 /**
+ * Wrapper class for a VBox -- which defines the contents of a PopupWindow.
  * @author richardliu
  *
  */

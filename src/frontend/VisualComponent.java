@@ -3,6 +3,11 @@ package frontend;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
+/**
+ * Wrapper class for a javaFX Node object.
+ * @author richardliu
+ *
+ */
 abstract class VisualComponent {
 	private Node myVisual;
 	private Color myColor;

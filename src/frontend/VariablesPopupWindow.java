@@ -4,6 +4,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * Subclass of PopupWindow which is used to allow the user to interactively change variable values.
+ * @author richardliu
+ *
+ */
+
 public class VariablesPopupWindow extends PopupWindow {
 	
 	public VariablesPopupWindow(String myDisplay){
@@ -11,6 +17,10 @@ public class VariablesPopupWindow extends PopupWindow {
 		initBox(myDisplay);
 	}
 	
+	/**
+	 * Creates the visual VBox for the class.
+	 * @param display - The variable/ListView Cell that the user selected.
+	 */
 	public void initBox(String display){
 		String[] myVarInfo = display.split("=");
 		//TODO: add error checking

@@ -26,10 +26,18 @@ class Console extends VisualComponent{
         });		
 	}
 
+	/**
+	 * Set the console text to the input.
+	 * @param text - What is put into the console.
+	 */
     void setText (String text) {
         commandArea.setText(text);
     }
 
+    /**
+     * Passes the current input in the console to the backend to execute.
+     * @return - the output of the command
+     */
     String executeInput() {
          String input =  commandArea.getText();
          commandArea.clear();
