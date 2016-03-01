@@ -15,7 +15,7 @@ public class ForwardBracketNode implements ExpressionNode {
 	}
 
 	@Override
-	public double execute() {
+	public double execute() throws Exception {
 		if (hasBeenExecuted) {
 			return result;
 		} else {

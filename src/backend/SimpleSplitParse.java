@@ -29,9 +29,11 @@ public class SimpleSplitParse implements Parseable {
 	@Override
 	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands, ResourceBundle myResources) throws Exception {
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
-		Collection<ExpressionNode> myNodes = convertToNodes(myStrings);
+		CommandFactory myFactory = new CommandFactory(myCharactersList, myVariablesList, myUserDefinedCommands);
+		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory);
+		Collection<ExpressionNode> cleanedNodes = checkForBrackets(myNodes);
 		LogoExpressionTreeBuilder myTreeBuilder = new LogoExpressionTreeBuilder();
-		double result = myTreeBuilder.executeExpressions(myNodes);
+		double result = myTreeBuilder.executeExpressions(cleanedNodes);
 		String statement = "The result is " + result;
 		return statement;
 	}
@@ -56,8 +58,8 @@ public class SimpleSplitParse implements Parseable {
 		return myStrings;
 	}
 	
-	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings) {
-		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory();
+	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings, CommandFactory myFactory) {
+		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory(myFactory);
 		Tokenizer myTokenizer = new Tokenizer(language);
 		Collection<ExpressionNode> myNodes = new ArrayList<ExpressionNode>();
 		for (String s : myStrings) {

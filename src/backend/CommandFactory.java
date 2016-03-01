@@ -6,24 +6,19 @@ import java.util.ResourceBundle;
 import exceptions.InvalidQuotientError;
 
 public class CommandFactory {
-	enum FactoryType{
-		NORMAL, ALL;
-	}
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/languages/";
-	private FactoryType myType;
 	private CharactersList myCharacters;
 	private ResourceBundle myErrorResources;
 	
-	public CommandFactory(CharactersList myCharacters) {
-		myType = FactoryType.NORMAL;
+	public CommandFactory(CharactersList myCharacters, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands) {
 		this.myCharacters = myCharacters;
 		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
 	}
 	
-	public void setType(FactoryType myType) {
-		this.myType = myType;
+	public CommandFactory() {
+		
 	}
-	
+
 	private void translateCoor(double [] transCoords, Character myCharacter) {
 		double translateX = transCoords[0] * Math.cos(convertDegrees(myCharacter.getMyAngle())) 
 				+ transCoords[1] * Math.sin(convertDegrees(myCharacter.getMyAngle()));

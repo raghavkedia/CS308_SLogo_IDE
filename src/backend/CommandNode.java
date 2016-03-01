@@ -7,9 +7,11 @@ import java.util.List;
 public class CommandNode implements ExpressionNode {
 	private Command type;
 	private Collection<ExpressionNode> myChildren;
+	private CommandFactory myFactory;
 	
-	public CommandNode(Command type) {
+	public CommandNode(Command type, CommandFactory myFactory) {
 		this.type = type;
+		this.myFactory = myFactory;
 		this.myChildren = new ArrayList<ExpressionNode>();
 	}
 
@@ -20,7 +22,6 @@ public class CommandNode implements ExpressionNode {
 			double r = n.execute();
 			executed.add(r);
 		}
-		CommandFactory myFactory = new CommandFactory();
 		try{
 			double result = myFactory.generateResult(type, executed);
 			return result;
