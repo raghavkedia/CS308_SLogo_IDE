@@ -23,20 +23,20 @@ public class FrontendManager {
 	private Variables myVariables;
 	private Console myConsole;
 	private ToolbarComponent myToolbar;
-	private Properties myProp;
+	private Properties myProp, myGUIProp ;
 	private List<Portrait> myPortraits;
 	private Portrait currentPortrait; // all commands typed to the console will be executed on this portrait
 	
 	FrontendManagerAPI myAPI;
 	
-	public FrontendManager(Properties myProp){
+	public FrontendManager(Properties GUIProp, Properties myProp){
 		myBackend = new BackendManager();
 		myRoot = new BorderPane();
 		myWindow = new Stage();
 		myScene = new Scene(myRoot, 1000, 700, Color.WHITE);
 		myComponents = new ArrayList<VisualComponent>();
 		myAPI = new FrontendManagerAPI(this);
-		
+		myGUIProp = GUIProp;
 		initComponents();
 	}
 	
@@ -53,7 +53,7 @@ public class FrontendManager {
 		
 		myVariables = ComponentFactory.makeNewVariables(200, 200);
 		myComponents.add(myVariables);
-		myToolbar = ComponentFactory.makeNewToolbar();
+		myToolbar = ComponentFactory.makeNewToolbar(myGUIProp);
 		myComponents.add(myToolbar);
 		
 		myPortraits = new ArrayList<Portrait>();

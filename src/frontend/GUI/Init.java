@@ -70,7 +70,7 @@ public class Init {
 			public void handle(ActionEvent event) {
 				try {
 					Properties prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
-					FrontendManager fm = new FrontendManager(prop);
+					FrontendManager fm = new FrontendManager(myGUIProp, prop);
 					myStage.setScene(fm.getMyScene());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

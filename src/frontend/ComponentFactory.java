@@ -1,5 +1,7 @@
 package frontend;
 
+import java.util.Properties;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -32,7 +34,7 @@ public class ComponentFactory {
 		return new VariablesPopupWindow(s);
 	}
 	
-	public static ToolbarComponent makeNewToolbar(){
-		return new ToolbarComponent();
+	public static ToolbarComponent makeNewToolbar(Properties GUIProp){
+		return new ToolbarComponent(GUIProp);
 	}
 }
