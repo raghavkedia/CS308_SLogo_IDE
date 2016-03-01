@@ -8,10 +8,14 @@ import exceptions.InvalidQuotientError;
 public class CommandFactory {
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/languages/";
 	private CharactersList myCharacters;
+	private VariablesList myVariablesList;
+	private UserDefinedCommands myUserDefinedCommands; 
 	private ResourceBundle myErrorResources;
 	
 	public CommandFactory(CharactersList myCharacters, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands) {
 		this.myCharacters = myCharacters;
+		this.myVariablesList = myVariablesList;
+		
 		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
 	}
 	
@@ -240,6 +244,8 @@ public class CommandFactory {
 				return (((leftValue != 0) || (rightValue != 0)) ? 1 : 0);
 			case Not:
 				return (myResults.get(0) == 0 ? 1 : 0);
+			case MakeVariable:
+				
 			default:
 				break;
 		}

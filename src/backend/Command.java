@@ -4,7 +4,7 @@ public enum Command {
 	Forward, Back, Left, Right, SetHeading, SetTowards, SetPosition, PenDown, PenUp, ShowTurtle, HideTurtle, Home, ClearScreen,
 	XCoordinate, YCoordinate, Heading, IsPenDown, IsShowing, Sum, Difference, Product, Quotient, Remainder, Minus, Random, 
 	Sine, Cosine, Tangent, ArcTangent, NaturalLog, Power, Pi, LessThan, GreaterThan, Equal, NotEqual, And, Or, Not, Variable,
-	Constant, ListStart;
+	Constant, ListStart, MakeVariable, Repeat, MakeUserInstruction, IfElse, DoTimes, For, If;
 
 	public int numArgs() {
 		switch(this) {
@@ -86,6 +86,20 @@ public enum Command {
 				return 2;
 			case Not:
 				return 0;
+			case MakeVariable:
+				return 1;
+			case Repeat:
+				return 1;
+			case DoTimes: 
+				return 1;
+			case For:
+				return 1;
+			case If:
+				return 2;
+			case IfElse:
+				return 3;
+			case MakeUserInstruction:
+				return 3;
 			case Variable:
 				return 0;
 			case Constant:
