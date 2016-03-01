@@ -30,12 +30,14 @@ public class SimpleSplitParse implements Parseable {
 	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands, ResourceBundle myResources) throws Exception {
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
 		CommandFactory myFactory = new CommandFactory(myCharactersList, myVariablesList, myUserDefinedCommands);
-		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory);
-		Collection<ExpressionNode> cleanedNodes = checkForBrackets(myNodes);
-		LogoExpressionTreeBuilder myTreeBuilder = new LogoExpressionTreeBuilder();
-		double result = myTreeBuilder.executeExpressions(cleanedNodes);
-		String statement = "The result is " + result;
-		return statement;
+//		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory);
+//		Collection<ExpressionNode> cleanedNodes = checkForBrackets(myNodes);
+//		LogoExpressionTreeBuilder myTreeBuilder = new LogoExpressionTreeBuilder();
+//		double result = myTreeBuilder.executeExpressions(cleanedNodes);
+//		String statement = "The result is " + result;
+//		return statement;
+		for (String s : myStrings) System.out.println(s);
+		return input;
 	}
 
 	private Collection<String> cleanStrings(String[] mySplitString) {

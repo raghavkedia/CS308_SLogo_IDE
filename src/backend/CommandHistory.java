@@ -20,4 +20,8 @@ public class CommandHistory extends Observable{
 		notifyObservers(command);
 	}
 	
+	public List<String> getPastCommands(){
+		return this.pastCommands;
+	}
+	
 }

@@ -22,6 +22,10 @@ public class FrontendManagerAPI {
     	myManager.addToVariables(s);
     }
     
+    public static void clearVariables(){
+    	myManager.clearVariables();
+    }
+    
     public static void updateVariableValue(String var, double value){
     	//backend call
     	myManager.updateVariableValue(var, value);
