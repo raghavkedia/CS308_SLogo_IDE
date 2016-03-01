@@ -16,8 +16,11 @@ public class VariablesList extends Observable{
 	
 	public void addVariable(Variable var){
 		variables.put(var.getVariableName(), var);
+	}
+	
+	public void hasUpdated(){
 		setChanged();
-		notifyObservers(var);
+		notifyObservers();
 	}
 	
 	public Map<String, Variable> getVariables(){
