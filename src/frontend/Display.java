@@ -31,7 +31,9 @@ public class Display extends VisualComponent{
 	 * @param y2 - ending y coordinate
 	 */
 	public void drawLine(double x1, double y1, double x2, double y2){
-		Line newLine = new Line(x1, y1, x2, y2);
+		double[] newInitialCoords = mapCoords(x1, y1);
+		double[] newEndCoords = mapCoords(x2, y2);
+		Line newLine = new Line(newInitialCoords[0], newInitialCoords[1], newEndCoords[0], newEndCoords[1]);
 		newLine.setStroke(myLineColor);
 		myPane.getChildren().add(newLine);
 	}
@@ -62,4 +64,8 @@ public class Display extends VisualComponent{
 	}
 	
 	public void setLineColor(Color c){this.myLineColor = c;}
+	public void setBackgroundColor(Color c){
+		super.setColor(c);
+		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
+	}
 }

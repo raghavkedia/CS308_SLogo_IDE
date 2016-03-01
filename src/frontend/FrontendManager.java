@@ -15,7 +15,7 @@ public class FrontendManager {
     private BorderPane myRoot;
     private Stage myWindow;
     private List<VisualComponent> myComponents;
-	private InterpreturInterface myBackend;
+	private static InterpreturInterface myBackend;
 	
 	private Display myDisplay;
 	private History myHistory;
@@ -26,12 +26,15 @@ public class FrontendManager {
 	private List<Portrait> myPortraits;
 	private Portrait currentPortrait; // all commands typed to the console will be executed on this portrait
 	
+	FrontendManagerAPI myAPI;
+	
 	public FrontendManager(Properties myProp){
 		myBackend = new BackendManager();
 		myRoot = new BorderPane();
 		myWindow = new Stage();
 		myScene = new Scene(myRoot, 1000, 700, Color.WHITE);
 		myComponents = new ArrayList<VisualComponent>();
+		myAPI = new FrontendManagerAPI(this);
 		
 		initComponents();
 	}
@@ -91,7 +94,9 @@ public class FrontendManager {
     	myDisplay.drawLine(x1, y1, x2, y2);
     }
 	
-
+    public void changeDisplayBackgroundColor(Color c){
+    	myDisplay.setBackgroundColor(c);
+    }
 
 	public Scene getMyScene(){ return this.myScene;}
 }
