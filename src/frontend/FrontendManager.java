@@ -65,6 +65,8 @@ public class FrontendManager {
 		myRoot.setLeft(myVariables.getVisual());
 		myRoot.setTop(myToolbar.getVisual());
 		
+		myRoot.applyCss();
+		myRoot.layout();
 	}
 	
 

@@ -12,7 +12,7 @@ public class Display extends VisualComponent{
 	private Color myLineColor;
 
 	public Display(double width, double height){
-		super.setColor(Color.GREY);
+		super.setColor(Color.WHITE);
 		myLineColor = Color.BLACK;
 		myPane = new Pane();
 		myPane.setPrefSize(width, height);
