@@ -26,6 +26,8 @@ public class Variables extends ListVisual implements IClickable{
 		myData.add(newVar);
 	}
 	
+	//TODO: delete workspace variables
+	
 	/**
 	 * This method creates a mouse onclick event for each of the list items.
 	 */
@@ -53,7 +55,7 @@ public class Variables extends ListVisual implements IClickable{
 		
 		Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
-        PopupWindow popup = ComponentFactory.makeNewPopupWindow(myList.getSelectionModel().getSelectedItem());
+        PopupWindow popup = ComponentFactory.makeNewVariablesPopupWindow(myList.getSelectionModel().getSelectedItem());
         Scene dialogScene = new Scene(popup.getMyBox(), 300, 200);
         dialog.setScene(dialogScene);
         dialog.show();
