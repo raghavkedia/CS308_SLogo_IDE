@@ -26,6 +26,8 @@ public class Variables extends ListVisual implements IClickable{
 		myData.add(newVar);
 	}
 	
+	//TODO: delete workspace variables
+	
 	/**
 	 * This method creates a mouse onclick event for each of the list items.
 	 */

@@ -71,6 +71,17 @@ public class FrontendManager {
             }
         });
     }
+    
+    public void passConsoleInput(String s){
+    	//call passConsoleInput from Display.java
+    	//pass s to backend
+    	// get some return result
+    	// display that in console.
+    }
+    
+    public void addToVariables(String s){
+    	// myVariables.addToVariables(s);
+    } 
 	
 
 
