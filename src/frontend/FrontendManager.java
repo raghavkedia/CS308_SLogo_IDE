@@ -81,7 +81,15 @@ public class FrontendManager {
     
     public void addToVariables(String s){
     	// myVariables.addToVariables(s);
-    } 
+    }
+    
+    public void updateVariableValue(String var, double value){
+    	//backend call
+    }
+    
+    public void drawLine(double x1, double y1, double x2, double y2){
+    	myDisplay.drawLine(x1, y1, x2, y2);
+    }
 	
 
 
