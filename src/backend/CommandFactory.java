@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import exceptions.InvalidQuotientError;
+import exceptions.SlogoError;
 
 public class CommandFactory {
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/languages/";
@@ -79,7 +80,7 @@ public class CommandFactory {
 		return result;
 	}
 	
-	public double generateResult(Command type, List<Double> myResults) throws Exception{
+	public double generateResult(Command type, List<Double> myResults) throws SlogoError{
 		double result = 0;
 		double leftValue = 0;
 		double rightValue = 0;

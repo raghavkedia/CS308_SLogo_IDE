@@ -3,6 +3,7 @@ package backend;
 import java.util.ResourceBundle;
 
 import exceptions.InvalidQuotientError;
+import exceptions.SlogoError;
 
 public class BackendManager implements InterpreturInterface{
 	
@@ -30,20 +31,26 @@ public class BackendManager implements InterpreturInterface{
 		//myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages"); 
 	}
 	
-	public String executeCommand(String input) throws Exception{
+	//make frontend catch error
+	
+	public String executeCommand(String input) throws SlogoError{
 		
 		myCommandHistory.addCommand(input);
 		
 		String output = "error";
-		try{
-			output = myParser.runInput(input, myCharactersList, myVariablesList, myUserDefinedCommands, myResources);
-			
-			return output;
-		}
 		
-		catch(Exception e){
-			return e.getMessage();
-		}
+		output = myParser.runInput(input, myCharactersList, myVariablesList, myUserDefinedCommands, myResources);
+		return output;
+		
+//		try{
+//			output = myParser.runInput(input, myCharactersList, myVariablesList, myUserDefinedCommands, myResources);
+//			
+//			return output;
+//		}
+//		
+//		catch(Exception e){
+//			return e.getMessage();
+//		}
 	}
 	
 	public CharactersList getCharacterList(){

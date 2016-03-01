@@ -1,8 +1,10 @@
 package backend;
 
+import exceptions.SlogoError;
+
 public interface ExpressionNode {
 	
-	public double execute() throws Exception;
+	public double execute() throws SlogoError;
 	
 	public int currentNumChildren();
 	

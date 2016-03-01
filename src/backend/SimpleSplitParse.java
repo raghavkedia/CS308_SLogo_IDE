@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import exceptions.SlogoError;
+
 public class SimpleSplitParse implements Parseable {
 	private static final String KEEP_END_LINE = "\\\\n";
 	private static final String END_LINE_STRING = "\n";
@@ -27,7 +29,7 @@ public class SimpleSplitParse implements Parseable {
 	}
 
 	@Override
-	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands, ResourceBundle myResources) throws Exception {
+	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands, ResourceBundle myResources) throws SlogoError {
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
 		CommandFactory myFactory = new CommandFactory(myCharactersList, myVariablesList, myUserDefinedCommands);
 		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory, myVariablesList);
