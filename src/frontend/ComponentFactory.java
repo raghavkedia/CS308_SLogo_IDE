@@ -5,6 +5,8 @@ import java.util.Properties;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.paint.Color;
 
 public class ComponentFactory {
 	public static Button makeButton(String buttonLabel, EventHandler<ActionEvent> buttonAction) {
@@ -36,5 +38,15 @@ public class ComponentFactory {
 	
 	public static ToolbarComponent makeNewToolbar(Properties GUIProp){
 		return new ToolbarComponent(GUIProp);
+	}
+	
+	public static ColorPicker makeNewColorPicker(){
+		ColorPicker colorPicker = new ColorPicker();
+		colorPicker.setOnAction(
+			 e -> {
+				 Color c = colorPicker.getValue();
+				 FrontendManagerAPI.changeDisplayBackgroundColor(c);
+			 });
+		return colorPicker;
 	}
 }

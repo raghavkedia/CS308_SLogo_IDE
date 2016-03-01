@@ -26,6 +26,10 @@ public class Variables extends ListVisual implements IClickable{
 		myData.add(newVar);
 	}
 	
+	public void clearAll(){
+		myData.clear();
+	}
+	
 	//TODO: delete workspace variables
 	
 	/**

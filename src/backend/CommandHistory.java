@@ -3,6 +3,7 @@ package backend;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
 public class CommandHistory extends Observable{
 	
@@ -17,6 +18,10 @@ public class CommandHistory extends Observable{
 		pastCommands.add(command);
 		setChanged();
 		notifyObservers(command);
+	}
+	
+	public List<String> getPastCommands(){
+		return this.pastCommands;
 	}
 	
 }

@@ -3,9 +3,9 @@ package backend;
 public class Variable {
 	
 	private String myName;
-	private Integer myValue;
+	private String myValue;
 	
-	public Variable(String name, Integer value) {
+	public Variable(String name, String value) {
 		// TODO Auto-generated constructor stub
 		setVariableName(name);
 		setVariableValue(value);
@@ -19,11 +19,11 @@ public class Variable {
 		this.myName = myName;
 	}
 
-	public Integer getVariableValue() {
+	public String getVariableValue() {
 		return myValue;
 	}
 
-	public void setVariableValue(Integer myValue) {
+	public void setVariableValue(String myValue) {
 		this.myValue = myValue;
 	}
 
