@@ -54,7 +54,7 @@ public class Tokenizer {
 			return new Token(NodeType.Command, myCommand, null, 0);
 			
 		}
-		throw new SyntaxError(myErrorResources.getString("InvalidSyntax"));
+		throw new SyntaxError(myErrorResources.getString("SyntaxError"));
 	}
 
 }
