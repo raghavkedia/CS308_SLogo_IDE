@@ -1,17 +1,15 @@
 package backend;
 
-import backend.ExpressionNode;
+public class VariableNode implements ExpressionNode {
 
-public class ConstantNode implements ExpressionNode{
-	private double value;
-	
-	public ConstantNode(double value) {
-		this.value = value;
+	public VariableNode() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public double execute() {
-		return value;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
@@ -21,12 +19,12 @@ public class ConstantNode implements ExpressionNode{
 
 	@Override
 	public Command getMyCommandType() {
-		return Command.Constant;
+		return Command.Variable;
 	}
 
 	@Override
 	public void addChild(ExpressionNode n) {
-		//throw exception
+		//throws exception
 	}
 
 }

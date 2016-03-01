@@ -1,17 +1,14 @@
 package backend;
 
-import backend.ExpressionNode;
+public class BackBracketNode implements ExpressionNode{
 
-public class ConstantNode implements ExpressionNode{
-	private double value;
-	
-	public ConstantNode(double value) {
-		this.value = value;
+	public BackBracketNode() {
+		
 	}
 
 	@Override
 	public double execute() {
-		return value;
+		return 0;
 	}
 
 	@Override
@@ -21,12 +18,12 @@ public class ConstantNode implements ExpressionNode{
 
 	@Override
 	public Command getMyCommandType() {
-		return Command.Constant;
+		return null;
 	}
 
 	@Override
 	public void addChild(ExpressionNode n) {
-		//throw exception
+
 	}
 
 }
