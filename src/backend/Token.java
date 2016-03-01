@@ -12,7 +12,7 @@ public class Token {
 		this.myNodeType = myNodeType;
 		this.myCommand = myCommand;
 		this.myValue = myValue;
-		this.setMyName(myName);
+		this.myName = myName;
 	}
 
 	public NodeType getMyNodeType() {
