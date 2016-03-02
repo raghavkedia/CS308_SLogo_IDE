@@ -8,8 +8,8 @@ class Console extends VisualComponent{
 	private TextArea commandArea;
 	
 	Console(double width, double height){
-		super();
 		commandArea = new TextArea();
+		commandArea.setPrefSize(width, height);
 		super.setVisual(commandArea);
 		handleUI();
 	}

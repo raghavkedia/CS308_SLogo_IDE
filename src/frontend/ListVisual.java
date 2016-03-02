@@ -16,8 +16,7 @@ abstract class ListVisual extends VisualComponent{
 	
 	public ListVisual(double width, double height){
 		myList = new ListView<String>();
-		myList.setPrefHeight(height);
-		myList.setPrefWidth(width);
+		myList.setPrefSize(width, height);
 		this.setVisual(myList);
 	}
 	

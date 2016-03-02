@@ -41,24 +41,27 @@ public class FrontendManager {
 		myBackend = new BackendManager();
 		myRoot = new BorderPane();
 		myWindow = s;
-		myScene = new Scene(myRoot, 1000, 700, Color.WHITE);
+		myScene = new Scene(myRoot, Color.WHITE);
 		myComponents = new ArrayList<VisualComponent>();
 		myAPI = new FrontendManagerAPI(this);
 		myGUIProp = GUIProp;
+		myRoot.setMinSize(1000, 700);
+		myRoot.setPrefSize(1000, 700);
+		myRoot.setMaxSize(1000, 700);
 		initComponents();
 		initObserver();
 	}
 	
 	public void initComponents(){
-		myDisplay = ComponentFactory.makeNewDisplay(400, 400);
+		myDisplay = ComponentFactory.makeNewDisplay(500, 500);
 		myComponents.add(myDisplay);
-		myConsole = ComponentFactory.makeNewConsole(200, 200);
+		myConsole = ComponentFactory.makeNewConsole(1000, 150);
 		myComponents.add(myConsole);
 
-		myHistory = ComponentFactory.makeNewHistory(200, 200);
+		myHistory = ComponentFactory.makeNewHistory(250, 450);
 		myComponents.add(myHistory);
 		
-		myVariables = ComponentFactory.makeNewVariables(200, 200);
+		myVariables = ComponentFactory.makeNewVariables(250, 450);
 		myComponents.add(myVariables);
 		myToolbar = ComponentFactory.makeNewToolbar(myGUIProp);
 		myComponents.add(myToolbar);

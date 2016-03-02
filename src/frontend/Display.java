@@ -13,30 +13,39 @@ public class Display extends VisualComponent{
 	private Pane myPane;
 	private Color myLineColor;
 	private ArrayList<Portrait> myPortraits;
+	private double myHeight;
+	private double myWidth;
 
 	public Display(double width, double height){
 		super.setColor(Color.WHITE);
 		myLineColor = Color.BLACK;
 		myPane = new Pane();
+		myPane.setMinSize(width, height);
 		myPane.setPrefSize(width, height);
+		myPane.setMaxSize(width, height);
+		myWidth = width;
+		myHeight = height;
 		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
 		super.setVisual(myPane);
 		this.myPortraits = new ArrayList<Portrait>();
+		myPane.applyCss();
+		myPane.layout();
 		
-		drawLine(0, 0, 100, 100);
 	}
 	
 	public Display(double width, double height, Portrait defaultPortrait){
 		super.setColor(Color.WHITE);
 		myLineColor = Color.BLACK;
 		myPane = new Pane();
+		myPane.setMinSize(width, height);
 		myPane.setPrefSize(width, height);
+		myPane.setMaxSize(width, height);
+		myWidth = width;
+		myHeight = height;
 		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
 		super.setVisual(myPane);
 		this.myPortraits = new ArrayList<Portrait>();
 		this.myPortraits.add(defaultPortrait);
-		
-		drawLine(0, 0, 100, 100);
 	}
 	
 	/**
@@ -75,8 +84,10 @@ public class Display extends VisualComponent{
 		}
 		img.setFitHeight(50);
 		img.setFitWidth(50);
-		img.setX(x);
-		img.setY(y);
+		
+		double[] mappedStart = mapCoords(x, y);
+		img.setX(mappedStart[0]-25);
+		img.setY(mappedStart[1]-25);
 	}
 	
 	@Override
@@ -92,7 +103,7 @@ public class Display extends VisualComponent{
 	 * @return
 	 */
 	public double[] mapCoords(double x, double y){
-		double[] out = new double[] {x+this.myPane.getWidth()/2, y+this.myPane.getHeight()/2};
+		double[] out = new double[] {x+this.myWidth/2, y+this.myHeight/2};
 		return out;
 	}
 	
