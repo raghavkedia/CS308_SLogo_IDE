@@ -14,8 +14,16 @@ public class FrontendManagerAPI {
 		myManager.passConsoleInput(s);
     }
 	
+	public static void clearConsole() {
+		myManager.clearConsole();
+	}
+	
 	public static void displayInConsole(String input){
 		myManager.displayInConsole(input);
+	}
+	
+	public static void executeConsole() {
+		myManager.executeConsole();
 	}
     
 	//VARIABLES
@@ -48,5 +56,9 @@ public class FrontendManagerAPI {
 	
     public static void changeDisplayBackgroundColor(Color c){
     	myManager.changeDisplayBackgroundColor(c);
+    }
+    
+    public static String getGUIProperty(String key) {
+    	return myManager.getGUIProperty(key);
     }
 }

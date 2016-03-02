@@ -2,11 +2,13 @@ package frontend;
 
 import java.util.Properties;
 
+import frontend.GUI.WebHelp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class ComponentFactory {
 	public static Button makeButton(String buttonLabel, EventHandler<ActionEvent> buttonAction) {
@@ -48,5 +50,39 @@ public class ComponentFactory {
 				 FrontendManagerAPI.changeDisplayBackgroundColor(c);
 			 });
 		return colorPicker;
+	}
+	
+	public static Button makeButton(String buttonLabel) {
+		Button b = new Button();
+		b.setText(buttonLabel);
+		switch(buttonLabel) {
+		case "CLEAR":
+			b.setOnAction(
+					 e -> {
+						 FrontendManagerAPI.clearConsole();
+					 });
+			break;
+		case "RUN":
+			b.setOnAction(
+					 e -> {
+						 FrontendManagerAPI.executeConsole();
+					 });
+			break;
+		case "HELP":
+			b.setOnAction(
+					e -> {
+						String url = FrontendManagerAPI.getGUIProperty("help_url");
+						String title = FrontendManagerAPI.getGUIProperty("help_title");
+						WebHelp webHelp = new WebHelp(url, title);
+						System.out.println("myURL" + url);
+						try {
+							webHelp.start(new Stage());
+						} catch (Exception exception) {
+							exception.printStackTrace();
+						}
+					});
+			break;			
+		}
+		return b;
 	}
 }

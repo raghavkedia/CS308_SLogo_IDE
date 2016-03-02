@@ -1,6 +1,8 @@
 package frontend;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 class Console extends VisualComponent{
@@ -11,20 +13,31 @@ class Console extends VisualComponent{
 		super();
 		commandArea = new TextArea();
 		super.setVisual(commandArea);
-		handleUI();
+//		handleUI();
 	}
 	
-	private void handleUI() {
-		commandArea.addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
-            switch (keyEvent.getCode()) {
-            case ENTER:
-            	executeInput();
-                break;
-            default:
-                break;
-            }
-        });		
-	}
+//	public EventHandler handleUI() {
+//		commandArea.addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
+//            switch (keyEvent.getCode()) {
+//            case ENTER:
+//            	executeInput();
+//                break;
+//            default:
+//                break;
+//            }
+//        });
+//		
+//		new EventHandler<KeyEvent>() {
+//            public void handle(final KeyEvent keyEvent) {
+//                if (keyEvent.getCode() == KeyCode.ENTER) {
+//                    setPressed(keyEvent.getEventType()
+//                        == KeyEvent.KEY_PRESSED);
+// 
+//                    keyEvent.consume();
+//                }
+//            }
+//        };
+//	}
 
 	/**
 	 * Set the console text to the input.
@@ -44,4 +57,8 @@ class Console extends VisualComponent{
          FrontendManagerAPI.passConsoleInput(input);
          return input;
     } 
+    
+    void clear () {
+        commandArea.clear();
+    }
 }
