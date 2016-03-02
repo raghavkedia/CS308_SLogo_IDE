@@ -26,8 +26,7 @@ public class FrontendManager {
 	private Display myDisplay;
 	private History myHistory;
 	private Variables myVariables;
-	private Console myConsole;
-	private Console myOutputConsole;
+	private Console myConsole, myOutput;
 	private ToolbarComponent myToolbar;
 	private Properties myProp, myGUIProp ;
 	private List<Portrait> myPortraits;
@@ -68,8 +67,8 @@ public class FrontendManager {
 		myComponents.add(myConsole);
 
 		
-		myOutputConsole = ComponentFactory.makeNewConsole(200, 200);
-		myComponents.add(myOutputConsole);
+		myOutput = ComponentFactory.makeNewConsole(200, 200);
+		myComponents.add(myOutput);
 		
 		myHistory = ComponentFactory.makeNewHistory(200, 200);
 		myComponents.add(myHistory);
@@ -95,9 +94,8 @@ public class FrontendManager {
 		myRunButton.setTranslateX(40);
         SplitPane sp = new SplitPane();
         sp.setPrefSize(200, 200);
-        final Button l = new Button("Left Button");
-        final Button r = new Button("Right Button");
-        sp.getItems().addAll(myConsole.getVisual(), myOutputConsole.getVisual());
+
+        sp.getItems().addAll(myConsole.getVisual(), myOutput.getVisual());
         myRoot.setBottom(sp);
 	}
 	
@@ -131,13 +129,17 @@ public class FrontendManager {
 		}
     	
     	if (output != null){
-    		myConsole.setText(output);
+    		myOutput.setText(output);
     	}
     }
     
     public void displayInConsole(String input){
     	myConsole.setText(input);
     }
+    
+	public void clearConsole() { myOutput.clear(); }
+	
+	public void executeConsole() {myConsole.executeInput();}
     
     //VARIABLES
     public void addToVariables(String s){
@@ -172,9 +174,6 @@ public class FrontendManager {
 
 	public Scene getMyScene(){ return this.myScene;}
 
-	public void clearConsole() { myConsole.clear(); }
-	
-	public void executeConsole() {myConsole.executeInput();}
 	
 	public String getGUIProperty(String s) {
 		return myGUIProp.getProperty(s);

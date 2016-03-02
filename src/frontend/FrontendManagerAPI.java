@@ -6,7 +6,7 @@ public class FrontendManagerAPI {
 	private static FrontendManager myManager;
 	
 	public FrontendManagerAPI(FrontendManager f){
-		this.myManager = f;
+		myManager = f;
 	}
 	
 	//CONSOLE

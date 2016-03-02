@@ -74,7 +74,6 @@ public class ComponentFactory {
 						String url = FrontendManagerAPI.getGUIProperty("help_url");
 						String title = FrontendManagerAPI.getGUIProperty("help_title");
 						WebHelp webHelp = new WebHelp(url, title);
-						System.out.println("myURL" + url);
 						try {
 							webHelp.start(new Stage());
 						} catch (Exception exception) {

@@ -25,8 +25,8 @@ public class ToolbarComponent extends VisualComponent{
 
 		super.setVisual(myToolbar);
 		
+		myToolbar.getItems().add(ComponentFactory.makeButton("RUN"));
 		myToolbar.getItems().add(ComponentFactory.makeButton("CLEAR"));
 		myToolbar.getItems().add(ComponentFactory.makeButton("HELP"));
-		myToolbar.getItems().add(ComponentFactory.makeButton("RUN"));
 	}
 }
