@@ -1,6 +1,9 @@
 package frontend;
 
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import backend.*;
+import backend.Character;
 
 public class FrontendManagerAPI {
 	private static FrontendManager myManager;
@@ -41,6 +44,10 @@ public class FrontendManagerAPI {
     	myManager.addToHistory(s);
     }
     
+    public static void addImage(Character c){
+    	myManager.addImage(c);
+    }
+    
     //DISPLAY
     public static void drawLine(double x1, double y1, double x2, double y2){
     	myManager.drawLine(x1, y1, x2, y2);
@@ -48,5 +55,10 @@ public class FrontendManagerAPI {
 	
     public static void changeDisplayBackgroundColor(Color c){
     	myManager.changeDisplayBackgroundColor(c);
+    }
+    
+    //GETTERS, SETTERS, MISC
+    public static Stage getMyWindow(){
+    	return myManager.getMyWindow();
     }
 }

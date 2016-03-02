@@ -92,6 +92,10 @@ public class Character implements Getable, Setable{
 	public void setMyAngle(double myAngle) {
 		this.myAngle = myAngle;
 	}
+	
+	public Image getMyImage(){
+		return this.myImage;
+	}
 
 
 }

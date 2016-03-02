@@ -1,9 +1,12 @@
 package frontend;
 
 import backend.*;
+import backend.Character;
 import exceptions.SlogoError;
 import javafx.scene.*;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -34,10 +37,10 @@ public class FrontendManager {
 	
 	FrontendManagerAPI myAPI;
 	
-	public FrontendManager(Properties GUIProp, Properties myProp){
+	public FrontendManager(Properties GUIProp, Properties myProp, Stage s){
 		myBackend = new BackendManager();
 		myRoot = new BorderPane();
-		myWindow = new Stage();
+		myWindow = s;
 		myScene = new Scene(myRoot, 1000, 700, Color.WHITE);
 		myComponents = new ArrayList<VisualComponent>();
 		myAPI = new FrontendManagerAPI(this);
@@ -139,8 +142,14 @@ public class FrontendManager {
     public void changeDisplayBackgroundColor(Color c){
     	myDisplay.setBackgroundColor(c);
     }
+    
+    public void addImage(Character c){
+    	myDisplay.addImage(new ImageView(c.getMyImage()), c.getCoordX(), c.getCoordY());
+    }
 
+    
+    //GETTERS AND SETTERS
 	public Scene getMyScene(){ return this.myScene;}
-
+	public Stage getMyWindow(){return this.myWindow;}
 	
 }

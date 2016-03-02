@@ -1,5 +1,7 @@
 package frontend;
 
+import java.util.ArrayList;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -10,6 +12,7 @@ import javafx.scene.shape.Line;
 public class Display extends VisualComponent{
 	private Pane myPane;
 	private Color myLineColor;
+	private ArrayList<Portrait> myPortraits;
 
 	public Display(double width, double height){
 		super.setColor(Color.WHITE);
@@ -18,6 +21,19 @@ public class Display extends VisualComponent{
 		myPane.setPrefSize(width, height);
 		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
 		super.setVisual(myPane);
+		
+		drawLine(0, 0, 100, 100);
+	}
+	
+	public Display(double width, double height, Portrait defaultPortrait){
+		super.setColor(Color.WHITE);
+		myLineColor = Color.BLACK;
+		myPane = new Pane();
+		myPane.setPrefSize(width, height);
+		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
+		super.setVisual(myPane);
+		this.myPortraits = new ArrayList<Portrait>();
+		this.myPortraits.add(defaultPortrait);
 		
 		drawLine(0, 0, 100, 100);
 	}
@@ -38,10 +54,22 @@ public class Display extends VisualComponent{
 		myPane.getChildren().add(newLine);
 	}
 	
+	public void addPortrait(Portrait p){
+		this.myPortraits.add(p);
+		this.addImage(p.getMyPortrait(), 0, 0);
+	}
+	
+	public void addPortrait(Portrait p, double x, double y){
+		this.myPortraits.add(p);
+		this.addImage(p.getMyPortrait(), x, y);
+	}
+	
 	public void addImage(ImageView img, double x, double y){
 		if (!myPane.getChildren().contains(img)){
 			myPane.getChildren().add(img);
 		}
+		img.setFitHeight(50);
+		img.setFitWidth(50);
 		img.setX(x);
 		img.setY(y);
 	}
