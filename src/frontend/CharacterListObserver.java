@@ -1,18 +1,26 @@
 package frontend;
 
+import backend.Character;
+import backend.*;
 import java.util.Observable;
 import java.util.Observer;
 
+import backend.VariablesList;
+
 public class CharacterListObserver implements Observer{
+	CharactersList myObservable;
 	
-	CharacterListObserver(){
-		
+	CharacterListObserver(CharactersList subject){
+		myObservable = subject;
+		subject.addObserver(this);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		FrontendManagerAPI.clearCharacters();
+		for (Character c : myObservable.getCharacters()){
+			FrontendManagerAPI.addPortrait(c);
+		}
 	}
 
 }

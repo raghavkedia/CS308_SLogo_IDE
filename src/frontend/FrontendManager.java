@@ -77,7 +77,7 @@ public class FrontendManager {
 	 * Set up the observers for the backend side of the components.
 	 */
 	public void initObserver(){
-//		myCharactersObserver = new CharacterListObserver();
+		myCharactersObserver = new CharacterListObserver(myBackend.getCharacterList());
 		myHistoryObserver = new HistoryListObserver(myBackend.getCommandHistory());
 		myVariablesObserver = new VariableListObserver(myBackend.getVariablesList());
 	}
@@ -143,10 +143,19 @@ public class FrontendManager {
     	myDisplay.setBackgroundColor(c);
     }
     
-    public void addImage(Character c){
-    	myDisplay.addImage(new ImageView(c.getMyImage()), c.getCoordX(), c.getCoordY());
+    public void addPortrait(Character c){
+    	Portrait p = new Portrait(c);
+    	myDisplay.addPortrait(p);
+    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY());
     }
 
+    public void clearCharacters(){
+    	myDisplay.clearChars();
+    }
+    
+    public void addNewChar(Character c){
+    	myBackend.getCharacterList().addCharacter(c);
+    }
     
     //GETTERS AND SETTERS
 	public Scene getMyScene(){ return this.myScene;}

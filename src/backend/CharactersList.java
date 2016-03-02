@@ -1,11 +1,13 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 public class CharactersList extends Observable{
 	
@@ -20,6 +22,7 @@ public class CharactersList extends Observable{
 
 	public void addCharacter(Character character){
 		characters.put(character.getName(), character);
+		hasUpdated();
 	}
 	
 	public Character getCharacter(String characterKey){
@@ -41,6 +44,10 @@ public class CharactersList extends Observable{
 	
 	public void removeActiveCharacter(String id){
 		activeCharacters.remove(id);
+	}
+	
+	public Collection<Character> getCharacters(){
+		return this.characters.values();
 	}
 	
 }

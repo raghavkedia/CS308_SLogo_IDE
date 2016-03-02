@@ -46,9 +46,9 @@ public class ToolbarComponent extends VisualComponent{
 					File imgFile = fc.showOpenDialog(FrontendManagerAPI.getMyWindow());
 					if (imgFile != null) {
 						Character c = new Character();
-//						System.out.println(imgFile.toString());
 						c.setImage(new Image("file://"+imgFile.toString()));
-						FrontendManagerAPI.addImage(c);
+						System.out.println("file://"+imgFile.toString());
+						FrontendManagerAPI.addNewChar(c);
 					}
 					
 				}));

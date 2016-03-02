@@ -21,6 +21,7 @@ public class Display extends VisualComponent{
 		myPane.setPrefSize(width, height);
 		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
 		super.setVisual(myPane);
+		this.myPortraits = new ArrayList<Portrait>();
 		
 		drawLine(0, 0, 100, 100);
 	}
@@ -54,9 +55,13 @@ public class Display extends VisualComponent{
 		myPane.getChildren().add(newLine);
 	}
 	
+	public void clearChars(){
+		this.myPortraits.clear();
+	}
+	
 	public void addPortrait(Portrait p){
 		this.myPortraits.add(p);
-		this.addImage(p.getMyPortrait(), 0, 0);
+		this.addImage(p.getMyPortrait(), p.getMyChar().getCoordX(), p.getMyChar().getCoordY());
 	}
 	
 	public void addPortrait(Portrait p, double x, double y){
