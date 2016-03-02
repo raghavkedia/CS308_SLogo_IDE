@@ -21,7 +21,7 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 		ExpressionNode curr = myNodeCopies.get(0);
 		List<ExpressionNode> toExecute = new ArrayList<ExpressionNode>();
 		double result = 0;
-		while (!myNodeCopies.isEmpty()) {
+		while (!myNodeCopies.isEmpty() || !myStack.empty()) {
 			myNodeCopies.remove(curr);
 			if (isSatisfied(curr)) {
 				if (myStack.isEmpty()) {
@@ -49,7 +49,6 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 			toExecute.add(curr);
 		}
 		for (ExpressionNode node : toExecute) {
-			System.out.println("fjfda");
 			result = node.execute();
 //			try {
 //				result = node.execute();

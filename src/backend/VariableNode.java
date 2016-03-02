@@ -29,15 +29,17 @@ public class VariableNode implements ExpressionNode {
 	
 	@Override
 	public double execute() throws SlogoError {
-		if (setVariable != true && myVariable.getVariableValue() == null) {
+		if (setVariable == false && myVariable.getVariableValue() == null) {
 			//throw error
+			System.out.println("I am null");
 		} else {
 			double result = 0;
 			result =  myChildren.get(0).execute();
-			myVariable.setVariableValue(String.valueOf(result));			
+			myVariable.setVariableValue(String.valueOf(result));
+			myVariable.hasUpdated();
 			return result;
 		}
-		return 0;
+		return 242394;
 	}
 
 	@Override

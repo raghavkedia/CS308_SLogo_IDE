@@ -1,5 +1,6 @@
 package backend;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,15 +12,14 @@ public class MakeVariableNode implements ExpressionNode {
 	
 	public MakeVariableNode(Command type) {
 		this.type = type;
+		this.myChildren = new ArrayList<ExpressionNode>();
 	}
 
 	@Override
 	public double execute() throws SlogoError {
 		ExpressionNode myChild = myChildren.get(0);
 		if (myChild instanceof VariableNode) {
-			if (((VariableNode) myChild).getMyVariable() == null) {
-				((VariableNode) myChild).makeMyVariable();
-			} 
+			((VariableNode) myChild).makeMyVariable();
 		} else {
 			//throw error
 		}
@@ -28,20 +28,17 @@ public class MakeVariableNode implements ExpressionNode {
 
 	@Override
 	public int currentNumChildren() {
-		// TODO Auto-generated method stub
-		return 1;
+		return myChildren.size();
 	}
 
 	@Override
 	public Command getMyCommandType() {
-		// TODO Auto-generated method stub
-		return null;
+		return type;
 	}
 
 	@Override
 	public void addChild(ExpressionNode n) {
-		// TODO Auto-generated method stub
-		
+		myChildren.add(n);
 	}
 
 }
