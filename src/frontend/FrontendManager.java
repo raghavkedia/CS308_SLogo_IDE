@@ -3,10 +3,14 @@ package frontend;
 import backend.*;
 import backend.Character;
 import exceptions.SlogoError;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -15,7 +19,8 @@ import java.util.*;
 
 public class FrontendManager {
 	public static final int SIZE = 700;
-    
+    private static final String RUN_BUTTON = "start_button";
+    private static final String CLEAR_BUTTON = "clear_button";
     private Scene myScene;
     private BorderPane myRoot;
     private Stage myWindow;
@@ -25,12 +30,12 @@ public class FrontendManager {
 	private Display myDisplay;
 	private History myHistory;
 	private Variables myVariables;
-	private Console myConsole;
+	private Console myConsole, myOutput;
 	private ToolbarComponent myToolbar;
 	private Properties myProp, myGUIProp ;
 	private List<Portrait> myPortraits;
 	private Portrait currentPortrait; // all commands typed to the console will be executed on this portrait
-	
+	private Button myRunButton;
 	private Observer myHistoryObserver;
 	private Observer myVariablesObserver;
 	private Observer myCharactersObserver;
@@ -48,6 +53,16 @@ public class FrontendManager {
 		myRoot.setPrefSize(1000, 700);
 		initComponents();
 		initObserver();
+//		splitBottom();
+	}
+	
+	private void splitBottom() {
+//        SplitPane sp = new SplitPane();
+//        sp.setPrefSize(200, 200);
+//        final Button l = new Button("Left Button");
+//        final Button r = new Button("Right Button");
+//        sp.getItems().addAll(l, r);
+//        myRoot.setBottom(sp);
 	}
 	
 	public void initComponents(){
@@ -58,6 +73,9 @@ public class FrontendManager {
 
 		myHistory = ComponentFactory.makeNewHistory(250, 450);
 		myComponents.add(myHistory);
+		
+		myOutput = ComponentFactory.makeNewConsole(200, 200);
+		myComponents.add(myOutput);
 		
 		myVariables = ComponentFactory.makeNewVariables(250, 450);
 		myComponents.add(myVariables);
@@ -70,8 +88,19 @@ public class FrontendManager {
 		myRoot.setCenter(myDisplay.getVisual());
 		myRoot.setRight(myHistory.getVisual());
 		myRoot.setBottom(myConsole.getVisual());
+		
 		myRoot.setLeft(myVariables.getVisual());
 		myRoot.setTop(myToolbar.getVisual());
+		
+		myRunButton = ComponentFactory.makeButton(myGUIProp.getProperty(RUN_BUTTON), 
+				e -> myConsole.executeInput());
+		myRunButton.setTranslateX(40);
+		myRunButton.setTranslateX(40);
+        SplitPane sp = new SplitPane();
+        sp.setPrefSize(200, 200);
+
+        sp.getItems().addAll(myConsole.getVisual(), myOutput.getVisual());
+        myRoot.setBottom(sp);
 	}
 	
 	/**
@@ -105,13 +134,17 @@ public class FrontendManager {
 		}
     	
     	if (output != null){
-    		myConsole.setText(output);
+    		myOutput.setText(output);
     	}
     }
     
     public void displayInConsole(String input){
     	myConsole.setText(input);
     }
+    
+	public void clearConsole() { myOutput.clear(); }
+	
+	public void executeConsole() {myConsole.executeInput();}
     
     //VARIABLES
     public void addToVariables(String s){
@@ -161,5 +194,10 @@ public class FrontendManager {
     //GETTERS AND SETTERS
 	public Scene getMyScene(){ return this.myScene;}
 	public Stage getMyWindow(){return this.myWindow;}
+	
+	public String getGUIProperty(String s) {
+		return myGUIProp.getProperty(s);
+	}
+	
 	
 }

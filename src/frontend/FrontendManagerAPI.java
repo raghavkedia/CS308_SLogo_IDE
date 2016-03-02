@@ -9,7 +9,7 @@ public class FrontendManagerAPI {
 	private static FrontendManager myManager;
 	
 	public FrontendManagerAPI(FrontendManager f){
-		this.myManager = f;
+		myManager = f;
 	}
 	
 	//CONSOLE
@@ -17,8 +17,16 @@ public class FrontendManagerAPI {
 		myManager.passConsoleInput(s);
     }
 	
+	public static void clearConsole() {
+		myManager.clearConsole();
+	}
+	
 	public static void displayInConsole(String input){
 		myManager.displayInConsole(input);
+	}
+	
+	public static void executeConsole() {
+		myManager.executeConsole();
 	}
     
 	//VARIABLES
@@ -68,5 +76,9 @@ public class FrontendManagerAPI {
     //GETTERS, SETTERS, MISC
     public static Stage getMyWindow(){
     	return myManager.getMyWindow();
+    }
+    
+    public static String getGUIProperty(String key) {
+    	return myManager.getGUIProperty(key);
     }
 }
