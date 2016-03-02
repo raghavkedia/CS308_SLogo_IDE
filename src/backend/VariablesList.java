@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-public class VariablesList extends Observable{
+public class VariablesList extends Observable implements Observer{
 	
 	private Map<String, Variable> variables;
 	
@@ -16,6 +16,7 @@ public class VariablesList extends Observable{
 	
 	public void addVariable(Variable var){
 		variables.put(var.getVariableName(), var);
+		var.addObserver(this);
 	}
 	
 	public void hasUpdated(){
@@ -29,6 +30,12 @@ public class VariablesList extends Observable{
 	
 	public Variable getVariable(String key){
 		return variables.get(key);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		hasUpdated();
 	}
 
 }

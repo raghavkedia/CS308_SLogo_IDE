@@ -1,17 +1,16 @@
 package backend;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import exceptions.SlogoError;
 
-public class CommandNode implements ExpressionNode {
+public class RepeatNode implements ExpressionNode{
 	private Command type;
-	private Collection<ExpressionNode> myChildren;
+	private List<ExpressionNode> myChildren;
 	private CommandFactory myFactory;
 	
-	public CommandNode(Command type, CommandFactory myFactory) {
+	public RepeatNode(Command type, CommandFactory myFactory) {
 		this.type = type;
 		this.myFactory = myFactory;
 		this.myChildren = new ArrayList<ExpressionNode>();
@@ -19,12 +18,12 @@ public class CommandNode implements ExpressionNode {
 
 	@Override
 	public double execute() throws SlogoError {
-		List<Double> executed = new ArrayList<Double>();
-		for (ExpressionNode n : myChildren) {
-			double r = n.execute();
-			executed.add(r);
+		double times = myChildren.get(0).execute();
+		double result = 0;
+		int repeatTimes = (int) Math.floor(times);
+		for (int k = 0; k < repeatTimes; k++) {
+			result = myChildren.get(1).execute();
 		}
-		double result = myFactory.generateResult(type, executed);
 		return result;
 	}
 

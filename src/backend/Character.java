@@ -7,7 +7,7 @@ import java.util.Observer;
 
 import javafx.scene.image.Image;
 
-public class Character implements Getable, Setable{
+public class Character extends Observable implements Getable, Setable{
 	
 	private int myCoordX, myCoordY;
 	private double myAngle;
@@ -33,6 +33,11 @@ public class Character implements Getable, Setable{
 	public void setName(String name) {
 		// TODO Auto-generated method stub
 		myName = name;
+	}
+	
+	public void hasUpdated(){
+		setChanged();
+		notifyObservers();
 	}
 
 	public void setImage(Image image) {

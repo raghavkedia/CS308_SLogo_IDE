@@ -21,7 +21,7 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 		ExpressionNode curr = myNodeCopies.get(0);
 		List<ExpressionNode> toExecute = new ArrayList<ExpressionNode>();
 		double result = 0;
-		while (!myNodeCopies.isEmpty()) {
+		while (!myNodeCopies.isEmpty() || !myStack.empty()) {
 			myNodeCopies.remove(curr);
 			if (isSatisfied(curr)) {
 				if (myStack.isEmpty()) {
@@ -40,14 +40,15 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 			}
 			else {
 				myStack.push(curr);
-				curr = myNodeCopies.get(0);
+				if(!myNodeCopies.isEmpty()){
+					curr = myNodeCopies.get(0);
+				}
 			}
 		}
 		if (!toExecute.contains(curr)) {
 			toExecute.add(curr);
 		}
 		for (ExpressionNode node : toExecute) {
-			
 			result = node.execute();
 //			try {
 //				result = node.execute();
@@ -60,6 +61,6 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 	}
 
 	private boolean isSatisfied(ExpressionNode node) {
-		return node.currentNumChildren() == node.getMyCommandType().numArgs();
+		return node.currentNumChildren() >= node.getMyCommandType().numArgs();
 	}
 }
