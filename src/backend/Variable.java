@@ -1,6 +1,8 @@
 package backend;
 
-public class Variable {
+import java.util.Observable;
+
+public class Variable extends Observable{
 	
 	private String myName;
 	private String myValue;
@@ -9,6 +11,11 @@ public class Variable {
 		// TODO Auto-generated constructor stub
 		setVariableName(name);
 		setVariableValue(value);
+	}
+	
+	public void hasUpdated(){
+		setChanged();
+		notifyObservers();
 	}
 
 	public String getVariableName() {
