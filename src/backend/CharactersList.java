@@ -22,7 +22,9 @@ public class CharactersList extends Observable implements Observer{
 
 	public void addCharacter(Character character){
 		characters.put(character.getName(), character);
+		activeCharacters.add(character.getName());
 		character.addObserver(this);
+		hasUpdated();
 	}
 	
 	public Character getCharacter(String characterKey){
