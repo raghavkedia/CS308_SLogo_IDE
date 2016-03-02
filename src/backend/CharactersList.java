@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-public class CharactersList extends Observable{
+public class CharactersList extends Observable implements Observer{
 	
 	private Map<String, Character> characters;
 	private List<String> activeCharacters;
@@ -20,6 +20,7 @@ public class CharactersList extends Observable{
 
 	public void addCharacter(Character character){
 		characters.put(character.getName(), character);
+		character.addObserver(this);
 	}
 	
 	public Character getCharacter(String characterKey){
@@ -41,6 +42,12 @@ public class CharactersList extends Observable{
 	
 	public void removeActiveCharacter(String id){
 		activeCharacters.remove(id);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		hasUpdated();
 	}
 	
 }
