@@ -30,17 +30,11 @@ public class CommandFactory {
 	}
 
 	private void translateCoor(double [] transCoords, Character myCharacter) {
-		System.out.print(myCharacter.getName() + "Hi");
 		double translateX = transCoords[0] * Math.cos(convertDegrees(myCharacter.getMyAngle())) 
 				+ transCoords[1] * Math.sin(convertDegrees(myCharacter.getMyAngle()));
-		System.out.print(translateX);
 		double translateY = transCoords[1] * Math.cos(convertDegrees(myCharacter.getMyAngle()));
-		System.out.println(translateY);
 		
 		double [] rawCoords = {translateX, translateY};
-		System.out.println("Raw Coords");
-		System.out.println(rawCoords[0]);
-		System.out.println(rawCoords[1]);
 		double [] reducedCoords = reduceCoor(rawCoords);
 		
 		myCharacter.setCurrCoord((int) Math.floor(myCharacter.getCoordX() + rawCoords[0]),

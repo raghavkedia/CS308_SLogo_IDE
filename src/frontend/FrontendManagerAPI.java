@@ -66,7 +66,7 @@ public class FrontendManagerAPI {
     }
     
     public static void clearCharactersFromFrontend(){
-    	myManager.clearCharacters();
+    	myManager.clearCharactersFromFrontend();
     }
     
     public static void addNewChar(Character c){

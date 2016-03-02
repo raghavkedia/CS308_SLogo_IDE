@@ -180,10 +180,10 @@ public class FrontendManager {
     public void addPortrait(Character c){
     	Portrait p = new Portrait(c);
     	myDisplay.addPortrait(p);
-    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), - c.getCoordY(), c.getMyAngle());
+    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle());
     }
 
-    public void clearCharacters(){
+    public void clearCharactersFromFrontend(){
     	myDisplay.clearChars();
     }
     
