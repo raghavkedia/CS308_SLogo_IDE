@@ -23,7 +23,7 @@ public class ConditionNode implements ExpressionNode{
 		if (type == Command.If) {
 			return condition != 0 ? myChildren.get(1).execute() : 0;
 		} else if (type == Command.IfElse) {
-			return condition != 0 ? myChildren.get(0).execute() : myChildren.get(1).execute();
+			return condition != 0 ? myChildren.get(1).execute() : myChildren.get(2).execute();
 		}
 		return 0;
 	}
