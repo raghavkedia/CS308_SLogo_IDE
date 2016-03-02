@@ -62,6 +62,6 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 	}
 
 	private boolean isSatisfied(ExpressionNode node) {
-		return node.currentNumChildren() == node.getMyCommandType().numArgs();
+		return node.currentNumChildren() >= node.getMyCommandType().numArgs();
 	}
 }
