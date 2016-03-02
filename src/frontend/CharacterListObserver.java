@@ -5,8 +5,6 @@ import backend.*;
 import java.util.Observable;
 import java.util.Observer;
 
-import backend.VariablesList;
-
 public class CharacterListObserver implements Observer{
 	CharactersList myObservable;
 	
@@ -17,8 +15,12 @@ public class CharacterListObserver implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		FrontendManagerAPI.clearCharacters();
+		FrontendManagerAPI.clearCharactersFromFrontend();
 		for (Character c : myObservable.getCharacters()){
+			System.out.println(c.toString());
+			System.out.println(c.getCoordX());
+			System.out.println(c.getCoordY());
+			System.out.println("end");
 			FrontendManagerAPI.addPortrait(c);
 		}
 	}

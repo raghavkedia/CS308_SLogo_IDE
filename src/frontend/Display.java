@@ -2,6 +2,7 @@ package frontend;
 
 import java.util.ArrayList;
 
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -65,6 +66,15 @@ public class Display extends VisualComponent{
 	}
 	
 	public void clearChars(){
+		for (int i=0; i<myPane.getChildren().size(); i++){
+			Node n = myPane.getChildren().get(i);
+			for (Portrait p : myPortraits){
+				if (p.getMyPortrait() == n){
+					myPane.getChildren().remove(n);
+					break;
+				}
+			}
+		}
 		this.myPortraits.clear();
 	}
 	

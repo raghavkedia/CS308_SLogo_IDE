@@ -45,9 +45,7 @@ public class FrontendManager {
 		myComponents = new ArrayList<VisualComponent>();
 		myAPI = new FrontendManagerAPI(this);
 		myGUIProp = GUIProp;
-		myRoot.setMinSize(1000, 700);
 		myRoot.setPrefSize(1000, 700);
-		myRoot.setMaxSize(1000, 700);
 		initComponents();
 		initObserver();
 	}

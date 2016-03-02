@@ -57,7 +57,7 @@ public class FrontendManagerAPI {
     	myManager.addPortrait(c);
     }
     
-    public static void clearCharacters(){
+    public static void clearCharactersFromFrontend(){
     	myManager.clearCharacters();
     }
     
