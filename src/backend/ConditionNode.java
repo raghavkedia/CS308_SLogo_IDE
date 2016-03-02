@@ -19,6 +19,7 @@ public class ConditionNode implements ExpressionNode{
 
 	@Override
 	public double execute() throws SlogoError {
+		System.out.println("0000");
 		double condition = myChildren.get(0).execute();
 		if (type == Command.If) {
 			return condition != 0 ? myChildren.get(1).execute() : 0;

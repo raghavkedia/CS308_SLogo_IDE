@@ -40,14 +40,16 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 			}
 			else {
 				myStack.push(curr);
-				curr = myNodeCopies.get(0);
+				if(!myNodeCopies.isEmpty()){
+					curr = myNodeCopies.get(0);
+				}
 			}
 		}
 		if (!toExecute.contains(curr)) {
 			toExecute.add(curr);
 		}
 		for (ExpressionNode node : toExecute) {
-			
+			System.out.println("fjfda");
 			result = node.execute();
 //			try {
 //				result = node.execute();
