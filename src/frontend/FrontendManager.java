@@ -183,7 +183,7 @@ public class FrontendManager {
     	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY());
     }
 
-    public void clearCharacters(){
+    public void clearCharactersFromFrontend(){
     	myDisplay.clearChars();
     }
     
