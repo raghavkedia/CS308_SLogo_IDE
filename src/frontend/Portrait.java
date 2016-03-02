@@ -27,6 +27,7 @@ class Portrait extends VisualComponent{
 		this.myPortrait.setRotate(angle);
 	}
 	
+	double getAngle() {return this.myPortrait.getRotate();}
 	ImageView getMyPortrait(){return this.myPortrait; }
 	Character getMyChar(){return this.myChar;}
 	

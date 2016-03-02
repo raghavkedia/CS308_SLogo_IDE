@@ -80,15 +80,15 @@ public class Display extends VisualComponent{
 	
 	public void addPortrait(Portrait p){
 		this.myPortraits.add(p);
-		this.addImage(p.getMyPortrait(), p.getMyChar().getCoordX(), p.getMyChar().getCoordY());
+		this.addImage(p.getMyPortrait(), p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getAngle() );
 	}
 	
-	public void addPortrait(Portrait p, double x, double y){
+	public void addPortrait(Portrait p, double x, double y, double angle){
 		this.myPortraits.add(p);
-		this.addImage(p.getMyPortrait(), x, y);
+		this.addImage(p.getMyPortrait(), x, y, angle);
 	}
 	
-	public void addImage(ImageView img, double x, double y){
+	public void addImage(ImageView img, double x, double y, double angle){
 		if (!myPane.getChildren().contains(img)){
 			myPane.getChildren().add(img);
 		}
@@ -98,6 +98,7 @@ public class Display extends VisualComponent{
 		double[] mappedStart = mapCoords(x, y);
 		img.setX(mappedStart[0]-25);
 		img.setY(mappedStart[1]-25);
+		img.setRotate(angle);
 	}
 	
 	@Override
