@@ -39,7 +39,7 @@ public class VariablesPopupWindow extends PopupWindow {
 				e->{
 					//TODO: Handle event here
 					String userText = userInput.getText();
-					System.out.println(userText);
+					FrontendManagerAPI.updateVariableValue(varName.toString(), userText);
 				}));
 	}
 	

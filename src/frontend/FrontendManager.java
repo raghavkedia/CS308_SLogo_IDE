@@ -155,8 +155,13 @@ public class FrontendManager {
     	myVariables.clearAll();
     }
     
-    public void updateVariableValue(String var, double value){
-    	//backend call
+    public void updateVariableValue(String var, String value){
+    	try {
+			myBackend.executeCommand("make :"+var + " " + value);
+		} catch (SlogoError e) {
+			// TODO Auto-generated catch block
+			myOutput.setText(e.getMessage());
+		}
     }
     
     //HISTORY

@@ -11,8 +11,6 @@ public class Variables extends ListVisual implements IClickable{
 	
 	public Variables(double width, double height){
 		super(width, height);
-		myData.add("Hello=World");
-		myData.add("Variable=Value");
 		this.myList.setItems(myData);
 		
 		initMouseHandler();

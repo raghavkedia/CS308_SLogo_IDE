@@ -38,7 +38,7 @@ public class FrontendManagerAPI {
     	myManager.clearVariables();
     }
     
-    public static void updateVariableValue(String var, double value){
+    public static void updateVariableValue(String var, String value){
     	myManager.updateVariableValue(var, value);
     }
     

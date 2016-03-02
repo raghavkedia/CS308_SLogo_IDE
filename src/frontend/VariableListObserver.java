@@ -25,7 +25,7 @@ public class VariableListObserver implements Observer{
 	public void update(Observable o, Object arg) {
 		FrontendManagerAPI.clearVariables();
 		for (String key : myObservable.getVariables().keySet()){
-			String displayMe = key+"="+myObservable.getVariables().get(key);
+			String displayMe = key+"="+myObservable.getVariables().get(key).getVariableValue();
 			FrontendManagerAPI.addToVariables(displayMe);
 		}
 	}
