@@ -20,6 +20,7 @@ public class ExpressionNodeFactory {
 		if (myNode == NodeType.Command) {
 			//check for the special ones.
 			if (myCommand == Command.If || myCommand == Command.IfElse) {
+				System.out.println("hit");
 				return new ConditionNode(myCommand, myFactory);
 			} else if (myCommand == Command.MakeVariable) {
 				return new MakeVariableNode(myCommand);
