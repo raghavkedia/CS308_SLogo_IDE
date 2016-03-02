@@ -39,6 +39,8 @@ public class ToolbarComponent extends VisualComponent{
 					}
 					
 				}));
+		
+		myToolbar.getItems().add(ComponentFactory.makeNewColorPickerLine());
 
 		super.setVisual(myToolbar);
 		

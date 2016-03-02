@@ -52,6 +52,16 @@ public class ComponentFactory {
 		return colorPicker;
 	}
 	
+	public static ColorPicker makeNewColorPickerLine(){
+		ColorPicker colorPicker = new ColorPicker();
+		colorPicker.setOnAction(
+			 e -> {
+				 Color c = colorPicker.getValue();
+				 FrontendManagerAPI.changeLineColor(c);
+			 });
+		return colorPicker;
+	}
+	
 	public static Button makeButton(String buttonLabel) {
 		Button b = new Button();
 		b.setText(buttonLabel);

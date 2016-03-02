@@ -51,8 +51,8 @@ public class FrontendManager {
 		myAPI = new FrontendManagerAPI(this);
 		myGUIProp = GUIProp;
 		myRoot.setPrefSize(1000, 700);
-		initComponents();
 		initObserver();
+		initComponents();
 //		splitBottom();
 	}
 	
@@ -68,6 +68,7 @@ public class FrontendManager {
 	public void initComponents(){
 		myDisplay = ComponentFactory.makeNewDisplay(500, 500);
 		myComponents.add(myDisplay);
+		
 		myConsole = ComponentFactory.makeNewConsole(1000, 150);
 		myComponents.add(myConsole);
 
@@ -156,6 +157,8 @@ public class FrontendManager {
     }
     
     public void updateVariableValue(String var, String value){
+		System.out.println("var= "+var);
+		System.out.println("value= "+value);
     	try {
 			myBackend.executeCommand("make :"+var + " " + value);
 		} catch (SlogoError e) {
@@ -180,6 +183,10 @@ public class FrontendManager {
 	
     public void changeDisplayBackgroundColor(Color c){
     	myDisplay.setBackgroundColor(c);
+    }
+    
+    public void changeLineColor(Color c){
+    	myDisplay.setLineColor(c);
     }
     
     public void addPortrait(Character c){

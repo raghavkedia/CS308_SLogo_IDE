@@ -60,6 +60,10 @@ public class FrontendManagerAPI {
     public static void changeDisplayBackgroundColor(Color c){
     	myManager.changeDisplayBackgroundColor(c);
     }
+    
+    public static void changeLineColor(Color c){
+    	myManager.changeLineColor(c);
+    }
 
     public static void addPortrait(Character c){
     	myManager.addPortrait(c);
