@@ -9,4 +9,6 @@ public interface InterpreturInterface {
 	public CharactersList getCharacterList();
 	public VariablesList getVariablesList();
 	public CommandHistory getCommandHistory();
+	public FileGetter getFileGetter();
+	
 }

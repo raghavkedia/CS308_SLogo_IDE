@@ -13,6 +13,7 @@ public class BackendManager implements InterpreturInterface{
 	private CharactersList myCharactersList;
     private ResourceBundle myResources;
     private UserDefinedCommands myUserDefinedCommands;
+    private FileHandler myFileHandler;
     
 	
 	public BackendManager() {
@@ -42,6 +43,11 @@ public class BackendManager implements InterpreturInterface{
 	}
 	public CommandHistory getCommandHistory(){
 		return myCommandHistory;
+	}
+
+	public FileGetter getFileGetter() {
+		// TODO Auto-generated method stub
+		return myFileHandler;
 	}
 	
 }
