@@ -20,8 +20,8 @@ public class ComponentFactory {
 		return b;
 	}
 	
-	public static Display makeNewDisplay(double width, double height){
-		return new Display(width, height);
+	public static Display makeNewDisplay(double width, double height, Controller control){
+		return new Display(width, height, control);
 	}
 	
 	public static History makeNewHistory(double width, double height, Controller control){

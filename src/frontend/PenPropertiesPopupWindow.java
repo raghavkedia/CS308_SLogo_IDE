@@ -13,8 +13,8 @@ public class PenPropertiesPopupWindow extends PopupWindow{
 	
 	public PenPropertiesPopupWindow(Controller control){
 		super();
-		initBox();
 		myController = control;
+		initBox();
 	}
 	
 	void initBox() {

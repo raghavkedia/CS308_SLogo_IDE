@@ -48,23 +48,13 @@ public class Controller {
     		myFrontend.showOutput(output);
     	}
     }
-    
-    public void displayInConsole(String input){
-    	myFrontend.displayInConsole(input);
-    }
-    
+    public void displayInConsole(String input){myFrontend.displayInConsole(input);}
 	public void clearConsole() { myFrontend.clearConsole(); }
-	
 	public void executeConsole() {myFrontend.executeConsole();}
     
     //VARIABLES
-    public void addToVariables(String s){
-    	 myFrontend.addToVariables(s);
-    }
-    
-    public void clearVariablesFrontend(){
-    	myFrontend.clearAllVars();
-    }
+    public void addToVariables(String s){myFrontend.addToVariables(s);}
+    public void clearVariablesFrontend(){myFrontend.clearAllVars();}
     
     public void updateVariableValue(String var, String value){
     	try {
@@ -76,55 +66,34 @@ public class Controller {
     }
     
     //HISTORY
-    public void clearHistoryFrontend(){
-    	myFrontend.clearHistory();
-    }
-    
-    public void addToHistory(String s){
-    	myFrontend.addToHistory(s);
-    }
+    public void clearHistoryFrontend(){myFrontend.clearHistory();}
+    public void addToHistory(String s){myFrontend.addToHistory(s);}
     
     // DISPLAY
-    public void drawLine(double x1, double y1, double x2, double y2){
-    	myFrontend.drawLine(x1, y1, x2, y2);
-    }
-	
+    public void drawLine(double x1, double y1, double x2, double y2){myFrontend.drawLine(x1, y1, x2, y2);}
     public void changeDisplayBackgroundColor(Color c){
     	myFrontend.changeBackgroundColor(c);
+    	myBackend.getProperties(myId).setBackgroundColor(c);
     }
-    
-    public void changeLineColor(Color c){
-    	myFrontend.setLineColor(c);
-    }
-    
-    public void addPortrait(Character c){
-    	myFrontend.addPortrait(c);
-    }
-
-    public void clearCharactersFromFrontend(){
-    	myFrontend.clearCharacters();
-    }
+    public void changeLineColor(Color c){myFrontend.setLineColor(c);}
+    public void addPortrait(Character c){myFrontend.addPortrait(c);}
+    public void clearCharactersFromFrontend(){myFrontend.clearCharacters();}
     
     //MISC
-    public String getGUIProperty(String s) {
-		return myFrontend.getGUIProperty(s);
-	}
-    
-    public Stage getMyWindow(){
-    	return myFrontend.getMyWindow();
-    }
+    public String getGUIProperty(String s) {return myFrontend.getGUIProperty(s);}
+    public Stage getMyWindow(){return myFrontend.getMyWindow();}
     
     //BACKEND
-    public void addNewChar(Character c){
-    	myBackend.getCharacterList(Integer.toString(myId)).addCharacter(c);
-    }
+    public void addNewChar(Character c){myBackend.getCharacterList(myId).addCharacter(c);}
     
-    public void setPenPattern(PenPattern pattern){myBackend.getProperties(Integer.toString(myId)).setPenPattern(pattern);}
-    public void setPenColor(Color c){myBackend.getProperties(Integer.toString(myId)).setPenColor(c);}
-	public void setLineThickness(double newWidth) {myBackend.getProperties(Integer.toString(myId)).setPenWidth(newWidth);}
+    public void setPenPattern(PenPattern pattern){myBackend.getProperties(myId).setPenPattern(pattern);}
+    public void setPenColor(Color c){myBackend.getProperties(myId).setPenColor(c);}
+	public void setLineThickness(double newWidth) {myBackend.getProperties(myId).setPenWidth(newWidth);}
     
-	public Color getPenColor(){ return myBackend.getProperties(Integer.toString(myId)).getPenColor(); }
-	public double getLineThickness(){ return myBackend.getProperties(Integer.toString(myId)).getPenWidth();}
+	public Color getPenColor(){
+		return myBackend.getProperties(myId).getPenColor(); 
+	}
+	public double getLineThickness(){ return myBackend.getProperties(myId).getPenWidth();}
 	
     //GETTERS AND SETTERS
     public FrontendManager getFrontendManager() {return this.myFrontend; }

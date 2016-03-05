@@ -59,7 +59,7 @@ public class FrontendManager {
 	}
 	
 	public void initComponents(){
-		myDisplay = ComponentFactory.makeNewDisplay(500, 500);
+		myDisplay = ComponentFactory.makeNewDisplay(500, 500, myController);
 		myComponents.add(myDisplay);
 		
 		myConsole = ComponentFactory.makeNewConsole(1000, 150, myController);
@@ -101,9 +101,9 @@ public class FrontendManager {
 	 * Set up the observers for the backend side of the components.
 	 */
 	public void initObserver(InterpreturInterface backend){
-		myCharactersObserver = new CharacterListObserver(backend.getCharacterList(Integer.toString(myWorkspaceId)), myController);
-		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(Integer.toString(myWorkspaceId)), myController);
-		myVariablesObserver = new VariableListObserver(backend.getVariablesList(Integer.toString(myWorkspaceId)), myController);
+		myCharactersObserver = new CharacterListObserver(backend.getCharacterList(myWorkspaceId), myController);
+		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(myWorkspaceId), myController);
+		myVariablesObserver = new VariableListObserver(backend.getVariablesList(myWorkspaceId), myController);
 	}
 	
 

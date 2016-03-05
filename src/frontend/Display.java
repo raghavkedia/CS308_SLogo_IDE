@@ -3,6 +3,7 @@ package frontend;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import controller.Controller;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -18,11 +19,10 @@ public class Display extends VisualComponent{
 	private double myWidth;
 	private HashMap<String, Double> myPreviousX;
 	private HashMap<String, Double> myPreviousY;
-	private PenProperties myPenProps;
+	private Controller myController;
 
-	public Display(double width, double height){
+	public Display(double width, double height, Controller control){
 		super.setColor(Color.WHITE);
-		myPenProps = new PenProperties();
 		myPane = new Pane();
 		myPane.setMinSize(width, height);
 		myPane.setPrefSize(width, height);
@@ -34,14 +34,12 @@ public class Display extends VisualComponent{
 		this.myPortraits = new ArrayList<Portrait>();
 		myPreviousX = new HashMap<String, Double>();
 		myPreviousY = new HashMap<String, Double>();
-		myPane.applyCss();
-		myPane.layout();
+		myController = control;
 		
 	}
 	
-	public Display(double width, double height, Portrait defaultPortrait){
+	public Display(double width, double height, Portrait defaultPortrait, Controller control){
 		super.setColor(Color.WHITE);
-		myPenProps = new PenProperties();
 		myPane = new Pane();
 		myPane.setMinSize(width, height);
 		myPane.setPrefSize(width, height);
@@ -54,6 +52,7 @@ public class Display extends VisualComponent{
 		myPreviousX = new HashMap<String, Double>();
 		myPreviousY = new HashMap<String, Double>();
 		this.myPortraits.add(defaultPortrait);
+		myController = control;
 	}
 	
 	/**
@@ -68,8 +67,9 @@ public class Display extends VisualComponent{
 		double[] newInitialCoords = mapCoords(x1, y1);
 		double[] newEndCoords = mapCoords(x2, y2);
 		Line newLine = new Line(newInitialCoords[0], newInitialCoords[1], newEndCoords[0], newEndCoords[1]);
-		newLine.setStroke(myPenProps.color());
-		newLine.setStrokeWidth(myPenProps.thickness());
+		newLine.setStroke(myController.getPenColor());
+		newLine.setStrokeWidth(myController.getLineThickness());
+		//TODO line pattern
 		myPane.getChildren().add(newLine);
 	}
 	
@@ -146,7 +146,7 @@ public class Display extends VisualComponent{
 		return out;
 	}
 	
-	public void setLineColor(Color c){this.myPenProps.setColor(c);}
+	public void setLineColor(Color c){myController.setPenColor(c);}
 	public void setBackgroundColor(Color c){
 		super.setColor(c);
 		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));

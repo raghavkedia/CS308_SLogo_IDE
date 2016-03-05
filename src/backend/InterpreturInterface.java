@@ -12,10 +12,10 @@ public interface InterpreturInterface {
 	
 	public String executeCommand(String input) throws SlogoError;
 	
-	public CharactersList getCharacterList(String workSpaceID);
-	public VariablesList getVariablesList(String workSpaceID);
-	public CommandHistory getCommandHistory(String workSpaceID);
-	public UserDefinedCommands getUserDefinedCommands(String workSpaceID);
-	public Properties getProperties(String workSpaceID);
-	public FileGetter getFileGetter(String workSpaceID);
+	public CharactersList getCharacterList(int workSpaceID);
+	public VariablesList getVariablesList(int workspaceId);
+	public CommandHistory getCommandHistory(int workspaceId);
+	public UserDefinedCommands getUserDefinedCommands(int workspaceId);
+	public Properties getProperties(int workspaceId);
+	public FileGetter getFileGetter(int workspaceId);
 }
