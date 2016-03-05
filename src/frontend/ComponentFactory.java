@@ -3,6 +3,7 @@ package frontend;
 import java.util.Properties;
 
 import frontend.GUI.WebHelp;
+import frontend.toobar.ToolbarComponent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -41,47 +42,7 @@ public class ComponentFactory {
 	public static ToolbarComponent makeNewToolbar(Properties GUIProp){
 		return new ToolbarComponent(GUIProp);
 	}
+
+
 	
-	public static ColorPicker makeNewColorPicker(){
-		ColorPicker colorPicker = new ColorPicker();
-		colorPicker.setOnAction(
-			 e -> {
-				 Color c = colorPicker.getValue();
-				 FrontendManagerAPI.changeDisplayBackgroundColor(c);
-			 });
-		return colorPicker;
-	}
-	
-	public static Button makeButton(String buttonLabel) {
-		Button b = new Button();
-		b.setText(buttonLabel);
-		switch(buttonLabel) {
-		case "CLEAR":
-			b.setOnAction(
-					 e -> {
-						 FrontendManagerAPI.clearConsole();
-					 });
-			break;
-		case "RUN":
-			b.setOnAction(
-					 e -> {
-						 FrontendManagerAPI.executeConsole();
-					 });
-			break;
-		case "HELP":
-			b.setOnAction(
-					e -> {
-						String url = FrontendManagerAPI.getGUIProperty("help_url");
-						String title = FrontendManagerAPI.getGUIProperty("help_title");
-						WebHelp webHelp = new WebHelp(url, title);
-						try {
-							webHelp.start(new Stage());
-						} catch (Exception exception) {
-							exception.printStackTrace();
-						}
-					});
-			break;			
-		}
-		return b;
-	}
 }

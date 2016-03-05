@@ -38,7 +38,7 @@ public class FrontendManagerAPI {
     	myManager.clearVariables();
     }
     
-    public static void updateVariableValue(String var, double value){
+    public static void updateVariableValue(String var, String value){
     	myManager.updateVariableValue(var, value);
     }
     
@@ -59,6 +59,10 @@ public class FrontendManagerAPI {
 	
     public static void changeDisplayBackgroundColor(Color c){
     	myManager.changeDisplayBackgroundColor(c);
+    }
+    
+    public static void changeLineColor(Color c){
+    	myManager.changeLineColor(c);
     }
 
     public static void addPortrait(Character c){

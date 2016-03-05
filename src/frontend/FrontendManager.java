@@ -3,6 +3,7 @@ package frontend;
 import backend.*;
 import backend.Character;
 import exceptions.SlogoError;
+import frontend.toobar.ToolbarComponent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.*;
@@ -51,8 +52,8 @@ public class FrontendManager {
 		myAPI = new FrontendManagerAPI(this);
 		myGUIProp = GUIProp;
 		myRoot.setPrefSize(1000, 700);
-		initComponents();
 		initObserver();
+		initComponents();
 //		splitBottom();
 	}
 	
@@ -68,6 +69,7 @@ public class FrontendManager {
 	public void initComponents(){
 		myDisplay = ComponentFactory.makeNewDisplay(500, 500);
 		myComponents.add(myDisplay);
+		
 		myConsole = ComponentFactory.makeNewConsole(1000, 150);
 		myComponents.add(myConsole);
 
@@ -155,8 +157,15 @@ public class FrontendManager {
     	myVariables.clearAll();
     }
     
-    public void updateVariableValue(String var, double value){
-    	//backend call
+    public void updateVariableValue(String var, String value){
+		System.out.println("var= "+var);
+		System.out.println("value= "+value);
+    	try {
+			myBackend.executeCommand("make :"+var + " " + value);
+		} catch (SlogoError e) {
+			// TODO Auto-generated catch block
+			myOutput.setText(e.getMessage());
+		}
     }
     
     //HISTORY
@@ -177,10 +186,14 @@ public class FrontendManager {
     	myDisplay.setBackgroundColor(c);
     }
     
+    public void changeLineColor(Color c){
+    	myDisplay.setLineColor(c);
+    }
+    
     public void addPortrait(Character c){
     	Portrait p = new Portrait(c);
     	myDisplay.addPortrait(p);
-    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), - c.getCoordY(), c.getMyAngle());
+    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle());
     }
 
     public void clearCharactersFromFrontend(){

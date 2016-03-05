@@ -89,6 +89,7 @@ public class Display extends VisualComponent{
 	public void addPortrait(Portrait p){
 		this.myPortraits.add(p);
 
+
 		this.addImage(p.getMyPortrait(), p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getAngle() );
 
 		String charName = p.getMyChar().getName();
@@ -102,6 +103,7 @@ public class Display extends VisualComponent{
 	
 	public void addPortrait(Portrait p, double x, double y, double angle){
 		this.myPortraits.add(p);
+
 
 		this.addImage(p.getMyPortrait(), x, y, angle);
 
@@ -139,7 +141,7 @@ public class Display extends VisualComponent{
 	 * @return
 	 */
 	public double[] mapCoords(double x, double y){
-		double[] out = new double[] {x+this.myWidth/2, y+this.myHeight/2};
+		double[] out = new double[] {x+this.myWidth/2, this.myHeight-this.myHeight/2-y};
 		return out;
 	}
 	

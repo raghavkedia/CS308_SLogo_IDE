@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
  * @author richardliu
  *
  */
-abstract class VisualComponent {
+public abstract class VisualComponent {
 	private Node myVisual;
 	private Color myColor;
 	

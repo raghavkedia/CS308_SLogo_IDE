@@ -11,8 +11,6 @@ public class Variables extends ListVisual implements IClickable{
 	
 	public Variables(double width, double height){
 		super(width, height);
-		myData.add("Hello=World");
-		myData.add("Variable=Value");
 		this.myList.setItems(myData);
 		
 		initMouseHandler();
@@ -53,8 +51,6 @@ public class Variables extends ListVisual implements IClickable{
 	 */
 	@Override
 	public void respondToClick() {
-		System.out.println("clicked on " + myList.getSelectionModel().getSelectedItem());
-		
 		Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         PopupWindow popup = ComponentFactory.makeNewVariablesPopupWindow(myList.getSelectionModel().getSelectedItem());
