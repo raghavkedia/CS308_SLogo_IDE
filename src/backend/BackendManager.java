@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import exceptions.InvalidQuotientError;
@@ -15,6 +17,9 @@ public class BackendManager implements InterpreturInterface{
     private UserDefinedCommands myUserDefinedCommands;
     private FileHandler myFileHandler;
     
+    //for multiple workspaces, just a concept
+    private Map<String, Data> myWorkSpaces;
+    
 	
 	public BackendManager() {
 		myParser = new SimpleSplitParse("English");
@@ -22,6 +27,7 @@ public class BackendManager implements InterpreturInterface{
 		myVariablesList = new VariablesList();
 		myCharactersList = new CharactersList();
 		myUserDefinedCommands = new UserDefinedCommands();
+		myWorkSpaces = new HashMap<String, Data>();
 	}
 	
 	public String executeCommand(String input) throws SlogoError{
