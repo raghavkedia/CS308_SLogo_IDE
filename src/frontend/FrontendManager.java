@@ -7,6 +7,7 @@ import exceptions.SlogoError;
 import frontend.toobar.ToolbarComponent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -32,7 +33,7 @@ public class FrontendManager {
 	private Display myDisplay;
 	private History myHistory;
 	private Variables myVariables;
-	private Console myConsole, myOutput;
+	private Console myConsole, myOutput, myPortraiteStateOuput;
 	private ToolbarComponent myToolbar;
 	private Properties myProp, myGUIProp ;
 	private List<Portrait> myPortraits;
@@ -83,16 +84,23 @@ public class FrontendManager {
 		
 		myRoot.setLeft(myVariables.getVisual());
 		myRoot.setTop(myToolbar.getVisual());
-		
-		myRunButton = ComponentFactory.makeButton(myGUIProp.getProperty(RUN_BUTTON), 
-				e -> myConsole.executeInput());
-		myRunButton.setTranslateX(40);
-		myRunButton.setTranslateX(40);
-        SplitPane sp = new SplitPane();
-        sp.setPrefSize(200, 200);
 
-        sp.getItems().addAll(myConsole.getVisual(), myOutput.getVisual());
-        myRoot.setBottom(sp);
+
+               
+		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
+        SplitPane splitPane1 = new SplitPane();
+        splitPane1.setOrientation(Orientation.VERTICAL);
+        splitPane1.setPrefSize(200, 200);
+
+        splitPane1.getItems().addAll(myOutput.getVisual(), myPortraiteStateOuput.getVisual());
+         
+        SplitPane splitPane2 = new SplitPane();
+        splitPane2.setOrientation(Orientation.HORIZONTAL);
+        splitPane2.setPrefSize(300, 200);
+
+        splitPane2.getItems().addAll(myConsole.getVisual(), splitPane1);
+       
+        myRoot.setBottom(splitPane2);
 	}
 	
 	/**
@@ -175,6 +183,7 @@ public class FrontendManager {
     	Portrait p = new Portrait(c);
     	myDisplay.addPortrait(p);
     	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle());
+    	myPortraiteStateOuput.setText("my x : " + c.getCoordX() + ", my y : " + c.getCoordY()+ ", myAngle :" +  c.getMyAngle());
     }
     
     public void clearCharacters(){

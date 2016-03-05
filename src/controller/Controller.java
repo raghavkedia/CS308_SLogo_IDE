@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.List;
-import java.util.Observer;
 import java.util.Properties;
 
 import backend.*;
