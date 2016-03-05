@@ -1,8 +1,12 @@
-package backend;
+package backend.parser;
 
 import java.util.List;
 import java.util.ResourceBundle;
 
+import backend.data.Character;
+import backend.data.CharactersList;
+import backend.data.UserDefinedCommands;
+import backend.data.VariablesList;
 import exceptions.InvalidParameterError;
 import exceptions.InvalidParametersError;
 import exceptions.InvalidQuotientError;

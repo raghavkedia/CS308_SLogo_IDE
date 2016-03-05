@@ -1,6 +1,6 @@
-package backend;
+package backend.parser;
 
-import backend.ExpressionNode;
+import backend.parser.ExpressionNode;
 
 public class ConstantNode implements ExpressionNode{
 	private double value;

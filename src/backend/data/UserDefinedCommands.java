@@ -1,4 +1,4 @@
-package backend;
+package backend.data;
 
 import java.util.HashMap;
 import java.util.Map;

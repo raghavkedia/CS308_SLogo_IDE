@@ -3,7 +3,7 @@ package frontend;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import backend.*;
-import backend.Character;
+import backend.data.Character;
 
 public class FrontendManagerAPI {
 	private static FrontendManager myManager;

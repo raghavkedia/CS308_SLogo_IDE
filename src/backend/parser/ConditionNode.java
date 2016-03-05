@@ -1,4 +1,4 @@
-package backend;
+package backend.parser;
 
 import java.util.ArrayList;
 import java.util.Collection;

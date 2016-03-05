@@ -1,6 +1,6 @@
-package backend;
+package backend.parser;
 
-import backend.ExpressionNodeFactory.NodeType;
+import backend.parser.ExpressionNodeFactory.NodeType;
 
 public class Token {
 	private NodeType myNodeType;

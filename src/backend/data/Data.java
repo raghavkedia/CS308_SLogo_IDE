@@ -1,4 +1,4 @@
-package backend;
+package backend.data;
 
 public class Data {
 	

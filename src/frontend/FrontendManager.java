@@ -1,7 +1,7 @@
 package frontend;
 
 import backend.*;
-import backend.Character;
+import backend.data.Character;
 import exceptions.SlogoError;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

@@ -1,7 +1,9 @@
 package frontend;
 
-import backend.Character;
 import backend.*;
+import backend.data.Character;
+import backend.data.CharactersList;
+
 import java.util.Observable;
 import java.util.Observer;
 

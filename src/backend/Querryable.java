@@ -3,6 +3,8 @@ package backend;
 import java.util.List;
 import java.util.Map;
 
+import backend.data.Character;
+
 public interface Querryable {
 
 	public List<String> getCommandHistory();

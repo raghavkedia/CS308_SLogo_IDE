@@ -4,6 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import backend.data.CharactersList;
+import backend.data.CommandHistory;
+import backend.data.Data;
+import backend.data.UserDefinedCommands;
+import backend.data.VariablesList;
+import backend.parser.Parseable;
+import backend.parser.SimpleSplitParse;
 import exceptions.InvalidQuotientError;
 import exceptions.SlogoError;
 

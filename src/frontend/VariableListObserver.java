@@ -3,6 +3,7 @@ package frontend;
 import java.util.Observable;
 import java.util.Observer;
 import backend.*;
+import backend.data.VariablesList;
 
 /**
  * Observes a VariablesList from the backend package. 

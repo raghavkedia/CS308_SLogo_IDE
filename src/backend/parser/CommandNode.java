@@ -1,4 +1,4 @@
-package backend;
+package backend.parser;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,24 +6,26 @@ import java.util.List;
 
 import exceptions.SlogoError;
 
-public class MakeVariableNode implements ExpressionNode {
+public class CommandNode implements ExpressionNode {
 	private Command type;
-	private List<ExpressionNode> myChildren;
+	private Collection<ExpressionNode> myChildren;
+	private CommandFactory myFactory;
 	
-	public MakeVariableNode(Command type) {
+	public CommandNode(Command type, CommandFactory myFactory) {
 		this.type = type;
+		this.myFactory = myFactory;
 		this.myChildren = new ArrayList<ExpressionNode>();
 	}
 
 	@Override
 	public double execute() throws SlogoError {
-		ExpressionNode myChild = myChildren.get(0);
-		if (myChild instanceof VariableNode) {
-			((VariableNode) myChild).makeMyVariable();
-		} else {
-			//throw error
+		List<Double> executed = new ArrayList<Double>();
+		for (ExpressionNode n : myChildren) {
+			double r = n.execute();
+			executed.add(r);
 		}
-		return myChild.execute();
+		double result = myFactory.generateResult(type, executed);
+		return result;
 	}
 
 	@Override

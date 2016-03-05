@@ -12,7 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import backend.*;
-import backend.Character;
+import backend.data.Character;
 
 public class ToolbarComponent extends VisualComponent{
 	private ToolBar myToolbar;

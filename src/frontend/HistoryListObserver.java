@@ -3,6 +3,7 @@ package frontend;
 import java.util.Observable;
 import java.util.Observer;
 import backend.*;
+import backend.data.CommandHistory;
 
 /**
  * Observes a CommandHistory from the backend package. 

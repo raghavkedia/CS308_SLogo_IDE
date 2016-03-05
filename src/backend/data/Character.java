@@ -1,10 +1,12 @@
-package backend;
+package backend.data;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import backend.Getable;
+import backend.Setable;
 import javafx.scene.image.Image;
 
 public class Character extends Observable implements Getable, Setable{

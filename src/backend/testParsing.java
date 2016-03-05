@@ -11,6 +11,13 @@ import java.util.Stack;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
+import backend.parser.BackBracketNode;
+import backend.parser.CommandFactory;
+import backend.parser.ExpressionNode;
+import backend.parser.ExpressionNodeFactory;
+import backend.parser.ForwardBracketNode;
+import backend.parser.Tokenizer;
+
 public class testParsing {
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/languages/";
 	private static final String KEEP_END_LINE = "\\\\n";

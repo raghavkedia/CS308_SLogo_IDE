@@ -1,5 +1,8 @@
 package backend;
 
+import backend.data.CharactersList;
+import backend.data.CommandHistory;
+import backend.data.VariablesList;
 import exceptions.SlogoError;
 
 public interface InterpreturInterface {

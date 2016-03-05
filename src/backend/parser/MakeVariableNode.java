@@ -1,30 +1,29 @@
-package backend;
+package backend.parser;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import exceptions.SlogoError;
 
-public class RepeatNode implements ExpressionNode{
+public class MakeVariableNode implements ExpressionNode {
 	private Command type;
 	private List<ExpressionNode> myChildren;
-	private CommandFactory myFactory;
 	
-	public RepeatNode(Command type, CommandFactory myFactory) {
+	public MakeVariableNode(Command type) {
 		this.type = type;
-		this.myFactory = myFactory;
 		this.myChildren = new ArrayList<ExpressionNode>();
 	}
 
 	@Override
 	public double execute() throws SlogoError {
-		double times = myChildren.get(0).execute();
-		double result = 0;
-		int repeatTimes = (int) Math.floor(times);
-		for (int k = 0; k < repeatTimes; k++) {
-			result = myChildren.get(1).execute();
+		ExpressionNode myChild = myChildren.get(0);
+		if (myChild instanceof VariableNode) {
+			((VariableNode) myChild).makeMyVariable();
+		} else {
+			//throw error
 		}
-		return result;
+		return myChild.execute();
 	}
 
 	@Override
