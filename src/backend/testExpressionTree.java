@@ -1,8 +1,9 @@
 package backend;
 
 import backend.BinaryCommandNode;
-import backend.Command;
-import backend.ConstantNode;
+import backend.parser.Command;
+import backend.parser.CommandNode;
+import backend.parser.ConstantNode;
 
 public class testExpressionTree {
 

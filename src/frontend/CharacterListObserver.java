@@ -1,8 +1,10 @@
 package frontend;
 
-import backend.Character;
 import controller.Controller;
 import backend.*;
+import backend.data.Character;
+import backend.data.CharactersList;
+
 import java.util.Observable;
 import java.util.Observer;
 

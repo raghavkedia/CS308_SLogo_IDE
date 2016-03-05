@@ -1,4 +1,7 @@
-package backend;
+package backend.parser;
+
+import backend.data.Variable;
+import backend.data.VariablesList;
 
 public class ExpressionNodeFactory {
 	public enum NodeType{

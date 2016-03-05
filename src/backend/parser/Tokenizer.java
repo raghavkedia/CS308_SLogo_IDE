@@ -1,10 +1,10 @@
-package backend;
+package backend.parser;
 
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-import backend.ExpressionNodeFactory.NodeType;
+import backend.parser.ExpressionNodeFactory.NodeType;
 import exceptions.InvalidCommandError;
 import exceptions.SlogoError;
 import exceptions.SyntaxError;

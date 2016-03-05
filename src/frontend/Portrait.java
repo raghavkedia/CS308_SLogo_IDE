@@ -1,8 +1,8 @@
 package frontend;
 
+import backend.data.Character;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import backend.Character;
 
 class Portrait extends VisualComponent{
 	private ImageView myPortrait;

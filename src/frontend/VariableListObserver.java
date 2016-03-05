@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 import backend.*;
 import controller.Controller;
+import backend.data.VariablesList;
 
 /**
  * Observes a VariablesList from the backend package. 

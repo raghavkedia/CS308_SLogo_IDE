@@ -1,8 +1,8 @@
 package frontend;
 
 import backend.*;
-import backend.Character;
 import controller.Controller;
+import backend.data.Character;
 import exceptions.SlogoError;
 import frontend.toobar.ToolbarComponent;
 import javafx.event.ActionEvent;
@@ -42,10 +42,12 @@ public class FrontendManager {
 	private Observer myVariablesObserver;
 	private Observer myCharactersObserver;
 	private Controller myController;
+	private int myWorkspaceId;
 	
-	public FrontendManager(Properties GUIProp, Properties myProp, Stage s, InterpreturInterface backend, Controller c){
+	public FrontendManager(Properties GUIProp, Properties myProp, Stage s, InterpreturInterface backend, Controller c, int id){
 //		myBackend = new BackendManager();
 		myController = c;
+		myWorkspaceId = id;
 		myRoot = new BorderPane();
 		myWindow = s;
 		myScene = new Scene(myRoot, Color.WHITE);
@@ -99,9 +101,9 @@ public class FrontendManager {
 	 * Set up the observers for the backend side of the components.
 	 */
 	public void initObserver(InterpreturInterface backend){
-		myCharactersObserver = new CharacterListObserver(backend.getCharacterList(), myController);
-		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(), myController);
-		myVariablesObserver = new VariableListObserver(backend.getVariablesList(), myController);
+		myCharactersObserver = new CharacterListObserver(backend.getCharacterList(Integer.toString(myWorkspaceId)), myController);
+		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(Integer.toString(myWorkspaceId)), myController);
+		myVariablesObserver = new VariableListObserver(backend.getVariablesList(Integer.toString(myWorkspaceId)), myController);
 	}
 	
 

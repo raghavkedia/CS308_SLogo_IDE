@@ -1,9 +1,10 @@
-package backend;
+package backend.parser;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import backend.data.Variable;
 import exceptions.SlogoError;
 
 public class VariableNode implements ExpressionNode {

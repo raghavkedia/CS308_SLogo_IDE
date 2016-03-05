@@ -1,11 +1,12 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 import java.util.Properties;
 
 import backend.*;
-import backend.Character;
+import backend.data.Character;
 import exceptions.SlogoError;
 import frontend.FrontendManager;
 import javafx.scene.paint.Color;
@@ -14,10 +15,18 @@ import javafx.stage.Stage;
 public class Controller {
 	private FrontendManager myFrontend;
 	private InterpreturInterface myBackend;
+	private ArrayList<FrontendManager> myFrontendList;
+	private ArrayList<InterpreturInterface> myBackendList;
+	private int myId;
 	
 	public Controller(Properties GUIProp, Properties myProp, Stage s){
+		myId = 0;
 		myBackend = new BackendManager();
-		myFrontend = new FrontendManager(GUIProp, myProp, s, myBackend, this);
+		myFrontend = new FrontendManager(GUIProp, myProp, s, myBackend, this, myId);
+		myFrontendList = new ArrayList<FrontendManager>();
+		myBackendList = new ArrayList<InterpreturInterface>();
+		myFrontendList.add(myFrontend);
+		myBackendList.add(myBackend);
 	}
 	
 	//FRONTEND METHODS
@@ -106,8 +115,10 @@ public class Controller {
     
     //BACKEND
     public void addNewChar(Character c){
-    	myBackend.getCharacterList().addCharacter(c);
+    	myBackend.getCharacterList(Integer.toString(myId)).addCharacter(c);
     }
+    
+//    public getPenColor(){ return myBackend.
     
     //GETTERS AND SETTERS
     public FrontendManager getFrontendManager() {return this.myFrontend; }

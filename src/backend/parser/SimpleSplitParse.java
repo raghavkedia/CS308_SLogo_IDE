@@ -1,4 +1,4 @@
-package backend;
+package backend.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import backend.data.CharactersList;
+import backend.data.UserDefinedCommands;
+import backend.data.VariablesList;
 import exceptions.SlogoError;
 
 public class SimpleSplitParse implements Parseable {

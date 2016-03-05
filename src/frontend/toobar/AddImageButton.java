@@ -1,7 +1,7 @@
 package frontend.toobar;
 
 import java.io.File;
-import backend.Character;
+import backend.data.Character;
 import controller.Controller;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;

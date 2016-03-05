@@ -1,4 +1,4 @@
-package backend;
+package backend.parser;
 
 import java.util.Collection;
 

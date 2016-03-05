@@ -1,4 +1,4 @@
-package backend;
+package backend.parser;
 
 public enum Command {
 	Forward, Back, Left, Right, SetHeading, SetTowards, SetPosition, PenDown, PenUp, ShowTurtle, HideTurtle, Home, ClearScreen,
