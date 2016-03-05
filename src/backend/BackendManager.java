@@ -61,6 +61,11 @@ public class BackendManager implements InterpreturInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public void addWorkSpace(String workSpaceID){
+		myWorkSpaces.put(workSpaceID, new Data());
+	}
+	
 	public FileGetter getFileGetter(String workSpaceID) {
 		// TODO Auto-generated method stub
 		return myFileHandler;
