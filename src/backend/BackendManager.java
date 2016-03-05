@@ -48,21 +48,24 @@ public class BackendManager implements InterpreturInterface{
 		
 	}
 	
-	public CharactersList getCharacterList(){
-		return myCharactersList;
+	public CharactersList getCharacterList(String workSpaceID){
+		return myWorkSpaces.get(workSpaceID).getCharacterList();
 	}
-	public VariablesList getVariablesList(){
-		return myVariablesList;
+	public VariablesList getVariablesList(String workSpaceID){
+		return myWorkSpaces.get(workSpaceID).getVariablesList();
 	}
-	public CommandHistory getCommandHistory(){
-		return myCommandHistory;
+	public CommandHistory getCommandHistory(String workSpaceID){
+		return myWorkSpaces.get(workSpaceID).getCommandHistory();
 	}
-
-	public FileGetter getFileGetter() {
+	public UserDefinedCommands getUserDefinedCommands(String workSpaceID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public FileGetter getFileGetter(String workSpaceID) {
 		// TODO Auto-generated method stub
 		return myFileHandler;
 	}
-	
+
 }
 
 
