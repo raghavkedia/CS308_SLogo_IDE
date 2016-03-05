@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import backend.data.CharactersList;
+import backend.data.Data;
 import backend.data.UserDefinedCommands;
 import backend.data.VariablesList;
 import exceptions.SlogoError;
@@ -32,10 +33,10 @@ public class SimpleSplitParse implements Parseable {
 	}
 
 	@Override
-	public String runInput(String input, CharactersList myCharactersList, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands, ResourceBundle myResources) throws SlogoError {
+	public String runInput(String input, Data myData, ResourceBundle myResources) throws SlogoError {
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
-		CommandFactory myFactory = new CommandFactory(myCharactersList, myVariablesList, myUserDefinedCommands);
-		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory, myVariablesList);
+		CommandFactory myFactory = new CommandFactory(myData.getCharacterList(), myData.getVariablesList(), myData.getUserDefinedCommands());
+		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory, myData.getVariablesList());
 		Collection<ExpressionNode> cleanedNodes = checkForBrackets(myNodes);
 		LogoExpressionTreeBuilder myTreeBuilder = new LogoExpressionTreeBuilder();
 		double result = myTreeBuilder.executeExpressions(cleanedNodes);
