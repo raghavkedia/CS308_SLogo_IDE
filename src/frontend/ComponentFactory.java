@@ -40,6 +40,10 @@ public class ComponentFactory {
 		return new VariablesPopupWindow(s, control);
 	}
 	
+	public static PenPropertiesPopupWindow makeNewPenPropertiesPopupWindow(Controller control){
+		return new PenPropertiesPopupWindow(control);
+	}
+	
 	public static ToolbarComponent makeNewToolbar(Properties GUIProp, Controller control){
 		return new ToolbarComponent(GUIProp, control);
 	}

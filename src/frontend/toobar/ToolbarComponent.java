@@ -30,6 +30,7 @@ public class ToolbarComponent extends VisualComponent{
 		myToolbar.getItems().add(new RunButton(myController));
 		myToolbar.getItems().add(new HelpButton(myController));
 		myToolbar.getItems().add(new ClearButton(myController));
+		myToolbar.getItems().add(new PenPropertiesButton(myController));
 		super.setVisual(myToolbar);
 	}
 }

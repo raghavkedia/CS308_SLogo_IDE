@@ -21,7 +21,5 @@ abstract class PopupWindow extends VisualComponent{
 		super.setColor(Color.GREY);
 	}
 	
-	abstract void initBox(String display);
-	
 	public VBox getMyBox(){ return this.myBox; }
 }
