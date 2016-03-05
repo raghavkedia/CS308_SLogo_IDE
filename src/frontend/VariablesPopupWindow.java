@@ -1,5 +1,6 @@
 package frontend;
 
+import controller.Controller;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -11,10 +12,12 @@ import javafx.scene.text.Text;
  */
 
 public class VariablesPopupWindow extends PopupWindow {
+	private Controller myController;
 	
-	public VariablesPopupWindow(String myDisplay){
+	public VariablesPopupWindow(String myDisplay, Controller control){
 		super();
 		initBox(myDisplay);
+		myController = control;
 	}
 	
 	/**
@@ -39,7 +42,7 @@ public class VariablesPopupWindow extends PopupWindow {
 				e->{
 					//TODO: Handle event here
 					String userText = userInput.getText();
-					FrontendManagerAPI.updateVariableValue(myVarInfo[0].substring(1), userText);
+					myController.updateVariableValue(myVarInfo[0].substring(1), userText);
 				}));
 	}
 	

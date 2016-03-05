@@ -3,6 +3,7 @@ package frontend.GUI;
 import java.io.IOException;
 import java.util.Properties;
 
+import controller.Controller;
 import frontend.FrontendManager;
 
 import javafx.event.EventHandler;
@@ -70,8 +71,9 @@ public class Init {
 			public void handle(ActionEvent event) {
 				try {
 					Properties prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
-					FrontendManager fm = new FrontendManager(myGUIProp, prop, myStage);
-					myStage.setScene(fm.getMyScene());
+//					FrontendManager fm = new FrontendManager(myGUIProp, prop, myStage);
+					Controller theControl = new Controller(myGUIProp, prop, myStage);
+					myStage.setScene(theControl.getFrontendManager().getMyScene());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

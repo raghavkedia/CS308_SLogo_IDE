@@ -1,5 +1,6 @@
 package frontend;
 
+import controller.Controller;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -7,11 +8,14 @@ import javafx.scene.input.MouseEvent;
 
 class History extends ListVisual{
 	private int historyPointer;
-	History(double width, double height){
+	private Controller myController;
+	
+	History(double width, double height, Controller c){
 		super(width, height);
 		this.myList.setItems(myData);
 		historyPointer = 0;
 		handleUI();
+		myController = c;
 	}
 
 	/**
@@ -40,12 +44,12 @@ class History extends ListVisual{
             }
             System.out.println(historyPointer);
             historyPointer = ((historyPointer % myData.size())+myData.size()) % myData.size();
-            FrontendManagerAPI.displayInConsole(myData.get(historyPointer));
+            myController.displayInConsole(myData.get(historyPointer));
         });
         this.myList.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-            	FrontendManagerAPI.displayInConsole(myList.getSelectionModel().getSelectedItem());
+            	myController.displayInConsole(myList.getSelectionModel().getSelectedItem());
                 historyPointer = myList.getSelectionModel().getSelectedIndex();              
             }
         });

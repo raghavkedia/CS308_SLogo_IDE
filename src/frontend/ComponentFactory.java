@@ -2,6 +2,7 @@ package frontend;
 
 import java.util.Properties;
 
+import controller.Controller;
 import frontend.GUI.WebHelp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,67 +23,67 @@ public class ComponentFactory {
 		return new Display(width, height);
 	}
 	
-	public static History makeNewHistory(double width, double height){
-		return new History(width, height);
+	public static History makeNewHistory(double width, double height, Controller control){
+		return new History(width, height, control);
 	}
 	
-	public static Console makeNewConsole(double width, double height){
-		return new Console(width, height);
+	public static Console makeNewConsole(double width, double height, Controller control){
+		return new Console(width, height, control);
 	}
 	
-	public static Variables makeNewVariables(double width, double height){
-		return new Variables(width, height);
+	public static Variables makeNewVariables(double width, double height, Controller control){
+		return new Variables(width, height, control);
 	}
 	
-	public static VariablesPopupWindow makeNewVariablesPopupWindow(String s){
-		return new VariablesPopupWindow(s);
+	public static VariablesPopupWindow makeNewVariablesPopupWindow(String s, Controller control){
+		return new VariablesPopupWindow(s, control);
 	}
 	
-	public static ToolbarComponent makeNewToolbar(Properties GUIProp){
-		return new ToolbarComponent(GUIProp);
+	public static ToolbarComponent makeNewToolbar(Properties GUIProp, Controller control){
+		return new ToolbarComponent(GUIProp, control);
 	}
 	
-	public static ColorPicker makeNewColorPicker(){
+	public static ColorPicker makeNewColorPicker(Controller control){
 		ColorPicker colorPicker = new ColorPicker();
 		colorPicker.setOnAction(
 			 e -> {
 				 Color c = colorPicker.getValue();
-				 FrontendManagerAPI.changeDisplayBackgroundColor(c);
+				 control.changeDisplayBackgroundColor(c);
 			 });
 		return colorPicker;
 	}
 	
-	public static ColorPicker makeNewColorPickerLine(){
+	public static ColorPicker makeNewColorPickerLine(Controller control){
 		ColorPicker colorPicker = new ColorPicker();
 		colorPicker.setOnAction(
 			 e -> {
 				 Color c = colorPicker.getValue();
-				 FrontendManagerAPI.changeLineColor(c);
+				 control.changeLineColor(c);
 			 });
 		return colorPicker;
 	}
 	
-	public static Button makeButton(String buttonLabel) {
+	public static Button makeButton(String buttonLabel, Controller c) {
 		Button b = new Button();
 		b.setText(buttonLabel);
 		switch(buttonLabel) {
 		case "CLEAR":
 			b.setOnAction(
 					 e -> {
-						 FrontendManagerAPI.clearConsole();
+						 c.clearConsole();
 					 });
 			break;
 		case "RUN":
 			b.setOnAction(
 					 e -> {
-						 FrontendManagerAPI.executeConsole();
+						 c.executeConsole();
 					 });
 			break;
 		case "HELP":
 			b.setOnAction(
 					e -> {
-						String url = FrontendManagerAPI.getGUIProperty("help_url");
-						String title = FrontendManagerAPI.getGUIProperty("help_title");
+						String url = c.getGUIProperty("help_url");
+						String title = c.getGUIProperty("help_title");
 						WebHelp webHelp = new WebHelp(url, title);
 						try {
 							webHelp.start(new Stage());

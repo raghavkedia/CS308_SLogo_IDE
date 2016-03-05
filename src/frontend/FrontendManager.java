@@ -2,6 +2,7 @@ package frontend;
 
 import backend.*;
 import backend.Character;
+import controller.Controller;
 import exceptions.SlogoError;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +26,7 @@ public class FrontendManager {
     private BorderPane myRoot;
     private Stage myWindow;
     private List<VisualComponent> myComponents;
-	private static InterpreturInterface myBackend;
+//	private static InterpreturInterface myBackend;
 	
 	private Display myDisplay;
 	private History myHistory;
@@ -39,48 +40,37 @@ public class FrontendManager {
 	private Observer myHistoryObserver;
 	private Observer myVariablesObserver;
 	private Observer myCharactersObserver;
+	private Controller myController;
 	
-	FrontendManagerAPI myAPI;
-	
-	public FrontendManager(Properties GUIProp, Properties myProp, Stage s){
-		myBackend = new BackendManager();
+	public FrontendManager(Properties GUIProp, Properties myProp, Stage s, InterpreturInterface backend, Controller c){
+//		myBackend = new BackendManager();
+		myController = c;
 		myRoot = new BorderPane();
 		myWindow = s;
 		myScene = new Scene(myRoot, Color.WHITE);
 		myComponents = new ArrayList<VisualComponent>();
-		myAPI = new FrontendManagerAPI(this);
 		myGUIProp = GUIProp;
 		myRoot.setPrefSize(1000, 700);
-		initObserver();
+		initObserver(backend);
 		initComponents();
-//		splitBottom();
-	}
-	
-	private void splitBottom() {
-//        SplitPane sp = new SplitPane();
-//        sp.setPrefSize(200, 200);
-//        final Button l = new Button("Left Button");
-//        final Button r = new Button("Right Button");
-//        sp.getItems().addAll(l, r);
-//        myRoot.setBottom(sp);
 	}
 	
 	public void initComponents(){
 		myDisplay = ComponentFactory.makeNewDisplay(500, 500);
 		myComponents.add(myDisplay);
 		
-		myConsole = ComponentFactory.makeNewConsole(1000, 150);
+		myConsole = ComponentFactory.makeNewConsole(1000, 150, myController);
 		myComponents.add(myConsole);
 
-		myHistory = ComponentFactory.makeNewHistory(250, 450);
+		myHistory = ComponentFactory.makeNewHistory(250, 450, myController);
 		myComponents.add(myHistory);
 		
-		myOutput = ComponentFactory.makeNewConsole(200, 200);
+		myOutput = ComponentFactory.makeNewConsole(200, 200, myController);
 		myComponents.add(myOutput);
 		
-		myVariables = ComponentFactory.makeNewVariables(250, 450);
+		myVariables = ComponentFactory.makeNewVariables(250, 450, myController);
 		myComponents.add(myVariables);
-		myToolbar = ComponentFactory.makeNewToolbar(myGUIProp);
+		myToolbar = ComponentFactory.makeNewToolbar(myGUIProp, myController);
 		myComponents.add(myToolbar);
 		
 		myPortraits = new ArrayList<Portrait>();
@@ -107,10 +97,10 @@ public class FrontendManager {
 	/**
 	 * Set up the observers for the backend side of the components.
 	 */
-	public void initObserver(){
-		myCharactersObserver = new CharacterListObserver(myBackend.getCharacterList());
-		myHistoryObserver = new HistoryListObserver(myBackend.getCommandHistory());
-		myVariablesObserver = new VariableListObserver(myBackend.getVariablesList());
+	public void initObserver(InterpreturInterface backend){
+		myCharactersObserver = new CharacterListObserver(backend.getCharacterList(), myController);
+		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(), myController);
+		myVariablesObserver = new VariableListObserver(backend.getVariablesList(), myController);
 	}
 	
 
@@ -122,49 +112,40 @@ public class FrontendManager {
         });
     }
     
+    //METHODS
+    
+    //HISTORY
+    
+    public void resetHistoryPointer(){
+    	myHistory.resetHistoryPointer();
+    }
+    
+    //OUTPUT
+    
+    public void showOutput(String s){
+    	myOutput.setText(s);
+    }
+    
+    public void displayInConsole(String s){
+    	myConsole.setText(s);
+    }
+    
     //CONSOLE
-    public void passConsoleInput(String s){
-    	String output = null;
-    	try {
-			output = myBackend.executeCommand(s);
-			myHistory.resetHistoryPointer();
-		} catch (SlogoError e) {
-			// TODO Auto-generated catch block
-			output = e.getMessage();
-			//e.printStackTrace();
-		}
-    	
-    	if (output != null){
-    		myOutput.setText(output);
-    	}
+    public void clearConsole(){
+    	myOutput.clear();
     }
     
-    public void displayInConsole(String input){
-    	myConsole.setText(input);
+    public void executeConsole(){
+    	myConsole.executeInput();
     }
-    
-	public void clearConsole() { myOutput.clear(); }
-	
-	public void executeConsole() {myConsole.executeInput();}
     
     //VARIABLES
     public void addToVariables(String s){
-    	 myVariables.addToVariables(s);
+    	myVariables.addToVariables(s);
     }
     
-    public void clearVariables(){
+    public void clearAllVars(){
     	myVariables.clearAll();
-    }
-    
-    public void updateVariableValue(String var, String value){
-		System.out.println("var= "+var);
-		System.out.println("value= "+value);
-    	try {
-			myBackend.executeCommand("make :"+var + " " + value);
-		} catch (SlogoError e) {
-			// TODO Auto-generated catch block
-			myOutput.setText(e.getMessage());
-		}
     }
     
     //HISTORY
@@ -176,16 +157,16 @@ public class FrontendManager {
     	myHistory.getMyData().add(s);
     }
     
-    // DISPLAY
+    //DISPLAY
     public void drawLine(double x1, double y1, double x2, double y2){
     	myDisplay.drawLine(x1, y1, x2, y2);
     }
-	
-    public void changeDisplayBackgroundColor(Color c){
+    
+    public void changeBackgroundColor(Color c){
     	myDisplay.setBackgroundColor(c);
     }
     
-    public void changeLineColor(Color c){
+    public void setLineColor(Color c){
     	myDisplay.setLineColor(c);
     }
     
@@ -194,14 +175,11 @@ public class FrontendManager {
     	myDisplay.addPortrait(p);
     	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle());
     }
-
-    public void clearCharactersFromFrontend(){
+    
+    public void clearCharacters(){
     	myDisplay.clearChars();
     }
     
-    public void addNewChar(Character c){
-    	myBackend.getCharacterList().addCharacter(c);
-    }
     
     //GETTERS AND SETTERS
 	public Scene getMyScene(){ return this.myScene;}
@@ -210,6 +188,4 @@ public class FrontendManager {
 	public String getGUIProperty(String s) {
 		return myGUIProp.getProperty(s);
 	}
-	
-	
 }

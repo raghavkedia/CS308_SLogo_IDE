@@ -3,6 +3,7 @@ package frontend;
 import java.util.Observable;
 import java.util.Observer;
 import backend.*;
+import controller.Controller;
 
 /**
  * Observes a CommandHistory from the backend package. 
@@ -12,10 +13,12 @@ import backend.*;
 
 public class HistoryListObserver implements Observer{
 	CommandHistory myHistory;
+	Controller myController;
 	
-	HistoryListObserver(CommandHistory subject){
+	HistoryListObserver(CommandHistory subject, Controller c){
 		this.myHistory = subject;
 		myHistory.addObserver(this);
+		this.myController = c;
 	}
 	
 	/**
@@ -24,9 +27,9 @@ public class HistoryListObserver implements Observer{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		FrontendManagerAPI.clearHistory();
+		myController.clearHistoryFrontend();
 		for (String s : myHistory.getPastCommands()){
-			FrontendManagerAPI.addToHistory(s);
+			myController.addToHistory(s);
 		}
 	}
 	

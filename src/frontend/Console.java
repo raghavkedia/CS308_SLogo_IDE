@@ -1,16 +1,19 @@
 package frontend;
 
+import controller.Controller;
 import javafx.scene.control.TextArea;
 
 
 class Console extends VisualComponent{
 
 	private TextArea commandArea;
+	private Controller myController;
 	
-	Console(double width, double height){
+	Console(double width, double height, Controller c){
 		commandArea = new TextArea();
 		commandArea.setPrefSize(width, height);
 		super.setVisual(commandArea);
+		this.myController = c;
 	}
 	
 
@@ -29,7 +32,7 @@ class Console extends VisualComponent{
     String executeInput() {
          String input =  commandArea.getText();
          commandArea.clear();
-         FrontendManagerAPI.passConsoleInput(input);
+         myController.passConsoleInput(input);
          return input;
     } 
     

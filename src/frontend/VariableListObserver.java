@@ -3,6 +3,7 @@ package frontend;
 import java.util.Observable;
 import java.util.Observer;
 import backend.*;
+import controller.Controller;
 
 /**
  * Observes a VariablesList from the backend package. 
@@ -11,10 +12,12 @@ import backend.*;
  */
 public class VariableListObserver implements Observer{
 	VariablesList myObservable;
+	Controller myController;
 	
-	VariableListObserver(VariablesList subject){
+	VariableListObserver(VariablesList subject, Controller c){
 		myObservable = subject;
 		subject.addObserver(this);
+		this.myController = c;
 	}
 
 	/**
@@ -23,10 +26,10 @@ public class VariableListObserver implements Observer{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		FrontendManagerAPI.clearVariables();
+		myController.clearVariablesFrontend();
 		for (String key : myObservable.getVariables().keySet()){
 			String displayMe = key+"="+myObservable.getVariables().get(key).getVariableValue();
-			FrontendManagerAPI.addToVariables(displayMe);
+			myController.addToVariables(displayMe);
 		}
 	}
 }

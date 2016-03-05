@@ -13,39 +13,42 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import backend.*;
 import backend.Character;
+import controller.Controller;
 
 public class ToolbarComponent extends VisualComponent{
 	private ToolBar myToolbar;
 	private Properties myGUIProp;
+	private Controller myController;
 	
-	public ToolbarComponent(Properties GUIprop) {
+	public ToolbarComponent(Properties GUIprop, Controller control) {
 		myGUIProp = GUIprop;
+		myController = control;
 		myToolbar = new ToolBar();
 		myToolbar.setOrientation(Orientation.HORIZONTAL);
 
-		myToolbar.getItems().add(ComponentFactory.makeNewColorPicker());
+		myToolbar.getItems().add(ComponentFactory.makeNewColorPicker(myController));
 		
 		myToolbar.getItems().add(ComponentFactory.makeButton("Add New Image", 
 				e ->{
 					FileChooser fc = new FileChooser();
 					fc.setTitle("Select an Image");
 					fc.getExtensionFilters().setAll(new ExtensionFilter("Image Files (.png)", "*.png"));
-					File imgFile = fc.showOpenDialog(FrontendManagerAPI.getMyWindow());
+					File imgFile = fc.showOpenDialog(myController.getMyWindow());
 					if (imgFile != null) {
 						Character c = new Character();
 						c.setName(Integer.toString(c.hashCode()));
 						c.setImage(new Image("file://"+imgFile.toString()));
-						FrontendManagerAPI.addNewChar(c);
+						myController.addNewChar(c);
 					}
 					
 				}));
 		
-		myToolbar.getItems().add(ComponentFactory.makeNewColorPickerLine());
+		myToolbar.getItems().add(ComponentFactory.makeNewColorPickerLine(myController));
 
 		super.setVisual(myToolbar);
 		
-		myToolbar.getItems().add(ComponentFactory.makeButton("RUN"));
-		myToolbar.getItems().add(ComponentFactory.makeButton("CLEAR"));
-		myToolbar.getItems().add(ComponentFactory.makeButton("HELP"));
+		myToolbar.getItems().add(ComponentFactory.makeButton("RUN", myController));
+		myToolbar.getItems().add(ComponentFactory.makeButton("CLEAR", myController));
+		myToolbar.getItems().add(ComponentFactory.makeButton("HELP", myController));
 	}
 }

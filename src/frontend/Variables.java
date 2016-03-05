@@ -1,5 +1,6 @@
 package frontend;
 
+import controller.Controller;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseButton;
@@ -8,10 +9,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Variables extends ListVisual implements IClickable{
+	Controller myController;
 	
-	public Variables(double width, double height){
+	public Variables(double width, double height, Controller control){
 		super(width, height);
 		this.myList.setItems(myData);
+		myController = control;
 		
 		initMouseHandler();
 	}
@@ -53,7 +56,7 @@ public class Variables extends ListVisual implements IClickable{
 	public void respondToClick() {
 		Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
-        PopupWindow popup = ComponentFactory.makeNewVariablesPopupWindow(myList.getSelectionModel().getSelectedItem());
+        PopupWindow popup = ComponentFactory.makeNewVariablesPopupWindow(myList.getSelectionModel().getSelectedItem(), myController);
         Scene dialogScene = new Scene(popup.getMyBox(), 300, 200);
         dialog.setScene(dialogScene);
         dialog.show();
