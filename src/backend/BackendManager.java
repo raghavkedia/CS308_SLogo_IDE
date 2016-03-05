@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import backend.data.CharactersList;
 import backend.data.CommandHistory;
 import backend.data.Data;
+import backend.data.Properties;
 import backend.data.UserDefinedCommands;
 import backend.data.VariablesList;
 import backend.parser.Parseable;
@@ -68,6 +69,10 @@ public class BackendManager implements InterpreturInterface{
 	public FileGetter getFileGetter(String workSpaceID) {
 		// TODO Auto-generated method stub
 		return myFileHandler;
+	}
+	
+	public Properties getProperties(String workSpaceID){
+		return myWorkSpaces.get(workSpaceID).getProperties();
 	}
 }
 

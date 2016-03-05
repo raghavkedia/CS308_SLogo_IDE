@@ -6,6 +6,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import backend.data.Data.PenPattern;
 
 public class PenPropertiesPopupWindow extends PopupWindow{
 	private Controller myController;
@@ -18,10 +19,10 @@ public class PenPropertiesPopupWindow extends PopupWindow{
 	
 	void initBox() {
 		Text penColorLabel = new Text("Change Pen Color");
-		ColorPicker changePenColor = new ColorPicker();
+		ColorPicker changePenColor = new ColorPicker(myController.getPenColor());
 		
 		Text penThicknessLabel = new Text("Change Pen Thickness");
-		TextField changePenThickness = new TextField(); //get current thickness
+		TextField changePenThickness = new TextField(""+myController.getLineThickness()); //get current thickness
 		
 		Text penPatternLabel = new Text("Change Pen Pattern");
 		ComboBox<String> changePenPattern = new ComboBox<String>();
@@ -33,11 +34,21 @@ public class PenPropertiesPopupWindow extends PopupWindow{
 						myController.changeLineColor(changePenColor.getValue());
 					}
 					if (changePenThickness.getText() != null){
-						//set pen thickness
+						myController.setLineThickness(Double.parseDouble(changePenThickness.getText()));
 					}
 					if (changePenPattern.getValue() != null){
 						switch(changePenPattern.getValue()){
-							
+							case "Solid":
+								myController.setPenPattern(PenPattern.SOLID);
+								break;
+							case "Dashed":
+								myController.setPenPattern(PenPattern.DASHED);
+								break;
+							case "Dotted":
+								myController.setPenPattern(PenPattern.DOTTED);
+								break;
+							default:
+								myController.setPenPattern(PenPattern.SOLID);	
 						}
 					}
 				});

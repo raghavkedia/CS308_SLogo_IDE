@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import backend.*;
 import backend.data.Character;
+import backend.data.Data.PenPattern;
 import exceptions.SlogoError;
 import frontend.FrontendManager;
 import javafx.scene.paint.Color;
@@ -118,8 +119,14 @@ public class Controller {
     	myBackend.getCharacterList(Integer.toString(myId)).addCharacter(c);
     }
     
-//    public getPenColor(){ return myBackend.
+    public void setPenPattern(PenPattern pattern){myBackend.getProperties(Integer.toString(myId)).setPenPattern(pattern);}
+    public void setPenColor(Color c){myBackend.getProperties(Integer.toString(myId)).setPenColor(c);}
+	public void setLineThickness(double newWidth) {myBackend.getProperties(Integer.toString(myId)).setPenWidth(newWidth);}
     
+	public Color getPenColor(){ return myBackend.getProperties(Integer.toString(myId)).getPenColor(); }
+	public double getLineThickness(){ return myBackend.getProperties(Integer.toString(myId)).getPenWidth();}
+	
     //GETTERS AND SETTERS
     public FrontendManager getFrontendManager() {return this.myFrontend; }
+
 }
