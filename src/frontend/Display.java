@@ -1,6 +1,7 @@
 package frontend;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -16,6 +17,8 @@ public class Display extends VisualComponent{
 	private ArrayList<Portrait> myPortraits;
 	private double myHeight;
 	private double myWidth;
+	private HashMap<String, Double> myPreviousX;
+	private HashMap<String, Double> myPreviousY;
 
 	public Display(double width, double height){
 		super.setColor(Color.WHITE);
@@ -29,6 +32,8 @@ public class Display extends VisualComponent{
 		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
 		super.setVisual(myPane);
 		this.myPortraits = new ArrayList<Portrait>();
+		myPreviousX = new HashMap<String, Double>();
+		myPreviousY = new HashMap<String, Double>();
 		myPane.applyCss();
 		myPane.layout();
 		
@@ -46,6 +51,8 @@ public class Display extends VisualComponent{
 		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
 		super.setVisual(myPane);
 		this.myPortraits = new ArrayList<Portrait>();
+		myPreviousX = new HashMap<String, Double>();
+		myPreviousY = new HashMap<String, Double>();
 		this.myPortraits.add(defaultPortrait);
 	}
 	
@@ -66,6 +73,7 @@ public class Display extends VisualComponent{
 	}
 	
 	public void clearChars(){
+		//TODO: REFACTOR
 		for (int i=0; i<myPane.getChildren().size(); i++){
 			Node n = myPane.getChildren().get(i);
 			for (Portrait p : myPortraits){
@@ -80,12 +88,29 @@ public class Display extends VisualComponent{
 	
 	public void addPortrait(Portrait p){
 		this.myPortraits.add(p);
+
 		this.addImage(p.getMyPortrait(), p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getAngle() );
+
+		String charName = p.getMyChar().getName();
+		if (p.getMyChar().getPenState() && myPreviousX.keySet().contains(charName)){
+			drawLine(myPreviousX.get(charName), myPreviousY.get(charName), p.getMyChar().getCoordX(), p.getMyChar().getCoordY());
+		}
+		myPreviousX.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordX());
+		myPreviousY.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordY());
+
 	}
 	
 	public void addPortrait(Portrait p, double x, double y, double angle){
 		this.myPortraits.add(p);
+
 		this.addImage(p.getMyPortrait(), x, y, angle);
+
+		String charName = p.getMyChar().getName();
+		if (p.getMyChar().getPenState() && myPreviousX.keySet().contains(charName)){
+			drawLine(myPreviousX.get(charName), myPreviousY.get(charName), p.getMyChar().getCoordX(), p.getMyChar().getCoordY());
+		}
+		myPreviousX.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordX());
+		myPreviousY.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordY());
 	}
 	
 	public void addImage(ImageView img, double x, double y, double angle){

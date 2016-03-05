@@ -22,11 +22,6 @@ public class ToolbarComponent extends VisualComponent{
 		myGUIProp = GUIprop;
 		myToolbar = new ToolBar();
 		myToolbar.setOrientation(Orientation.HORIZONTAL);
-		
-
-		
-		
-
 
 		myToolbar.getItems().add(ComponentFactory.makeNewColorPicker());
 		
@@ -38,7 +33,7 @@ public class ToolbarComponent extends VisualComponent{
 					File imgFile = fc.showOpenDialog(FrontendManagerAPI.getMyWindow());
 					if (imgFile != null) {
 						Character c = new Character();
-						c.setName("test");
+						c.setName(Integer.toString(c.hashCode()));
 						c.setImage(new Image("file://"+imgFile.toString()));
 						FrontendManagerAPI.addNewChar(c);
 					}
