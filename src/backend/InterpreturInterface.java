@@ -9,7 +9,7 @@ import exceptions.SlogoError;
 
 public interface InterpreturInterface {
 	
-	public String executeCommand(String input) throws SlogoError;
+	public String executeCommand(String input, int workspaceID) throws SlogoError;
 	
 	public CharactersList getCharacterList(String workSpaceID);
 	public VariablesList getVariablesList(String workSpaceID);

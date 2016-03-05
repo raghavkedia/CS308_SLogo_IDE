@@ -36,16 +36,18 @@ public class BackendManager implements InterpreturInterface{
 		myCharactersList = new CharactersList();
 		myUserDefinedCommands = new UserDefinedCommands();
 		myWorkSpaces = new HashMap<Integer, Data>();
+		
+		//initial workspace
 		myWorkSpaces.put(0, new Data());
 	}
 	
-	public String executeCommand(String input) throws SlogoError{
+	public String executeCommand(String input, int workspaceID) throws SlogoError{
 		
-		myCommandHistory.addCommand(input);
+		myWorkSpaces.get(workspaceID).getCommandHistory().addCommand(input);
 		
 		String output = "error";
 		
-		output = myParser.runInput(input, myCharactersList, myVariablesList, myUserDefinedCommands, myResources);
+		output = myParser.runInput(input, myWorkSpaces.get(workspaceID), myResources);
 		return output;
 		
 	}
