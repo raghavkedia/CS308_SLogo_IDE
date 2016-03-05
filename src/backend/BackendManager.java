@@ -60,10 +60,9 @@ public class BackendManager implements InterpreturInterface{
 	public UserDefinedCommands getUserDefinedCommands(String workSpaceID) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-	
-	public void addWorkSpace(String workSpaceID){
-		myWorkSpaces.put(workSpaceID, new Data());
+	}	
+	public void addWorkSpace(String newID){
+		myWorkSpaces.put(newID, new Data());
 	}
 	
 	public FileGetter getFileGetter(String workSpaceID) {
