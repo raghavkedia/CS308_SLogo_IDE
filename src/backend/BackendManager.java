@@ -26,7 +26,7 @@ public class BackendManager implements InterpreturInterface{
     private FileHandler myFileHandler;
     
     //for multiple workspaces, just a concept
-    private Map<String, Data> myWorkSpaces;
+    private Map<Integer, Data> myWorkSpaces;
     
 	
 	public BackendManager() {
@@ -35,7 +35,8 @@ public class BackendManager implements InterpreturInterface{
 		myVariablesList = new VariablesList();
 		myCharactersList = new CharactersList();
 		myUserDefinedCommands = new UserDefinedCommands();
-		myWorkSpaces = new HashMap<String, Data>();
+		myWorkSpaces = new HashMap<Integer, Data>();
+		myWorkSpaces.put(0, new Data());
 	}
 	
 	public String executeCommand(String input) throws SlogoError{
@@ -62,7 +63,7 @@ public class BackendManager implements InterpreturInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}	
-	public void addWorkSpace(String newID){
+	public void addWorkSpace(Integer newID){
 		myWorkSpaces.put(newID, new Data());
 	}
 	
