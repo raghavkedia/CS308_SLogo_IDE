@@ -30,6 +30,7 @@ class Console extends VisualComponent{
          String input =  commandArea.getText();
          commandArea.clear();
          FrontendManagerAPI.passConsoleInput(input);
+         System.out.println("current Input: " + input);
          return input;
     } 
     

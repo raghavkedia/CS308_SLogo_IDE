@@ -43,15 +43,6 @@ public class ComponentFactory {
 		return new ToolbarComponent(GUIProp);
 	}
 
-	
-	public static ColorPicker makeNewColorPickerLine(){
-		ColorPicker colorPicker = new ColorPicker();
-		colorPicker.setOnAction(
-			 e -> {
-				 Color c = colorPicker.getValue();
-				 FrontendManagerAPI.changeLineColor(c);
-			 });
-		return colorPicker;
-	}
+
 	
 }
