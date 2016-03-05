@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import backend.data.CharactersList;
 import backend.data.CommandHistory;
 import backend.data.Data;
+import backend.data.Properties;
 import backend.data.UserDefinedCommands;
 import backend.data.VariablesList;
 import backend.parser.Parseable;
@@ -25,7 +26,7 @@ public class BackendManager implements InterpreturInterface{
     private FileHandler myFileHandler;
     
     //for multiple workspaces, just a concept
-    private Map<String, Data> myWorkSpaces;
+    private Map<Integer, Data> myWorkSpaces;
     
 	
 	public BackendManager() {
@@ -34,7 +35,8 @@ public class BackendManager implements InterpreturInterface{
 		myVariablesList = new VariablesList();
 		myCharactersList = new CharactersList();
 		myUserDefinedCommands = new UserDefinedCommands();
-		myWorkSpaces = new HashMap<String, Data>();
+		myWorkSpaces = new HashMap<Integer, Data>();
+		myWorkSpaces.put(0, new Data());
 	}
 	
 	public String executeCommand(String input) throws SlogoError{
@@ -48,21 +50,32 @@ public class BackendManager implements InterpreturInterface{
 		
 	}
 	
-	public CharactersList getCharacterList(){
-		return myCharactersList;
+	public CharactersList getCharacterList(String workSpaceID){
+		return myWorkSpaces.get(workSpaceID).getCharacterList();
 	}
-	public VariablesList getVariablesList(){
-		return myVariablesList;
+	public VariablesList getVariablesList(String workSpaceID){
+		return myWorkSpaces.get(workSpaceID).getVariablesList();
 	}
-	public CommandHistory getCommandHistory(){
-		return myCommandHistory;
+	public CommandHistory getCommandHistory(String workSpaceID){
+		return myWorkSpaces.get(workSpaceID).getCommandHistory();
 	}
-
-	public FileGetter getFileGetter() {
+	public UserDefinedCommands getUserDefinedCommands(String workSpaceID) {
+		// TODO Auto-generated method stub
+		return null;
+	}	
+	public void addWorkSpace(Integer newID){
+		myWorkSpaces.put(newID, new Data());
+	}
+	
+	public FileGetter getFileGetter(String workSpaceID) {
 		// TODO Auto-generated method stub
 		return myFileHandler;
 	}
 	
+	public Properties getProperties(String workSpaceID){
+		return myWorkSpaces.get(workSpaceID).getProperties();
+	}
+
 }
 
 
