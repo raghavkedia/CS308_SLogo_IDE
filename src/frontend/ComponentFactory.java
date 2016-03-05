@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import controller.Controller;
 import frontend.GUI.WebHelp;
+import frontend.toobar.ToolbarComponent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -42,7 +43,7 @@ public class ComponentFactory {
 	public static ToolbarComponent makeNewToolbar(Properties GUIProp, Controller control){
 		return new ToolbarComponent(GUIProp, control);
 	}
-	
+
 	public static ColorPicker makeNewColorPicker(Controller control){
 		ColorPicker colorPicker = new ColorPicker();
 		colorPicker.setOnAction(

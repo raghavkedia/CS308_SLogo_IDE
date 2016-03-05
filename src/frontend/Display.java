@@ -88,18 +88,25 @@ public class Display extends VisualComponent{
 	
 	public void addPortrait(Portrait p){
 		this.myPortraits.add(p);
+
+
 		this.addImage(p.getMyPortrait(), p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getAngle() );
+
 		String charName = p.getMyChar().getName();
 		if (p.getMyChar().getPenState() && myPreviousX.keySet().contains(charName)){
 			drawLine(myPreviousX.get(charName), myPreviousY.get(charName), p.getMyChar().getCoordX(), p.getMyChar().getCoordY());
 		}
 		myPreviousX.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordX());
 		myPreviousY.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordY());
+
 	}
 	
 	public void addPortrait(Portrait p, double x, double y, double angle){
 		this.myPortraits.add(p);
+
+
 		this.addImage(p.getMyPortrait(), x, y, angle);
+
 		String charName = p.getMyChar().getName();
 		if (p.getMyChar().getPenState() && myPreviousX.keySet().contains(charName)){
 			drawLine(myPreviousX.get(charName), myPreviousY.get(charName), p.getMyChar().getCoordX(), p.getMyChar().getCoordY());

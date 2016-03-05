@@ -4,6 +4,7 @@ import backend.*;
 import backend.Character;
 import controller.Controller;
 import exceptions.SlogoError;
+import frontend.toobar.ToolbarComponent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.*;
