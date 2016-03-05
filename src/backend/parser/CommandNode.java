@@ -8,7 +8,7 @@ import exceptions.SlogoError;
 
 public class CommandNode implements ExpressionNode {
 	private Command type;
-	private Collection<ExpressionNode> myChildren;
+	private List<ExpressionNode> myChildren;
 	private CommandFactory myFactory;
 	
 	public CommandNode(Command type, CommandFactory myFactory) {
@@ -19,12 +19,12 @@ public class CommandNode implements ExpressionNode {
 
 	@Override
 	public double execute() throws SlogoError {
-		List<Double> executed = new ArrayList<Double>();
-		for (ExpressionNode n : myChildren) {
-			double r = n.execute();
-			executed.add(r);
-		}
-		double result = myFactory.generateResult(type, executed);
+//		List<Double> executed = new ArrayList<Double>();
+//		for (ExpressionNode n : myChildren) {
+//			double r = n.execute();
+//			executed.add(r);
+//		}
+		double result = myFactory.generateResult(type, myChildren);
 		return result;
 	}
 
