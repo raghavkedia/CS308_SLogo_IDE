@@ -12,7 +12,7 @@ import javafx.scene.shape.Line;
 
 public class Character extends Observable implements Getable, Setable{
 	
-	private int myCoordX, myCoordY;
+	private double myCoordX, myCoordY;
 	private double myAngle;
 	private String myName;
 	private Image myImage;
@@ -27,7 +27,7 @@ public class Character extends Observable implements Getable, Setable{
 		penDown = true;
 	}
 	
-	public void setCurrCoord(int x, int y) {
+	public void setCurrCoord(double x, double y) {
 		// TODO Auto-generated method stub
 		myCoordX = x;
 		myCoordY = y;
@@ -63,12 +63,12 @@ public class Character extends Observable implements Getable, Setable{
 		myLinesList.add(line);
 	}
 
-	public int getCoordX() {
+	public double getCoordX() {
 		// TODO Auto-generated method stub
 		return myCoordX;
 	}
 
-	public int getCoordY() {
+	public double getCoordY() {
 		// TODO Auto-generated method stub
 		return myCoordY;
 	}
