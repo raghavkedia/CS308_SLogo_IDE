@@ -267,11 +267,12 @@ public class CommandFactory {
 			case MakeVariable:
 				Variable myVariable = myVariablesList.getVariable(myChildren.get(0).getMyName()) != null ? 
 						myVariablesList.getVariable(myChildren.get(0).getMyName()) : new Variable(myChildren.get(0).getMyName(), null);
-				myVariable.setVariableValue(String.valueOf(myChildren.get(0).execute()));
+				result = myChildren.get(1).execute();
+				myVariable.setVariableValue(String.valueOf(result));
 				myVariablesList.addVariable(myVariable);
 				myVariablesList.hasUpdated();
 				//make a contains 
-				break;
+				return result;
 			case Minus:
 				return -1 * myChildren.get(0).execute();
 			case NaturalLog:

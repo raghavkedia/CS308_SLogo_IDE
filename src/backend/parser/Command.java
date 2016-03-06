@@ -87,7 +87,7 @@ public enum Command {
 			case Not:
 				return 0;
 			case MakeVariable:
-				return 1;
+				return 2;
 			case Repeat:
 				return 1;
 			case DoTimes: 
@@ -101,7 +101,7 @@ public enum Command {
 			case MakeUserInstruction:
 				return 3;
 			case Variable:
-				return 1;
+				return 0;
 			case Constant:
 				return 0;
 			case ListStart:
