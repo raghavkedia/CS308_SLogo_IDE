@@ -21,7 +21,7 @@ public class CommandNode implements ExpressionNode {
 
 	@Override
 	public double execute() throws SlogoError {
-		double result = myFactory.generateResult(type, myName, myChildren);
+		double result = myFactory.generateResult(type, myName, myChildren, null);
 		return result;
 	}
 
