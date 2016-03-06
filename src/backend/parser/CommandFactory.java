@@ -28,7 +28,7 @@ public class CommandFactory {
 	public CommandFactory(CharactersList myCharacters, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands) {
 		this.myCharacters = myCharacters;
 		this.myVariablesList = myVariablesList;
-		
+		this.myUserDefinedCommands = myUserDefinedCommands;
 		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
 	}
 	
@@ -202,7 +202,7 @@ public class CommandFactory {
 		return executed;
 	}
 	
-	public double generateResult(Command type, String myName, List<ExpressionNode> myChildren) throws SlogoError {
+	public double generateResult(Command type, String myName, List<ExpressionNode> myChildren, List<ExpressionNode> parameters) throws SlogoError {
 		double result = 0;
 		switch(type) {
 			case And:
@@ -265,11 +265,17 @@ public class CommandFactory {
 				 //maybe check?
 				ExpressionNode myUserCommand = myChildren.get(0);
 				if (myUserCommand instanceof UserCommandNode) {
-					for (ExpressionNode n : myChildren.get(1).getMyChildren()) {
-						((UserCommandNode) myUserCommand).addParameter(n);
+					for (int k = 0; k < myChildren.get(1).getMyChildren().size() -1 ; k++) {
+						if (myChildren.get(1).getMyChildren().get(k).getMyCommandType() == Command.Variable) {
+							((UserCommandNode) myUserCommand).addParameter(myChildren.get(1).getMyChildren().get(k));
+						}
+						else {
+							return 0;
+						}
 					}
 					((UserCommandNode) myUserCommand).setMyTree(myChildren.get(2));
 				}
+				myUserDefinedCommands.addUserDefinedCommand(myUserCommand.getMyName(), myUserCommand);
 				return 1;
 			case MakeVariable:
 				Variable myVariable = myVariablesList.getVariable(myChildren.get(0).getMyName()) != null ? 
@@ -349,7 +355,13 @@ public class CommandFactory {
 			case Turtles:
 				break;
 			case UserCommand:
-				break;
+				if(parameters.size() == myChildren.size()) {
+					for (int k = 0; k < myChildren.size(); k++) {
+						 myVariablesList.addVariable(new 
+								 Variable(parameters.get(k).getMyName(), String.valueOf(myChildren.get(k).execute())));
+					}
+					return 0;
+				}
 			default:
 				break;
 			
