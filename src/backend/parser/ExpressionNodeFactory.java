@@ -28,7 +28,7 @@ public class ExpressionNodeFactory {
 			} else if (myCommand == Command.MakeVariable) {
 				return new MakeVariableNode(myCommand);
 			}
-			return new CommandNode(myCommand, myFactory);
+			return new CommandNode(myCommand, myName, myFactory);
 		} 
 		else if (myNode == NodeType.Variable) {
 			Variable myVariable = myVariablesList.getVariable(myName);

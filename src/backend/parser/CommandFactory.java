@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import backend.data.Character;
 import backend.data.CharactersList;
 import backend.data.UserDefinedCommands;
+import backend.data.Variable;
 import backend.data.VariablesList;
 import exceptions.InvalidParameterError;
 import exceptions.InvalidParametersError;
@@ -200,7 +201,8 @@ public class CommandFactory {
 		return executed;
 	}
 	
-	public double generateResult(Command type, List<ExpressionNode> myChildren) throws SlogoError {
+	public double generateResult(Command type, String myName, List<ExpressionNode> myChildren) throws SlogoError {
+		double result = 0;
 		switch(type) {
 			case And:
 				return executeMath(Product, convertAllNodesToDoubles(myChildren)) != 0 ? 1 : 0;
@@ -217,11 +219,23 @@ public class CommandFactory {
 			case Difference:
 				return executeMath(Difference, convertAllNodesToDoubles(myChildren));
 			case DoTimes:
-				break;
+				double limit = myChildren.get(0).getMyChildren().get(1).execute();
+				result = 0;
+				for (double k = 1; k <= limit; k++) {
+					result = executeListOfCommands(myChildren, k);
+				}
+				return result;
 			case Equal:
 				return executeMath(Equal, convertAllNodesToDoubles(myChildren));
-			case For:
-				break;
+			case For:		
+				double start = myChildren.get(0).getMyChildren().get(1).execute();
+				double end = myChildren.get(0).getMyChildren().get(2).execute();
+				double increment = myChildren.get(0).getMyChildren().get(3).execute();
+				result = 0;
+				for (double k = start; k <= end; k += increment) {
+					result = executeListOfCommands(myChildren, k);
+				}
+				return result;
 			case Forward:
 				return executeForCharacters(Forward, convertAllNodesToDoubles(myChildren));
 			case GreaterThan:
@@ -249,6 +263,11 @@ public class CommandFactory {
 			case MakeUserInstruction:
 				break;
 			case MakeVariable:
+				Variable myVariable = myVariablesList.getVariable(myChildren.get(0).getMyName()) != null ? 
+						myVariablesList.getVariable(myChildren.get(0).getMyName()) : new Variable(myChildren.get(0).getMyName(), null);
+				myVariable.setVariableValue(String.valueOf(myChildren.get(0).execute()));
+				myVariablesList.addVariable(myVariable);
+				//make a contains 
 				break;
 			case Minus:
 				return -1 * myChildren.get(0).execute();
@@ -278,7 +297,7 @@ public class CommandFactory {
 				return executeMath(Remainder, convertAllNodesToDoubles(myChildren));
 			case Repeat:
 				double times = myChildren.get(0).execute();
-				double result = 0;
+				result = 0;
 				int repeatTimes = (int) Math.floor(times);
 				for (int k = 0; k < repeatTimes; k++) {
 					result = myChildren.get(1).execute();
@@ -301,7 +320,7 @@ public class CommandFactory {
 			case Tangent:
 				return Math.tan(MathUtil.convertDegrees(myChildren.get(0).execute()));
 			case Variable:
-				break;
+				return Double.valueOf(myVariablesList.getVariable(myName).getVariableValue());
 			case XCoordinate:
 				return executeForCharacters(XCoordinate, convertAllNodesToDoubles(myChildren));
 			case YCoordinate:
@@ -311,6 +330,16 @@ public class CommandFactory {
 		
 		}
 		return 0;
+	}
+
+	private double executeListOfCommands(List<ExpressionNode> myChildren, double k) throws SlogoError {
+		retreiveOrMakeVariable(myChildren.get(0).getMyChildren().get(0).getMyName()).setVariableValue(String.valueOf(k));
+		return myChildren.get(1).execute();
+	}
+
+	private Variable retreiveOrMakeVariable(String variableName) {
+		Variable myVariable = myVariablesList.getVariable(variableName) != null ? myVariablesList.getVariable(variableName) : new Variable(variableName, null);
+		return myVariable;
 	}
 
 	public double generateResults(Command type, List<Double> myResults) throws SlogoError{
