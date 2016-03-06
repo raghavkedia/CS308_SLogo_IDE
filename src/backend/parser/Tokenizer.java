@@ -51,13 +51,17 @@ public class Tokenizer {
 				}
 			}
 			if (myCommand == null) {
-				if (previousToken.getMyCommand() == Command.MakeUserInstruction) {
+				if (previousToken != null && previousToken.getMyCommand() == Command.MakeUserInstruction) {
 					previousToken = new Token(NodeType.Command, Command.UserCommand, s, 0);
 					return previousToken;
 				}
 				else {
-					throw new InvalidCommandError(myErrorResources.getString("InvalidCommand"));					
+					previousToken = new Token(NodeType.UserCommand, Command.UserCommand, s, 0);
+					return previousToken;
 				}
+//				else {
+//					throw new InvalidCommandError(myErrorResources.getString("InvalidCommand"));					
+//				}
 				//check user commands
 				//throw exception
 			}
