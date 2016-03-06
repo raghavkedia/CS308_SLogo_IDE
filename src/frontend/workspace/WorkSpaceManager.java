@@ -4,9 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+
+import com.sun.prism.paint.Color;
+
 import backend.InterpreturInterface;
 import controller.Controller;
 import frontend.FrontendManager;
+import frontend.toobar.ToolbarComponent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -33,10 +38,13 @@ public class WorkSpaceManager implements IWorkSpace{
 	public void createWorkSpace() {
 		Tab tab = new Tab();
 		tab.setText("workspace " + myFrontendManagers.size());
-		FrontendManager frontendManager = new FrontendManager(myGUIProp, myLangProp, myBackend, myController);
-//		myFrontendManagers.put(frontendManager.getId(), frontendManager);
+//		FrontendManager frontendManager = new FrontendManager(myGUIProp, myLangProp, myBackend, myController);
+////		myFrontendManagers.put(frontendManager.getId(), frontendManager);
+//		
+//		tab.setContent(frontendManager.getMyBorderPane());
+		ToolbarComponent tb = new ToolbarComponent(null, myController);
+		tab.setContent(tb.getVisual());
 		
-		tab.setContent(frontendManager.getMyBorderPane());
 		tabPane.getTabs().add(tab);
 	}
 	
