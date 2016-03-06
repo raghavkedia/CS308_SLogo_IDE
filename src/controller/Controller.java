@@ -19,7 +19,7 @@ public class Controller {
 	private FrontendManager myFrontend;
 	private InterpreturInterface myBackend;
 
-	private ArrayList<FrontendManager> myFrontendList;
+	private List<FrontendManager> myFrontendList;
 //	private ArrayList<InterpreturInterface> myBackendList;
 	private int myId;
 
@@ -32,11 +32,8 @@ public class Controller {
 
 		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this, myId);
 		myFrontendList = new ArrayList<FrontendManager>();
-//		myBackendList = new ArrayList<InterpreturInterface>();
 		myFrontendList.add(myFrontend);
-//		myBackendList.add(myBackend);
 
-//		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this);
 		myStage = s;
 		myWSManager = new WorkSpaceManager(GUIProp, myProp, myBackend, this);
 
@@ -44,9 +41,12 @@ public class Controller {
 	
 	
 	//-----------------DEVELOPTING TOOL----------------
-	public FrontendManager getNewFrontend(Properties GUIProp, Properties myProp) {
-		return new FrontendManager(GUIProp, myProp, myBackend, this, myId);
+	public FrontendManager makeNewFrontend(Properties GUIProp, Properties myProp) {
+		FrontendManager newFrontendManager =  new FrontendManager(GUIProp, myProp, myBackend, this, myId);
+		myFrontendList.add(newFrontendManager);
+		return newFrontendManager;
 	}
+	
 	//FRONTEND METHODS
 	
 	//WORKSPACE

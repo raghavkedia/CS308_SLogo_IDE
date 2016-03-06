@@ -23,6 +23,7 @@ public class WorkSpaceManager implements IWorkSpace{
 	private Properties myLangProp;
 	private InterpreturInterface myBackend;
 	private Map<Double, FrontendManager> myFrontendManagers;
+	private int numOfWorkSpace;
 	
 	public WorkSpaceManager(Properties GUIProp, Properties LangProp, InterpreturInterface backend, Controller c) {
 		tabPane = new TabPane();
@@ -31,17 +32,24 @@ public class WorkSpaceManager implements IWorkSpace{
 		myGUIProp = GUIProp;
 		myLangProp = LangProp;
 		myBackend = backend;
+		
+		numOfWorkSpace = 0;
 		createWorkSpace();
+		createWorkSpace();
+		createWorkSpace();
+		
+		
 	}
 	
 	@Override
 	public void createWorkSpace() {
+		numOfWorkSpace ++;
 		Tab tab = new Tab();
-		tab.setText("workspace " + myFrontendManagers.size());
+		tab.setText("workspace " + numOfWorkSpace);
 		FrontendManager frontendManager = myController.getFrontendManager();
 		myFrontendManagers.put((double) frontendManager.getId(), frontendManager);
-
-		tab.setContent(frontendManager.getMyBorderPane());
+		tab.setContent(new Button( " " + numOfWorkSpace));
+//		tab.setContent(frontendManager.getMyBorderPane());
 //		ToolbarComponent tb = new ToolbarComponent(null, myController);
 //		tab.setContent(tb.getVisual());
 		
