@@ -4,26 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
+import backend.parser.ExpressionNode;
+
 public class UserDefinedCommands extends Observable{
 
-	private Map<String, String> myUserDefinedCommands;
+	private Map<String, ExpressionNode> myUserDefinedCommands;
 	
 	public UserDefinedCommands() {
 		// TODO Auto-generated constructor stub
-		myUserDefinedCommands = new HashMap<String, String>();
+		myUserDefinedCommands = new HashMap<String, ExpressionNode>();
 	}
 	
-	public Map<String, String> getUserDefinedCommands(){
+	public Map<String, ExpressionNode> getUserDefinedCommands(){
 		return myUserDefinedCommands;
 	}
 	
-	public void addUserDefinedCommand(String id, String command){
+	public void addUserDefinedCommand(String id, ExpressionNode command){
 		myUserDefinedCommands.put(id, command);
 		setChanged();
 		notifyObservers(this);
 	}
 	
-	public String getCommand(String id){
+	public ExpressionNode getCommand(String id){
 		return myUserDefinedCommands.get(id);
 	}
 
