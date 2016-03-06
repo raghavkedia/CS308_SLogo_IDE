@@ -268,6 +268,7 @@ public class CommandFactory {
 						myVariablesList.getVariable(myChildren.get(0).getMyName()) : new Variable(myChildren.get(0).getMyName(), null);
 				myVariable.setVariableValue(String.valueOf(myChildren.get(0).execute()));
 				myVariablesList.addVariable(myVariable);
+				myVariablesList.hasUpdated();
 				//make a contains 
 				break;
 			case Minus:
