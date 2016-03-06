@@ -195,6 +195,7 @@ public class FrontendManager {
     //GETTERS AND SETTERS
 	public Scene getMyScene(){ return this.myScene;}
 	public BorderPane getMyBorderPane() {return this.myRoot;}
+	public int getId(){ return this.myWorkspaceId; }
 	
 	public String getGUIProperty(String s) {
 		return myGUIProp.getProperty(s);
