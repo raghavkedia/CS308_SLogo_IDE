@@ -50,12 +50,6 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 		}
 		for (ExpressionNode node : toExecute) {
 			result = node.execute();
-//			try {
-//				result = node.execute();
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				throw new Exception(e.getMessage());
-//			}
 		}
 		return result;
 	}

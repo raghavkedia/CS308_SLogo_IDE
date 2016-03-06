@@ -1,5 +1,7 @@
 package backend.parser;
 
+import java.util.List;
+
 import backend.parser.ExpressionNode;
 
 public class ConstantNode implements ExpressionNode{
@@ -11,6 +13,7 @@ public class ConstantNode implements ExpressionNode{
 
 	@Override
 	public double execute() {
+		System.out.println(getMyName());
 		return value;
 	}
 
@@ -27,6 +30,16 @@ public class ConstantNode implements ExpressionNode{
 	@Override
 	public void addChild(ExpressionNode n) {
 		//throw exception
+	}
+
+	@Override
+	public String getMyName() {
+		return String.valueOf(value);
+	}
+
+	@Override
+	public List<ExpressionNode> getMyChildren() {
+		return null;
 	}
 
 }
