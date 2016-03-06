@@ -52,20 +52,20 @@ public class BackendManager implements InterpreturInterface{
 		
 	}
 	
-	public CharactersList getCharacterList(String workSpaceID){
+	public CharactersList getCharacterList(int workSpaceID){
 		return myWorkSpaces.get(workSpaceID).getCharacterList();
 	}
-	public VariablesList getVariablesList(String workSpaceID){
+	public VariablesList getVariablesList(int workSpaceID){
 		return myWorkSpaces.get(workSpaceID).getVariablesList();
 	}
-	public CommandHistory getCommandHistory(String workSpaceID){
+	public CommandHistory getCommandHistory(int workSpaceID){
 		return myWorkSpaces.get(workSpaceID).getCommandHistory();
 	}
-	public UserDefinedCommands getUserDefinedCommands(String workSpaceID) {
+	public UserDefinedCommands getUserDefinedCommands(int workSpaceID) {
 		// TODO Auto-generated method stub
-		return null;
+		return myWorkSpaces.get(workSpaceID).getUserDefinedCommands();
 	}	
-	public void addWorkSpace(Integer newID){
+	public void addWorkSpace(int newID){
 		myWorkSpaces.put(newID, new Data());
 	}
 	
@@ -74,7 +74,7 @@ public class BackendManager implements InterpreturInterface{
 		return myFileHandler;
 	}
 	
-	public Properties getProperties(String workSpaceID){
+	public Properties getProperties(int workSpaceID){
 		return myWorkSpaces.get(workSpaceID).getProperties();
 	}
 
