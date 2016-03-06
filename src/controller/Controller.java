@@ -20,12 +20,12 @@ public class Controller {
 		myBackend = new BackendManager();
 		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this);
 		myStage = s;
-//		myWSManager = new WorkSpaceManager(GUIProp, myProp, myBackend, s, this);
+//		myWSManager = new WorkSpaceManager(GUIProp, myProp, myBackend, this);
 	}
 	
 	
 	//-----------------DEVELOPTING TOOL----------------
-	public FrontendManager getNewFrontend(Properties GUIProp, Properties myProp, Stage s) {
+	public FrontendManager getNewFrontend(Properties GUIProp, Properties myProp) {
 		return new FrontendManager(GUIProp, myProp, myBackend, this);
 	}
 	//FRONTEND METHODS

@@ -15,18 +15,15 @@ public class WorkSpaceManager implements IWorkSpace{
 	private Controller myController;
 	private Properties myGUIProp;
 	private Properties myLangProp;
-	private Stage myStage;
 	private InterpreturInterface myBackend;
 	
-	public WorkSpaceManager(Properties GUIProp, Properties LangProp, InterpreturInterface backend, Stage stage, Controller c) {
+	public WorkSpaceManager(Properties GUIProp, Properties LangProp, InterpreturInterface backend, Controller c) {
 		tabPane = new TabPane();
 		createWorkSpace();
 		myController = c;
 		myGUIProp = GUIProp;
 		myLangProp = LangProp;
 		myBackend = backend;
-		myStage = stage;
-		
 	}
 	
 	@Override

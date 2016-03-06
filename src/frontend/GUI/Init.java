@@ -77,6 +77,8 @@ public class Init {
 					myScene = theControl.getFrontendManager().getMyScene();
 					
 					myStage.setScene(myScene);
+					myStage.centerOnScreen();
+					myStage.setResizable(false);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
