@@ -1,21 +1,19 @@
-package resources.languages;
+package backend.parser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import backend.data.Variable;
-import backend.parser.Command;
-import backend.parser.ExpressionNode;
 import exceptions.SlogoError;
 
 public class UserCommandNode implements ExpressionNode {
-	private List<Variable> myParameters;
+	private List<ExpressionNode> myParameters;
 	private ExpressionNode myTree;
 	List<ExpressionNode> myChildren;
 	String myName;
 	
 	public UserCommandNode(String myName) {
-		myParameters = new ArrayList<Variable>();
+		myParameters = new ArrayList<ExpressionNode>();
 		myChildren = new ArrayList<ExpressionNode>();
 		this.myName = myName;
 	}
@@ -51,8 +49,13 @@ public class UserCommandNode implements ExpressionNode {
 		myChildren.add(n);
 	}
 	
-	public void addParameter(Variable v) {
-		myParameters.add(v);
+	public void addParameter(ExpressionNode n) {
+		if (n.getMyCommandType() == Command.Variable) {
+			myParameters.add(n);
+		}
+		else {
+			//throw error
+		}
 	}
 	
 	public void setMyTree(ExpressionNode n) {

@@ -5,7 +5,6 @@ import java.util.Map;
 import backend.data.UserDefinedCommands;
 import backend.data.Variable;
 import backend.data.VariablesList;
-import resources.languages.UserCommandNode;
 
 public class ExpressionNodeFactory {
 	public enum NodeType{
@@ -26,6 +25,7 @@ public class ExpressionNodeFactory {
 		double myValue = myToken.getValue();
 		if (myNode == NodeType.Command) {
 			if (myCommand == Command.UserCommand) {
+				//add to user command list here
 				return new UserCommandNode(myName);
 			}
 			return new CommandNode(myCommand, myName, myFactory);
@@ -44,6 +44,7 @@ public class ExpressionNodeFactory {
 		}
 		else if (myNode == NodeType.UserCommand) {
 			userDefinedCommands.getCommand(myName);
+			//check for error here
 		}
 		return null;
 	}

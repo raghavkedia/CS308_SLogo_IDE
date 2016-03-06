@@ -263,8 +263,14 @@ public class CommandFactory {
 				break;
 			case MakeUserInstruction:
 				 //maybe check?
-				myChildren.get(0);
-				break;
+				ExpressionNode myUserCommand = myChildren.get(0);
+				if (myUserCommand instanceof UserCommandNode) {
+					for (ExpressionNode n : myChildren.get(1).getMyChildren()) {
+						((UserCommandNode) myUserCommand).addParameter(n);
+					}
+					((UserCommandNode) myUserCommand).setMyTree(myChildren.get(2));
+				}
+				return 1;
 			case MakeVariable:
 				Variable myVariable = myVariablesList.getVariable(myChildren.get(0).getMyName()) != null ? 
 						myVariablesList.getVariable(myChildren.get(0).getMyName()) : new Variable(myChildren.get(0).getMyName(), null);
@@ -330,8 +336,23 @@ public class CommandFactory {
 				return executeForCharacters(XCoordinate, convertAllNodesToDoubles(myChildren));
 			case YCoordinate:
 				return executeForCharacters(YCoordinate, convertAllNodesToDoubles(myChildren));
+			case Ask:
+				break;
+			case AskWith:
+				break;
+			case ID:
+				break;
+			case ListEnd:
+				break;
+			case Tell:
+				break;
+			case Turtles:
+				break;
+			case UserCommand:
+				break;
 			default:
 				break;
+			
 		
 		}
 		return 0;

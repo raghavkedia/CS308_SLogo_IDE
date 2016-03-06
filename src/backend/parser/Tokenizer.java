@@ -52,7 +52,8 @@ public class Tokenizer {
 			}
 			if (myCommand == null) {
 				if (previousToken.getMyCommand() == Command.MakeUserInstruction) {
-					new Token(NodeType.Command, Command.UserCommand, s, 0);
+					previousToken = new Token(NodeType.Command, Command.UserCommand, s, 0);
+					return previousToken;
 				}
 				else {
 					throw new InvalidCommandError(myErrorResources.getString("InvalidCommand"));					
