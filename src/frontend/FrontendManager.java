@@ -133,6 +133,10 @@ public class FrontendManager {
     	myConsole.executeInput();
     }
     
+    public String getConsoleText() { 
+    	return myConsole.getText();
+    }
+    
     //VARIABLES
     public void addToVariables(String s){
     	myVariables.addToVariables(s);

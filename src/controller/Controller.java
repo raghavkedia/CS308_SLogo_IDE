@@ -71,6 +71,7 @@ public class Controller {
     public void displayInConsole(String input){myFrontend.displayInConsole(input);}
 	public void clearConsole() { myFrontend.clearConsole(); }
 	public void executeConsole() {myFrontend.executeConsole();}
+	public String getConsoleText() { return myFrontend.getConsoleText();}
     
     //VARIABLES
     public void addToVariables(String s){myFrontend.addToVariables(s);}

@@ -24,7 +24,9 @@ class Console extends VisualComponent{
     void setText (String text) {	
         commandArea.appendText(text + "\n");
     }
-
+    String getText() {
+    	return commandArea.getText(); 
+    }
     /**
      * Passes the current input in the console to the backend to execute.
      * @return - the output of the command

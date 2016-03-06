@@ -10,6 +10,7 @@ import javafx.scene.control.MenuItem;
 
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import util.FileHandler;
 
 public class FileMenu extends Menu {
 	public FileMenu(Controller controller) {
@@ -36,5 +37,20 @@ public class FileMenu extends Menu {
 				}
         		);
         this.getItems().addAll(loadFile);
+        
+        MenuItem saveFile = new MenuItem("save file");
+        saveFile.setOnAction(
+				e ->{
+					FileHandler fileHandler = new FileHandler();
+					String content = controller.getConsoleText();
+					try {
+						fileHandler.saveFile("Saved.logo", content);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+        		);
+        this.getItems().addAll(saveFile);
 	}
 }
