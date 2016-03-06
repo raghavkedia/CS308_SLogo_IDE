@@ -28,5 +28,9 @@ public class UserDefinedCommands extends Observable{
 	public ExpressionNode getCommand(String id){
 		return myUserDefinedCommands.get(id);
 	}
-
+	
+	public void removeCommand(String id){
+		myUserDefinedCommands.remove(id);
+	}
+	
 }
