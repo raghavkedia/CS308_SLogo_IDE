@@ -71,7 +71,7 @@ public class BackendManager implements InterpreturInterface{
 		myWorkSpaces.put(newID, new Data());
 	}
 	
-	public FileGetter getFileGetter(String workSpaceID) {
+	public FileHandler getFileGetter() {
 		// TODO Auto-generated method stub
 		return myFileHandler;
 	}

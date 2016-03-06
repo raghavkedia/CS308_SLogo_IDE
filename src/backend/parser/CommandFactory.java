@@ -94,62 +94,65 @@ public class CommandFactory {
 		return turtleOperation.operation(key, a, b);
 	}
 	
-	TurtleOperation Forward = (String key, double a, double b) -> {
+	private TurtleOperation Forward = (String key, double a, double b) -> {
 		translateCoor(new double[]{0, a}, myCharacters.getCharacter(key));
 		return a;
 	};
-	TurtleOperation Back = (String key, double a, double b) -> {
+	private TurtleOperation Back = (String key, double a, double b) -> {
 		translateCoor(new double[]{0, -1 * a}, myCharacters.getCharacter(key));
 		return a;
 	};
-	TurtleOperation Left = (String key, double a, double b) -> {
+	private TurtleOperation Left = (String key, double a, double b) -> {
 		myCharacters.getCharacter(key).setMyAngle((myCharacters.getCharacter(key).getMyAngle() - a) % 360);
 		return a;
 	};
-	TurtleOperation Right = (String key, double a, double b) -> {
+	private TurtleOperation Right = (String key, double a, double b) -> {
 		myCharacters.getCharacter(key).setMyAngle((myCharacters.getCharacter(key).getMyAngle() + a) % 360);
 		return a;
 	};
-	TurtleOperation SetHeading = (String key, double a, double b) -> {
+	private TurtleOperation SetHeading = (String key, double a, double b) -> {
 		double result = Math.abs((myCharacters.getCharacter(key).getMyAngle() - a) % 360);
 		myCharacters.getCharacter(key).setMyAngle(a);
 		return result;
 	};
-	TurtleOperation SetTowards = (String key, double a, double b) -> {
+	private TurtleOperation SetTowards = (String key, double a, double b) -> {
 		double newAngle = 
 				90 - Math.atan2(b - myCharacters.getCharacter(key).getCoordY(), a - myCharacters.getCharacter(key).getCoordX());
 		double result = Math.abs((newAngle - myCharacters.getCharacter(key).getMyAngle()) % 360);
 		myCharacters.getCharacter(key).setMyAngle(newAngle % 360);
 		return result;
 	};
-	TurtleOperation SetPosition = (String key, double a, double b) -> {
+	private TurtleOperation SetPosition = (String key, double a, double b) -> {
 		double result = MathUtil.findDistance(a, myCharacters.getCharacter(key).getCoordX(), b, myCharacters.getCharacter(key).getCoordY());
 		myCharacters.getCharacter(key).setCurrCoord((int) Math.round(a), (int) Math.round(b));
 		return result;
 	};
-	TurtleOperation PenDown = (String key, double a, double b) -> {
+	private TurtleOperation PenDown = (String key, double a, double b) -> {
 		myCharacters.getCharacter(key).setPenState(true);
 		return 1;
 	};
-	TurtleOperation PenUp = (String key, double a, double b) -> {
+	private TurtleOperation PenUp = (String key, double a, double b) -> {
 		myCharacters.getCharacter(key).setPenState(false);
 		return 0;
 	};
-	TurtleOperation ShowTurtle = (String key, double a, double b) -> {
+	private TurtleOperation ShowTurtle = (String key, double a, double b) -> {
 		myCharacters.getCharacter(key).setVisability(true);
 		return 1;
 	};
-	TurtleOperation HideTurtle = (String key, double a, double b) -> {
+	private TurtleOperation HideTurtle = (String key, double a, double b) -> {
 		myCharacters.getCharacter(key).setVisability(false);
 		return 0;
 	};
-	TurtleOperation Home = (String key, double a, double b) -> findDistanceFromHome(key);
-	TurtleOperation ClearScreen; //fix later
-	TurtleOperation XCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordX();
-	TurtleOperation YCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordY();
-	TurtleOperation Heading = (String key, double a, double b) -> myCharacters.getCharacter(key).getMyAngle();
-	TurtleOperation IsPenDown = (String key, double a, double b) -> myCharacters.getCharacter(key).getPenState() ? 1 : 0;;
-	TurtleOperation IsShowing = (String key, double a, double b) -> myCharacters.getCharacter(key).getVisability() ? 1 : 0;
+	private TurtleOperation Home = (String key, double a, double b) -> findDistanceFromHome(key);
+	private TurtleOperation ClearScreen = (String key, double a, double b) -> {
+		myCharacters.getCharacter(key).removeLines();
+		return findDistanceFromHome(key);
+	};
+	private TurtleOperation XCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordX();
+	private TurtleOperation YCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordY();
+	private TurtleOperation Heading = (String key, double a, double b) -> myCharacters.getCharacter(key).getMyAngle();
+	private TurtleOperation IsPenDown = (String key, double a, double b) -> myCharacters.getCharacter(key).getPenState() ? 1 : 0;;
+	private TurtleOperation IsShowing = (String key, double a, double b) -> myCharacters.getCharacter(key).getVisability() ? 1 : 0;
 	
 	private double executeForCharacters(TurtleOperation operation, List<Double> myResults) {
 		double result = 0;
@@ -171,16 +174,16 @@ public class CommandFactory {
 		return mathOperation.operation(a, b);
 	}
 	
-	MultipleParameterOperation Sum = (double a, double b) -> a + b;
-	MultipleParameterOperation Difference = (double a, double b) -> a - b;
-	MultipleParameterOperation Product = (double a, double b) -> a * b;
-	MultipleParameterOperation Quotient = (double a, double b) -> a / b;
-	MultipleParameterOperation Remainder = (double a, double b) -> a % b;
-	MultipleParameterOperation Power = (double a, double b) -> Math.pow(a, b);
-	MultipleParameterOperation LessThan = (double a, double b) -> a < b ? 1 : 0;
-	MultipleParameterOperation GreaterThan = (double a, double b) -> a > b ? 1 : 0;
-	MultipleParameterOperation Equal = (double a, double b) -> a == b ? 1 : 0;
-	MultipleParameterOperation NotEqual = (double a, double b) -> a != b ? 1 : 0;
+	private MultipleParameterOperation Sum = (double a, double b) -> a + b;
+	private MultipleParameterOperation Difference = (double a, double b) -> a - b;
+	private MultipleParameterOperation Product = (double a, double b) -> a * b;
+	private MultipleParameterOperation Quotient = (double a, double b) -> a / b;
+	private MultipleParameterOperation Remainder = (double a, double b) -> a % b;
+	private MultipleParameterOperation Power = (double a, double b) -> Math.pow(a, b);
+	private MultipleParameterOperation LessThan = (double a, double b) -> a < b ? 1 : 0;
+	private MultipleParameterOperation GreaterThan = (double a, double b) -> a > b ? 1 : 0;
+	private MultipleParameterOperation Equal = (double a, double b) -> a == b ? 1 : 0;
+	private MultipleParameterOperation NotEqual = (double a, double b) -> a != b ? 1 : 0;
 	
 	private double executeMath(MultipleParameterOperation operation, List<Double> myResults) {
 		double result = myResults.get(0);
@@ -212,7 +215,7 @@ public class CommandFactory {
 			case Back:
 				return executeForCharacters(Back, convertAllNodesToDoubles(myChildren));
 			case ClearScreen:
-				break;
+				return executeForCharacters(ClearScreen, convertAllNodesToDoubles(myChildren));
 			case Constant:
 				break;
 			case Cosine:
@@ -262,8 +265,15 @@ public class CommandFactory {
 			case ListStart:
 				break;
 			case MakeUserInstruction:
-				
-				break;
+				 //maybe check?
+				ExpressionNode myUserCommand = myChildren.get(0);
+				if (myUserCommand instanceof UserCommandNode) {
+					for (ExpressionNode n : myChildren.get(1).getMyChildren()) {
+						((UserCommandNode) myUserCommand).addParameter(n);
+					}
+					((UserCommandNode) myUserCommand).setMyTree(myChildren.get(2));
+				}
+				return 1;
 			case MakeVariable:
 				Variable myVariable = myVariablesList.getVariable(myChildren.get(0).getMyName()) != null ? 
 						myVariablesList.getVariable(myChildren.get(0).getMyName()) : new Variable(myChildren.get(0).getMyName(), null);
@@ -329,8 +339,23 @@ public class CommandFactory {
 				return executeForCharacters(XCoordinate, convertAllNodesToDoubles(myChildren));
 			case YCoordinate:
 				return executeForCharacters(YCoordinate, convertAllNodesToDoubles(myChildren));
+			case Ask:
+				break;
+			case AskWith:
+				break;
+			case ID:
+				break;
+			case ListEnd:
+				break;
+			case Tell:
+				break;
+			case Turtles:
+				break;
+			case UserCommand:
+				break;
 			default:
 				break;
+			
 		
 		}
 		return 0;
@@ -338,11 +363,13 @@ public class CommandFactory {
 
 	private double executeListOfCommands(List<ExpressionNode> myChildren, double k) throws SlogoError {
 		retreiveOrMakeVariable(myChildren.get(0).getMyChildren().get(0).getMyName()).setVariableValue(String.valueOf(k));
+		myVariablesList.hasUpdated();
 		return myChildren.get(1).execute();
 	}
 
 	private Variable retreiveOrMakeVariable(String variableName) {
 		Variable myVariable = myVariablesList.getVariable(variableName) != null ? myVariablesList.getVariable(variableName) : new Variable(variableName, null);
+		myVariablesList.addVariable(myVariable);
 		return myVariable;
 	}
 
