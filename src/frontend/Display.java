@@ -11,6 +11,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import backend.data.Data.PenPattern;
 
 public class Display extends VisualComponent{
 	private Pane myPane;
@@ -69,12 +70,20 @@ public class Display extends VisualComponent{
 		Line newLine = new Line(newInitialCoords[0], newInitialCoords[1], newEndCoords[0], newEndCoords[1]);
 		newLine.setStroke(myController.getPenColor());
 		newLine.setStrokeWidth(myController.getLineThickness());
-		//TODO line pattern
+		switch (myController.getPenPattern()){
+			case DASHED:
+				newLine.getStrokeDashArray().addAll(25d, 20d, 5d, 20d);
+				break;
+			case DOTTED:
+				newLine.getStrokeDashArray().addAll(2d, 21d);
+				break;
+			default:
+				// do nothing -- solid
+		}
 		myPane.getChildren().add(newLine);
 	}
 	
 	public void clearChars(){
-		//TODO: REFACTOR
 		for (int i=0; i<myPane.getChildren().size(); i++){
 			Node n = myPane.getChildren().get(i);
 			for (Portrait p : myPortraits){

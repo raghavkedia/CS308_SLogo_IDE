@@ -94,6 +94,7 @@ public class Controller {
 		return myBackend.getProperties(myId).getPenColor(); 
 	}
 	public double getLineThickness(){ return myBackend.getProperties(myId).getPenWidth();}
+    public PenPattern getPenPattern(){return myBackend.getProperties(myId).getPenPattern();}
 	
     //GETTERS AND SETTERS
     public FrontendManager getFrontendManager() {return this.myFrontend; }

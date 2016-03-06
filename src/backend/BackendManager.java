@@ -43,6 +43,7 @@ public class BackendManager implements InterpreturInterface{
 	
 	public String executeCommand(String input, int workspaceID) throws SlogoError{
 		
+		input = input.trim();
 		myWorkSpaces.get(workspaceID).getCommandHistory().addCommand(input);
 		
 		String output = "error";
