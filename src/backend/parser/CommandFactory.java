@@ -152,8 +152,8 @@ public class CommandFactory {
 	
 	private double executeForCharacters(TurtleOperation operation, List<Double> myResults) {
 		double result = 0;
-		double a = myResults.get(0);
-		double b = myResults.get(1);
+		double a = myResults.get(0) != null ? myResults.get(0) : 0;
+		double b = myResults.get(1) != null ? myResults.get(1) : 0;
 		for (String key : myCharacters.getActiveCharacters()) {
 			result = operate(operation, key, a, b);
 		}
@@ -161,21 +161,26 @@ public class CommandFactory {
 		return result;
 	}
 	
-	interface MathOperation {
+	interface MultipleParameterOperation {
 		double operation(double a, double b);
 	}
 	
-	private double operate(MathOperation mathOperation, double a, double b) {
+	private double operate(MultipleParameterOperation mathOperation, double a, double b) {
 		return mathOperation.operation(a, b);
 	}
 	
-	MathOperation Sum = (double a, double b) -> a + b;
-	MathOperation Difference = (double a, double b) -> a - b;
-	MathOperation Product = (double a, double b) -> a * b;
-	MathOperation Quotient = (double a, double b) -> a / b;
-	MathOperation Remainder = (double a, double b) -> a % b;
+	MultipleParameterOperation Sum = (double a, double b) -> a + b;
+	MultipleParameterOperation Difference = (double a, double b) -> a - b;
+	MultipleParameterOperation Product = (double a, double b) -> a * b;
+	MultipleParameterOperation Quotient = (double a, double b) -> a / b;
+	MultipleParameterOperation Remainder = (double a, double b) -> a % b;
+	MultipleParameterOperation Power = (double a, double b) -> Math.pow(a, b);
+	MultipleParameterOperation LessThan = (double a, double b) -> a < b ? 1 : 0;
+	MultipleParameterOperation GreaterThan = (double a, double b) -> a > b ? 1 : 0;
+	MultipleParameterOperation Equal = (double a, double b) -> a == b ? 1 : 0;
+	MultipleParameterOperation NotEqual = (double a, double b) -> a != b ? 1 : 0;
 	
-	private double executeMath(MathOperation operation, List<Double> myResults) {
+	private double executeMath(MultipleParameterOperation operation, List<Double> myResults) {
 		double result = myResults.get(0);
 		myResults.remove(0);
 		if (myResults.isEmpty()) {
@@ -200,7 +205,7 @@ public class CommandFactory {
 			case And:
 				return executeMath(Product, convertAllNodesToDoubles(myChildren)) != 0 ? 1 : 0;
 			case ArcTangent:
-				break;
+				return Math.atan(myChildren.get(0).execute());
 			case Back:
 				return executeForCharacters(Back, convertAllNodesToDoubles(myChildren));
 			case ClearScreen:
@@ -208,37 +213,37 @@ public class CommandFactory {
 			case Constant:
 				break;
 			case Cosine:
-				break;
+				return Math.cos(MathUtil.convertDegrees(myChildren.get(0).execute()));
 			case Difference:
 				return executeMath(Difference, convertAllNodesToDoubles(myChildren));
 			case DoTimes:
 				break;
 			case Equal:
-				break;
+				return executeMath(Equal, convertAllNodesToDoubles(myChildren));
 			case For:
 				break;
 			case Forward:
 				return executeForCharacters(Forward, convertAllNodesToDoubles(myChildren));
 			case GreaterThan:
-				break;
+				return executeMath(GreaterThan, convertAllNodesToDoubles(myChildren));
 			case Heading:
-				break;
+				return executeForCharacters(Heading, convertAllNodesToDoubles(myChildren));
 			case HideTurtle:
-				break;
+				return executeForCharacters(HideTurtle, convertAllNodesToDoubles(myChildren));
 			case Home:
-				break;
+				return executeForCharacters(Home, convertAllNodesToDoubles(myChildren));
 			case If:
-				break;
+				return myChildren.get(0).execute() != 0 ? myChildren.get(1).execute() : 0;
 			case IfElse:
-				break;
+				return myChildren.get(0).execute() != 0 ? myChildren.get(1).execute() : 0;
 			case IsPenDown:
-				break;
+				return executeForCharacters(IsPenDown, convertAllNodesToDoubles(myChildren));
 			case IsShowing:
-				break;
+				return executeForCharacters(IsShowing, convertAllNodesToDoubles(myChildren));
 			case Left:
 				return executeForCharacters(Left, convertAllNodesToDoubles(myChildren));
 			case LessThan:
-				break;
+				return executeMath(LessThan, convertAllNodesToDoubles(myChildren));
 			case ListStart:
 				break;
 			case MakeUserInstruction:
@@ -246,13 +251,13 @@ public class CommandFactory {
 			case MakeVariable:
 				break;
 			case Minus:
-				break;
+				return -1 * myChildren.get(0).execute();
 			case NaturalLog:
-				break;
+				return Math.log(myChildren.get(0).execute());
 			case Not:
-				break;
+				return myChildren.get(0).execute() == 0 ? 1 : 0;
 			case NotEqual:
-				break;
+				return executeMath(NotEqual, convertAllNodesToDoubles(myChildren));
 			case Or:
 				return executeMath(Sum, convertAllNodesToDoubles(myChildren)) != 0 ? 1 : 0;
 			case PenDown:
@@ -260,19 +265,25 @@ public class CommandFactory {
 			case PenUp:
 				return executeForCharacters(PenUp, convertAllNodesToDoubles(myChildren));
 			case Pi:
-				break;
+				return Math.PI;
 			case Power:
-				break;
+				return executeMath(Power, convertAllNodesToDoubles(myChildren));
 			case Product:
 				return executeMath(Product, convertAllNodesToDoubles(myChildren));
 			case Quotient:
 				return executeMath(Quotient, convertAllNodesToDoubles(myChildren));
 			case Random:
-				break;
+				return Math.random() * myChildren.get(0).execute();
 			case Remainder:
 				return executeMath(Remainder, convertAllNodesToDoubles(myChildren));
 			case Repeat:
-				break;
+				double times = myChildren.get(0).execute();
+				double result = 0;
+				int repeatTimes = (int) Math.floor(times);
+				for (int k = 0; k < repeatTimes; k++) {
+					result = myChildren.get(1).execute();
+				}
+				return result;
 			case Right:
 				return executeForCharacters(Right, convertAllNodesToDoubles(myChildren));
 			case SetHeading:
@@ -282,19 +293,19 @@ public class CommandFactory {
 			case SetTowards:
 				return executeForCharacters(SetTowards, convertAllNodesToDoubles(myChildren));
 			case ShowTurtle:
-				break;
+				return executeForCharacters(ShowTurtle, convertAllNodesToDoubles(myChildren));
 			case Sine:
-				break;
+				return Math.sin(MathUtil.convertDegrees(myChildren.get(0).execute()));
 			case Sum:
 				return executeMath(Sum, convertAllNodesToDoubles(myChildren));
 			case Tangent:
-				break;
+				return Math.tan(MathUtil.convertDegrees(myChildren.get(0).execute()));
 			case Variable:
 				break;
 			case XCoordinate:
-				break;
+				return executeForCharacters(XCoordinate, convertAllNodesToDoubles(myChildren));
 			case YCoordinate:
-				break;
+				return executeForCharacters(YCoordinate, convertAllNodesToDoubles(myChildren));
 			default:
 				break;
 		
