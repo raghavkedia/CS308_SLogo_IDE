@@ -235,7 +235,7 @@ public class CommandFactory {
 			case If:
 				return myChildren.get(0).execute() != 0 ? myChildren.get(1).execute() : 0;
 			case IfElse:
-				return myChildren.get(0).execute() != 0 ? myChildren.get(1).execute() : 0;
+				return myChildren.get(0).execute() != 0 ? myChildren.get(1).execute() : myChildren.get(2).execute();
 			case IsPenDown:
 				return executeForCharacters(IsPenDown, convertAllNodesToDoubles(myChildren));
 			case IsShowing:
