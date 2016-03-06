@@ -25,7 +25,9 @@ public class UserCommandNode implements ExpressionNode {
 	@Override
 	public double execute() throws SlogoError {
 		myFactory.generateResult(getMyCommandType(), myName, myChildren, myParameters);
-		return myTree.execute();
+		double result = myTree.execute();
+		myChildren.clear();
+		return result;
 	}
 
 	@Override

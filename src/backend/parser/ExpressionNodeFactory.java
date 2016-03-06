@@ -52,6 +52,7 @@ public class ExpressionNodeFactory {
 			UserCommandNode myUserCommandNode = (UserCommandNode) userDefinedCommands.getCommand(myName);
 			if (myUserCommandNode != null) {
 				myUserCommandNode.activateCommand();
+				myUserCommandNode.getMyChildren().clear();
 				return myUserCommandNode; 
 			}
 			throw new InvalidCommandError(myErrorResources.getString("InvalidCommand"));				
