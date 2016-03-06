@@ -18,6 +18,9 @@ public class Controller {
 		myFrontend = new FrontendManager(GUIProp, myProp, s, myBackend, this);
 	}
 	
+	public FrontendManager getNewFrontend(Properties GUIProp, Properties myProp, Stage s) {
+		return new FrontendManager(GUIProp, myProp, s, myBackend, this);
+	}
 	//FRONTEND METHODS
 	
 	//CONSOLE

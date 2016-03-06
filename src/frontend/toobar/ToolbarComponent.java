@@ -21,15 +21,12 @@ public class ToolbarComponent extends VisualComponent{
 		myToolbar = new ToolBar();
 		myToolbar.setOrientation(Orientation.HORIZONTAL);
 
-		myToolbar.getItems().add(new BGColPicker(myController));
-		
-		myToolbar.getItems().add(new AddImageButton(myController)); 
-				
-		
-		myToolbar.getItems().add(new PenColButton(myController));
-		myToolbar.getItems().add(new RunButton(myController));
-		myToolbar.getItems().add(new HelpButton(myController));
-		myToolbar.getItems().add(new ClearButton(myController));
+		myToolbar.getItems().add(ToolbarFactory.BGColPicker(myController));		
+		myToolbar.getItems().add(ToolbarFactory.makeAddImageButton(myController)); 	
+		myToolbar.getItems().add(ToolbarFactory.makePenColPicker(myController));
+		myToolbar.getItems().add(ToolbarFactory.makeRunButton(myController));
+		myToolbar.getItems().add(ToolbarFactory.makeClearButton(myController));
+		myToolbar.getItems().add(ToolbarFactory.makeHelpButton(myController));
 		super.setVisual(myToolbar);
 	}
 }
