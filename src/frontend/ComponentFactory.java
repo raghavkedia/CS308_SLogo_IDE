@@ -3,6 +3,7 @@ package frontend;
 import java.util.Properties;
 
 import controller.Controller;
+import frontend.menubar.MenubarComponent;
 import frontend.toobar.ToolbarComponent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -44,8 +45,12 @@ public class ComponentFactory {
 		return new PenPropertiesPopupWindow(control);
 	}
 	
-	public static ToolbarComponent makeNewToolbar(Properties GUIProp, Controller control){
-		return new ToolbarComponent(GUIProp, control);
+	public static ToolbarComponent makeNewToolbar(Controller control){
+		return new ToolbarComponent(control);
+	}
+	
+	public static MenubarComponent makeNewMenubar(Controller control) {
+		return new MenubarComponent(control);
 	}
 	
 	public static void makeNewPopupWindow(PopupWindow pw){

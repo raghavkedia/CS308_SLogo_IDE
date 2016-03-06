@@ -15,7 +15,7 @@ public class ToolbarFactory {
 		return new HelpButton(c);
 	}
 
-	public static ColorPicker BGColPicker(Controller c) {
+	public static ColorPicker makeBGColPicker(Controller c) {
 		return new BGColPicker(c);
 	}
 	

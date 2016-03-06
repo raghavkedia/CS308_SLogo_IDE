@@ -34,7 +34,7 @@ public class WorkSpaceManager implements IWorkSpace{
 		createWorkSpace();
 		SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
 		selectionModel.select(0);
-		tabPane.getSelectionModel().getSelectedItem(); //tab		
+		tabPane.getSelectionModel().getSelectedItem(); //tab	
 	}
 	
 	@Override
@@ -63,8 +63,10 @@ public class WorkSpaceManager implements IWorkSpace{
 		tabPane.getSelectionModel().select(tab);
 	}
 	
+	@Override
 	public TabPane getTabPane() {return tabPane;}
 	
+	@Override
 	public FrontendManager getSelectedFrontendManager() {
 		Tab selectedTab = tabPane.getSelectionModel().getSelectedItem(); 
 		System.out.println("");

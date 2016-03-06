@@ -32,7 +32,6 @@ public class FrontendManager {
 	private History myHistory;
 	private Variables myVariables;
 	private Console myConsole, myOutput, myPortraiteStateOuput;
-	private ToolbarComponent myToolbar;
 	private Properties myProp, myGUIProp ;
 	private List<Portrait> myPortraits;
 	private Portrait currentPortrait; // all commands typed to the console will be executed on this portrait
@@ -72,8 +71,7 @@ public class FrontendManager {
 		
 		myVariables = ComponentFactory.makeNewVariables(250, 450, myController);
 		myComponents.add(myVariables);
-		myToolbar = ComponentFactory.makeNewToolbar(myGUIProp, myController);
-		myComponents.add(myToolbar);
+
 		
 		myPortraits = new ArrayList<Portrait>();
 
@@ -82,11 +80,7 @@ public class FrontendManager {
 		myRoot.setRight(myHistory.getVisual());
 		myRoot.setBottom(myConsole.getVisual());
 		
-		myRoot.setLeft(myVariables.getVisual());
-		myRoot.setTop(myToolbar.getVisual());
-
-
-               
+		myRoot.setLeft(myVariables.getVisual());              
 		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
         SplitPane splitPane1 = new SplitPane();
         splitPane1.setOrientation(Orientation.VERTICAL);
