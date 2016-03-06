@@ -44,5 +44,13 @@ public class ComponentFactory {
 	public static ToolbarComponent makeNewToolbar(Properties GUIProp, Controller control){
 		return new ToolbarComponent(GUIProp, control);
 	}
+	
+	public static UDC makeNewUDC(double width, double height, Controller control){
+		return new UDC(width, height, control);
+	}
+
+	public static ActiveCharactersList makeNewActiveCharacterList(double width, double height, Controller control) {
+		return new ActiveCharactersList(width, height, control);
+	}
 
 }

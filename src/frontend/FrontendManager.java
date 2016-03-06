@@ -25,7 +25,7 @@ public class FrontendManager {
 
     private Scene myScene;
     private BorderPane myRoot;
-    private List<VisualComponent> myComponents;
+//    private List<VisualComponent> myComponents;
 //	private static InterpreturInterface myBackend;
 	
 	private Display myDisplay;
@@ -40,8 +40,11 @@ public class FrontendManager {
 	private Observer myHistoryObserver;
 	private Observer myVariablesObserver;
 	private Observer myCharactersObserver;
+	private Observer myUDCObserver;
 	private Controller myController;
 	private int myWorkspaceId;
+	private UDC myUDC;
+	private ActiveCharactersList myActiveCharacters;
 	
 	public FrontendManager(Properties GUIProp, Properties myProp, InterpreturInterface backend, Controller c, int id){
 		System.out.println(id);
@@ -50,7 +53,7 @@ public class FrontendManager {
 		myWorkspaceId = id;
 		myRoot = new BorderPane();
 		myScene = new Scene(myRoot, Color.WHITE);
-		myComponents = new ArrayList<VisualComponent>();
+//		myComponents = new ArrayList<VisualComponent>();
 		myGUIProp = GUIProp;
 		myRoot.setPrefSize(1000, 700);
 		initObserver(backend);
@@ -59,34 +62,42 @@ public class FrontendManager {
 	
 	public void initComponents(){
 		myDisplay = ComponentFactory.makeNewDisplay(500, 500, myController);
-		myComponents.add(myDisplay);
 		
 		myConsole = ComponentFactory.makeNewConsole(1000, 150, myController);
-		myComponents.add(myConsole);
 
 		myHistory = ComponentFactory.makeNewHistory(250, 450, myController);
-		myComponents.add(myHistory);
 		
 		myOutput = ComponentFactory.makeNewConsole(200, 200, myController);
-		myComponents.add(myOutput);
 		
 		myVariables = ComponentFactory.makeNewVariables(250, 450, myController);
-		myComponents.add(myVariables);
+		
+		myUDC = ComponentFactory.makeNewUDC(250, 450, myController);
+		
+		myActiveCharacters = ComponentFactory.makeNewActiveCharacterList(250, 450, myController);
+		
 		myToolbar = ComponentFactory.makeNewToolbar(myGUIProp, myController);
-		myComponents.add(myToolbar);
 		
 		myPortraits = new ArrayList<Portrait>();
 
 		
 		myRoot.setCenter(myDisplay.getVisual());
-		myRoot.setRight(myHistory.getVisual());
 		myRoot.setBottom(myConsole.getVisual());
 		
-		myRoot.setLeft(myVariables.getVisual());
+//		myRoot.setLeft(myUDC.getVisual());
 		myRoot.setTop(myToolbar.getVisual());
 
 
-               
+        //TODO: REFACTOR BELOW
+		SplitPane historyAndVars = new SplitPane();
+		historyAndVars.setOrientation(Orientation.VERTICAL);
+		historyAndVars.getItems().addAll(myHistory.getVisual(), myVariables.getVisual());
+		myRoot.setRight(historyAndVars);
+
+		SplitPane UDCandACL = new SplitPane();
+		UDCandACL.setOrientation(Orientation.VERTICAL);
+		UDCandACL.getItems().addAll(myUDC.getVisual(), myActiveCharacters.getVisual());
+		myRoot.setLeft(UDCandACL);
+		
 		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
         SplitPane splitPane1 = new SplitPane();
         splitPane1.setOrientation(Orientation.VERTICAL);
@@ -110,6 +121,7 @@ public class FrontendManager {
 		myCharactersObserver = new CharacterListObserver(backend.getCharacterList(myWorkspaceId), myController);
 		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(myWorkspaceId), myController);
 		myVariablesObserver = new VariableListObserver(backend.getVariablesList(myWorkspaceId), myController);
+		myUDCObserver = new UDCObserver(backend.getUserDefinedCommands(myWorkspaceId), myController);
 	}
 	   
     //METHODS
@@ -181,6 +193,13 @@ public class FrontendManager {
     	myDisplay.clearChars();
     }
     
+    //USER DEFINED COMMANDS
+    public void clearUDC(){myUDC.getMyData().clear();}
+    public void addToUDC(String s){myUDC.getMyData().add(s);}
+    
+    //ACTIVE CHARACTER LIST
+    public void clearActiveChars(){ myActiveCharacters.clearAll();}
+    public void addActiveCharacter(Character c){ myActiveCharacters.addToActiveChars(c.getName()); }
     
     //GETTERS AND SETTERS
 	public Scene getMyScene(){ return this.myScene;}

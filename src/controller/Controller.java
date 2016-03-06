@@ -99,6 +99,14 @@ public class Controller {
     public void addPortrait(Character c){myFrontend.addPortrait(c);}
     public void clearCharactersFromFrontend(){myFrontend.clearCharacters();}
     
+    //USER DEFINED COMMANDS
+    public void clearUDC(){myFrontend.clearUDC();}
+    public void addCommandToUDC(String command){myFrontend.addToUDC(command);}
+    
+    //ACTIVE CHARACTERS
+    public void clearActiveChars(){ myFrontend.clearActiveChars(); }
+    public void addActiveCharacter(Character c){ myFrontend.addActiveCharacter(c); }
+    
     //MISC
     public String getGUIProperty(String s) {
 		return myFrontend.getGUIProperty(s);

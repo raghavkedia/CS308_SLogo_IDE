@@ -2,6 +2,7 @@ package frontend;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import controller.Controller;
 import javafx.scene.Node;
@@ -84,12 +85,11 @@ public class Display extends VisualComponent{
 	}
 	
 	public void clearChars(){
-		for (int i=0; i<myPane.getChildren().size(); i++){
-			Node n = myPane.getChildren().get(i);
-			for (Portrait p : myPortraits){
-				if (p.getMyPortrait() == n){
-					myPane.getChildren().remove(n);
-					break;
+		for (Portrait p : myPortraits){
+			for (int i=myPane.getChildren().size()-1; i>=0; i--){
+				Node n = myPane.getChildren().get(i);
+				if (p.getMyPortrait().equals(n)){
+					myPane.getChildren().remove(i);
 				}
 			}
 		}
@@ -98,11 +98,10 @@ public class Display extends VisualComponent{
 	
 	public void addPortrait(Portrait p){
 		this.myPortraits.add(p);
-
-
 		this.addImage(p.getMyPortrait(), p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getAngle() );
 
 		String charName = p.getMyChar().getName();
+		
 		if (p.getMyChar().getPenState() && myPreviousX.keySet().contains(charName)){
 			drawLine(myPreviousX.get(charName), myPreviousY.get(charName), p.getMyChar().getCoordX(), p.getMyChar().getCoordY());
 		}
