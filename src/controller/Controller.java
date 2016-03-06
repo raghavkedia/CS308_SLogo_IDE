@@ -3,7 +3,6 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 import java.util.Properties;
 
 import backend.*;
@@ -11,50 +10,47 @@ import backend.data.Character;
 import backend.data.Data.PenPattern;
 import exceptions.SlogoError;
 import frontend.FrontendManager;
+import frontend.workspace.IWorkSpace;
 import frontend.workspace.WorkSpaceManager;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Controller {
-	private FrontendManager myFrontend;
 	private InterpreturInterface myBackend;
-
-	private List<FrontendManager> myFrontendList;
+    private FrontendManager myFrontend;
+    
 //	private ArrayList<InterpreturInterface> myBackendList;
 	private int myId;
 
-	private WorkSpaceManager myWSManager;
+	private IWorkSpace myWorkSpace;
 	private Stage myStage; //Testing, should be deleted later
 	
 	public Controller(Properties GUIProp, Properties myProp, Stage s){
 		myId = 0;
 		myBackend = new BackendManager();
 
-		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this, myId);
-		myFrontendList = new ArrayList<FrontendManager>();
-		myFrontendList.add(myFrontend);
+//		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this, myId);
+//		myFrontendList = new ArrayList<FrontendManager>();
+//		myFrontendList.add(myFrontend);
 
 		myStage = s;
-		myWSManager = new WorkSpaceManager(GUIProp, myProp, myBackend, this);
+		myWorkSpace = new WorkSpaceManager(GUIProp, myProp, myBackend, this);
+	}
+	
 
-	}
-	
-	
-	//-----------------DEVELOPTING TOOL----------------
-	public FrontendManager makeNewFrontend(Properties GUIProp, Properties myProp) {
-		FrontendManager newFrontendManager =  new FrontendManager(GUIProp, myProp, myBackend, this, myId);
-		myFrontendList.add(newFrontendManager);
-		return newFrontendManager;
-	}
-	
-	//FRONTEND METHODS
 	
 	//WORKSPACE
 
 	public void createWorkSpace() {
-		myWSManager.createWorkSpace();
+		myWorkSpace.createWorkSpace();
 	}
 	
+	public void selectionResponse(FrontendManager frontendManager) {
+		myFrontend = frontendManager;
+		myId = myFrontend.getId();
+	}
+	
+	//FRONTEND METHODS	
 	
 	//CONSOLE
     public void passConsoleInput(String s){
@@ -128,5 +124,5 @@ public class Controller {
 	
     //GETTERS AND SETTERS
     public FrontendManager getFrontendManager() {return this.myFrontend; }
-    public WorkSpaceManager getWorkSpaceManager() {return this.myWSManager;}
+    public IWorkSpace getWorkSpaceManager() {return this.myWorkSpace;}
 }

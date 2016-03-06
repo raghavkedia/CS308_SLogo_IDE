@@ -44,7 +44,7 @@ public class FrontendManager {
 	private int myWorkspaceId;
 	
 	public FrontendManager(Properties GUIProp, Properties myProp, InterpreturInterface backend, Controller c, int id){
-
+		System.out.println(id);
 //		myBackend = new BackendManager();
 		myController = c;
 		myWorkspaceId = id;
@@ -110,16 +110,6 @@ public class FrontendManager {
 		myCharactersObserver = new CharacterListObserver(backend.getCharacterList(myWorkspaceId), myController);
 		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(myWorkspaceId), myController);
 		myVariablesObserver = new VariableListObserver(backend.getVariablesList(myWorkspaceId), myController);
-//
-//		backend.getCharacterList();
-//		System.out.print("start init Observer\n");
-//		myCharactersObserver = new CharacterListObserver(backend.getCharacterList(), myController);
-//		System.out.print("finish characterObserver\n");
-//		
-//		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(), myController);
-//		System.out.print("start init Observer\n");
-//		myVariablesObserver = new VariableListObserver(backend.getVariablesList(), myController);
-//		System.out.print("finish init Observer\n");
 	}
 	   
     //METHODS
