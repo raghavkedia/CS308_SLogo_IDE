@@ -15,7 +15,7 @@ public class Properties {
 		// TODO Auto-generated constructor stub
 		myPenPattern = PenPattern.SOLID;
 		penDown = true;
-		myPenWidth = 10.0;
+		myPenWidth = 3.0;
 		myBackgroundColor = Color.WHITE;
 		myPenColor = Color.BLACK;
 	}

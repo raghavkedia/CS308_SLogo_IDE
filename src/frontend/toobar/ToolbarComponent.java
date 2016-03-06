@@ -26,7 +26,7 @@ public class ToolbarComponent extends VisualComponent{
 		myToolbar.getItems().add(new AddImageButton(myController)); 
 				
 		
-		myToolbar.getItems().add(new PenColButton(myController));
+//		myToolbar.getItems().add(new PenColButton(myController));
 		myToolbar.getItems().add(new RunButton(myController));
 		myToolbar.getItems().add(new HelpButton(myController));
 		myToolbar.getItems().add(new ClearButton(myController));
