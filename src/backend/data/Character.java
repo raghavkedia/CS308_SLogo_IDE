@@ -92,6 +92,10 @@ public class Character extends Observable implements Getable, Setable{
 		// TODO Auto-generated method stub
 		return myLinesList;
 	}
+	
+	public void removeLines(){
+		myLinesList.clear();
+	}
 
 	public double getMyAngle() {
 		return myAngle;
