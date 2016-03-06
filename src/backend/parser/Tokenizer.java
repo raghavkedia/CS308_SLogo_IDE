@@ -28,7 +28,7 @@ public class Tokenizer {
 			return new Token(NodeType.Constant, null, s, Double.valueOf(s));
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Variable"), s)) {
-			return new Token(NodeType.Variable, null, s, 0);
+			return new Token(NodeType.Variable, Command.Variable, s, 0);
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("ListStart"), s)) {
 			return new Token(NodeType.ListStart, null, null, 0);
