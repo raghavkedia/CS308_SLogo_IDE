@@ -16,7 +16,7 @@ public class Data implements Querryable{
 	private CharactersList myCharactersList;
 	private UserDefinedCommands myUserDefinedCommands;
 	private Properties myProperties;
-	
+	private ColorMap myColorMap;
 	
 	public Data() {
 		// TODO Auto-generated constructor stub
@@ -25,6 +25,7 @@ public class Data implements Querryable{
 		myCharactersList = new CharactersList();
 		myUserDefinedCommands = new UserDefinedCommands();
 		myProperties = new Properties();
+		myColorMap = new ColorMap();
 		
 	}
 
@@ -55,5 +56,8 @@ public class Data implements Querryable{
 	public Properties getProperties(){
 		return myProperties;
 	}
-
+	
+	public ColorMap getColorMap(){
+		return myColorMap;
+	}
 }
