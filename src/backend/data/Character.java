@@ -8,6 +8,7 @@ import java.util.Observer;
 import backend.Getable;
 import backend.Setable;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Line;
 
 public class Character extends Observable implements Getable, Setable{
 	
@@ -17,7 +18,7 @@ public class Character extends Observable implements Getable, Setable{
 	private Image myImage;
 	private boolean visable;
 	private boolean penDown;
-	List<List<int[]>> myLinesList;
+	List<Line> myLinesList;
 	
 	public Character() {
 		myCoordX = 0;
@@ -57,7 +58,7 @@ public class Character extends Observable implements Getable, Setable{
 		penDown = penState;
 	}
 
-	public void addLine(List<int[]> line) {
+	public void addLine(Line line) {
 		// TODO Auto-generated method stub
 		myLinesList.add(line);
 	}
@@ -87,9 +88,13 @@ public class Character extends Observable implements Getable, Setable{
 		return penDown;
 	}
 
-	public List<List<int[]>> getLines() {
+	public List<Line> getLines() {
 		// TODO Auto-generated method stub
 		return myLinesList;
+	}
+	
+	public void removeLines(){
+		myLinesList.clear();
 	}
 
 	public double getMyAngle() {

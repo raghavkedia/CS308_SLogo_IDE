@@ -144,7 +144,10 @@ public class CommandFactory {
 		return 0;
 	};
 	private TurtleOperation Home = (String key, double a, double b) -> findDistanceFromHome(key);
-	private TurtleOperation ClearScreen; //fix later
+	private TurtleOperation ClearScreen = (String key, double a, double b) -> {
+		myCharacters.getCharacter(key).removeLines();
+		return findDistanceFromHome(key);
+	};
 	private TurtleOperation XCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordX();
 	private TurtleOperation YCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordY();
 	private TurtleOperation Heading = (String key, double a, double b) -> myCharacters.getCharacter(key).getMyAngle();
@@ -212,7 +215,7 @@ public class CommandFactory {
 			case Back:
 				return executeForCharacters(Back, convertAllNodesToDoubles(myChildren));
 			case ClearScreen:
-				break;
+				return executeForCharacters(ClearScreen, convertAllNodesToDoubles(myChildren));
 			case Constant:
 				break;
 			case Cosine:
