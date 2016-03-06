@@ -18,9 +18,9 @@ public class Controller {
 	
 	public Controller(Properties GUIProp, Properties myProp, Stage s){
 		myBackend = new BackendManager();
-		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this);
+//		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this);
 		myStage = s;
-//		myWSManager = new WorkSpaceManager(GUIProp, myProp, myBackend, this);
+		myWSManager = new WorkSpaceManager(GUIProp, myProp, myBackend, this);
 	}
 	
 	

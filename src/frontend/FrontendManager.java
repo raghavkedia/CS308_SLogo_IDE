@@ -104,9 +104,15 @@ public class FrontendManager {
 	 * Set up the observers for the backend side of the components.
 	 */
 	public void initObserver(InterpreturInterface backend){
+		backend.getCharacterList();
+		System.out.print("start init Observer\n");
 		myCharactersObserver = new CharacterListObserver(backend.getCharacterList(), myController);
+		System.out.print("finish characterObserver\n");
+		
 		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(), myController);
+		System.out.print("start init Observer\n");
 		myVariablesObserver = new VariableListObserver(backend.getVariablesList(), myController);
+		System.out.print("finish init Observer\n");
 	}
 	   
     //METHODS

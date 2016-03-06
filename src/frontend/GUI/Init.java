@@ -73,8 +73,8 @@ public class Init {
 					Properties prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
 //					FrontendManager fm = new FrontendManager(myGUIProp, prop, myStage);
 					Controller theControl = new Controller(myGUIProp, prop, myStage);
-//					myScene = new Scene(theControl.getWorkSpaceManager() .getTabPane(), 500, 500);
-					myScene = theControl.getFrontendManager().getMyScene();
+					myScene = new Scene(theControl.getWorkSpaceManager().getTabPane(), 500, 500);
+//					myScene = theControl.getFrontendManager().getMyScene();
 					
 					myStage.setScene(myScene);
 					myStage.centerOnScreen();
