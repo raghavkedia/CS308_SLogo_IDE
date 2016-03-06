@@ -22,11 +22,9 @@ import java.util.*;
 
 public class FrontendManager {
 	public static final int SIZE = 700;
-    private static final String RUN_BUTTON = "start_button";
-    private static final String CLEAR_BUTTON = "clear_button";
+
     private Scene myScene;
     private BorderPane myRoot;
-    private Stage myWindow;
     private List<VisualComponent> myComponents;
 //	private static InterpreturInterface myBackend;
 	
@@ -44,11 +42,10 @@ public class FrontendManager {
 	private Observer myCharactersObserver;
 	private Controller myController;
 	
-	public FrontendManager(Properties GUIProp, Properties myProp, Stage s, InterpreturInterface backend, Controller c){
+	public FrontendManager(Properties GUIProp, Properties myProp, InterpreturInterface backend, Controller c){
 //		myBackend = new BackendManager();
 		myController = c;
 		myRoot = new BorderPane();
-		myWindow = s;
 		myScene = new Scene(myRoot, Color.WHITE);
 		myComponents = new ArrayList<VisualComponent>();
 		myGUIProp = GUIProp;
@@ -111,16 +108,7 @@ public class FrontendManager {
 		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(), myController);
 		myVariablesObserver = new VariableListObserver(backend.getVariablesList(), myController);
 	}
-	
-
-    private void setupKeyboardCommands () {
-        myScene.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER) {
-            	//BackendManager.executeCommand();
-            }
-        });
-    }
-    
+	   
     //METHODS
     
     //HISTORY
@@ -193,7 +181,7 @@ public class FrontendManager {
     
     //GETTERS AND SETTERS
 	public Scene getMyScene(){ return this.myScene;}
-	public Stage getMyWindow(){return this.myWindow;}
+	public BorderPane getMyBorderPane() {return this.myRoot;}
 	
 	public String getGUIProperty(String s) {
 		return myGUIProp.getProperty(s);

@@ -8,7 +8,7 @@ class CreateWorkSpaceButton extends Button {
 	this.setText("createWS");
 	this.setOnAction(
 			 e -> {
-				
+				control.createWorkSpace();
 			 });
 	}
 }

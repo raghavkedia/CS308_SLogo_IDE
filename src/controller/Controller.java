@@ -6,22 +6,36 @@ import backend.*;
 import backend.Character;
 import exceptions.SlogoError;
 import frontend.FrontendManager;
+import frontend.workspace.WorkSpaceManager;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Controller {
 	private FrontendManager myFrontend;
 	private InterpreturInterface myBackend;
+	private WorkSpaceManager myWSManager;
+	private Stage myStage; //Testing, should be deleted later
 	
 	public Controller(Properties GUIProp, Properties myProp, Stage s){
 		myBackend = new BackendManager();
-		myFrontend = new FrontendManager(GUIProp, myProp, s, myBackend, this);
+		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this);
+		myStage = s;
+//		myWSManager = new WorkSpaceManager(GUIProp, myProp, myBackend, s, this);
 	}
 	
+	
+	//-----------------DEVELOPTING TOOL----------------
 	public FrontendManager getNewFrontend(Properties GUIProp, Properties myProp, Stage s) {
-		return new FrontendManager(GUIProp, myProp, s, myBackend, this);
+		return new FrontendManager(GUIProp, myProp, myBackend, this);
 	}
 	//FRONTEND METHODS
+	
+	//WORKSPACE
+
+	public void createWorkSpace() {
+		myWSManager.createWorkSpace();
+	}
+	
 	
 	//CONSOLE
     public void passConsoleInput(String s){
@@ -101,8 +115,9 @@ public class Controller {
 		return myFrontend.getGUIProperty(s);
 	}
     
-    public Stage getMyWindow(){
-    	return myFrontend.getMyWindow();
+   
+    public Stage getMyStage() {
+    	return myStage;
     }
     
     //BACKEND
@@ -112,4 +127,5 @@ public class Controller {
     
     //GETTERS AND SETTERS
     public FrontendManager getFrontendManager() {return this.myFrontend; }
+    public WorkSpaceManager getWorkSpaceManager() {return this.myWSManager;}
 }
