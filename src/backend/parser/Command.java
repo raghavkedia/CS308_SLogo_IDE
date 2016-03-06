@@ -101,7 +101,7 @@ public enum Command {
 			case MakeUserInstruction:
 				return 3;
 			case Variable:
-				return 1;
+				return 0;
 			case Constant:
 				return 0;
 			case ListStart:
