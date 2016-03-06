@@ -1,5 +1,6 @@
 package controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
@@ -10,27 +11,50 @@ import backend.data.Character;
 import backend.data.Data.PenPattern;
 import exceptions.SlogoError;
 import frontend.FrontendManager;
+import frontend.workspace.WorkSpaceManager;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Controller {
 	private FrontendManager myFrontend;
 	private InterpreturInterface myBackend;
+
 	private ArrayList<FrontendManager> myFrontendList;
-	private ArrayList<InterpreturInterface> myBackendList;
+//	private ArrayList<InterpreturInterface> myBackendList;
 	private int myId;
+
+	private WorkSpaceManager myWSManager;
+	private Stage myStage; //Testing, should be deleted later
 	
 	public Controller(Properties GUIProp, Properties myProp, Stage s){
 		myId = 0;
 		myBackend = new BackendManager();
-		myFrontend = new FrontendManager(GUIProp, myProp, s, myBackend, this, myId);
+
+		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this, myId);
 		myFrontendList = new ArrayList<FrontendManager>();
-		myBackendList = new ArrayList<InterpreturInterface>();
+//		myBackendList = new ArrayList<InterpreturInterface>();
 		myFrontendList.add(myFrontend);
-		myBackendList.add(myBackend);
+//		myBackendList.add(myBackend);
+
+//		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this);
+		myStage = s;
+		myWSManager = new WorkSpaceManager(GUIProp, myProp, myBackend, this);
+
 	}
 	
+	
+	//-----------------DEVELOPTING TOOL----------------
+	public FrontendManager getNewFrontend(Properties GUIProp, Properties myProp) {
+		return new FrontendManager(GUIProp, myProp, myBackend, this, myId);
+	}
 	//FRONTEND METHODS
+	
+	//WORKSPACE
+
+	public void createWorkSpace() {
+		myWSManager.createWorkSpace();
+	}
+	
 	
 	//CONSOLE
     public void passConsoleInput(String s){
@@ -80,8 +104,14 @@ public class Controller {
     public void clearCharactersFromFrontend(){myFrontend.clearCharacters();}
     
     //MISC
-    public String getGUIProperty(String s) {return myFrontend.getGUIProperty(s);}
-    public Stage getMyWindow(){return myFrontend.getMyWindow();}
+    public String getGUIProperty(String s) {
+		return myFrontend.getGUIProperty(s);
+	}
+    
+   
+    public Stage getMyStage() {
+    	return myStage;
+    }
     
     //BACKEND
     public void addNewChar(Character c){myBackend.getCharacterList(myId).addCharacter(c);}
@@ -98,5 +128,5 @@ public class Controller {
 	
     //GETTERS AND SETTERS
     public FrontendManager getFrontendManager() {return this.myFrontend; }
-
+    public WorkSpaceManager getWorkSpaceManager() {return this.myWSManager;}
 }

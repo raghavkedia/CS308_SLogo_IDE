@@ -16,7 +16,7 @@ class AddImageButton extends Button {
 					FileChooser fc = new FileChooser();
 					fc.setTitle("Select an Image");
 					fc.getExtensionFilters().setAll(new ExtensionFilter("Image Files (.png)", "*.png"));
-					File imgFile = fc.showOpenDialog(control.getMyWindow());
+					File imgFile = fc.showOpenDialog(control.getMyStage());
 					if (imgFile != null) {
 						Character c = new Character();
 						c.setName(Integer.toString(c.hashCode()));

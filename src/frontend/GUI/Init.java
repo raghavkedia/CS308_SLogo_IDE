@@ -5,7 +5,7 @@ import java.util.Properties;
 
 import controller.Controller;
 import frontend.FrontendManager;
-
+import frontend.workspace.WorkSpaceManager;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -73,7 +73,12 @@ public class Init {
 					Properties prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
 //					FrontendManager fm = new FrontendManager(myGUIProp, prop, myStage);
 					Controller theControl = new Controller(myGUIProp, prop, myStage);
-					myStage.setScene(theControl.getFrontendManager().getMyScene());
+					myScene = new Scene(theControl.getWorkSpaceManager().getTabPane(), 500, 500);
+//					myScene = theControl.getFrontendManager().getMyScene();
+					
+					myStage.setScene(myScene);
+					myStage.centerOnScreen();
+					myStage.setResizable(false);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

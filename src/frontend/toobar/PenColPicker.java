@@ -4,8 +4,8 @@ import controller.Controller;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
 
-class PenColButton extends ColorPicker {
-	PenColButton(Controller control) {
+class PenColPicker extends ColorPicker {
+	PenColPicker(Controller control) {
 		this.setOnAction(
 			 e -> {
 				 Color c = this.getValue();

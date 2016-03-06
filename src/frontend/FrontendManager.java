@@ -7,6 +7,7 @@ import exceptions.SlogoError;
 import frontend.toobar.ToolbarComponent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -21,18 +22,16 @@ import java.util.*;
 
 public class FrontendManager {
 	public static final int SIZE = 700;
-    private static final String RUN_BUTTON = "start_button";
-    private static final String CLEAR_BUTTON = "clear_button";
+
     private Scene myScene;
     private BorderPane myRoot;
-    private Stage myWindow;
     private List<VisualComponent> myComponents;
 //	private static InterpreturInterface myBackend;
 	
 	private Display myDisplay;
 	private History myHistory;
 	private Variables myVariables;
-	private Console myConsole, myOutput;
+	private Console myConsole, myOutput, myPortraiteStateOuput;
 	private ToolbarComponent myToolbar;
 	private Properties myProp, myGUIProp ;
 	private List<Portrait> myPortraits;
@@ -44,12 +43,12 @@ public class FrontendManager {
 	private Controller myController;
 	private int myWorkspaceId;
 	
-	public FrontendManager(Properties GUIProp, Properties myProp, Stage s, InterpreturInterface backend, Controller c, int id){
+	public FrontendManager(Properties GUIProp, Properties myProp, InterpreturInterface backend, Controller c, int id){
+
 //		myBackend = new BackendManager();
 		myController = c;
 		myWorkspaceId = id;
 		myRoot = new BorderPane();
-		myWindow = s;
 		myScene = new Scene(myRoot, Color.WHITE);
 		myComponents = new ArrayList<VisualComponent>();
 		myGUIProp = GUIProp;
@@ -85,16 +84,23 @@ public class FrontendManager {
 		
 		myRoot.setLeft(myVariables.getVisual());
 		myRoot.setTop(myToolbar.getVisual());
-		
-		myRunButton = ComponentFactory.makeButton(myGUIProp.getProperty(RUN_BUTTON), 
-				e -> myConsole.executeInput());
-		myRunButton.setTranslateX(40);
-		myRunButton.setTranslateX(40);
-        SplitPane sp = new SplitPane();
-        sp.setPrefSize(200, 200);
 
-        sp.getItems().addAll(myConsole.getVisual(), myOutput.getVisual());
-        myRoot.setBottom(sp);
+
+               
+		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
+        SplitPane splitPane1 = new SplitPane();
+        splitPane1.setOrientation(Orientation.VERTICAL);
+        splitPane1.setPrefSize(200, 200);
+
+        splitPane1.getItems().addAll(myOutput.getVisual(), myPortraiteStateOuput.getVisual());
+         
+        SplitPane splitPane2 = new SplitPane();
+        splitPane2.setOrientation(Orientation.HORIZONTAL);
+        splitPane2.setPrefSize(300, 200);
+
+        splitPane2.getItems().addAll(myConsole.getVisual(), splitPane1);
+       
+        myRoot.setBottom(splitPane2);
 	}
 	
 	/**
@@ -104,17 +110,18 @@ public class FrontendManager {
 		myCharactersObserver = new CharacterListObserver(backend.getCharacterList(myWorkspaceId), myController);
 		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(myWorkspaceId), myController);
 		myVariablesObserver = new VariableListObserver(backend.getVariablesList(myWorkspaceId), myController);
+//
+//		backend.getCharacterList();
+//		System.out.print("start init Observer\n");
+//		myCharactersObserver = new CharacterListObserver(backend.getCharacterList(), myController);
+//		System.out.print("finish characterObserver\n");
+//		
+//		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(), myController);
+//		System.out.print("start init Observer\n");
+//		myVariablesObserver = new VariableListObserver(backend.getVariablesList(), myController);
+//		System.out.print("finish init Observer\n");
 	}
-	
-
-    private void setupKeyboardCommands () {
-        myScene.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER) {
-            	//BackendManager.executeCommand();
-            }
-        });
-    }
-    
+	   
     //METHODS
     
     //HISTORY
@@ -177,6 +184,7 @@ public class FrontendManager {
     	Portrait p = new Portrait(c);
     	myDisplay.addPortrait(p);
     	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle());
+    	myPortraiteStateOuput.setText("my x : " + c.getCoordX() + ", my y : " + c.getCoordY()+ ", myAngle :" +  c.getMyAngle());
     }
     
     public void clearCharacters(){
@@ -186,7 +194,7 @@ public class FrontendManager {
     
     //GETTERS AND SETTERS
 	public Scene getMyScene(){ return this.myScene;}
-	public Stage getMyWindow(){return this.myWindow;}
+	public BorderPane getMyBorderPane() {return this.myRoot;}
 	
 	public String getGUIProperty(String s) {
 		return myGUIProp.getProperty(s);
