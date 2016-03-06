@@ -22,7 +22,7 @@ public class SimpleSplitParse implements Parseable {
 	public static final String SYNTAX = "Syntax";
 	private ResourceBundle mySyntaxResources;
 	private String language;
-	
+
 	public SimpleSplitParse(String language) {
 		this.language = language;
 		mySyntaxResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SYNTAX);
@@ -61,13 +61,13 @@ public class SimpleSplitParse implements Parseable {
 			if (mySplitString[k].contains(END_LINE)) {
 				mySplitString[k] = mySplitString[k].replace(END_LINE, "");
 			}
-				
+
 		}
 		Collection<String> myStrings = new ArrayList<String>(Arrays.asList(mySplitString));
 		myStrings.removeIf(p -> p.equals(""));
 		return myStrings;
 	}
-	
+
 	private Collection<ExpressionNode> convertToNodes(Collection<String> myStrings, CommandFactory myFactory, UserDefinedCommands userDefinedCommands) throws SlogoError{
 		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory(myFactory, userDefinedCommands);
 		Tokenizer myTokenizer = new Tokenizer(language);
