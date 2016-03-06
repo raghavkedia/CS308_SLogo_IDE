@@ -87,7 +87,7 @@ public enum Command {
 			case Not:
 				return 0;
 			case MakeVariable:
-				return 1;
+				return 2;
 			case Repeat:
 				return 1;
 			case DoTimes: 
