@@ -153,9 +153,9 @@ public class CommandFactory {
 	
 	private double executeForCharacters(TurtleOperation operation, List<Double> myResults) {
 		double result = 0;
-		double a = myResults.get(0) != null ? myResults.get(0) : 0;
-		double b = myResults.get(1) != null ? myResults.get(1) : 0;
-		
+		double a = myResults.size() > 0 ? myResults.get(0) : 0;
+		double b = myResults.size() > 1 ? myResults.get(1) : 0;
+
 		for (String key : myCharacters.getActiveCharacters()) {
 			result = operate(operation, key, a, b);
 		}
@@ -262,6 +262,7 @@ public class CommandFactory {
 			case ListStart:
 				break;
 			case MakeUserInstruction:
+				
 				break;
 			case MakeVariable:
 				Variable myVariable = myVariablesList.getVariable(myChildren.get(0).getMyName()) != null ? 
