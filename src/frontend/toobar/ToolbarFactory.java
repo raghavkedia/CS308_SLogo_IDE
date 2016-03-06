@@ -19,9 +19,6 @@ public class ToolbarFactory {
 		return new BGColPicker(c);
 	}
 	
-	public static ColorPicker makePenColPicker(Controller c) {
-		return new PenColPicker(c);
-	}
 	
 	public static Button makeAddImageButton(Controller c) {
 		return new AddImageButton(c);
@@ -33,5 +30,9 @@ public class ToolbarFactory {
 	
 	public static Button makeCreateWorkSpaceButton(Controller c) {
 		return new CreateWorkSpaceButton(c);
+	}
+	
+	public static Button makePenPropertiesButton(Controller c) {
+		return new PenPropertiesButton(c);
 	}
 }

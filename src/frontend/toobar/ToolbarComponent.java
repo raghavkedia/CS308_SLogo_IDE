@@ -23,12 +23,11 @@ public class ToolbarComponent extends VisualComponent{
 
 		myToolbar.getItems().add(ToolbarFactory.BGColPicker(myController));		
 		myToolbar.getItems().add(ToolbarFactory.makeAddImageButton(myController)); 	
-//		myToolbar.getItems().add(ToolbarFactory.makePenColPicker(myController));
 		myToolbar.getItems().add(ToolbarFactory.makeRunButton(myController));
 		myToolbar.getItems().add(ToolbarFactory.makeClearButton(myController));
 		myToolbar.getItems().add(ToolbarFactory.makeHelpButton(myController));
 		myToolbar.getItems().add(ToolbarFactory.makeCreateWorkSpaceButton(myController));
-		myToolbar.getItems().add(new PenPropertiesButton(myController));
+		myToolbar.getItems().add(ToolbarFactory.makePenPropertiesButton(myController));
 		
 		super.setVisual(myToolbar);
 	}
