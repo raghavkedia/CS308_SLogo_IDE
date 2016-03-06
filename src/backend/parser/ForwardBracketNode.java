@@ -1,12 +1,12 @@
 package backend.parser;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import exceptions.SlogoError;
 
 public class ForwardBracketNode implements ExpressionNode {
-	private Collection<ExpressionNode> myChildren;
+	private List<ExpressionNode> myChildren;
 	private boolean hasBeenExecuted;
 	private double result;
 	
@@ -41,6 +41,16 @@ public class ForwardBracketNode implements ExpressionNode {
 	@Override
 	public void addChild(ExpressionNode n) {
 		myChildren.add(n);
+	}
+
+	@Override
+	public String getMyName() {
+		return "List";
+	}
+
+	@Override
+	public List<ExpressionNode> getMyChildren() {
+		return myChildren;
 	}
 
 }

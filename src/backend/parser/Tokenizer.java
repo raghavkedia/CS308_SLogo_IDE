@@ -25,7 +25,7 @@ public class Tokenizer {
 	
 	public Token createToken(String s) throws SlogoError{
 		if (Pattern.matches(mySyntaxResources.getString("Constant"), s)) {
-			return new Token(NodeType.Constant, null, null, Double.valueOf(s));
+			return new Token(NodeType.Constant, null, s, Double.valueOf(s));
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Variable"), s)) {
 			return new Token(NodeType.Variable, null, s, 0);
@@ -51,7 +51,7 @@ public class Tokenizer {
 				//check user commands
 				//throw exception
 			}
-			return new Token(NodeType.Command, myCommand, null, 0);
+			return new Token(NodeType.Command, myCommand, s, 0);
 			
 		}
 		throw new SyntaxError(myErrorResources.getString("SyntaxError"));

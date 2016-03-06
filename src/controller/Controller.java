@@ -36,7 +36,7 @@ public class Controller {
     public void passConsoleInput(String s){
     	String output = null;
     	try {
-			output = myBackend.executeCommand(s);
+			output = myBackend.executeCommand(s, myId);
 			myFrontend.resetHistoryPointer();
 		} catch (SlogoError e) {
 			// TODO Auto-generated catch block
@@ -58,7 +58,7 @@ public class Controller {
     
     public void updateVariableValue(String var, String value){
     	try {
-			myBackend.executeCommand("make :"+var + " " + value);
+			myBackend.executeCommand("make :"+var + " " + value, myId);
 		} catch (SlogoError e) {
 			// TODO Auto-generated catch block
 			myFrontend.showOutput(e.getMessage());

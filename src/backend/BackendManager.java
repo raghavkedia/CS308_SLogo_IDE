@@ -63,13 +63,13 @@ public class BackendManager implements InterpreturInterface{
 	}
 	public UserDefinedCommands getUserDefinedCommands(int workSpaceID) {
 		// TODO Auto-generated method stub
-		return null;
+		return myWorkSpaces.get(workSpaceID).getUserDefinedCommands();
 	}	
 	public void addWorkSpace(int newID){
 		myWorkSpaces.put(newID, new Data());
 	}
 	
-	public FileGetter getFileGetter(int workSpaceID) {
+	public FileGetter getFileGetter(String workSpaceID) {
 		// TODO Auto-generated method stub
 		return myFileHandler;
 	}
