@@ -6,7 +6,10 @@ import controller.Controller;
 import frontend.toobar.ToolbarComponent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 
 public class ComponentFactory {
@@ -43,6 +46,22 @@ public class ComponentFactory {
 	
 	public static ToolbarComponent makeNewToolbar(Properties GUIProp, Controller control){
 		return new ToolbarComponent(GUIProp, control);
+	}
+	
+	public static void makeNewPopupWindow(PopupWindow pw){
+		Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        Scene dialogScene = new Scene(pw.getMyBox(), 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+	}
+	
+	public static void makeNewPopupWindow(PopupWindow pw, double width, double height){
+		Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        Scene dialogScene = new Scene(pw.getMyBox(), width, height);
+        dialog.setScene(dialogScene);
+        dialog.show();
 	}
 
 }

@@ -54,11 +54,7 @@ public class Variables extends ListVisual implements IClickable{
 	 */
 	@Override
 	public void respondToClick() {
-		Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        PopupWindow popup = ComponentFactory.makeNewVariablesPopupWindow(myList.getSelectionModel().getSelectedItem(), myController);
-        Scene dialogScene = new Scene(popup.getMyBox(), 300, 200);
-        dialog.setScene(dialogScene);
-        dialog.show();
+		PopupWindow pw = ComponentFactory.makeNewVariablesPopupWindow(myList.getSelectionModel().getSelectedItem(), myController);
+		ComponentFactory.makeNewPopupWindow(pw);
 	}
 }
