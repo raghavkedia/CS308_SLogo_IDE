@@ -69,7 +69,6 @@ public class WorkSpaceManager implements IWorkSpace{
 	@Override
 	public FrontendManager getSelectedFrontendManager() {
 		Tab selectedTab = tabPane.getSelectionModel().getSelectedItem(); 
-		System.out.println("");
 		return myFrontendManagers.get(Integer.valueOf(selectedTab.getId()));
 	}
 	

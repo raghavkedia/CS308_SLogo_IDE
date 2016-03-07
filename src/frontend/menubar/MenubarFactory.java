@@ -6,7 +6,7 @@ import javafx.scene.control.MenuItem;
 
 public class MenubarFactory {
 
-	
+	//File Menu
 	public static Menu makeFileMenu(Controller c) {
 		return new FileMenu(c);
 	}
@@ -18,4 +18,10 @@ public class MenubarFactory {
 	public static MenuItem makeFileSaverMenuItem(Controller c) {
 		return new FileSaverMenuItem(c);
 	}
+	
+	//Setting Menu	
+	public static Menu makeSettingMenu(Controller c) {
+		return new SettingMenu(c);
+	}
+	
 }
