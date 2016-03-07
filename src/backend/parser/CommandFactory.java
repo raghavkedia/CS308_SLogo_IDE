@@ -416,13 +416,18 @@ public class CommandFactory {
 		case GetShape:
 			return executeForCharacters(GetShape, convertAllNodesToDoubles(myChildren));
 		case SetBackground:
-			return setBackground();
+			double i = myChildren.get(0).getMyChildren().get(1).execute();
+			return setBackground((int)i);
 		case SetPalette:
-			break;
+			double index = myChildren.get(0).getMyChildren().get(1).execute();
+			double r = myChildren.get(0).getMyChildren().get(2).execute();
+			double g = myChildren.get(0).getMyChildren().get(3).execute();
+			double b = myChildren.get(0).getMyChildren().get(4).execute();
+			return SetPalette((int)index, r, g, b);
 		case SetPenColor:
-			break;
+			return executeForCharacters(SetPenColor, convertAllNodesToDoubles(myChildren));
 		case SetPenSize:
-			break;
+			return executeForCharacters(SetPenSize, convertAllNodesToDoubles(myChildren));
 		case SetShape:
 			break;
 		case Stamp:
