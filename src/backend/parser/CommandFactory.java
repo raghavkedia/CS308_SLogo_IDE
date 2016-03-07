@@ -48,8 +48,9 @@ public class CommandFactory {
 		double [] rawCoords = {translateX, translateY};
 		double [] reducedCoords = reduceCoor(rawCoords);
 
-		myCharacter.setCurrCoord((int) Math.floor(myCharacter.getCoordX() + rawCoords[0]),
-				(int) Math.floor(myCharacter.getCoordY() + rawCoords[1]));
+		myCharacter.setCurrCoord(myCharacter.getCoordX() + rawCoords[0],
+			myCharacter.getCoordY() + rawCoords[1]);
+
 	}
 
 	private double[] reduceCoor(double [] coor){
