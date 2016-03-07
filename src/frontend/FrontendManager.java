@@ -44,7 +44,7 @@ public class FrontendManager {
 	private Controller myController;
 	private int myWorkspaceId;
 	private UDC myUDC;
-	private ActiveCharactersList myActiveCharacters;
+	private AllCharactersList myCharactersList;
 	
 	public FrontendManager(Properties GUIProp, Properties myProp, InterpreturInterface backend, Controller c, int id){
 		System.out.println(id);
@@ -73,7 +73,7 @@ public class FrontendManager {
 		
 		myUDC = ComponentFactory.makeNewUDC(250, 450, myController);
 		
-		myActiveCharacters = ComponentFactory.makeNewActiveCharacterList(250, 450, myController);
+		myCharactersList = ComponentFactory.makeNewActiveCharacterList(250, 450, myController);
 		
 		myToolbar = ComponentFactory.makeNewToolbar(myGUIProp, myController);
 		
@@ -95,7 +95,7 @@ public class FrontendManager {
 
 		SplitPane UDCandACL = new SplitPane();
 		UDCandACL.setOrientation(Orientation.VERTICAL);
-		UDCandACL.getItems().addAll(myUDC.getVisual(), myActiveCharacters.getVisual());
+		UDCandACL.getItems().addAll(myUDC.getVisual(), myCharactersList.getVisual());
 		myRoot.setLeft(UDCandACL);
 		
 		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
@@ -197,9 +197,9 @@ public class FrontendManager {
     public void clearUDC(){myUDC.getMyData().clear();}
     public void addToUDC(String s){myUDC.getMyData().add(s);}
     
-    //ACTIVE CHARACTER LIST
-    public void clearActiveChars(){ myActiveCharacters.clearAll();}
-    public void addActiveCharacter(Character c){ myActiveCharacters.addToActiveChars(c.getName()); }
+    //ALL CHARACTER LIST
+    public void clearAllChars(){ myCharactersList.clearAll();}
+    public void addChar(Character c){ myCharactersList.addToAllChars(c.getName()); }
     
     //GETTERS AND SETTERS
 	public Scene getMyScene(){ return this.myScene;}

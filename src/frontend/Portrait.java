@@ -4,10 +4,11 @@ import backend.data.Character;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-class Portrait extends VisualComponent{
+public class Portrait extends VisualComponent{
 	private ImageView myPortrait;
 	private Character myChar;
 	private int myID;
+	public static int characterID = 0;
 	
 	public Portrait(Character c) {
 		myPortrait = new ImageView(c.getMyImage());
@@ -26,6 +27,8 @@ class Portrait extends VisualComponent{
 	void rotate(double angle){
 		this.myPortrait.setRotate(angle);
 	}
+	
+	public static int getAndIncrementId(){return characterID++;}
 	
 	double getAngle() {return this.myPortrait.getRotate();}
 	ImageView getMyPortrait(){return this.myPortrait; }

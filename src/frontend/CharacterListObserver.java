@@ -21,7 +21,7 @@ public class CharacterListObserver implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		updateCharacterDisplay();
-		updateActiveCharacters();
+		updateAllCharactersList();
 	}
 	
 	public void updateCharacterDisplay(){
@@ -31,10 +31,10 @@ public class CharacterListObserver implements Observer{
 		}
 	}
 	
-	public void updateActiveCharacters(){
-		myController.clearActiveChars();
+	public void updateAllCharactersList(){
+		myController.clearAllChars();
 		for (Character c : myObservable.getAllActiveCharacters()){
-			myController.addActiveCharacter(c);
+			myController.addChar(c);
 		}
 	}
 

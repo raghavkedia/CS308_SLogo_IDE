@@ -103,9 +103,9 @@ public class Controller {
     public void clearUDC(){myFrontend.clearUDC();}
     public void addCommandToUDC(String command){myFrontend.addToUDC(command);}
     
-    //ACTIVE CHARACTERS
-    public void clearActiveChars(){ myFrontend.clearActiveChars(); }
-    public void addActiveCharacter(Character c){ myFrontend.addActiveCharacter(c); }
+    //ALL CHARACTERS
+    public void clearAllChars(){ myFrontend.clearAllChars(); }
+    public void addChar(Character c){ myFrontend.addChar(c); }
     
     //MISC
     public String getGUIProperty(String s) {
@@ -129,6 +129,18 @@ public class Controller {
 	}
 	public double getLineThickness(){ return myBackend.getProperties(myId).getPenWidth();}
     public PenPattern getPenPattern(){return myBackend.getProperties(myId).getPenPattern();}
+    
+    public boolean isCharIdActive(String charId){ return myBackend.getCharacterList(myId).getActiveCharacters().contains(charId); }
+    public boolean isCharIdPenDown(String charId){ return myBackend.getCharacterList(myId).getCharacter(charId).getPenState(); }
+    public boolean isCharIdVisible(String charId){return myBackend.getCharacterList(myId).getCharacter(charId).getVisability();}
+    public void setCharIdActive(String charId, boolean isActive){
+    	if (isActive && !myBackend.getCharacterList(myId).getActiveCharacters().contains(charId))
+    		myBackend.getCharacterList(myId).getActiveCharacters().add(charId);
+    	else if (!isActive && myBackend.getCharacterList(myId).getActiveCharacters().contains(charId))
+    		myBackend.getCharacterList(myId).getActiveCharacters().remove(charId);
+    }
+    public void setCharIdPenDown(String charId, boolean isPenDown){ myBackend.getCharacterList(myId).getCharacter(charId).setPenState(isPenDown); }
+    public void setCharIdVisible(String charId, boolean isVisible){ myBackend.getCharacterList(myId).getCharacter(charId).setVisability(isVisible);}
 	
     //GETTERS AND SETTERS
     public FrontendManager getFrontendManager() {return this.myFrontend; }

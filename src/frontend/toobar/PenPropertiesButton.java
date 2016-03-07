@@ -13,12 +13,9 @@ public class PenPropertiesButton extends Button{
 		this.setText("change pen properties");
 		this.setOnAction(
 				e ->{
-					Stage dialog = new Stage();
-			        dialog.initModality(Modality.APPLICATION_MODAL);
+					
 			        PenPropertiesPopupWindow popup = ComponentFactory.makeNewPenPropertiesPopupWindow(control);
-			        Scene dialogScene = new Scene(popup.getMyBox(), 300, 400);
-			        dialog.setScene(dialogScene);
-			        dialog.show();
+			        ComponentFactory.initNewPopup(popup, 300, 400);
 				});
 	}
 }

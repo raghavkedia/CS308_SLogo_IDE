@@ -6,7 +6,10 @@ import controller.Controller;
 import frontend.toobar.ToolbarComponent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 
 public class ComponentFactory {
@@ -41,6 +44,18 @@ public class ComponentFactory {
 		return new PenPropertiesPopupWindow(control);
 	}
 	
+	public static CharacterPopupWindow makeNewCharactersPopupWindow(String charId, Controller control){
+		return new CharacterPopupWindow(charId, control);
+	}
+	
+	public static void initNewPopup(PopupWindow pw, double width, double height){
+		Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        Scene dialogScene = new Scene(pw.getMyBox(), width, height);
+        dialog.setScene(dialogScene);
+        dialog.show();
+	}
+	
 	public static ToolbarComponent makeNewToolbar(Properties GUIProp, Controller control){
 		return new ToolbarComponent(GUIProp, control);
 	}
@@ -49,8 +64,8 @@ public class ComponentFactory {
 		return new UDC(width, height, control);
 	}
 
-	public static ActiveCharactersList makeNewActiveCharacterList(double width, double height, Controller control) {
-		return new ActiveCharactersList(width, height, control);
+	public static AllCharactersList makeNewActiveCharacterList(double width, double height, Controller control) {
+		return new AllCharactersList(width, height, control);
 	}
 
 }
