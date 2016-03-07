@@ -1,5 +1,6 @@
 package backend.data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -7,7 +8,9 @@ import java.util.Observer;
 
 import backend.Getable;
 import backend.Setable;
+import backend.data.Data.PenPattern;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class Character extends Observable implements Getable, Setable{
@@ -17,14 +20,37 @@ public class Character extends Observable implements Getable, Setable{
 	private String myName;
 	private Image myImage;
 	private boolean visable;
+	private Color myPenColor;
 	private boolean penDown;
+	private PenPattern myPenPattern;
+	private double myPenWidth;
 	List<Line> myLinesList;
+	List<double[]> myStamps;
 	
 	public Character() {
 		myCoordX = 0;
 		myCoordY = 0;
 		visable = true;
+		myPenPattern = PenPattern.SOLID;
 		penDown = true;
+		myPenWidth = 3.0;
+		myPenColor = Color.BLACK;
+		myStamps = new ArrayList<double[]>();
+	}
+	
+	public List<double[]> getStamps(){
+		return myStamps;
+	}
+	
+	public void addStamp(double x, double y){
+		double[] stampCoord = {x, y};
+		myStamps.add(stampCoord);
+	}
+	
+	public double clearStamps(){
+		double val = (myStamps.size() == 0) ? 0 : 1;
+		myStamps.clear();
+		return val;
 	}
 	
 	public void setCurrCoord(double x, double y) {
@@ -108,6 +134,37 @@ public class Character extends Observable implements Getable, Setable{
 	public Image getMyImage(){
 		return this.myImage;
 	}
-
+	
+	public void setPenPattern(PenPattern pattern){
+		myPenPattern = pattern;
+	}
+	
+	public PenPattern getPenPattern(){
+		return myPenPattern;
+	}
+	
+	public boolean getPenDown(){
+		return penDown;
+	}
+	
+	public void setPenDown(boolean penStatus){
+		penDown = penStatus;
+	}
+	
+	public Color getPenColor(){
+		return myPenColor;
+	}
+	
+	public void setPenColor(Color color){
+		myPenColor = color;
+	}
+	
+	public double getPenWidth(){
+		return myPenWidth;
+	}
+	
+	public void setPenWidth(double width){
+		myPenWidth = width;
+	}
 
 }
