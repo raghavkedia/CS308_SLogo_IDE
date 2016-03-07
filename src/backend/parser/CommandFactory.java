@@ -1,11 +1,13 @@
 package backend.parser;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import backend.data.Character;
 import backend.data.CharactersList;
+import backend.data.ColorMap;
 import backend.data.Data;
 import backend.data.Properties;
 import backend.data.UserDefinedCommands;
@@ -24,16 +26,21 @@ public class CommandFactory {
 	private VariablesList myVariablesList;
 	private UserDefinedCommands myUserDefinedCommands; 
 	private Properties myProperties;
+	private ColorMap myColorMap;
 	private ResourceBundle myErrorResources;
 	private double maxWidth = 500;
 	private double maxHeight = 500;
 
-	public CommandFactory(CharactersList myCharacters, VariablesList myVariablesList, UserDefinedCommands myUserDefinedCommands, Properties myProperties) {
+	public CommandFactory(CharactersList myCharacters, VariablesList myVariablesList, 
+			UserDefinedCommands myUserDefinedCommands, Properties myProperties, ColorMap myColorMap) {
+		
 		this.myCharacters = myCharacters;
 		this.myVariablesList = myVariablesList;
 		this.myUserDefinedCommands = myUserDefinedCommands;
 		this.myProperties = myProperties;
+		this.myColorMap = myColorMap;
 		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
+		
 	}
 
 	public CommandFactory() {	
@@ -90,7 +97,15 @@ public class CommandFactory {
 		}
 		return result;
 	}
-
+	private double setBackground(int index){
+		String color = myColorMap.getColor(index);
+		myProperties.setBackgroundColor(color);
+		return (double) index;
+	}
+	private double SetPalette(int index, double r, double g, double b){
+		myColorMap.addColor(index, r, g, b);
+		return index;
+	}
 	interface TurtleOperation {
 		double operation(String key, double value, double b);
 	}
@@ -166,6 +181,23 @@ public class CommandFactory {
 	private TurtleOperation ClearStamps = (String key, double a, double b) -> {
 		return myCharacters.getCharacter(key).clearStamps();
 	};
+	private TurtleOperation GetPenColor = (String key, double a, double b) -> {
+		return myCharacters.getCharacter(key).getColorIndex();
+	};
+	private TurtleOperation GetShape = (String key, double a, double b) -> {
+		return myCharacters.getCharacter(key).getShapeIndex();
+	};
+	private TurtleOperation SetPenSize = (String key, double a, double b) -> {
+		myCharacters.getCharacter(key).setPenWidth(a);
+		return a;
+	};
+	private TurtleOperation SetPenColor = (String key, double a, double b) -> {
+		myCharacters.getCharacter(key).setColorIndex((int)a);
+		String penColor = myColorMap.getColor((int) a);
+		myCharacters.getCharacter(key).setPenColor(penColor);
+		return a;
+	};
+	
 	private double executeForCharacters(TurtleOperation operation, List<Double> myResults) {
 		double result = 0;
 		double a = myResults.size() > 0 ? myResults.get(0) : 0;
@@ -380,11 +412,11 @@ public class CommandFactory {
 		case ClearStamps:
 			return executeForCharacters(ClearStamps, convertAllNodesToDoubles(myChildren));
 		case GetPenColor:
-			break;
+			return executeForCharacters(GetPenColor, convertAllNodesToDoubles(myChildren));
 		case GetShape:
-			break;
+			return executeForCharacters(GetShape, convertAllNodesToDoubles(myChildren));
 		case SetBackground:
-			break;
+			return setBackground();
 		case SetPalette:
 			break;
 		case SetPenColor:

@@ -5,21 +5,21 @@ import javafx.scene.paint.Color;
 
 public class Properties {
 	
-	private Color myBackgroundColor;
+	private String myBackgroundColor;
 	
 	
 	public Properties() {
 		// TODO Auto-generated constructor stub
 
-		myBackgroundColor = Color.WHITE;
+		myBackgroundColor = "";
 		
 	}
 	
-	public Color getBackgroundColor(){
+	public String getBackgroundColor(){
 		return myBackgroundColor;
 	}
 	
-	public void setBackgroundColor(Color color){
+	public void setBackgroundColor(String color){
 		myBackgroundColor = color;
 	}
 

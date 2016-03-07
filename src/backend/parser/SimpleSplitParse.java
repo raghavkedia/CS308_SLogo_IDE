@@ -37,7 +37,7 @@ public class SimpleSplitParse implements Parseable {
 	public String runInput(String input, Data myData, ResourceBundle myResources) throws SlogoError {
 		input = input.replaceAll(END_LINE_STRING, END_LINE_STRING + " ");
 		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
-		CommandFactory myFactory = new CommandFactory(myData.getCharacterList(), myData.getVariablesList(), myData.getUserDefinedCommands(), myData.getProperties());
+		CommandFactory myFactory = new CommandFactory(myData.getCharacterList(), myData.getVariablesList(), myData.getUserDefinedCommands(), myData.getProperties(), myData.getColorMap());
 		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory, myData.getUserDefinedCommands());
 		LogoExpressionTreeBuilder myTreeBuilder = new LogoExpressionTreeBuilder();
 		double result = myNodes.size() != 0 ? myTreeBuilder.executeExpressions(myNodes) : 0;

@@ -20,10 +20,12 @@ public class Character extends Observable implements Getable, Setable{
 	private String myName;
 	private Image myImage;
 	private boolean visable;
-	private Color myPenColor;
+	private String myPenColor;
 	private boolean penDown;
 	private PenPattern myPenPattern;
 	private double myPenWidth;
+	private int myColorIndex;
+	private int myShapeIndex;
 	List<Line> myLinesList;
 	List<double[]> myStamps;
 	
@@ -34,10 +36,22 @@ public class Character extends Observable implements Getable, Setable{
 		myPenPattern = PenPattern.SOLID;
 		penDown = true;
 		myPenWidth = 3.0;
-		myPenColor = Color.BLACK;
+		//do we need to do something about initial pen color
 		myStamps = new ArrayList<double[]>();
 	}
 	
+	public int getColorIndex(){
+		return myColorIndex;
+	}
+	public void setColorIndex(int index){
+		myColorIndex = index;
+	}
+	public int getShapeIndex(){
+		return myShapeIndex;
+	}
+	public void setShapeIndex(int index){
+		myShapeIndex = index;
+	}
 	public List<double[]> getStamps(){
 		return myStamps;
 	}
@@ -151,13 +165,13 @@ public class Character extends Observable implements Getable, Setable{
 		penDown = penStatus;
 	}
 	
-	public Color getPenColor(){
-		return myPenColor;
-	}
-	
-	public void setPenColor(Color color){
-		myPenColor = color;
-	}
+		public String getPenColor(){
+			return myPenColor;
+		}
+		
+		public void setPenColor(String color){
+			myPenColor = color;
+		}
 	
 	public double getPenWidth(){
 		return myPenWidth;
