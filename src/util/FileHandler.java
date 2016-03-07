@@ -6,6 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+
 public class FileHandler implements FileSaver, FileGetter{
 
 	public FileHandler() {
@@ -18,6 +23,17 @@ public class FileHandler implements FileSaver, FileGetter{
 		out.write(fileText);
 		out.close();
 	}
+	
+    public static void saveFile(String content, File file) {
+    	try {
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(content);
+            fileWriter.close();   
+    	} catch (IOException ex) {
+    		Logger.getLogger(FileHandler.class.getName()).log(Level.SEVERE, null, ex);
+    	}
+       
+    }
 	
 	public String getFileText(String fileName) throws IOException{
 		BufferedReader br = new BufferedReader(new FileReader(fileName));

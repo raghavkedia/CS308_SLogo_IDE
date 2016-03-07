@@ -1,6 +1,7 @@
 package frontend.menubar;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 import controller.Controller;
@@ -41,10 +42,15 @@ public class FileMenu extends Menu {
         MenuItem saveFile = new MenuItem("save file");
         saveFile.setOnAction(
 				e ->{
-					FileHandler fileHandler = new FileHandler();
 					String content = controller.getConsoleText();
 					try {
-						fileHandler.saveFile("Saved.logo", content);
+			            FileChooser fileChooser = new FileChooser();
+			            fileChooser.getExtensionFilters().addAll(
+			                    new ExtensionFilter("Slogo Files", "*.logo"));
+						File file = fileChooser.showSaveDialog(controller.getMyStage());
+			              if(file != null){
+			                  FileHandler.saveFile(content, file);
+			              }
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
