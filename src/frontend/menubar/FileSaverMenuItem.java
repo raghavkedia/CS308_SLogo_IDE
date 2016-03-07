@@ -15,20 +15,17 @@ public class FileSaverMenuItem extends MenuItem {
         this.setOnAction(
 				e ->{
 					String content = controller.getConsoleText();
-					try {
-			            FileChooser fileChooser = new FileChooser();
-			            fileChooser.getExtensionFilters().addAll(
-			                    new ExtensionFilter("Slogo Files", "*.logo"));
-						File file = fileChooser.showSaveDialog(controller.getMyStage());
-			              if(file != null){
-			                  FileHandler.saveFile(content, file);
-			              }
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+
+		            FileChooser fileChooser = new FileChooser();
+		            fileChooser.getExtensionFilters().addAll(
+		                    new ExtensionFilter("Slogo Files", "*.logo"));
+					File file = fileChooser.showSaveDialog(controller.getMyStage());
+		              if(file != null){
+		                  FileHandler.saveFile(content, file);
+		              }
+
 				}
-        		);
+        );
 	}
 
 }

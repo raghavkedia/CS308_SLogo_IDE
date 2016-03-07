@@ -1,12 +1,13 @@
 package frontend.menubar;
 
 import java.io.File;
-import java.util.Scanner;
+
 
 import controller.Controller;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import util.FileHandler;
 
 public class FileLoaderMenuItem extends MenuItem {
 
@@ -20,7 +21,7 @@ public class FileLoaderMenuItem extends MenuItem {
 					File logoFile = fc.showOpenDialog(controller.getMyStage());
 					if (logoFile != null) {
 				        try {
-							String content = new Scanner(logoFile).useDelimiter("\\Z").next();
+							String content = FileHandler.getFileText(logoFile);
 							controller.displayInConsole(content);
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
