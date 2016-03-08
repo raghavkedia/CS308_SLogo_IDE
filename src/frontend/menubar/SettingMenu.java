@@ -7,5 +7,7 @@ import javafx.scene.control.MenuItem;
 public class SettingMenu extends Menu{
 	public SettingMenu(Controller controller) {
 		this.setText("setting");
+        MenuItem saveSetting = MenubarFactory.makeSettingSaverMenuItem(controller);
+        this.getItems().addAll(saveSetting);
 	}
 }

@@ -4,6 +4,7 @@ import java.io.File;
 
 
 import controller.Controller;
+import frontend.GUI.FileChooserWindow;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -15,10 +16,7 @@ public class FileLoaderMenuItem extends MenuItem {
 		this.setText("load file");
         this.setOnAction(
 				e ->{			
-					FileChooser fc = new FileChooser();
-					fc.setTitle("Select an file");
-					fc.getExtensionFilters().setAll(new ExtensionFilter("Logo Files (.logo)", "*.logo"));
-					File logoFile = fc.showOpenDialog(controller.getMyStage());
+					File logoFile = FileChooserWindow.choose("Select an file", "Logo Files (.logo)", "*.logo");
 					if (logoFile != null) {
 				        try {
 							String content = FileHandler.getFileText(logoFile);
