@@ -18,7 +18,7 @@ public class Character extends Observable implements Getable, Setable{
 	private double myCoordX, myCoordY;
 	private double myAngle;
 	private String myName;
-	private Image myImage;
+	private String myImagePath;
 	private boolean visable;
 	private String myPenColor;
 	private boolean penDown;
@@ -83,9 +83,9 @@ public class Character extends Observable implements Getable, Setable{
 		notifyObservers();
 	}
 
-	public void setImage(Image image) {
+	public void setImagePath(String path) {
 		// TODO Auto-generated method stub
-		myImage = image;
+		myImagePath = path;
 	}
 
 	public void setVisability(boolean visability) {
@@ -145,8 +145,8 @@ public class Character extends Observable implements Getable, Setable{
 		this.myAngle = myAngle;
 	}
 	
-	public Image getMyImage(){
-		return this.myImage;
+	public String getMyImagePath(){
+		return this.myImagePath;
 	}
 	
 	public void setPenPattern(PenPattern pattern){

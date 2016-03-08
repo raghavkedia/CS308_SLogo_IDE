@@ -8,18 +8,18 @@ import javafx.scene.image.Image;
 
 public class ShapeMap {
 
-	private Map<Integer, Image> myShapeMap;
+	private Map<Integer, String> myShapeMap;
 	private ResourceBundle myErrorResources;
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	
 	public ShapeMap() {
 		// TODO Auto-generated constructor stub
-		myShapeMap = new HashMap<Integer, Image>();
+		myShapeMap = new HashMap<Integer, String>();
 		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
 	}
 	
-	public void addShape(int index, Image image){
-		myShapeMap.put(index, image);
+	public void addShape(int index, String imagePath){
+		myShapeMap.put(index, imagePath);
 	}
 	
 //	public void addShape(int index, double r, double g, double b){
@@ -35,7 +35,7 @@ public class ShapeMap {
 		return true;
 	}
 	
-	public Image getImage(int index) {
+	public String getImagePath(int index) {
 		return myShapeMap.get(index);
 	}
 

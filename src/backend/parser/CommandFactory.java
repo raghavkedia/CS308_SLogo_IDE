@@ -211,8 +211,8 @@ public class CommandFactory {
 			throw new InvalidIndexShapeError(myErrorResources.getString("InvalidIndexShapeError"));
 		}
 		myCharacters.getCharacter(key).setShapeIndex((int)a);
-		Image image = myShapeMap.getImage((int) a);
-		myCharacters.getCharacter(key).setImage(image);
+		String imagePath = myShapeMap.getImagePath((int) a);
+		myCharacters.getCharacter(key).setImagePath(imagePath);
 		return a;
 	};
 	
