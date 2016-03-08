@@ -447,7 +447,7 @@ public class CommandFactory {
 		case SetPenSize:
 			return executeForCharacters(SetPenSize, convertAllNodesToDoubles(myChildren));
 		case SetShape:
-			break;
+			return executeForCharacters(SetShape, convertAllNodesToDoubles(myChildren));
 		case Stamp:
 			return executeForCharacters(Stamp, convertAllNodesToDoubles(myChildren));
 		default:
