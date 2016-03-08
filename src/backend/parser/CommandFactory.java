@@ -287,7 +287,6 @@ public class CommandFactory {
 				myVariable.setVariableValue(String.valueOf(result));
 				myVariablesList.addVariable(myVariable);
 				myVariablesList.hasUpdated();
-				//make a contains 
 				return result;
 			case Minus:
 				return -1 * myChildren.get(0).execute();
@@ -358,12 +357,20 @@ public class CommandFactory {
 			case Turtles:
 				break;
 			case UserCommand:
-				if(parameters.size() == myChildren.size()) {
+				UserCommandNode myCommand = (UserCommandNode) myUserDefinedCommands.getCommand(myName);
+				if(myCommand.getParameters().size() == myCommand.getMyChildren().size()) {
 					for (int k = 0; k < myChildren.size(); k++) {
-						 myVariablesList.addVariable(new 
-								 Variable(parameters.get(k).getMyName(), String.valueOf(myChildren.get(k).execute())));
+						myVariablesList.addVariable(new 
+								Variable(myCommand.getParameters().get(k).getMyName(), String.valueOf(myCommand.getMyChildren().get(k).execute())));
 					}
-					return 0;
+					for (ExpressionNode n : myCommand.getMyChildren()) {
+						result = n.execute();
+					}
+					myCommand.getMyChildren().clear();
+					return result;
+				}
+				else {
+					//throw error
 				}
 			default:
 				break;
