@@ -10,14 +10,18 @@ import backend.data.CharactersList;
 import backend.data.ColorMap;
 import backend.data.Data;
 import backend.data.Properties;
+import backend.data.ShapeMap;
 import backend.data.UserDefinedCommands;
 import backend.data.Variable;
 import backend.data.VariablesList;
+import exceptions.InvalidIndexColorError;
+import exceptions.InvalidIndexShapeError;
 import exceptions.InvalidParameterError;
 import exceptions.InvalidParametersError;
 import exceptions.InvalidQuotientError;
 import exceptions.SlogoError;
 import exceptions.TooFewParametersError;
+import javafx.scene.image.Image;
 import util.MathUtil;
 
 public class CommandFactory {
@@ -27,12 +31,14 @@ public class CommandFactory {
 	private UserDefinedCommands myUserDefinedCommands; 
 	private Properties myProperties;
 	private ColorMap myColorMap;
+	private ShapeMap myShapeMap;
 	private ResourceBundle myErrorResources;
 	private double maxWidth = 500;
 	private double maxHeight = 500;
 
 	public CommandFactory(CharactersList myCharacters, VariablesList myVariablesList, 
-			UserDefinedCommands myUserDefinedCommands, Properties myProperties, ColorMap myColorMap) {
+			UserDefinedCommands myUserDefinedCommands, Properties myProperties, ColorMap myColorMap,
+			ShapeMap myShapeMap) {
 		
 		this.myCharacters = myCharacters;
 		this.myVariablesList = myVariablesList;
@@ -107,10 +113,10 @@ public class CommandFactory {
 		return index;
 	}
 	interface TurtleOperation {
-		double operation(String key, double value, double b);
+		double operation(String key, double value, double b) throws SlogoError;
 	}
 
-	private double operate(TurtleOperation turtleOperation, String key, double a, double b) {
+	private double operate(TurtleOperation turtleOperation, String key, double a, double b) throws SlogoError{
 		return turtleOperation.operation(key, a, b);
 	}
 
@@ -192,13 +198,25 @@ public class CommandFactory {
 		return a;
 	};
 	private TurtleOperation SetPenColor = (String key, double a, double b) -> {
+		if(myColorMap.indexExists((int)a)){
+			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));
+		}
 		myCharacters.getCharacter(key).setColorIndex((int)a);
 		String penColor = myColorMap.getColor((int) a);
 		myCharacters.getCharacter(key).setPenColor(penColor);
 		return a;
 	};
+	private TurtleOperation SetShape = (String key, double a, double b) -> {
+		if(myShapeMap.indexExists((int)a)){
+			throw new InvalidIndexShapeError(myErrorResources.getString("InvalidIndexShapeError"));
+		}
+		myCharacters.getCharacter(key).setShapeIndex((int)a);
+		Image image = myShapeMap.getImage((int) a);
+		myCharacters.getCharacter(key).setImage(image);
+		return a;
+	};
 	
-	private double executeForCharacters(TurtleOperation operation, List<Double> myResults) {
+	private double executeForCharacters(TurtleOperation operation, List<Double> myResults) throws SlogoError{
 		double result = 0;
 		double a = myResults.size() > 0 ? myResults.get(0) : 0;
 		double b = myResults.size() > 1 ? myResults.get(1) : 0;
