@@ -58,4 +58,8 @@ public class CharactersList extends Observable implements Observer{
 		return this.characters.values();
 	}
 	
+	public double getNumCharacters(){
+		return characters.size();
+	}
+	
 }

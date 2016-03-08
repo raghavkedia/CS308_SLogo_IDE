@@ -394,13 +394,13 @@ public class CommandFactory {
 		case AskWith:
 			break;
 		case ID:
-			break;
+			return Double.parseDouble(myCharacters.getActiveCharacters().get(0));
 		case ListEnd:
 			break;
 		case Tell:
 			break;
 		case Turtles:
-			break;
+			return myCharacters.getNumCharacters();
 		case UserCommand:
 			if(parameters.size() == myChildren.size()) {
 				for (int k = 0; k < myChildren.size(); k++) {

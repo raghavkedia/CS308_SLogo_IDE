@@ -6,7 +6,7 @@ public enum Command {
 	Sine, Cosine, Tangent, ArcTangent, NaturalLog, Power, Pi, LessThan, GreaterThan, Equal, NotEqual, And, Or, Not, Variable,
 	Constant, ListStart, ListEnd, MakeVariable, Repeat, MakeUserInstruction, IfElse, DoTimes, For, If, UserCommand, ID, Turtles, 
 	Tell, Ask, AskWith, SetBackground, SetPenColor, SetPenSize , SetShape , SetPalette , GetPenColor , GetShape ,Stamp ,ClearStamps;
-
+	
 	public int numArgs() {
 		switch(this) {
 		case Forward:
