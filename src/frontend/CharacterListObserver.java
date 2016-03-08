@@ -21,19 +21,13 @@ public class CharacterListObserver implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		updateCharacterDisplay();
-		updateAllCharactersList();
 	}
 	
 	public void updateCharacterDisplay(){
 		myController.clearCharactersFromFrontend();
+		myController.clearAllChars();
 		for (Character c : myObservable.getCharacters()){
 			myController.addPortrait(c);
-		}
-	}
-	
-	public void updateAllCharactersList(){
-		myController.clearAllChars();
-		for (Character c : myObservable.getAllActiveCharacters()){
 			myController.addChar(c);
 		}
 	}

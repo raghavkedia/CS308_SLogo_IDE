@@ -185,7 +185,8 @@ public class FrontendManager {
     public void addPortrait(Character c){
     	Portrait p = new Portrait(c);
     	myDisplay.addPortrait(p);
-    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle());
+//    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
+//    	myDisplay.addImage(p, c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
     	myPortraiteStateOuput.setText("my x : " + c.getCoordX() + ", my y : " + c.getCoordY()+ ", myAngle :" +  c.getMyAngle());
     }
     
