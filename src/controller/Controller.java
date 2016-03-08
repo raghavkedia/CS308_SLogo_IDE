@@ -3,7 +3,6 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 import java.util.Properties;
 
 import backend.*;
@@ -11,50 +10,47 @@ import backend.data.Character;
 import backend.data.Data.PenPattern;
 import exceptions.SlogoError;
 import frontend.FrontendManager;
+import frontend.workspace.IWorkSpace;
 import frontend.workspace.WorkSpaceManager;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Controller {
-	private FrontendManager myFrontend;
 	private InterpreturInterface myBackend;
-
-	private ArrayList<FrontendManager> myFrontendList;
+    private FrontendManager myFrontend;
+    
 //	private ArrayList<InterpreturInterface> myBackendList;
 	private int myId;
 
-	private WorkSpaceManager myWSManager;
+	private IWorkSpace myWorkSpace;
 	private Stage myStage; //Testing, should be deleted later
 	
 	public Controller(Properties GUIProp, Properties myProp, Stage s){
 		myId = 0;
 		myBackend = new BackendManager();
 
-		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this, myId);
-		myFrontendList = new ArrayList<FrontendManager>();
-//		myBackendList = new ArrayList<InterpreturInterface>();
-		myFrontendList.add(myFrontend);
-//		myBackendList.add(myBackend);
+//		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this, myId);
+//		myFrontendList = new ArrayList<FrontendManager>();
+//		myFrontendList.add(myFrontend);
 
-//		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this);
 		myStage = s;
-		myWSManager = new WorkSpaceManager(GUIProp, myProp, myBackend, this);
+		myWorkSpace = new WorkSpaceManager(GUIProp, myProp, myBackend, this);
+	}
+	
 
-	}
-	
-	
-	//-----------------DEVELOPTING TOOL----------------
-	public FrontendManager getNewFrontend(Properties GUIProp, Properties myProp) {
-		return new FrontendManager(GUIProp, myProp, myBackend, this, myId);
-	}
-	//FRONTEND METHODS
 	
 	//WORKSPACE
 
 	public void createWorkSpace() {
-		myWSManager.createWorkSpace();
+		myWorkSpace.createWorkSpace();
 	}
 	
+	public void selectionResponse(FrontendManager frontendManager) {
+		myFrontend = frontendManager;
+		myId = myFrontend.getId();
+	}
+	
+	//FRONTEND METHODS	
 	
 	//CONSOLE
     public void passConsoleInput(String s){
@@ -103,6 +99,14 @@ public class Controller {
     public void addPortrait(Character c){myFrontend.addPortrait(c);}
     public void clearCharactersFromFrontend(){myFrontend.clearCharacters();}
     
+    //USER DEFINED COMMANDS
+    public void clearUDC(){myFrontend.clearUDC();}
+    public void addCommandToUDC(String command){myFrontend.addToUDC(command);}
+    
+    //ALL CHARACTERS
+    public void clearAllChars(){ myFrontend.clearAllChars(); }
+    public void addChar(Character c){ myFrontend.addChar(c); }
+    
     //MISC
     public String getGUIProperty(String s) {
 		return myFrontend.getGUIProperty(s);
@@ -125,8 +129,20 @@ public class Controller {
 	}
 	public double getLineThickness(){ return myBackend.getProperties(myId).getPenWidth();}
     public PenPattern getPenPattern(){return myBackend.getProperties(myId).getPenPattern();}
+    
+    public boolean isCharIdActive(String charId){ return myBackend.getCharacterList(myId).getActiveCharacters().contains(charId); }
+    public boolean isCharIdPenDown(String charId){ return myBackend.getCharacterList(myId).getCharacter(charId).getPenState(); }
+    public boolean isCharIdVisible(String charId){return myBackend.getCharacterList(myId).getCharacter(charId).getVisability();}
+    public void setCharIdActive(String charId, boolean isActive){
+    	if (isActive && !myBackend.getCharacterList(myId).getActiveCharacters().contains(charId))
+    		myBackend.getCharacterList(myId).getActiveCharacters().add(charId);
+    	else if (!isActive && myBackend.getCharacterList(myId).getActiveCharacters().contains(charId))
+    		myBackend.getCharacterList(myId).getActiveCharacters().remove(charId);
+    }
+    public void setCharIdPenDown(String charId, boolean isPenDown){ myBackend.getCharacterList(myId).getCharacter(charId).setPenState(isPenDown); }
+    public void setCharIdVisible(String charId, boolean isVisible){ myBackend.getCharacterList(myId).getCharacter(charId).setVisability(isVisible);}
 	
     //GETTERS AND SETTERS
     public FrontendManager getFrontendManager() {return this.myFrontend; }
-    public WorkSpaceManager getWorkSpaceManager() {return this.myWSManager;}
+    public IWorkSpace getWorkSpaceManager() {return this.myWorkSpace;}
 }

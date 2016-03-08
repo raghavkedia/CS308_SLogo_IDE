@@ -44,24 +44,28 @@ public class ComponentFactory {
 		return new PenPropertiesPopupWindow(control);
 	}
 	
-	public static ToolbarComponent makeNewToolbar(Properties GUIProp, Controller control){
-		return new ToolbarComponent(GUIProp, control);
+	public static CharacterPopupWindow makeNewCharactersPopupWindow(String charId, Controller control){
+		return new CharacterPopupWindow(charId, control);
 	}
 	
-	public static void makeNewPopupWindow(PopupWindow pw){
-		Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        Scene dialogScene = new Scene(pw.getMyBox(), 300, 200);
-        dialog.setScene(dialogScene);
-        dialog.show();
-	}
-	
-	public static void makeNewPopupWindow(PopupWindow pw, double width, double height){
+	public static void initNewPopup(PopupWindow pw, double width, double height){
 		Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         Scene dialogScene = new Scene(pw.getMyBox(), width, height);
         dialog.setScene(dialogScene);
         dialog.show();
+	}
+	
+	public static ToolbarComponent makeNewToolbar(Properties GUIProp, Controller control){
+		return new ToolbarComponent(GUIProp, control);
+	}
+        
+	public static UDC makeNewUDC(double width, double height, Controller control){
+		return new UDC(width, height, control);
+	}
+
+	public static AllCharactersList makeNewActiveCharacterList(double width, double height, Controller control) {
+		return new AllCharactersList(width, height, control);
 	}
 
 }

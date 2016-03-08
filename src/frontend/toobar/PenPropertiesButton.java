@@ -14,8 +14,8 @@ public class PenPropertiesButton extends Button{
 		this.setText("change pen properties");
 		this.setOnAction(
 				e ->{
-			        PopupWindow popup = ComponentFactory.makeNewPenPropertiesPopupWindow(control);
-			        ComponentFactory.makeNewPopupWindow(popup, 300, 400);
+			        PenPropertiesPopupWindow popup = ComponentFactory.makeNewPenPropertiesPopupWindow(control);
+			        ComponentFactory.initNewPopup(popup, 300, 400);
 				});
 	}
 }

@@ -2,6 +2,7 @@ package frontend;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import controller.Controller;
 import javafx.scene.Node;
@@ -84,12 +85,11 @@ public class Display extends VisualComponent{
 	}
 	
 	public void clearChars(){
-		for (int i=0; i<myPane.getChildren().size(); i++){
-			Node n = myPane.getChildren().get(i);
-			for (Portrait p : myPortraits){
-				if (p.getMyPortrait() == n){
-					myPane.getChildren().remove(n);
-					break;
+		for (Portrait p : myPortraits){
+			for (int i=myPane.getChildren().size()-1; i>=0; i--){
+				Node n = myPane.getChildren().get(i);
+				if (p.getMyPortrait().equals(n)){
+					myPane.getChildren().remove(i);
 				}
 			}
 		}
@@ -98,26 +98,12 @@ public class Display extends VisualComponent{
 	
 	public void addPortrait(Portrait p){
 		this.myPortraits.add(p);
-
-
-		this.addImage(p.getMyPortrait(), p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getAngle() );
-
-		String charName = p.getMyChar().getName();
-		if (p.getMyChar().getPenState() && myPreviousX.keySet().contains(charName)){
-			drawLine(myPreviousX.get(charName), myPreviousY.get(charName), p.getMyChar().getCoordX(), p.getMyChar().getCoordY());
+		if (p.getMyChar().getVisability()){
+			this.addImage(p, p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getAngle(), p.getMyChar().getVisability());
 		}
-		myPreviousX.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordX());
-		myPreviousY.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordY());
-
-	}
-	
-	public void addPortrait(Portrait p, double x, double y, double angle){
-		this.myPortraits.add(p);
-
-
-		this.addImage(p.getMyPortrait(), x, y, angle);
-
+			
 		String charName = p.getMyChar().getName();
+		
 		if (p.getMyChar().getPenState() && myPreviousX.keySet().contains(charName)){
 			drawLine(myPreviousX.get(charName), myPreviousY.get(charName), p.getMyChar().getCoordX(), p.getMyChar().getCoordY());
 		}
@@ -125,7 +111,8 @@ public class Display extends VisualComponent{
 		myPreviousY.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordY());
 	}
 	
-	public void addImage(ImageView img, double x, double y, double angle){
+	public void addImage(Portrait p, double x, double y, double angle, boolean visible){
+		ImageView img = p.getMyPortrait();
 		if (!myPane.getChildren().contains(img)){
 			myPane.getChildren().add(img);
 		}

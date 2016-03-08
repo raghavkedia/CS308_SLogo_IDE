@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import frontend.Portrait;
 
 class AddImageButton extends Button {
 	AddImageButton(Controller control) {
@@ -19,8 +20,10 @@ class AddImageButton extends Button {
 					File imgFile = fc.showOpenDialog(control.getMyStage());
 					if (imgFile != null) {
 						Character c = new Character();
-						c.setName(Integer.toString(c.hashCode()));
+						c.setName(Integer.toString(Portrait.getAndIncrementId()));
 						c.setImage(new Image("file://"+imgFile.toString()));
+						c.setVisability(true);
+						c.setPenState(true);
 						control.addNewChar(c);
 					}
 					

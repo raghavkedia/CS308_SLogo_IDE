@@ -4,14 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-
-import com.sun.prism.paint.Color;
-
 import backend.InterpreturInterface;
 import controller.Controller;
 import frontend.FrontendManager;
-import frontend.toobar.ToolbarComponent;
-import javafx.scene.control.Button;
+
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -22,31 +19,56 @@ public class WorkSpaceManager implements IWorkSpace{
 	private Properties myGUIProp;
 	private Properties myLangProp;
 	private InterpreturInterface myBackend;
-	private Map<Double, FrontendManager> myFrontendManagers;
+	private Map<Integer, FrontendManager> myFrontendManagers;
+	private int numOfWorkSpaceCreated;
 	
 	public WorkSpaceManager(Properties GUIProp, Properties LangProp, InterpreturInterface backend, Controller c) {
 		tabPane = new TabPane();
-		myFrontendManagers = new HashMap<Double, FrontendManager>();
+		myFrontendManagers = new HashMap<Integer, FrontendManager>();
 		myController = c;
 		myGUIProp = GUIProp;
 		myLangProp = LangProp;
 		myBackend = backend;
+		
+		numOfWorkSpaceCreated = 0;
 		createWorkSpace();
+		SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+		selectionModel.select(0);
+		tabPane.getSelectionModel().getSelectedItem(); //tab		
 	}
 	
 	@Override
 	public void createWorkSpace() {
 		Tab tab = new Tab();
-		tab.setText("workspace " + myFrontendManagers.size());
-		FrontendManager frontendManager = myController.getFrontendManager();
-		myFrontendManagers.put((double) frontendManager.getId(), frontendManager);
+		tab.setText("workspace " + numOfWorkSpaceCreated);
+		myBackend.addWorkSpace(numOfWorkSpaceCreated+ 1);
+		FrontendManager frontendManager = new FrontendManager(myGUIProp, myLangProp, myBackend, myController, 
+				numOfWorkSpaceCreated);
+		myFrontendManagers.put(frontendManager.getId(), frontendManager);
 
 		tab.setContent(frontendManager.getMyBorderPane());
-//		ToolbarComponent tb = new ToolbarComponent(null, myController);
-//		tab.setContent(tb.getVisual());
-		
+        tab.setId(String.valueOf(frontendManager.getId()));
+        
+
+        tab.setOnSelectionChanged(e -> {
+        	myController.selectionResponse(myFrontendManagers.get(Integer.valueOf(tab.getId())));
+        	});
+        tab.setOnCloseRequest(e -> {
+//        	myFrontendManagers.remove(Integer.valueOf(tab.getId()));
+//        	tabPane.getSelectionModel().select(0);
+        	});
+        
 		tabPane.getTabs().add(tab);
+		numOfWorkSpaceCreated++;
+		tabPane.getSelectionModel().select(tab);
 	}
 	
 	public TabPane getTabPane() {return tabPane;}
+	
+	public FrontendManager getSelectedFrontendManager() {
+		Tab selectedTab = tabPane.getSelectionModel().getSelectedItem(); 
+		System.out.println("");
+		return myFrontendManagers.get(Integer.valueOf(selectedTab.getId()));
+	}
+	
 }
