@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TreeSet;
 
 import exceptions.SlogoError;
+import exceptions.TooFewParametersError;
 
 public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
-
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
+	private ResourceBundle myErrorResources;
+	
 	public LogoExpressionTreeBuilder() {
+		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
 	}
 	
 	public double executeExpressions(Collection<ExpressionNode> myNodes) throws SlogoError {
@@ -43,6 +48,9 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 				if(!myNodeCopies.isEmpty()){
 					curr = myNodeCopies.get(0);
 				}
+				else if (myNodeCopies.isEmpty() && !myStack.isEmpty()) {
+					throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
+				}
 			}
 		}
 		if (!toExecute.contains(curr)) {
@@ -50,12 +58,6 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 		}
 		for (ExpressionNode node : toExecute) {
 			result = node.execute();
-//			try {
-//				result = node.execute();
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				throw new Exception(e.getMessage());
-//			}
 		}
 		return result;
 	}

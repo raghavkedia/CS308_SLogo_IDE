@@ -1,9 +1,10 @@
 package backend.parser;
 
+import java.util.List;
+
 public class BackBracketNode implements ExpressionNode{
 
 	public BackBracketNode() {
-		
 	}
 
 	@Override
@@ -18,12 +19,22 @@ public class BackBracketNode implements ExpressionNode{
 
 	@Override
 	public Command getMyCommandType() {
-		return null;
+		return Command.ListEnd;
 	}
 
 	@Override
 	public void addChild(ExpressionNode n) {
 
+	}
+
+	@Override
+	public String getMyName() {
+		return "]";
+	}
+
+	@Override
+	public List<ExpressionNode> getMyChildren() {
+		return null;
 	}
 
 }

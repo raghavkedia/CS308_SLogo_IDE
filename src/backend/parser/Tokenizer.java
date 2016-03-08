@@ -15,7 +15,7 @@ public class Tokenizer {
 	private ResourceBundle myLanguageResources;
 	private ResourceBundle mySyntaxResources;
 	private ResourceBundle myErrorResources;
-	
+	private Token previousToken;
 	
 	public Tokenizer(String language) {
 		myLanguageResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "languages/" + language);
@@ -25,16 +25,20 @@ public class Tokenizer {
 	
 	public Token createToken(String s) throws SlogoError{
 		if (Pattern.matches(mySyntaxResources.getString("Constant"), s)) {
-			return new Token(NodeType.Constant, null, s, Double.valueOf(s));
+			previousToken = new Token(NodeType.Constant, null, s, Double.valueOf(s));
+			return previousToken;
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Variable"), s)) {
-			return new Token(NodeType.Variable, Command.Variable, s, 0);
+			previousToken = new Token(NodeType.Variable, Command.Variable, s, 0);
+			return previousToken;
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("ListStart"), s)) {
-			return new Token(NodeType.ListStart, null, null, 0);
+			previousToken = new Token(NodeType.ListStart, null, null, 0);
+			return previousToken;
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("ListEnd"), s)) {
-			return new Token(NodeType.ListEnd, null, null, 0);
+			previousToken = new Token(NodeType.ListEnd, null, null, 0);
+			return previousToken;
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), s)) {
 			Enumeration<String> myKeys = myLanguageResources.getKeys();
@@ -47,11 +51,22 @@ public class Tokenizer {
 				}
 			}
 			if (myCommand == null) {
-				throw new InvalidCommandError(myErrorResources.getString("InvalidCommand"));
+				if (previousToken != null && previousToken.getMyCommand() == Command.MakeUserInstruction) {
+					previousToken = new Token(NodeType.Command, Command.UserCommand, s, 0);
+					return previousToken;
+				}
+				else {
+					previousToken = new Token(NodeType.UserCommand, Command.UserCommand, s, 0);
+					return previousToken;
+				}
+//				else {
+//					throw new InvalidCommandError(myErrorResources.getString("InvalidCommand"));					
+//				}
 				//check user commands
 				//throw exception
 			}
-			return new Token(NodeType.Command, myCommand, s, 0);
+			previousToken = new Token(NodeType.Command, myCommand, s, 0);
+			return previousToken; 
 			
 		}
 		throw new SyntaxError(myErrorResources.getString("SyntaxError"));

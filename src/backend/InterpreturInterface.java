@@ -17,8 +17,5 @@ public interface InterpreturInterface {
 	public CommandHistory getCommandHistory(int workspaceId);
 	public UserDefinedCommands getUserDefinedCommands(int workspaceId);
 	public Properties getProperties(int workspaceId);
-	public FileGetter getFileGetter(String workSpaceID);
-
-	public void addWorkSpace(int i);
-	
+	public void addWorkSpace(int i);	
 }

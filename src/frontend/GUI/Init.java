@@ -4,13 +4,18 @@ import java.io.IOException;
 import java.util.Properties;
 
 import controller.Controller;
+import frontend.ComponentFactory;
 import frontend.FrontendManager;
+import frontend.menubar.MenubarComponent;
+import frontend.toobar.ToolbarComponent;
 import frontend.workspace.WorkSpaceManager;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import util.PropertyLoader;
@@ -71,12 +76,17 @@ public class Init {
 			public void handle(ActionEvent event) {
 				try {
 					Properties prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
-//					FrontendManager fm = new FrontendManager(myGUIProp, prop, myStage);
 					Controller theControl = new Controller(myGUIProp, prop, myStage);
-					myScene = new Scene(theControl.getWorkSpaceManager().getTabPane(), 1000, 750);
-//					myScene = theControl.getFrontendManager().getMyScene();
-					
+
+					myScene = new Scene(new VBox(0), 1000, 7500);
+
 					myStage.setScene(myScene);
+					MenubarComponent menubarComp = ComponentFactory.makeNewMenubar(theControl);
+					((VBox) myScene.getRoot()).getChildren().add(menubarComp.getVisual());
+					ToolbarComponent toolbarComp = ComponentFactory.makeNewToolbar(theControl);
+					((VBox) myScene.getRoot()).getChildren().add(toolbarComp.getVisual());
+					
+					((VBox) myScene.getRoot()).getChildren().add(theControl.getWorkSpaceManager().getTabPane());
 					myStage.centerOnScreen();
 					myStage.setResizable(false);
 				} catch (IOException e) {

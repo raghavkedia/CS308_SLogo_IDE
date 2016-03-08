@@ -8,16 +8,17 @@ import java.util.Observer;
 import backend.Getable;
 import backend.Setable;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Line;
 
 public class Character extends Observable implements Getable, Setable{
 	
-	private int myCoordX, myCoordY;
+	private double myCoordX, myCoordY;
 	private double myAngle;
 	private String myName;
 	private Image myImage;
 	private boolean visable;
 	private boolean penDown;
-	List<List<int[]>> myLinesList;
+	List<Line> myLinesList;
 	
 	public Character() {
 		myCoordX = 0;
@@ -26,7 +27,7 @@ public class Character extends Observable implements Getable, Setable{
 		penDown = true;
 	}
 	
-	public void setCurrCoord(int x, int y) {
+	public void setCurrCoord(double x, double y) {
 		// TODO Auto-generated method stub
 		myCoordX = x;
 		myCoordY = y;
@@ -57,17 +58,17 @@ public class Character extends Observable implements Getable, Setable{
 		penDown = penState;
 	}
 
-	public void addLine(List<int[]> line) {
+	public void addLine(Line line) {
 		// TODO Auto-generated method stub
 		myLinesList.add(line);
 	}
 
-	public int getCoordX() {
+	public double getCoordX() {
 		// TODO Auto-generated method stub
 		return myCoordX;
 	}
 
-	public int getCoordY() {
+	public double getCoordY() {
 		// TODO Auto-generated method stub
 		return myCoordY;
 	}
@@ -87,9 +88,13 @@ public class Character extends Observable implements Getable, Setable{
 		return penDown;
 	}
 
-	public List<List<int[]>> getLines() {
+	public List<Line> getLines() {
 		// TODO Auto-generated method stub
 		return myLinesList;
+	}
+	
+	public void removeLines(){
+		myLinesList.clear();
 	}
 
 	public double getMyAngle() {

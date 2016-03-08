@@ -7,30 +7,31 @@ import exceptions.SlogoError;
 
 public class ForwardBracketNode implements ExpressionNode {
 	private List<ExpressionNode> myChildren;
-	private boolean hasBeenExecuted;
-	private double result;
 	
 	public ForwardBracketNode() {
 		myChildren = new ArrayList<ExpressionNode>();
-		hasBeenExecuted = false;
-		result = 0;
 	}
 
 	@Override
 	public double execute() throws SlogoError {
-		if (hasBeenExecuted) {
-			return result;
-		} else {
-			LogoExpressionTreeBuilder myTreeBuilder = new LogoExpressionTreeBuilder();
-			result = myTreeBuilder.executeExpressions(myChildren);
-			hasBeenExecuted = true;
-			return result;			
+		double result = 0;
+		for (ExpressionNode n : myChildren) {
+			if (!(n instanceof BackBracketNode)) {
+				result = n.execute();
+			}
 		}
+		return result;			
 	}
 
 	@Override
 	public int currentNumChildren() {
-		return myChildren.size();
+		int num = -1;
+		for (ExpressionNode n : myChildren) {
+			if (n instanceof BackBracketNode) {
+				num = 0;
+			}
+		}
+		return num;
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public class ForwardBracketNode implements ExpressionNode {
 
 	@Override
 	public String getMyName() {
-		return "List";
+		return "[";
 	}
 
 	@Override

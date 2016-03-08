@@ -1,41 +1,42 @@
 package backend.parser;
 
+import java.util.Map;
+import java.util.ResourceBundle;
+
+import backend.data.UserDefinedCommands;
 import backend.data.Variable;
 import backend.data.VariablesList;
+import exceptions.InvalidCommandError;
 
 public class ExpressionNodeFactory {
 	public enum NodeType{
-		Command, Variable, Constant, ListStart, ListEnd;
+		Command, UserCommand, Variable, Constant, ListStart, ListEnd;
 	}
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private CommandFactory myFactory;
-	private VariablesList myVariablesList;
+	private UserDefinedCommands userDefinedCommands;
+	private ResourceBundle myErrorResources;
 	
-	public ExpressionNodeFactory(CommandFactory myFactory, VariablesList myVariablesList) {
+	public ExpressionNodeFactory(CommandFactory myFactory, UserDefinedCommands userDefinedCommands) {
 		this.myFactory = myFactory;
-		this.myVariablesList = myVariablesList;
+		this.userDefinedCommands = userDefinedCommands;
+		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
+
 	}
 	
-	public ExpressionNode createNode(Token myToken) {
+	public ExpressionNode createNode(Token myToken) throws InvalidCommandError {
 		NodeType myNode = myToken.getMyNodeType();
 		Command myCommand = myToken.getMyCommand();
 		String myName = myToken.getMyName();
 		double myValue = myToken.getValue();
 		if (myNode == NodeType.Command) {
-//			//check for the special ones.
-//			if (myCommand == Command.If || myCommand == Command.IfElse) {
-//				System.out.println("hit");
-//				return new ConditionNode(myCommand, myFactory);
-//			} else if (myCommand == Command.MakeVariable) {
-//				return new MakeVariableNode(myCommand);
-//			}
+			if (myCommand == Command.UserCommand) {
+				//list maybe?
+				return new UserCommandNode(myName, myFactory);
+			}
 			return new CommandNode(myCommand, myName, myFactory);
 		} 
 		else if (myNode == NodeType.Variable) {
-//			Variable myVariable = myVariablesList.getVariable(myName);
-//			if (myVariable == null) {
-//				myVariable = new Variable(myName, null);
-//				myVariablesList.addVariable(myVariable);
-//			}
 			return new CommandNode(myCommand, myName, myFactory);
 		}
 		else if (myNode == NodeType.Constant) {
@@ -46,6 +47,15 @@ public class ExpressionNodeFactory {
 		}
 		else if (myNode == NodeType.ListEnd) {
 			return new BackBracketNode();
+		}
+		else if (myNode == NodeType.UserCommand) {
+			UserCommandNode myUserCommandNode = (UserCommandNode) userDefinedCommands.getCommand(myName);
+			if (myUserCommandNode != null) {
+				myUserCommandNode.activateCommand();
+				myUserCommandNode.getMyChildren().clear();
+				return myUserCommandNode; 
+			}
+			throw new InvalidCommandError(myErrorResources.getString("InvalidCommand"));				
 		}
 		return null;
 	}
