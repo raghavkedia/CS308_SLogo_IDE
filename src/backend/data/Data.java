@@ -18,6 +18,7 @@ public class Data implements Querryable{
 	private Properties myProperties;
 	private ColorMap myColorMap;
 	private ShapeMap myShapeMap;
+	private boolean clearScreen;
 	
 	public Data() {
 		// TODO Auto-generated constructor stub
@@ -28,7 +29,7 @@ public class Data implements Querryable{
 		myProperties = new Properties();
 		myColorMap = new ColorMap();
 		myShapeMap = new ShapeMap();
-		
+		clearScreen = false;
 	}
 
 	@Override
@@ -65,5 +66,13 @@ public class Data implements Querryable{
 	
 	public ShapeMap getShapeMap(){
 		return myShapeMap;
+	}
+	
+	public void setClearScreen(boolean c){
+		clearScreen = c;
+	}
+	
+	public boolean isClearScreen(){
+		return clearScreen;
 	}
 }

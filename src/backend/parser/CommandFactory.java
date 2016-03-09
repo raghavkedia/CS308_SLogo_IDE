@@ -171,6 +171,8 @@ public class CommandFactory {
 	};
 	private TurtleOperation Home = (String key, double a, double b) -> findDistanceFromHome(key);
 	private TurtleOperation ClearScreen = (String key, double a, double b) -> {
+		//set clear screen
+		myProperties.setClearScreen(true);
 		myCharacters.getCharacter(key).removeLines();
 		return findDistanceFromHome(key);
 	};
@@ -211,8 +213,9 @@ public class CommandFactory {
 			throw new InvalidIndexShapeError(myErrorResources.getString("InvalidIndexShapeError"));
 		}
 		myCharacters.getCharacter(key).setShapeIndex((int)a);
-		String imagePath = myShapeMap.getImagePath((int) a);
-		myCharacters.getCharacter(key).setImagePath(imagePath);
+		//no need to actually set the image path, frontend can do the lookup
+//		String imagePath = myShapeMap.getImagePath((int) a);
+//		myCharacters.getCharacter(key).setImagePath(imagePath);
 		return a;
 	};
 	
