@@ -6,12 +6,13 @@ import javafx.scene.paint.Color;
 public class Properties {
 	
 	private String myBackgroundColor;
-	
+	private boolean clearScreen;
 	
 	public Properties() {
 		// TODO Auto-generated constructor stub
 
 		myBackgroundColor = "";
+		clearScreen = false;
 		
 	}
 	
@@ -22,7 +23,14 @@ public class Properties {
 	public void setBackgroundColor(String color){
 		myBackgroundColor = color;
 	}
-
+	
+	public void setClearScreen(boolean c){
+		clearScreen = c;
+	}
+	
+	public boolean isClearScreen(){
+		return clearScreen;
+	}
 
 	
 }
