@@ -5,61 +5,24 @@ import javafx.scene.paint.Color;
 
 public class Properties {
 	
-	private Color myBackgroundColor;
-	private Color myPenColor;
-	private boolean penDown;
-	private PenPattern myPenPattern;
-	private double myPenWidth;
+	private String myBackgroundColor;
+	
 	
 	public Properties() {
 		// TODO Auto-generated constructor stub
-		myPenPattern = PenPattern.SOLID;
-		penDown = true;
-		myPenWidth = 3.0;
-		myBackgroundColor = Color.WHITE;
-		myPenColor = Color.BLACK;
+
+		myBackgroundColor = "";
+		
 	}
 	
-	
-	public void setPenPattern(PenPattern pattern){
-		myPenPattern = pattern;
-	}
-	
-	public PenPattern getPenPattern(){
-		return myPenPattern;
-	}
-	
-	public boolean getPenDown(){
-		return penDown;
-	}
-	
-	public void setPenDown(boolean penStatus){
-		penDown = penStatus;
-	}
-	
-	public Color getBackgroundColor(){
+	public String getBackgroundColor(){
 		return myBackgroundColor;
 	}
 	
-	public void setBackgroundColor(Color color){
+	public void setBackgroundColor(String color){
 		myBackgroundColor = color;
 	}
-	
-	public Color getPenColor(){
-		return myPenColor;
-	}
-	
-	public void setPenColor(Color color){
-		myPenColor = color;
-	}
-	
-	public double getPenWidth(){
-		return myPenWidth;
-	}
-	
-	public void setPenWidth(double width){
-		myPenWidth = width;
-	}
+
 
 	
 }
