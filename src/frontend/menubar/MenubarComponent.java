@@ -16,6 +16,7 @@ public class MenubarComponent extends  VisualComponent {
 		myMenubar.getMenus().add(MenubarFactory.makeFileMenu(myController));	
 		myMenubar.getMenus().add(MenubarFactory.makeSettingMenu(myController));
 		super.setVisual(myMenubar);
+		
 	}
 
 }

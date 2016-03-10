@@ -100,6 +100,7 @@ public class Controller {
     public void addPortrait(Character c){myFrontend.addPortrait(c);}
     public void clearCharactersFromFrontend(){myFrontend.clearCharacters();}
     
+
     //USER DEFINED COMMANDS
     public void clearUDC(){myFrontend.clearUDC();}
     public void addCommandToUDC(String command){myFrontend.addToUDC(command);}
@@ -107,6 +108,11 @@ public class Controller {
     //ALL CHARACTERS
     public void clearAllChars(){ myFrontend.clearAllChars(); }
     public void addChar(Character c){ myFrontend.addChar(c); }
+
+    public String getDisplayBackgroundRGB(){
+		return myFrontend.getBackgroundRGB();
+    }
+
     
     //MISC
     public String getGUIProperty(String s) {

@@ -199,6 +199,7 @@ public class FrontendManager {
     	myDisplay.clearChars();
     }
     
+
     //USER DEFINED COMMANDS
     public void clearUDC(){myUDC.getMyData().clear();}
     public void addToUDC(String s){myUDC.getMyData().add(s);}
@@ -206,6 +207,16 @@ public class FrontendManager {
     //ALL CHARACTER LIST
     public void clearAllChars(){ myCharactersList.clearAll();}
     public void addChar(Character c){ myCharactersList.addToAllChars(c.getName()); }
+
+    public String getBackgroundRGB(){
+    	Color c = myDisplay.getColor();
+       	String hex = String.format( "#%02X%02X%02X",
+                (int)( c.getRed() * 255 ),
+                (int)( c.getGreen() * 255 ),
+                (int)( c.getBlue() * 255 ) );
+    	return hex;
+    }
+
     
     //GETTERS AND SETTERS
 	public Scene getMyScene(){ return this.myScene;}

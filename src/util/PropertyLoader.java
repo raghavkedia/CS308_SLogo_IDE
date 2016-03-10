@@ -6,8 +6,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertyLoader {
-	private static final String PATH = "resources/";
-	private static final String EXTENSION = ".properties";
+	public static final String PATH = "resources/";
+	public static final String EXTENSION = ".properties";
 
 	
 	public static Properties load(String fileName) throws IOException {
@@ -25,8 +25,8 @@ public class PropertyLoader {
 //	
 //	public static void main(String[] args) {
 //		try {
-//			Properties prop = PropertyLoader.load("GUI");
-//			System.out.println(prop.getProperty("title"));
+//			Properties prop = PropertyLoader.load("default");
+//			System.out.println(prop.getProperty("background_color").length());
 //		
 //		} catch (IOException e) {
 //			System.out.println("No file");
