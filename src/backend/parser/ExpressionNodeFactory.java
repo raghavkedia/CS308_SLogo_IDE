@@ -32,7 +32,9 @@ public class ExpressionNodeFactory {
 		if (myNode == NodeType.Command) {
 			if (myCommand == Command.UserCommand) {
 				//list maybe?
-				return new UserCommandNode(myName, myFactory);
+				UserCommandNode myUserCommand = new UserCommandNode(myName, myFactory);
+				userDefinedCommands.addUserDefinedCommand(myUserCommand.getMyName(), myUserCommand);
+				return myUserCommand;
 			}
 			return new CommandNode(myCommand, myName, myFactory);
 		} 
