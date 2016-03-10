@@ -99,7 +99,7 @@ public class Display extends VisualComponent{
 	public void addPortrait(Portrait p){
 		this.myPortraits.add(p);
 		if (p.getMyChar().getVisability()){
-			this.addImage(p, p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getAngle(), p.getMyChar().getVisability());
+			this.addImage(p, p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getMyChar().getMyAngle(), p.getMyChar().getVisability());
 		}
 			
 		String charName = p.getMyChar().getName();

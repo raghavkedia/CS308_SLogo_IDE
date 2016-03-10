@@ -97,9 +97,7 @@ public class FrontendManager {
 		UDCandACL.setOrientation(Orientation.VERTICAL);
 		UDCandACL.getItems().addAll(myUDC.getVisual(), myCharactersList.getVisual());
 		myRoot.setLeft(UDCandACL);
-		
-
-		myRoot.setLeft(myVariables.getVisual());              
+//		myRoot.setLeft(myVariables.getVisual());              
 
 		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
         SplitPane splitPane1 = new SplitPane();
