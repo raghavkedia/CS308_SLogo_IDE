@@ -3,8 +3,8 @@ package frontend.menubar;
 import java.io.File;
 
 import controller.Controller;
-import frontend.SettingSaver;
 import frontend.GUI.FileSaverWindow;
+import frontend.setting.SettingSaver;
 import javafx.scene.control.MenuItem;
 import util.PropertyLoader;
 

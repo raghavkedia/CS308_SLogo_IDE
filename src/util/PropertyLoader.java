@@ -1,5 +1,7 @@
 package util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,17 +11,24 @@ public class PropertyLoader {
 	public static final String PATH = "resources/";
 	public static final String EXTENSION = ".properties";
 
+	public static Properties load(File file) throws IOException {
+		InputStream input = new FileInputStream(file);
+		return convertToProp(input);
+	}
 	
 	public static Properties load(String fileName) throws IOException {
 		fileName = PATH + fileName + EXTENSION;
-		Properties prop = new Properties();
      	InputStream input = PropertyLoader.class.getClassLoader().getResourceAsStream(fileName);
+		return convertToProp(input);
+	}
+	
+	public static Properties convertToProp(InputStream input) throws IOException {
 		if (input == null) {
-			throw new FileNotFoundException("No such file" + fileName);
+			throw new FileNotFoundException("No such file");
 		}
+		Properties prop = new Properties();
 		prop.load(input);
 		input.close();
-//		System.out.println(fileName);
 		return prop;
 	}
 //	

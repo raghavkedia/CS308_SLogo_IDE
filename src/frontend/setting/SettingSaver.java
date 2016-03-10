@@ -1,8 +1,9 @@
-package frontend;
+package frontend.setting;
 
 import java.io.File;
 import java.util.Properties;
 
+import frontend.FrontendManager;
 import util.PropertySaver;
 
 public class SettingSaver implements IFrontEndSettingSaver {
