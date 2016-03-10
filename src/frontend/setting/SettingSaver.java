@@ -9,7 +9,7 @@ import util.PropertySaver;
 public class SettingSaver implements IFrontEndSettingSaver {
 	private FrontendManager myFrontendManager;
 	private Properties myProps;
-	private static final String BG_COL_KEY = "background_color";
+	public static final String BG_COL_KEY = "background_color";
 	
 	
 	public SettingSaver(FrontendManager frontendManager, File file) {
