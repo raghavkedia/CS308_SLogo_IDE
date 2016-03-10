@@ -1,8 +1,12 @@
 package frontend.menubar;
 
+import java.io.File;
+
 import controller.Controller;
 import frontend.SettingSaver;
+import frontend.GUI.FileSaverWindow;
 import javafx.scene.control.MenuItem;
+import util.PropertyLoader;
 
 public class SettingSaverMenuItem extends MenuItem {
 
@@ -10,7 +14,8 @@ public class SettingSaverMenuItem extends MenuItem {
 		this.setText("save current setting");
 		this.setOnAction(
 				e ->{
-					new SettingSaver(controller.getFrontendManager(), "default");
+	                File file = FileSaverWindow.save("", "Property Files", "*" + PropertyLoader.EXTENSION);
+					new SettingSaver(controller.getFrontendManager(), file);
 				});
 	}
 }

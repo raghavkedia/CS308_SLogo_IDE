@@ -24,6 +24,10 @@ public class MenubarFactory {
 		return new SettingMenu(c);
 	}
 	
+	public static MenuItem makeSettingLoaderMenuItem(Controller c) {
+		return new SettingLoaderMenuItem(c);
+	}
+	
 	public static MenuItem makeSettingSaverMenuItem(Controller c) {
 		return new SettingSaverMenuItem(c);
 	}

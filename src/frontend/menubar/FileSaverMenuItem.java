@@ -3,6 +3,7 @@ package frontend.menubar;
 import java.io.File;
 
 import controller.Controller;
+import frontend.GUI.FileSaverWindow;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -16,11 +17,7 @@ public class FileSaverMenuItem extends MenuItem {
         this.setOnAction(
 				e ->{
 					String content = controller.getConsoleText();
-
-		            FileChooser fileChooser = new FileChooser();
-		            fileChooser.getExtensionFilters().addAll(
-		                    new ExtensionFilter("Slogo Files", "*.logo"));
-					File file = fileChooser.showSaveDialog(new Stage());
+					File file = FileSaverWindow.save("", "Slogo Files", "*.logo");
 		              if(file != null){
 		                  FileHandler.saveFile(content, file);
 		              }
