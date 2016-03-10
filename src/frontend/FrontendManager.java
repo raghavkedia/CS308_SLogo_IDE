@@ -54,7 +54,7 @@ public class FrontendManager {
 		myScene = new Scene(myRoot, Color.WHITE);
 //		myComponents = new ArrayList<VisualComponent>();
 		myGUIProp = GUIProp;
-		myRoot.setPrefSize(1000, 700);
+		myRoot.setPrefSize(1000, 500);
 		initObserver(backend);
 		initComponents();
 	}
@@ -66,7 +66,7 @@ public class FrontendManager {
 
 		myHistory = ComponentFactory.makeNewHistory(250, 450, myController);
 		
-		myOutput = ComponentFactory.makeNewConsole(200, 200, myController);
+		myOutput = ComponentFactory.makeNewConsole(50, 50, myController);
 		
 		myVariables = ComponentFactory.makeNewVariables(250, 450, myController);
 		
@@ -102,13 +102,13 @@ public class FrontendManager {
 		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
         SplitPane splitPane1 = new SplitPane();
         splitPane1.setOrientation(Orientation.VERTICAL);
-        splitPane1.setPrefSize(200, 200);
+//      splitPane1.setPrefSize(200, 200);
 
         splitPane1.getItems().addAll(myOutput.getVisual(), myPortraiteStateOuput.getVisual());
          
         SplitPane splitPane2 = new SplitPane();
         splitPane2.setOrientation(Orientation.HORIZONTAL);
-        splitPane2.setPrefSize(300, 200);
+//      splitPane2.setPrefSize(300, 200);
 
         splitPane2.getItems().addAll(myConsole.getVisual(), splitPane1);
        

@@ -78,7 +78,7 @@ public class Init {
 					Properties prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
 					Controller theControl = new Controller(myGUIProp, prop, myStage);
 
-					myScene = new Scene(new VBox(0), 1000, 7500);
+					myScene = new Scene(new VBox(0), 1000, 800);
 
 					myStage.setScene(myScene);
 					MenubarComponent menubarComp = ComponentFactory.makeNewMenubar(theControl);
@@ -88,7 +88,7 @@ public class Init {
 					
 					((VBox) myScene.getRoot()).getChildren().add(theControl.getWorkSpaceManager().getTabPane());
 					myStage.centerOnScreen();
-					myStage.setResizable(false);
+//					myStage.setResizable(false);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
