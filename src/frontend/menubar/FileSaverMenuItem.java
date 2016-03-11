@@ -3,7 +3,7 @@ package frontend.menubar;
 import java.io.File;
 
 import controller.Controller;
-import frontend.GUI.FileSaverWindow;
+import frontend.GUI.FileWindow;
 import frontend.GUI.Init.GUIString;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
@@ -19,7 +19,7 @@ public class FileSaverMenuItem extends MenuItem {
 				e ->{
 					String title = controller.getGUIProperty(GUIString.FILE_SAVE_TITLE.getKey());
 					String content = controller.getConsoleText();
-					File file = FileSaverWindow.save(title, "Slogo Files", "*.logo");
+					File file = FileWindow.save(title, "Slogo Files", "*.logo");
 		              if(file != null){
 		                  FileHandler.saveFile(content, file);
 		              }

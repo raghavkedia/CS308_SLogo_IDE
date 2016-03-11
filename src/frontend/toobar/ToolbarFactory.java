@@ -1,7 +1,6 @@
 package frontend.toobar;
 
 import controller.Controller;
-import frontend.Display;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 

@@ -17,13 +17,16 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import util.PropertyLoader;
 
+/**
+ * Init class to let user to choose command language and start the program
+ * 
+ * @author Jiangzhen Yu
+ */
 public class Init {
 	private static final String LANG_PATH = "languages/";
 	private static final String LANG_OPTION = LANG_PATH + "languageOption";
 	private static final String LANG_DEFAULT = "default_lang";
 	private static final String GUI_FILE_NAME = "GUI";
-	private static final int SCENE_HEIGHT = 500;
-	private static final int SCENE_WIDTH = 300;
 	private Stage myStage;
 	private Scene myScene;
     private VBox myBox;
@@ -31,6 +34,11 @@ public class Init {
 	private Button myStartButton;
 	private Properties myGUIProp; 
 	
+	
+	/**
+	 * enums for properties in GUI.properties file for display
+	 *
+	 */
 	public enum GUIString {
 		TITLE("title"),
 	    START("start"),
@@ -44,7 +52,6 @@ public class Init {
 		HELP_URL("help_url"),
 		PORTRAIT_TITLE("portrait_title"),
 	
-
 		WORKSPACE_TABNAME("workspace_tabname"),
 		FILE_MENU("file_menu"),
 		FILE_MENU_LOAD("file_menu_load"),
@@ -61,21 +68,40 @@ public class Init {
 		
 		private GUIString(String keyName) {
 			this.key = keyName;
-		}		
+		}	
 		
 		public String getKey() {
 			return this.key;
-		}
-		
+		}		
 	}
 	
+	/**
+	 * enums for dimension of GUI
+	 *
+	 */
+	public enum Dimension {
+		INIT_SCENE_HEIGHT(500),
+		INIT_SCENE_WIDTH(300),
+		MAIN_SCENE_HEIGHT(1000),
+		MAIN_SCENE_WIDTH(800),
+		;
+		private final int value;
+		
+		private Dimension(int val) {
+			this.value = val;
+		}	
+		
+		public int getDim() {
+			return this.value;
+		}		
+	}	
 	public Init(Stage s) throws IOException {
 		myStage = s;
 		myGUIProp = PropertyLoader.load(GUI_FILE_NAME);
 		s.setTitle(myGUIProp.getProperty(GUIString.TITLE.key));
 		myBox = new VBox();
 		myBox.setAlignment(Pos.CENTER);
-		myScene = new Scene(myBox, SCENE_HEIGHT, SCENE_WIDTH);
+		myScene = new Scene(myBox, Dimension.INIT_SCENE_HEIGHT.getDim(), Dimension.INIT_SCENE_WIDTH.getDim());
 		
 		myComboBox = makeLanguageBox();	
 		myBox.getChildren().add(myComboBox);
@@ -91,19 +117,28 @@ public class Init {
 		myStage.setScene(myScene);
 		myStage.centerOnScreen();
 	}
-
+	
+    /**
+     * make the language ComboBox for available command language
+     */
 	
     private ComboBox<String> makeLanguageBox() throws IOException {
     	ComboBox<String> comboBox = new ComboBox<String>();
-		Properties prop = PropertyLoader.load(LANG_OPTION);   		
-		for(String key : prop.stringPropertyNames()) {
-			  String value = prop.getProperty(key);
-			  comboBox.getItems().add(value);
-		}
+		Properties prop = PropertyLoader.load(LANG_OPTION);
+		prop.stringPropertyNames().stream()
+		                          .forEach(key -> {
+		                        	  String value = prop.getProperty(key);
+		                        	  comboBox.getItems().add(value);
+		                          });
 		comboBox.setValue(prop.getProperty(LANG_DEFAULT));
     	return comboBox;
     }
     
+    /**
+     * Initialize the main scene of the program when start button is pressed
+     * 
+     * @return EventHandler when start button is pressed
+     */
     
     private EventHandler<ActionEvent> initMainScene() {
     	return new EventHandler<ActionEvent>() {
@@ -114,7 +149,7 @@ public class Init {
 					prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
 					Controller theControl = new Controller(myGUIProp, prop, myStage);
 			        myBox = new VBox();
-					myScene = new Scene(myBox, 1000, 800);
+					myScene = new Scene(myBox, Dimension.MAIN_SCENE_HEIGHT.getDim(), Dimension.MAIN_SCENE_WIDTH.getDim());
 					MenubarComponent menubarComp = ComponentFactory.makeNewMenubar(theControl);
 					myBox.getChildren().add(menubarComp.getVisual());
 					ToolbarComponent toolbarComp = ComponentFactory.makeNewToolbar(theControl);

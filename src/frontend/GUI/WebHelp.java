@@ -6,11 +6,23 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
+/**
+ * Web popup page
+ * 
+ * @author Jiangzhen Yu
+ */
+
 public class WebHelp{
 	private WebView myWebView;
 	private Group myGroup;
 	private Stage myStage;	
-
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param url: URL string of the web page
+     * @param title: title of the popup stage window
+	 */
 	public WebHelp(String url, String title) {
 		myStage = new Stage();
 		myGroup = new Group();

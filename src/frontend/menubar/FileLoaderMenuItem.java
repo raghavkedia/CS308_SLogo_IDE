@@ -4,11 +4,9 @@ import java.io.File;
 
 
 import controller.Controller;
-import frontend.GUI.FileChooserWindow;
+import frontend.GUI.FileWindow;
 import frontend.GUI.Init.GUIString;
 import javafx.scene.control.MenuItem;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import util.FileHandler;
 
 public class FileLoaderMenuItem extends MenuItem {
@@ -18,7 +16,7 @@ public class FileLoaderMenuItem extends MenuItem {
         this.setOnAction(
 				e ->{	
 					String title = controller.getGUIProperty(GUIString.FILE_LOAD_TITLE.getKey());
-					File logoFile = FileChooserWindow.choose(title, "Logo Files (.logo)", "*.logo");
+					File logoFile = FileWindow.choose(title, "Logo Files (.logo)", "*.logo");
 					if (logoFile != null) {
 				        try {
 							String content = FileHandler.getFileText(logoFile);
