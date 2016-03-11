@@ -10,8 +10,8 @@ class HelpButton extends Button {
 		this.setText(control.getGUIProperty(GUIString.HELP.getKey()));
 		this.setOnAction(
 				e -> {
-					String url = control.getGUIProperty("help_url");
-					String title = control.getGUIProperty("help_title");
+					String url = control.getGUIProperty(GUIString.HELP_URL.getKey());
+					String title = control.getGUIProperty(GUIString.HELP_TITLE.getKey());
 					new WebHelp(url, title);
 				});
 	}
