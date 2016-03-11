@@ -22,6 +22,7 @@ public class Display extends VisualComponent{
 	private HashMap<String, Double> myPreviousX;
 	private HashMap<String, Double> myPreviousY;
 	private Controller myController;
+	private ArrayList<Line> myLines;
 
 	public Display(double width, double height, Controller control){
 		super.setColor(Color.WHITE);
@@ -37,6 +38,7 @@ public class Display extends VisualComponent{
 		myPreviousX = new HashMap<String, Double>();
 		myPreviousY = new HashMap<String, Double>();
 		myController = control;
+		myLines = new ArrayList<Line>();
 		
 	}
 	
@@ -55,6 +57,7 @@ public class Display extends VisualComponent{
 		myPreviousY = new HashMap<String, Double>();
 		this.myPortraits.add(defaultPortrait);
 		myController = control;
+		myLines = new ArrayList<Line>();
 	}
 	
 	/**
@@ -81,7 +84,24 @@ public class Display extends VisualComponent{
 			default:
 				// do nothing -- solid
 		}
-		myPane.getChildren().add(newLine);
+		myLines.add(newLine);
+		clearLinesDrawn();
+		drawAllLines();
+	}
+	
+	public void clearLinesDrawn(){
+		Line test = new Line();
+		for (int i=myPane.getChildren().size()-1; i>=0; i--){
+			if (myPane.getChildren().get(i).getClass().equals(test.getClass())){
+				myPane.getChildren().remove(i);
+			}
+		}
+	}
+	
+	public void drawAllLines(){
+		for (Line l : myLines){
+			myPane.getChildren().add(l);
+		}
 	}
 	
 	public void clearChars(){
