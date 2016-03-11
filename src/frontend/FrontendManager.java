@@ -17,16 +17,11 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.stage.*;
 import java.util.*;
 
 public class FrontendManager {
-	public static final int SIZE = 700;
 
-    private Scene myScene;
     private BorderPane myRoot;
-//    private List<VisualComponent> myComponents;
-//	private static InterpreturInterface myBackend;
 	
 	private Display myDisplay;
 	private History myHistory;
@@ -34,7 +29,6 @@ public class FrontendManager {
 	private Console myConsole, myOutput;
 	private List<Portrait> myPortraits;
 	private Portrait currentPortrait; // all commands typed to the console will be executed on this portrait
-	private Button myRunButton;
 	private Observer myHistoryObserver;
 	private Observer myVariablesObserver;
 	private Observer myCharactersObserver;
@@ -46,18 +40,16 @@ public class FrontendManager {
 	private AllCharactersList myCharactersList;
 	
 	public FrontendManager(InterpreturInterface backend, Controller c, int id){
-//		myBackend = new BackendManager();
 		myController = c;
 		myWorkspaceId = id;
 		myRoot = new BorderPane();
-		myScene = new Scene(myRoot, Color.WHITE);
-//		myComponents = new ArrayList<VisualComponent>();
-		myRoot.setPrefSize(1000, 500);
+		myRoot.setPrefSize(1000, 700);
 		initObserver(backend);
 		initComponents();
+		setBorderPane();
 	}
 	
-	public void initComponents(){
+	private void initComponents(){
 		myDisplay = ComponentFactory.makeNewDisplay(500, 500, myController);
 		
 		myConsole = ComponentFactory.makeNewConsole(1000, 150, myController);
@@ -71,46 +63,39 @@ public class FrontendManager {
 		myUDC = ComponentFactory.makeNewUDC(250, 450, myController);
 		
 		myCharactersList = ComponentFactory.makeNewActiveCharacterList(250, 450, myController);
-		
-//		myToolbar = ComponentFactory.makeNewToolbar(myGUIProp, myController);
-		
+//		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);				
 		myPortraits = new ArrayList<Portrait>();
-
-		
-		myRoot.setCenter(myDisplay.getVisual());
-		myRoot.setBottom(myConsole.getVisual());
-		
-
-//		myRoot.setLeft(myUDC.getVisual());
-//		myRoot.setTop(myToolbar.getVisual());
-
-
-        //TODO: REFACTOR BELOW
-		SplitPane historyAndVars = new SplitPane();
-		historyAndVars.setOrientation(Orientation.VERTICAL);
-		historyAndVars.getItems().addAll(myHistory.getVisual(), myVariables.getVisual());
-		myRoot.setRight(historyAndVars);
-
-		SplitPane UDCandACL = new SplitPane();
-		UDCandACL.setOrientation(Orientation.VERTICAL);
-		UDCandACL.getItems().addAll(myUDC.getVisual(), myCharactersList.getVisual());
-		myRoot.setLeft(UDCandACL);             
-
-//		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
-        SplitPane splitPane1 = new SplitPane();
-        splitPane1.setOrientation(Orientation.VERTICAL);
-//      splitPane1.setPrefSize(200, 200);
-
-//        splitPane1.getItems().addAll(myOutput.getVisual(), myPortraiteStateOuput.getVisual());
-         
-        SplitPane splitPane2 = new SplitPane();
-        splitPane2.setOrientation(Orientation.HORIZONTAL);
-//      splitPane2.setPrefSize(300, 200);
-
-        splitPane2.getItems().addAll(myConsole.getVisual(), myOutput.getVisual());
-       
-        myRoot.setBottom(splitPane2);
 	}
+	
+	private void setBorderPane() {
+		myRoot.setCenter(myDisplay.getVisual());
+
+		Node combinedRight = combineComponent(Orientation.VERTICAL, myHistory.getVisual(), myVariables.getVisual());     		
+		myRoot.setRight(combinedRight);
+
+		Node combinedLeft = combineComponent(Orientation.VERTICAL, myUDC.getVisual(), myCharactersList.getVisual());
+		myRoot.setLeft(combinedLeft);           
+
+//        SplitPane splitPane1 = new SplitPane();
+//        splitPane1.setOrientation(Orientation.VERTICAL);
+
+
+//      splitPane1.getItems().addAll(myOutput.getVisual(), myPortraiteStateOuput.getVisual());
+        
+        Node combindedBottom = combineComponent(Orientation.HORIZONTAL, myConsole.getVisual(), myOutput.getVisual());
+        myRoot.setBottom(combindedBottom);
+	}
+	
+	//BorderPane Display Helper Methods
+	
+	private Node combineComponent(Orientation ori, Node n1, Node n2) {
+        SplitPane comb = new SplitPane();
+        comb.setOrientation(ori);
+//      comb.setPrefSize(300, 200);
+        comb.getItems().addAll(n1, n2);
+        return comb;
+	}
+	
 	
 	/**
 	 * Set up the observers for the backend side of the components.
@@ -122,7 +107,7 @@ public class FrontendManager {
 		myUDCObserver = new UDCObserver(backend.getUserDefinedCommands(myWorkspaceId), myController);
 		myPropertiesObserver = new PropertiesObserver(backend.getProperties(myWorkspaceId), myController);
 	}
-	   
+	
     //METHODS
     
     //HISTORY
@@ -225,8 +210,7 @@ public class FrontendManager {
     }
 
     
-    //GETTERS AND SETTERS
-	public Scene getMyScene(){ return this.myScene;}
+    //GETTERS AND SETTERS	
 	public BorderPane getMyBorderPane() {return this.myRoot;}
 	public int getId(){ return this.myWorkspaceId; }
 	
