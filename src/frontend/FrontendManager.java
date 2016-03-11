@@ -42,7 +42,7 @@ public class FrontendManager {
 		myController = c;
 		myWorkspaceId = id;
 		myRoot = new BorderPane();
-		myRoot.setPrefSize(1000, 500);
+		myRoot.setPrefSize(1000, 700);
 		initObserver(backend);
 		initComponents();
 		setBorderPane();
