@@ -20,12 +20,8 @@ import javafx.scene.paint.Color;
 import java.util.*;
 
 public class FrontendManager {
-	public static final int SIZE = 700;
 
-//    private Scene myScene;
     private BorderPane myRoot;
-//    private List<VisualComponent> myComponents;
-//	private static InterpreturInterface myBackend;
 	
 	private Display myDisplay;
 	private History myHistory;
@@ -43,13 +39,9 @@ public class FrontendManager {
 	private AllCharactersList myCharactersList;
 	
 	public FrontendManager(InterpreturInterface backend, Controller c, int id){
-		System.out.println(id);
-//		myBackend = new BackendManager();
 		myController = c;
 		myWorkspaceId = id;
 		myRoot = new BorderPane();
-//		myScene = new Scene(myRoot, Color.WHITE);
-//		myComponents = new ArrayList<VisualComponent>();
 		myRoot.setPrefSize(1000, 500);
 		initObserver(backend);
 		initComponents();
@@ -213,8 +205,7 @@ public class FrontendManager {
     }
 
     
-    //GETTERS AND SETTERS
-//	public Scene getMyScene(){ return this.myScene;}	
+    //GETTERS AND SETTERS	
 	public BorderPane getMyBorderPane() {return this.myRoot;}
 	public int getId(){ return this.myWorkspaceId; }
 	
