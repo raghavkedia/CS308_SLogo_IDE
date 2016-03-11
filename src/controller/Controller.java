@@ -104,6 +104,9 @@ public class Controller {
     public void changeLineColor(Color c, String charId){myBackend.getCharacterList(myId).getCharacter(charId).setPenColor(toRGBCode(c));}
     public void addPortrait(Character c){myFrontend.addPortrait(c);}
     public void clearCharactersFromFrontend(){myFrontend.clearCharacters();}
+    public void clearAllLines(){
+    	myDisplay.clearAlLines();
+    }
     
 
     //USER DEFINED COMMANDS

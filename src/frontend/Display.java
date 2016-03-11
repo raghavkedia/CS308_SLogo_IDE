@@ -89,6 +89,12 @@ public class Display extends VisualComponent{
 		drawAllLines();
 	}
 	
+	public void clearAllLines(){
+		clearLinesDrawn();
+		myLines.clear();
+		drawAllLines();
+	}
+	
 	public void clearLinesDrawn(){
 		Line test = new Line();
 		for (int i=myPane.getChildren().size()-1; i>=0; i--){
