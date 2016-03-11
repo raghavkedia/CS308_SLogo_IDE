@@ -32,7 +32,6 @@ public class FrontendManager {
 	private History myHistory;
 	private Variables myVariables;
 	private Console myConsole, myOutput;
-	private Properties myProp, myGUIProp ;
 	private List<Portrait> myPortraits;
 	private Portrait currentPortrait; // all commands typed to the console will be executed on this portrait
 	private Button myRunButton;
@@ -45,7 +44,7 @@ public class FrontendManager {
 	private UDC myUDC;
 	private AllCharactersList myCharactersList;
 	
-	public FrontendManager(Properties GUIProp, Properties myProp, InterpreturInterface backend, Controller c, int id){
+	public FrontendManager(InterpreturInterface backend, Controller c, int id){
 		System.out.println(id);
 //		myBackend = new BackendManager();
 		myController = c;
@@ -53,7 +52,6 @@ public class FrontendManager {
 		myRoot = new BorderPane();
 		myScene = new Scene(myRoot, Color.WHITE);
 //		myComponents = new ArrayList<VisualComponent>();
-		myGUIProp = GUIProp;
 		myRoot.setPrefSize(1000, 500);
 		initObserver(backend);
 		initComponents();
@@ -229,7 +227,4 @@ public class FrontendManager {
 	public BorderPane getMyBorderPane() {return this.myRoot;}
 	public int getId(){ return this.myWorkspaceId; }
 	
-	public String getGUIProperty(String s) {
-		return myGUIProp.getProperty(s);
-	}
 }
