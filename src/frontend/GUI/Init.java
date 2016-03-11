@@ -77,8 +77,11 @@ public class Init {
 		
 		myComboBox = makeLanguageBox();	
 		myBox.getChildren().add(myComboBox);
-		myStartButton = makeStartButton();
+		
+		String myStartButtonLabel = myGUIProp.getProperty(GUIString.START.key);
+		myStartButton = ComponentFactory.makeButton(myStartButtonLabel, initMainScene());
 		myBox.getChildren().add(myStartButton);
+		
 		display();
 	}
 	
@@ -90,7 +93,6 @@ public class Init {
 	
     private ComboBox<String> makeLanguageBox() throws IOException {
     	ComboBox<String> comboBox = new ComboBox<String>();
-
 		Properties prop = PropertyLoader.load(LANG_OPTION);   		
 		for(String key : prop.stringPropertyNames()) {
 			  String value = prop.getProperty(key);
@@ -100,35 +102,29 @@ public class Init {
     	return comboBox;
     }
     
-
-    private Button makeStartButton() {
-    	Button startButton = new Button(myGUIProp.getProperty(GUIString.START.key));
-		startButton.setOnAction(new EventHandler<ActionEvent>() {
+    
+    private EventHandler<ActionEvent> initMainScene() {
+    	return new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+		    	Properties prop;
 				try {
-					initMainScene();
+					prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
+					Controller theControl = new Controller(myGUIProp, prop, myStage);
+			        myBox = new VBox();
+					myScene = new Scene(myBox, 1000, 800);
+					MenubarComponent menubarComp = ComponentFactory.makeNewMenubar(theControl);
+					myBox.getChildren().add(menubarComp.getVisual());
+					ToolbarComponent toolbarComp = ComponentFactory.makeNewToolbar(theControl);
+					myBox.getChildren().add(toolbarComp.getVisual());
+					
+					myBox.getChildren().add(theControl.getWorkSpaceManager().getTabPane());
 					display();
-//					myStage.setResizable(false);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-		});
-    	return startButton;
-    }
-    
-    private void initMainScene() throws IOException {
-    	Properties prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
-		Controller theControl = new Controller(myGUIProp, prop, myStage);
-        myBox = new VBox();
-		myScene = new Scene(myBox, 1000, 800);
-		MenubarComponent menubarComp = ComponentFactory.makeNewMenubar(theControl);
-		myBox.getChildren().add(menubarComp.getVisual());
-		ToolbarComponent toolbarComp = ComponentFactory.makeNewToolbar(theControl);
-		myBox.getChildren().add(toolbarComp.getVisual());
-		
-		myBox.getChildren().add(theControl.getWorkSpaceManager().getTabPane());
+    	};
     }
 }
