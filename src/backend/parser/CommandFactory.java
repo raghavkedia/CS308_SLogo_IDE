@@ -104,7 +104,10 @@ public class CommandFactory {
 		}
 		return result;
 	}
-	private double setBackground(int index){
+	private double setBackground(int index) throws InvalidIndexColorError{
+		if(!myColorMap.indexExists(index)){
+			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));
+		}
 		String color = myColorMap.getColor(index);
 		myProperties.setBackgroundColor(color);
 		return (double) index;

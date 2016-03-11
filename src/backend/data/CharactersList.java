@@ -70,4 +70,11 @@ public class CharactersList extends Observable implements Observer{
 		return characters.size();
 	}
 	
+	public boolean characterExists(int index){
+		if(characters.get(index) == null){
+			return false;
+		}
+		return true;
+	}
+	
 }
