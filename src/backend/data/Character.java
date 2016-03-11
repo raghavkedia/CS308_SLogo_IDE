@@ -2,20 +2,15 @@ package backend.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
 
 import backend.Getable;
 import backend.Setable;
 import backend.data.Data.PenPattern;
-<<<<<<< .merge_file_VdHD5X
-
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-
-=======
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
->>>>>>> .merge_file_1BtwVj
 import javafx.scene.shape.Line;
 
 public class Character extends Observable implements Getable, Setable{
@@ -44,13 +39,7 @@ public class Character extends Observable implements Getable, Setable{
 		//do we need to do something about initial pen color
 		myStamps = new ArrayList<double[]>();
 		myShapeIndex = 1;
-<<<<<<< .merge_file_VdHD5X
-
 		myLinesList = new ArrayList<Line>();
-
-=======
-		myLinesList = new ArrayList<Line>();
->>>>>>> .merge_file_1BtwVj
 	}
 	
 	public int getColorIndex(){
@@ -165,39 +154,6 @@ public class Character extends Observable implements Getable, Setable{
 	
 	public void setPenPattern(PenPattern pattern){
 		myPenPattern = pattern;
-<<<<<<< .merge_file_VdHD5X
-	}
-	
-	public PenPattern getPenPattern(){
-		return myPenPattern;
-	}
-	
-	public boolean getPenDown(){
-		return penDown;
-	}
-	
-	public void setPenDown(boolean penStatus){
-		penDown = penStatus;
-	}
-
-	public String getPenColor(){
-		return myPenColor;
-	}
-	
-	public void setPenColor(String color){
-		myPenColor = color;
-	}
-
-
-	
-	public double getPenWidth(){
-		return myPenWidth;
-	}
-	
-	public void setPenWidth(double width){
-		myPenWidth = width;
-	}
-=======
 	}
 	
 	public PenPattern getPenPattern(){
@@ -227,6 +183,5 @@ public class Character extends Observable implements Getable, Setable{
 	public void setPenWidth(double width){
 		myPenWidth = width;
 	}
->>>>>>> .merge_file_1BtwVj
 
 }
