@@ -2,15 +2,11 @@ package backend.data;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
-import java.util.Observer;
 
 import backend.Getable;
 import backend.Setable;
 import backend.data.Data.PenPattern;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class Character extends Observable implements Getable, Setable{
@@ -166,13 +162,13 @@ public class Character extends Observable implements Getable, Setable{
 		penDown = penStatus;
 	}
 	
-		public String getPenColor(){
-			return myPenColor;
-		}
-		
-		public void setPenColor(String color){
-			myPenColor = color;
-		}
+	public String getPenColor(){
+		return myPenColor;
+	}
+	
+	public void setPenColor(String color){
+		myPenColor = color;
+	}
 	
 	public double getPenWidth(){
 		return myPenWidth;

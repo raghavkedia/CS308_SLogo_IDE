@@ -96,8 +96,7 @@ public class FrontendManager {
 		SplitPane UDCandACL = new SplitPane();
 		UDCandACL.setOrientation(Orientation.VERTICAL);
 		UDCandACL.getItems().addAll(myUDC.getVisual(), myCharactersList.getVisual());
-		myRoot.setLeft(UDCandACL);
-//		myRoot.setLeft(myVariables.getVisual());              
+		myRoot.setLeft(UDCandACL);             
 
 		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
         SplitPane splitPane1 = new SplitPane();
@@ -175,17 +174,15 @@ public class FrontendManager {
     }
     
     //DISPLAY
-    public void drawLine(double x1, double y1, double x2, double y2){
-    	myDisplay.drawLine(x1, y1, x2, y2);
+    public void drawLine(double x1, double y1, double x2, double y2, String charId){
+    	myDisplay.drawLine(x1, y1, x2, y2, charId);
     }
     
     public void changeBackgroundColor(Color c){
     	myDisplay.setBackgroundColor(c);
     }
     
-    public void setLineColor(Color c){
-    	myDisplay.setLineColor(c);
-    }
+//    public void setLineColor(Color c){myDisplay.setLineColor(c);}
     
     public void addPortrait(Character c){
     	Portrait p = new Portrait(c);

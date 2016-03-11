@@ -11,7 +11,7 @@ public class Portrait extends VisualComponent{
 	public static int characterID = 0;
 	
 	public Portrait(Character c) {
-		myPortrait = new ImageView(c.getMyImage());
+		myPortrait = new ImageView(c.getMyImagePath());
 		super.setVisual(myPortrait);
 		myPortrait.setX(0);
 		myPortrait.setY(0);
