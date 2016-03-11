@@ -1,65 +1,44 @@
 package backend.data;
 
+import java.util.Observable;
+
 import backend.data.Data.PenPattern;
+import javafx.beans.InvalidationListener;
+
 import javafx.scene.paint.Color;
 
-public class Properties {
+public class Properties extends Observable{
 	
-	private Color myBackgroundColor;
-	private Color myPenColor;
-	private boolean penDown;
-	private PenPattern myPenPattern;
-	private double myPenWidth;
+	private String myBackgroundColor;
+	private boolean clearScreen;
 	
 	public Properties() {
 		// TODO Auto-generated constructor stub
-		myPenPattern = PenPattern.SOLID;
-		penDown = true;
-		myPenWidth = 3.0;
-		myBackgroundColor = Color.WHITE;
-		myPenColor = Color.BLACK;
+
+		myBackgroundColor = "";
+		clearScreen = false;
+		
 	}
 	
-	
-	public void setPenPattern(PenPattern pattern){
-		myPenPattern = pattern;
-	}
-	
-	public PenPattern getPenPattern(){
-		return myPenPattern;
-	}
-	
-	public boolean getPenDown(){
-		return penDown;
-	}
-	
-	public void setPenDown(boolean penStatus){
-		penDown = penStatus;
-	}
-	
-	public Color getBackgroundColor(){
+	public String getBackgroundColor(){
 		return myBackgroundColor;
 	}
 	
-	public void setBackgroundColor(Color color){
+	public void setBackgroundColor(String color){
 		myBackgroundColor = color;
 	}
 	
-	public Color getPenColor(){
-		return myPenColor;
+	public void setClearScreen(boolean c){
+		clearScreen = c;
 	}
 	
-	public void setPenColor(Color color){
-		myPenColor = color;
-	}
-	
-	public double getPenWidth(){
-		return myPenWidth;
-	}
-	
-	public void setPenWidth(double width){
-		myPenWidth = width;
+	public boolean isClearScreen(){
+		return clearScreen;
 	}
 
+	public void hasUpdated(){
+		setChanged();
+		notifyObservers(this);
+	}
 	
 }

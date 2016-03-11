@@ -35,10 +35,6 @@ class Console extends VisualComponent{
          String input =  commandArea.getText();
          commandArea.clear();
          myController.passConsoleInput(input);
-//         System.out.println(System.getProperty("line.separator"));
-//         for (int i = 0; i < input.length(); i++) {            
-//             System.out.print(input.charAt(i));    
-//         }
          return input;
     } 
     

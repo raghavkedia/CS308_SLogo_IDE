@@ -1,5 +1,4 @@
 package frontend.toobar;
-
 import controller.Controller;
 import frontend.VisualComponent;
 import javafx.geometry.Orientation;
@@ -21,7 +20,7 @@ public class ToolbarComponent extends VisualComponent{
 		myToolbar.getItems().add(ToolbarFactory.makeClearButton(myController));
 		myToolbar.getItems().add(ToolbarFactory.makeHelpButton(myController));
 		myToolbar.getItems().add(ToolbarFactory.makeCreateWorkSpaceButton(myController));
-		myToolbar.getItems().add(ToolbarFactory.makePenPropertiesButton(myController));
+//		myToolbar.getItems().add(ToolbarFactory.makePenPropertiesButton(myController));
 		
 		super.setVisual(myToolbar);
 	}

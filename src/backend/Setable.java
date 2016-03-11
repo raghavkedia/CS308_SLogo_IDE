@@ -6,7 +6,6 @@ public interface Setable {
 	
 	public void setCurrCoord(double x, double y);
 	public void setName(String name);
-	public void setImage(Image image);
 	public void setVisability(boolean visability);
 	public void setPenState(boolean penState);
 	

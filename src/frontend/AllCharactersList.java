@@ -55,6 +55,6 @@ public class AllCharactersList extends ListVisual implements IClickable{
 	@Override
 	public void respondToClick() {
 		CharacterPopupWindow popup = ComponentFactory.makeNewCharactersPopupWindow(myList.getSelectionModel().getSelectedItem(), myController);
-		ComponentFactory.initNewPopup(popup, 300, 400);
+		ComponentFactory.initNewPopup(popup, 300, 700);
 	}
 }

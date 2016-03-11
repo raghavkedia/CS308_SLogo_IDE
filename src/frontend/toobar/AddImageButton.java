@@ -4,7 +4,6 @@ import java.io.File;
 import backend.data.Character;
 import controller.Controller;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import frontend.Portrait;
@@ -22,9 +21,11 @@ class AddImageButton extends Button {
 					if (imgFile != null) {
 						Character c = new Character();
 						c.setName(Integer.toString(Portrait.getAndIncrementId()));
-						c.setImage(new Image("file://"+imgFile.toString()));
+//						c.setImage(new Image("file://"+imgFile.toString()));
+						c.setImagePath("file://"+imgFile.toString());
 						c.setVisability(true);
 						c.setPenState(true);
+						c.setPenColor("000000");
 						control.addNewChar(c);
 					}
 					

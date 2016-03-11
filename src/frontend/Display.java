@@ -22,6 +22,7 @@ public class Display extends VisualComponent{
 	private HashMap<String, Double> myPreviousX;
 	private HashMap<String, Double> myPreviousY;
 	private Controller myController;
+	private ArrayList<Line> myLines;
 
 	public Display(double width, double height, Controller control){
 		super.setColor(Color.WHITE);
@@ -37,6 +38,7 @@ public class Display extends VisualComponent{
 		myPreviousX = new HashMap<String, Double>();
 		myPreviousY = new HashMap<String, Double>();
 		myController = control;
+		myLines = new ArrayList<Line>();
 		
 	}
 	
@@ -55,6 +57,7 @@ public class Display extends VisualComponent{
 		myPreviousY = new HashMap<String, Double>();
 		this.myPortraits.add(defaultPortrait);
 		myController = control;
+		myLines = new ArrayList<Line>();
 	}
 	
 	/**
@@ -65,13 +68,13 @@ public class Display extends VisualComponent{
 	 * @param x2 - ending x coordinate
 	 * @param y2 - ending y coordinate
 	 */
-	public void drawLine(double x1, double y1, double x2, double y2){
+	public void drawLine(double x1, double y1, double x2, double y2, String charId){
 		double[] newInitialCoords = mapCoords(x1, y1);
 		double[] newEndCoords = mapCoords(x2, y2);
 		Line newLine = new Line(newInitialCoords[0], newInitialCoords[1], newEndCoords[0], newEndCoords[1]);
-		newLine.setStroke(myController.getPenColor());
-		newLine.setStrokeWidth(myController.getLineThickness());
-		switch (myController.getPenPattern()){
+		newLine.setStroke(myController.getPenColor(charId));
+		newLine.setStrokeWidth(myController.getLineThickness(charId));
+		switch (myController.getPenPattern(charId)){
 			case DASHED:
 				newLine.getStrokeDashArray().addAll(25d, 20d, 5d, 20d);
 				break;
@@ -81,7 +84,30 @@ public class Display extends VisualComponent{
 			default:
 				// do nothing -- solid
 		}
-		myPane.getChildren().add(newLine);
+		myLines.add(newLine);
+		clearLinesDrawn();
+		drawAllLines();
+	}
+	
+	public void clearAllLines(){
+		clearLinesDrawn();
+		myLines.clear();
+		drawAllLines();
+	}
+	
+	public void clearLinesDrawn(){
+		Line test = new Line();
+		for (int i=myPane.getChildren().size()-1; i>=0; i--){
+			if (myPane.getChildren().get(i).getClass().equals(test.getClass())){
+				myPane.getChildren().remove(i);
+			}
+		}
+	}
+	
+	public void drawAllLines(){
+		for (Line l : myLines){
+			myPane.getChildren().add(l);
+		}
 	}
 	
 	public void clearChars(){
@@ -105,7 +131,7 @@ public class Display extends VisualComponent{
 		String charName = p.getMyChar().getName();
 		
 		if (p.getMyChar().getPenState() && myPreviousX.keySet().contains(charName)){
-			drawLine(myPreviousX.get(charName), myPreviousY.get(charName), p.getMyChar().getCoordX(), p.getMyChar().getCoordY());
+			drawLine(myPreviousX.get(charName), myPreviousY.get(charName), p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getMyChar().getName());
 		}
 		myPreviousX.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordX());
 		myPreviousY.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordY());
@@ -142,7 +168,7 @@ public class Display extends VisualComponent{
 		return out;
 	}
 	
-	public void setLineColor(Color c){myController.setPenColor(c);}
+//	public void setLineColor(Color c){myController.setPenColor(c);}
 	public void setBackgroundColor(Color c){
 		super.setColor(c);
 		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));

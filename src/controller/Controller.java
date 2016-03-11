@@ -13,6 +13,7 @@ import frontend.FrontendManager;
 import frontend.workspace.IWorkSpace;
 import frontend.workspace.WorkSpaceManager;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class Controller {
@@ -95,14 +96,17 @@ public class Controller {
     public void addToHistory(String s){myFrontend.addToHistory(s);}
     
     // DISPLAY
-    public void drawLine(double x1, double y1, double x2, double y2){myFrontend.drawLine(x1, y1, x2, y2);}
+    public void drawLine(double x1, double y1, double x2, double y2, String charId){myFrontend.drawLine(x1, y1, x2, y2, charId);}
     public void changeDisplayBackgroundColor(Color c){
     	myFrontend.changeBackgroundColor(c);
-    	myBackend.getProperties(myId).setBackgroundColor(c);
+    	myBackend.getProperties(myId).setBackgroundColor(toRGBCode(c));
     }
-    public void changeLineColor(Color c){myFrontend.setLineColor(c);}
+    public void changeLineColor(Color c, String charId){myBackend.getCharacterList(myId).getCharacter(charId).setPenColor(toRGBCode(c));}
     public void addPortrait(Character c){myFrontend.addPortrait(c);}
     public void clearCharactersFromFrontend(){myFrontend.clearCharacters();}
+    public void clearAllLines(){
+    	myDisplay.clearAlLines();
+    }
     
 
     //USER DEFINED COMMANDS
@@ -131,15 +135,18 @@ public class Controller {
     //BACKEND
     public void addNewChar(Character c){myBackend.getCharacterList(myId).addCharacter(c);}
     
-    public void setPenPattern(PenPattern pattern){myBackend.getProperties(myId).setPenPattern(pattern);}
-    public void setPenColor(Color c){myBackend.getProperties(myId).setPenColor(c);}
-	public void setLineThickness(double newWidth) {myBackend.getProperties(myId).setPenWidth(newWidth);}
-    
-	public Color getPenColor(){
-		return myBackend.getProperties(myId).getPenColor(); 
+    public void setPenPattern(PenPattern pattern, String charId){
+//    	myBackend.getProperties(myId).setPenPattern(pattern);
+    	myBackend.getCharacterList(myId).getCharacter(charId).setPenPattern(pattern);
 	}
-	public double getLineThickness(){ return myBackend.getProperties(myId).getPenWidth();}
-    public PenPattern getPenPattern(){return myBackend.getProperties(myId).getPenPattern();}
+    public void setPenColor(Color c, String charId){myBackend.getCharacterList(myId).getCharacter(charId).setPenColor(toRGBCode(c));}
+	public void setLineThickness(double newWidth, String charId) {myBackend.getCharacterList(myId).getCharacter(charId).setPenWidth(newWidth);}
+    
+	public Color getPenColor(String charId){
+		return Color.web(myBackend.getCharacterList(myId).getCharacter(charId).getPenColor()); 
+	}
+	public double getLineThickness(String charId){ return myBackend.getCharacterList(myId).getCharacter(charId).getPenWidth();}
+    public PenPattern getPenPattern(String charId){return myBackend.getCharacterList(myId).getCharacter(charId).getPenPattern();}
     
     public boolean isCharIdActive(String charId){ return myBackend.getCharacterList(myId).getActiveCharacters().contains(charId); }
     public boolean isCharIdPenDown(String charId){ return myBackend.getCharacterList(myId).getCharacter(charId).getPenState(); }
@@ -152,6 +159,8 @@ public class Controller {
     }
     public void setCharIdPenDown(String charId, boolean isPenDown){ myBackend.getCharacterList(myId).getCharacter(charId).setPenState(isPenDown); }
     public void setCharIdVisible(String charId, boolean isVisible){ myBackend.getCharacterList(myId).getCharacter(charId).setVisability(isVisible);}
+    public static String toRGBCode( Color color ){ return String.format( "#%02X%02X%02X",(int)( color.getRed() * 255 ),(int)( color.getGreen() * 255 ),(int)( color.getBlue() * 255 ) );}
+
 	
     //GETTERS AND SETTERS
     public FrontendManager getFrontendManager() {return this.myFrontend; }
