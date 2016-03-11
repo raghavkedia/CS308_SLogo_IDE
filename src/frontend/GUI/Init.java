@@ -5,17 +5,13 @@ import java.util.Properties;
 
 import controller.Controller;
 import frontend.ComponentFactory;
-import frontend.FrontendManager;
 import frontend.menubar.MenubarComponent;
 import frontend.toobar.ToolbarComponent;
-import frontend.workspace.WorkSpaceManager;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
@@ -25,9 +21,7 @@ public class Init {
 	private static final String LANG_PATH = "languages/";
 	private static final String LANG_OPTION = LANG_PATH + "languageOption";
 	private static final String LANG_DEFAULT = "default_lang";
-	private static final String BUTTON_NAME = "start_button";
 	private static final String GUI_FILE_NAME = "GUI";
-	private static final String TITLE = "title";
 	private static final int SCENE_HEIGHT = 500;
 	private static final int SCENE_WIDTH = 300;
 	private Stage myStage;
@@ -37,10 +31,41 @@ public class Init {
 	private Button myStartButton;
 	private Properties myGUIProp; 
 	
+	public enum GUIString {
+		TITLE("title"),
+	    START("start"),
+	    HELP("help"),
+		CLEAR("clear"),
+        WORKSPACE("workspace"),
+		RUN("run"),
+		PORTRAIT("portrait"),
+		PEN("pen"),
+		HELP_TITLE("help_title"),
+		HELP_URL("help_url"),
+		PORTRAIT_TITLE("portrait_title"),
+		FILE_MENU("file_menu"),
+		FILE_MENU_LOAD("file_menu_load"),
+		FILE_MENU_SAVE("file_menu_save"),
+		SETTING_MENU("setting_menu"),
+		SETTING_MENU_LOAD("setting_menu_load"),
+		SETTING_MENU_SAVE("setting_menu_save"),		
+		;
+		private final String key;
+		
+		private GUIString(String keyName) {
+			this.key = keyName;
+		}		
+		
+		public String getKey() {
+			return this.key;
+		}
+		
+	}
+	
 	public Init(Stage s) throws IOException {
 		myStage = s;
 		myGUIProp = PropertyLoader.load(GUI_FILE_NAME);
-		s.setTitle(myGUIProp.getProperty(TITLE));
+		s.setTitle(myGUIProp.getProperty(GUIString.TITLE.key));
 		myBox = new VBox();
 		myBox.setAlignment(Pos.CENTER);
 		myScene = new Scene(myBox, SCENE_HEIGHT, SCENE_WIDTH);
@@ -72,7 +97,7 @@ public class Init {
     
 
     private Button makeStartButton() {
-    	Button startButton = new Button(myGUIProp.getProperty(BUTTON_NAME));
+    	Button startButton = new Button(myGUIProp.getProperty(GUIString.START.key));
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {

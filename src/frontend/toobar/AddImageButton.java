@@ -7,14 +7,15 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import frontend.Portrait;
+import frontend.GUI.Init.GUIString;
 
 class AddImageButton extends Button {
 	AddImageButton(Controller control) {
-		this.setText("add_image");
+		this.setText(control.getGUIProperty(GUIString.PORTRAIT.getKey()));
 		this.setOnAction(
 				e ->{
 					FileChooser fc = new FileChooser();
-					fc.setTitle("Select an Image");
+					fc.setTitle(control.getGUIProperty(GUIString.PORTRAIT_TITLE.getKey()));
 					fc.getExtensionFilters().setAll(new ExtensionFilter("Image Files (.png)", "*.png"));
 					File imgFile = fc.showOpenDialog(control.getMyStage());
 					if (imgFile != null) {

@@ -13,6 +13,7 @@ import frontend.FrontendManager;
 import frontend.workspace.IWorkSpace;
 import frontend.workspace.WorkSpaceManager;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class Controller {
@@ -103,6 +104,9 @@ public class Controller {
     public void changeLineColor(Color c, String charId){myBackend.getCharacterList(myId).getCharacter(charId).setPenColor(toRGBCode(c));}
     public void addPortrait(Character c){myFrontend.addPortrait(c);}
     public void clearCharactersFromFrontend(){myFrontend.clearCharacters();}
+    public void clearAllLines(){
+    	myFrontend.clearAllLines();
+    }
     
 
     //USER DEFINED COMMANDS

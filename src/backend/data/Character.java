@@ -7,6 +7,10 @@ import java.util.Observable;
 import backend.Getable;
 import backend.Setable;
 import backend.data.Data.PenPattern;
+
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+
 import javafx.scene.shape.Line;
 
 public class Character extends Observable implements Getable, Setable{
@@ -35,6 +39,9 @@ public class Character extends Observable implements Getable, Setable{
 		//do we need to do something about initial pen color
 		myStamps = new ArrayList<double[]>();
 		myShapeIndex = 1;
+
+		myLinesList = new ArrayList<Line>();
+
 	}
 	
 	public int getColorIndex(){
@@ -68,6 +75,7 @@ public class Character extends Observable implements Getable, Setable{
 		// TODO Auto-generated method stub
 		myCoordX = x;
 		myCoordY = y;
+		hasUpdated();
 	}
 	
 	public void setName(String name) {
@@ -161,7 +169,7 @@ public class Character extends Observable implements Getable, Setable{
 	public void setPenDown(boolean penStatus){
 		penDown = penStatus;
 	}
-	
+
 	public String getPenColor(){
 		return myPenColor;
 	}
@@ -169,6 +177,8 @@ public class Character extends Observable implements Getable, Setable{
 	public void setPenColor(String color){
 		myPenColor = color;
 	}
+
+
 	
 	public double getPenWidth(){
 		return myPenWidth;

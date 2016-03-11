@@ -3,6 +3,7 @@ package backend.parser;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -173,9 +174,15 @@ public class CommandFactory {
 	private TurtleOperation Home = (String key, double a, double b) -> findDistanceFromHome(key);
 	private TurtleOperation ClearScreen = (String key, double a, double b) -> {
 		//set clear screen
-		myProperties.setClearScreen(true);
 		myCharacters.getCharacter(key).removeLines();
-		return findDistanceFromHome(key);
+		executeForCharacters(SetHeading, new ArrayList<Double>(){{
+			add(0.0);
+			add(0.0);
+		}});
+		double result = findDistanceFromHome(key);
+		myProperties.setClearScreen(true);
+		myProperties.hasUpdated();
+		return result;
 	};
 	private TurtleOperation XCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordX();
 	private TurtleOperation YCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordY();
@@ -201,7 +208,7 @@ public class CommandFactory {
 		return a;
 	};
 	private TurtleOperation SetPenColor = (String key, double a, double b) -> {
-		if(myColorMap.indexExists((int)a)){
+		if(myColorMap.indexExists((int) a)){
 			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));
 		}
 		myCharacters.getCharacter(key).setColorIndex((int)a);
@@ -210,7 +217,7 @@ public class CommandFactory {
 		return a;
 	};
 	private TurtleOperation SetShape = (String key, double a, double b) -> {
-		if(myShapeMap.indexExists((int)a)){
+		if(myShapeMap.indexExists((int) a)){
 			throw new InvalidIndexShapeError(myErrorResources.getString("InvalidIndexShapeError"));
 		}
 		myCharacters.getCharacter(key).setShapeIndex((int)a);

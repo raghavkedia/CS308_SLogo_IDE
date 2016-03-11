@@ -1,5 +1,4 @@
 package frontend.toobar;
-
 import controller.Controller;
 import frontend.VisualComponent;
 import javafx.geometry.Orientation;
