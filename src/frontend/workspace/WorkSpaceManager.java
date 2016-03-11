@@ -7,7 +7,7 @@ import java.util.Properties;
 import backend.InterpreturInterface;
 import controller.Controller;
 import frontend.FrontendManager;
-
+import frontend.GUI.Init.GUIString;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -42,7 +42,8 @@ public class WorkSpaceManager implements IWorkSpace{
 	@Override
 	public void createWorkSpace() {
 		Tab tab = new Tab();
-		tab.setText("workspace " + numOfWorkSpaceCreated);
+		String tabname = getGUIProperty(GUIString.WORKSPACE_TABNAME.getKey());
+		tab.setText(tabname + numOfWorkSpaceCreated);
 		myBackend.addWorkSpace(numOfWorkSpaceCreated+ 1);
 		FrontendManager frontendManager = new FrontendManager(myBackend, myController, 
 				numOfWorkSpaceCreated);
