@@ -24,7 +24,7 @@ public class AllCharactersList extends ListVisual implements IClickable{
 	 * @param newVar - String received from backend
 	 */
 	public void addToAllChars(String newChar){
-		myData.add(newChar);
+		myData.add(newChar.split("\\.")[0]);
 	}
 	
 	public void clearAll(){

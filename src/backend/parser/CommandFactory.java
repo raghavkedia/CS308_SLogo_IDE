@@ -1,4 +1,5 @@
 
+
 package backend.parser;
 
 import java.awt.Color;
@@ -172,8 +173,6 @@ public class CommandFactory {
 	};
 	private TurtleOperation Home = (String key, double a, double b) -> findDistanceFromHome(key);
 	private TurtleOperation ClearScreen = (String key, double a, double b) -> {
-		//set clear screen
-		myProperties.setClearScreen(true);
 		myCharacters.getCharacter(key).removeLines();
 		return findDistanceFromHome(key);
 	};
@@ -214,9 +213,8 @@ public class CommandFactory {
 			throw new InvalidIndexShapeError(myErrorResources.getString("InvalidIndexShapeError"));
 		}
 		myCharacters.getCharacter(key).setShapeIndex((int)a);
-		//no need to actually set the image path, frontend can do the lookup
-//		String imagePath = myShapeMap.getImagePath((int) a);
-//		myCharacters.getCharacter(key).setImagePath(imagePath);
+		String imagePath = myShapeMap.getImagePath((int) a);
+		myCharacters.getCharacter(key).setImagePath(imagePath);
 		return a;
 	};
 	
@@ -413,7 +411,7 @@ public class CommandFactory {
 			return executeForCharacters(YCoordinate, convertAllNodesToDoubles(myChildren));
 		case Ask:
 			//check again that all children of [ node are constants, make method for this?
-			changeActiveCharactersTo(myChildren.get(0).getMyChildren());
+			changeActiveCharactersTo(myChildren.get(0).getMyChildren().subList(0, myChildren.get(0).getMyChildren().size() - 1));
 			result = myChildren.get(1).execute();
 			returnActiveCharactersToPrevious(previousActive);
 			return result;
@@ -437,7 +435,7 @@ public class CommandFactory {
 			break;
 		case Tell:
 			//check that all children of that [ node are constants
-			changeActiveCharactersTo(myChildren.get(0).getMyChildren());
+			changeActiveCharactersTo(myChildren.get(0).getMyChildren().subList(0, myChildren.get(0).getMyChildren().size()- 2));
 			return Double.valueOf(myCharacters.getActiveCharacters().get(myCharacters.getActiveCharacters().size()-1));
 		case Turtles:
 			return myCharacters.getNumCharacters();

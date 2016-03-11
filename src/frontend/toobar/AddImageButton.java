@@ -19,7 +19,7 @@ class AddImageButton extends Button {
 					File imgFile = fc.showOpenDialog(control.getMyStage());
 					if (imgFile != null) {
 						Character c = new Character();
-						c.setName(Integer.toString(Portrait.getAndIncrementId()));
+						c.setName(Double.toString(Portrait.getAndIncrementId()));
 //						c.setImage(new Image("file://"+imgFile.toString()));
 						c.setImagePath("file://"+imgFile.toString());
 						c.setVisability(true);
