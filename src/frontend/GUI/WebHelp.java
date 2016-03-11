@@ -1,40 +1,26 @@
 package frontend.GUI;
 
-
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-public class WebHelp extends Application{
-    private String myTitle;
+public class WebHelp{
 	private WebView myWebView;
 	private Group myGroup;
+	private Stage myStage;	
 
-	
-	public WebHelp(String url, String tilte) {
+	public WebHelp(String url, String title) {
+		myStage = new Stage();
 		myGroup = new Group();
 		myWebView = new WebView();
 		WebEngine webEngine = myWebView.getEngine();
 		webEngine.load(url);
 		myGroup.getChildren().add(myWebView);
-		
+		Scene scene = new Scene(myGroup);
+		myStage.setTitle(title);
+		myStage.setScene(scene);
+		myStage.show();	
 	}
-	
-	@Override
-	public void start(Stage stage) throws Exception {
-		try{
-			Scene scene = new Scene(myGroup);
-			stage.setTitle(myTitle);
-			stage.setScene(scene);
-			stage.show();			
-		} catch(Exception e){
-			System.out.print("error in web help");
-			e.printStackTrace();
-		}
-	}
-	
-	
 }
