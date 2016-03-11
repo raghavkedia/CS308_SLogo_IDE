@@ -37,12 +37,14 @@ public class WorkSpaceManager implements IWorkSpace{
 		tabPane.getSelectionModel().getSelectedItem(); //tab	
 	}
 	
+
+	
 	@Override
 	public void createWorkSpace() {
 		Tab tab = new Tab();
 		tab.setText("workspace " + numOfWorkSpaceCreated);
 		myBackend.addWorkSpace(numOfWorkSpaceCreated+ 1);
-		FrontendManager frontendManager = new FrontendManager(myGUIProp, myLangProp, myBackend, myController, 
+		FrontendManager frontendManager = new FrontendManager(myBackend, myController, 
 				numOfWorkSpaceCreated);
 		myFrontendManagers.put(frontendManager.getId(), frontendManager);
 
@@ -72,4 +74,13 @@ public class WorkSpaceManager implements IWorkSpace{
 		return myFrontendManagers.get(Integer.valueOf(selectedTab.getId()));
 	}
 	
+	@Override
+	public String getGUIProperty(String s) {
+		return myGUIProp.getProperty(s);
+	}
+	
+	@Override
+	public Properties getLangProperty() {
+		return myLangProp;
+	}
 }

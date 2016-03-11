@@ -50,6 +50,10 @@ public class Controller {
 		myId = myFrontend.getId();
 	}
 	
+	public Properties getLangProperty() {
+		return myWorkSpace.getLangProperty();
+	}
+	
 	//FRONTEND METHODS	
 	
 	//CONSOLE
@@ -116,7 +120,7 @@ public class Controller {
     
     //MISC
     public String getGUIProperty(String s) {
-		return myFrontend.getGUIProperty(s);
+		return myWorkSpace.getGUIProperty(s);
 	}
     
    

@@ -6,12 +6,9 @@ import java.io.OutputStream;
 import java.util.Properties;
 
 public class PropertySaver {
-	public static void save(Properties props, String fileName) {
+	public static void save(Properties props, File file) {
 	    try {
-	    	fileName = fileName + PropertyLoader.EXTENSION;
-	    	System.out.println(fileName);
-	        File f = new File(fileName);
-	        OutputStream out = new FileOutputStream( f );
+	        OutputStream out = new FileOutputStream(file);
 	        props.store(out, "This is an optional header comment string");
 	    }
 	    catch (Exception e ) {

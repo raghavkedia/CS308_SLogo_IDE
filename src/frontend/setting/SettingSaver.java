@@ -1,20 +1,22 @@
-package frontend;
+package frontend.setting;
 
+import java.io.File;
 import java.util.Properties;
 
+import frontend.FrontendManager;
 import util.PropertySaver;
 
 public class SettingSaver implements IFrontEndSettingSaver {
 	private FrontendManager myFrontendManager;
 	private Properties myProps;
-	private static final String BG_COL_KEY = "background_color";
+	public static final String BG_COL_KEY = "background_color";
 	
 	
-	public SettingSaver(FrontendManager frontendManager, String fileName) {
+	public SettingSaver(FrontendManager frontendManager, File file) {
 		myFrontendManager = frontendManager;
 		myProps = new Properties();
 		saveBGCol();
-		PropertySaver.save(myProps, fileName);
+		PropertySaver.save(myProps, file);
 	}
     
 	@Override

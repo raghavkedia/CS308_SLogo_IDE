@@ -1,4 +1,4 @@
-package frontend;
+package frontend.setting;
 
 interface IFrontEndSettingSaver {
 	void saveBGCol();

@@ -31,8 +31,7 @@ public class FrontendManager {
 	private Display myDisplay;
 	private History myHistory;
 	private Variables myVariables;
-	private Console myConsole, myOutput, myPortraiteStateOuput;
-	private Properties myProp, myGUIProp ;
+	private Console myConsole, myOutput;
 	private List<Portrait> myPortraits;
 	private Portrait currentPortrait; // all commands typed to the console will be executed on this portrait
 	private Button myRunButton;
@@ -45,7 +44,7 @@ public class FrontendManager {
 	private UDC myUDC;
 	private AllCharactersList myCharactersList;
 	
-	public FrontendManager(Properties GUIProp, Properties myProp, InterpreturInterface backend, Controller c, int id){
+	public FrontendManager(InterpreturInterface backend, Controller c, int id){
 		System.out.println(id);
 //		myBackend = new BackendManager();
 		myController = c;
@@ -53,8 +52,7 @@ public class FrontendManager {
 		myRoot = new BorderPane();
 		myScene = new Scene(myRoot, Color.WHITE);
 //		myComponents = new ArrayList<VisualComponent>();
-		myGUIProp = GUIProp;
-		myRoot.setPrefSize(1000, 700);
+		myRoot.setPrefSize(1000, 500);
 		initObserver(backend);
 		initComponents();
 	}
@@ -66,7 +64,7 @@ public class FrontendManager {
 
 		myHistory = ComponentFactory.makeNewHistory(250, 450, myController);
 		
-		myOutput = ComponentFactory.makeNewConsole(200, 200, myController);
+		myOutput = ComponentFactory.makeNewConsole(50, 50, myController);
 		
 		myVariables = ComponentFactory.makeNewVariables(250, 450, myController);
 		
@@ -98,18 +96,18 @@ public class FrontendManager {
 		UDCandACL.getItems().addAll(myUDC.getVisual(), myCharactersList.getVisual());
 		myRoot.setLeft(UDCandACL);             
 
-		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
+//		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
         SplitPane splitPane1 = new SplitPane();
         splitPane1.setOrientation(Orientation.VERTICAL);
-        splitPane1.setPrefSize(200, 200);
+//      splitPane1.setPrefSize(200, 200);
 
-        splitPane1.getItems().addAll(myOutput.getVisual(), myPortraiteStateOuput.getVisual());
+//        splitPane1.getItems().addAll(myOutput.getVisual(), myPortraiteStateOuput.getVisual());
          
         SplitPane splitPane2 = new SplitPane();
         splitPane2.setOrientation(Orientation.HORIZONTAL);
-        splitPane2.setPrefSize(300, 200);
+//      splitPane2.setPrefSize(300, 200);
 
-        splitPane2.getItems().addAll(myConsole.getVisual(), splitPane1);
+        splitPane2.getItems().addAll(myConsole.getVisual(), myOutput.getVisual());
        
         myRoot.setBottom(splitPane2);
 	}
@@ -189,7 +187,7 @@ public class FrontendManager {
     	myDisplay.addPortrait(p);
 //    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
 //    	myDisplay.addImage(p, c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
-    	myPortraiteStateOuput.setText("my x : " + c.getCoordX() + ", my y : " + c.getCoordY()+ ", myAngle :" +  c.getMyAngle());
+//    	myPortraiteStateOuput.setText("my x : " + c.getCoordX() + ", my y : " + c.getCoordY()+ ", myAngle :" +  c.getMyAngle());
     }
     
     public void clearCharacters(){
@@ -203,7 +201,14 @@ public class FrontendManager {
     
     //ALL CHARACTER LIST
     public void clearAllChars(){ myCharactersList.clearAll();}
-    public void addChar(Character c){ myCharactersList.addToAllChars(c.getName()); }
+    public void addChar(Character c){ 
+//    	String id = "myID: " + c.getName();
+//    	String xcord = ", x: " +  c.getCoordX();
+//    	String ycord = ", y: " +  c.getCoordY();
+//    	String angle = ", angle: " +  c.getMyAngle();
+    	String name = c.getName();
+    	myCharactersList.addToAllChars(name); 
+   }
 
     public String getBackgroundRGB(){
     	Color c = myDisplay.getColor();
@@ -220,7 +225,4 @@ public class FrontendManager {
 	public BorderPane getMyBorderPane() {return this.myRoot;}
 	public int getId(){ return this.myWorkspaceId; }
 	
-	public String getGUIProperty(String s) {
-		return myGUIProp.getProperty(s);
-	}
 }

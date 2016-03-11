@@ -1,12 +1,8 @@
 package frontend.toobar;
 
-import java.util.Properties;
 import controller.Controller;
 import frontend.VisualComponent;
-
-
 import javafx.geometry.Orientation;
-
 import javafx.scene.control.ToolBar;
 
 
