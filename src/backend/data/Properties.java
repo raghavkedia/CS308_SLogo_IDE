@@ -1,9 +1,13 @@
 package backend.data;
 
+import java.util.Observable;
+
 import backend.data.Data.PenPattern;
+import javafx.beans.InvalidationListener;
+
 import javafx.scene.paint.Color;
 
-public class Properties {
+public class Properties extends Observable{
 	
 	private String myBackgroundColor;
 	private boolean clearScreen;
@@ -32,5 +36,9 @@ public class Properties {
 		return clearScreen;
 	}
 
+	public void hasUpdated(){
+		setChanged();
+		notifyObservers(this);
+	}
 	
 }
