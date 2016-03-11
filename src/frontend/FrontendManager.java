@@ -39,13 +39,13 @@ public class FrontendManager {
 	private Observer myVariablesObserver;
 	private Observer myCharactersObserver;
 	private Observer myUDCObserver;
+	private Observer myPropertiesObserver;
 	private Controller myController;
 	private int myWorkspaceId;
 	private UDC myUDC;
 	private AllCharactersList myCharactersList;
 	
 	public FrontendManager(InterpreturInterface backend, Controller c, int id){
-		System.out.println(id);
 //		myBackend = new BackendManager();
 		myController = c;
 		myWorkspaceId = id;
@@ -120,6 +120,7 @@ public class FrontendManager {
 		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(myWorkspaceId), myController);
 		myVariablesObserver = new VariableListObserver(backend.getVariablesList(myWorkspaceId), myController);
 		myUDCObserver = new UDCObserver(backend.getUserDefinedCommands(myWorkspaceId), myController);
+		myPropertiesObserver = new PropertiesObserver(backend.getProperties(myWorkspaceId), myController);
 	}
 	   
     //METHODS
@@ -188,6 +189,10 @@ public class FrontendManager {
 //    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
 //    	myDisplay.addImage(p, c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
 //    	myPortraiteStateOuput.setText("my x : " + c.getCoordX() + ", my y : " + c.getCoordY()+ ", myAngle :" +  c.getMyAngle());
+    }
+    
+    public void clearAllLines(){
+    	myDisplay.clearAllLines();
     }
     
     public void clearCharacters(){

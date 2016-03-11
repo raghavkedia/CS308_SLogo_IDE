@@ -3,6 +3,7 @@ package backend.parser;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -173,10 +174,15 @@ public class CommandFactory {
 	private TurtleOperation Home = (String key, double a, double b) -> findDistanceFromHome(key);
 	private TurtleOperation ClearScreen = (String key, double a, double b) -> {
 		//set clear screen
-		myProperties.setClearScreen(true);
 		myCharacters.getCharacter(key).removeLines();
+		executeForCharacters(SetHeading, new ArrayList<Double>(){{
+			add(0.0);
+			add(0.0);
+		}});
+		double result = findDistanceFromHome(key);
+		myProperties.setClearScreen(true);
 		myProperties.hasUpdated();
-		return findDistanceFromHome(key);
+		return result;
 	};
 	private TurtleOperation XCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordX();
 	private TurtleOperation YCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordY();

@@ -73,6 +73,7 @@ public class Character extends Observable implements Getable, Setable{
 		// TODO Auto-generated method stub
 		myCoordX = x;
 		myCoordY = y;
+		hasUpdated();
 	}
 	
 	public void setName(String name) {

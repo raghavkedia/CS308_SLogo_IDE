@@ -105,7 +105,7 @@ public class Controller {
     public void addPortrait(Character c){myFrontend.addPortrait(c);}
     public void clearCharactersFromFrontend(){myFrontend.clearCharacters();}
     public void clearAllLines(){
-    	myDisplay.clearAlLines();
+    	myFrontend.clearAllLines();
     }
     
 

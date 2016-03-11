@@ -92,14 +92,15 @@ public class Display extends VisualComponent{
 	public void clearAllLines(){
 		clearLinesDrawn();
 		myLines.clear();
-		drawAllLines();
 	}
 	
 	public void clearLinesDrawn(){
-		Line test = new Line();
-		for (int i=myPane.getChildren().size()-1; i>=0; i--){
-			if (myPane.getChildren().get(i).getClass().equals(test.getClass())){
-				myPane.getChildren().remove(i);
+		for (Line l : myLines){
+			for (int i=myPane.getChildren().size()-1; i>=0; i--){
+				Node n = myPane.getChildren().get(i);
+				if (l.equals(n)){
+					myPane.getChildren().remove(i);
+				}
 			}
 		}
 	}
