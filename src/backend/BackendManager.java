@@ -23,7 +23,7 @@ public class BackendManager implements InterpreturInterface{
 	private CharactersList myCharactersList;
     private ResourceBundle myResources;
     private UserDefinedCommands myUserDefinedCommands;
-    private FileHandler myFileHandler;
+
     
     //for multiple workspaces, just a concept
     private Map<Integer, Data> myWorkSpaces;
@@ -70,11 +70,7 @@ public class BackendManager implements InterpreturInterface{
 	public void addWorkSpace(int newID){
 		myWorkSpaces.put(newID, new Data());
 	}
-	
-	public FileHandler getFileGetter() {
-		// TODO Auto-generated method stub
-		return myFileHandler;
-	}
+
 	
 	public Properties getProperties(int workSpaceID){
 		return myWorkSpaces.get(workSpaceID).getProperties();

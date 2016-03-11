@@ -7,6 +7,7 @@ import exceptions.SlogoError;
 import frontend.toobar.ToolbarComponent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -21,80 +22,94 @@ import java.util.*;
 
 public class FrontendManager {
 	public static final int SIZE = 700;
-    private static final String RUN_BUTTON = "start_button";
-    private static final String CLEAR_BUTTON = "clear_button";
+
     private Scene myScene;
     private BorderPane myRoot;
-    private Stage myWindow;
-    private List<VisualComponent> myComponents;
+//    private List<VisualComponent> myComponents;
 //	private static InterpreturInterface myBackend;
 	
 	private Display myDisplay;
 	private History myHistory;
 	private Variables myVariables;
 	private Console myConsole, myOutput;
-	private ToolbarComponent myToolbar;
-	private Properties myProp, myGUIProp ;
 	private List<Portrait> myPortraits;
 	private Portrait currentPortrait; // all commands typed to the console will be executed on this portrait
 	private Button myRunButton;
 	private Observer myHistoryObserver;
 	private Observer myVariablesObserver;
 	private Observer myCharactersObserver;
+	private Observer myUDCObserver;
 	private Controller myController;
 	private int myWorkspaceId;
+	private UDC myUDC;
+	private AllCharactersList myCharactersList;
 	
-	public FrontendManager(Properties GUIProp, Properties myProp, Stage s, InterpreturInterface backend, Controller c, int id){
+	public FrontendManager(InterpreturInterface backend, Controller c, int id){
+		System.out.println(id);
 //		myBackend = new BackendManager();
 		myController = c;
 		myWorkspaceId = id;
 		myRoot = new BorderPane();
-		myWindow = s;
 		myScene = new Scene(myRoot, Color.WHITE);
-		myComponents = new ArrayList<VisualComponent>();
-		myGUIProp = GUIProp;
-		myRoot.setPrefSize(1000, 700);
+//		myComponents = new ArrayList<VisualComponent>();
+		myRoot.setPrefSize(1000, 500);
 		initObserver(backend);
 		initComponents();
 	}
 	
 	public void initComponents(){
 		myDisplay = ComponentFactory.makeNewDisplay(500, 500, myController);
-		myComponents.add(myDisplay);
 		
 		myConsole = ComponentFactory.makeNewConsole(1000, 150, myController);
-		myComponents.add(myConsole);
 
 		myHistory = ComponentFactory.makeNewHistory(250, 450, myController);
-		myComponents.add(myHistory);
 		
-		myOutput = ComponentFactory.makeNewConsole(200, 200, myController);
-		myComponents.add(myOutput);
+		myOutput = ComponentFactory.makeNewConsole(50, 50, myController);
 		
 		myVariables = ComponentFactory.makeNewVariables(250, 450, myController);
-		myComponents.add(myVariables);
-		myToolbar = ComponentFactory.makeNewToolbar(myGUIProp, myController);
-		myComponents.add(myToolbar);
+		
+		myUDC = ComponentFactory.makeNewUDC(250, 450, myController);
+		
+		myCharactersList = ComponentFactory.makeNewActiveCharacterList(250, 450, myController);
+		
+//		myToolbar = ComponentFactory.makeNewToolbar(myGUIProp, myController);
 		
 		myPortraits = new ArrayList<Portrait>();
 
 		
 		myRoot.setCenter(myDisplay.getVisual());
-		myRoot.setRight(myHistory.getVisual());
 		myRoot.setBottom(myConsole.getVisual());
 		
-		myRoot.setLeft(myVariables.getVisual());
-		myRoot.setTop(myToolbar.getVisual());
-		
-		myRunButton = ComponentFactory.makeButton(myGUIProp.getProperty(RUN_BUTTON), 
-				e -> myConsole.executeInput());
-		myRunButton.setTranslateX(40);
-		myRunButton.setTranslateX(40);
-        SplitPane sp = new SplitPane();
-        sp.setPrefSize(200, 200);
 
-        sp.getItems().addAll(myConsole.getVisual(), myOutput.getVisual());
-        myRoot.setBottom(sp);
+//		myRoot.setLeft(myUDC.getVisual());
+//		myRoot.setTop(myToolbar.getVisual());
+
+
+        //TODO: REFACTOR BELOW
+		SplitPane historyAndVars = new SplitPane();
+		historyAndVars.setOrientation(Orientation.VERTICAL);
+		historyAndVars.getItems().addAll(myHistory.getVisual(), myVariables.getVisual());
+		myRoot.setRight(historyAndVars);
+
+		SplitPane UDCandACL = new SplitPane();
+		UDCandACL.setOrientation(Orientation.VERTICAL);
+		UDCandACL.getItems().addAll(myUDC.getVisual(), myCharactersList.getVisual());
+		myRoot.setLeft(UDCandACL);             
+
+//		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
+        SplitPane splitPane1 = new SplitPane();
+        splitPane1.setOrientation(Orientation.VERTICAL);
+//      splitPane1.setPrefSize(200, 200);
+
+//        splitPane1.getItems().addAll(myOutput.getVisual(), myPortraiteStateOuput.getVisual());
+         
+        SplitPane splitPane2 = new SplitPane();
+        splitPane2.setOrientation(Orientation.HORIZONTAL);
+//      splitPane2.setPrefSize(300, 200);
+
+        splitPane2.getItems().addAll(myConsole.getVisual(), myOutput.getVisual());
+       
+        myRoot.setBottom(splitPane2);
 	}
 	
 	/**
@@ -104,17 +119,9 @@ public class FrontendManager {
 		myCharactersObserver = new CharacterListObserver(backend.getCharacterList(myWorkspaceId), myController);
 		myHistoryObserver = new HistoryListObserver(backend.getCommandHistory(myWorkspaceId), myController);
 		myVariablesObserver = new VariableListObserver(backend.getVariablesList(myWorkspaceId), myController);
+		myUDCObserver = new UDCObserver(backend.getUserDefinedCommands(myWorkspaceId), myController);
 	}
-	
-
-    private void setupKeyboardCommands () {
-        myScene.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER) {
-            	//BackendManager.executeCommand();
-            }
-        });
-    }
-    
+	   
     //METHODS
     
     //HISTORY
@@ -142,6 +149,10 @@ public class FrontendManager {
     	myConsole.executeInput();
     }
     
+    public String getConsoleText() { 
+    	return myConsole.getText();
+    }
+    
     //VARIABLES
     public void addToVariables(String s){
     	myVariables.addToVariables(s);
@@ -161,34 +172,57 @@ public class FrontendManager {
     }
     
     //DISPLAY
-    public void drawLine(double x1, double y1, double x2, double y2){
-    	myDisplay.drawLine(x1, y1, x2, y2);
+    public void drawLine(double x1, double y1, double x2, double y2, String charId){
+    	myDisplay.drawLine(x1, y1, x2, y2, charId);
     }
     
     public void changeBackgroundColor(Color c){
     	myDisplay.setBackgroundColor(c);
     }
     
-    public void setLineColor(Color c){
-    	myDisplay.setLineColor(c);
-    }
+//    public void setLineColor(Color c){myDisplay.setLineColor(c);}
     
     public void addPortrait(Character c){
     	Portrait p = new Portrait(c);
     	myDisplay.addPortrait(p);
-    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle());
+//    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
+//    	myDisplay.addImage(p, c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
+//    	myPortraiteStateOuput.setText("my x : " + c.getCoordX() + ", my y : " + c.getCoordY()+ ", myAngle :" +  c.getMyAngle());
     }
     
     public void clearCharacters(){
     	myDisplay.clearChars();
     }
     
+
+    //USER DEFINED COMMANDS
+    public void clearUDC(){myUDC.getMyData().clear();}
+    public void addToUDC(String s){myUDC.getMyData().add(s);}
+    
+    //ALL CHARACTER LIST
+    public void clearAllChars(){ myCharactersList.clearAll();}
+    public void addChar(Character c){ 
+//    	String id = "myID: " + c.getName();
+//    	String xcord = ", x: " +  c.getCoordX();
+//    	String ycord = ", y: " +  c.getCoordY();
+//    	String angle = ", angle: " +  c.getMyAngle();
+    	String name = c.getName();
+    	myCharactersList.addToAllChars(name); 
+   }
+
+    public String getBackgroundRGB(){
+    	Color c = myDisplay.getColor();
+       	String hex = String.format( "#%02X%02X%02X",
+                (int)( c.getRed() * 255 ),
+                (int)( c.getGreen() * 255 ),
+                (int)( c.getBlue() * 255 ) );
+    	return hex;
+    }
+
     
     //GETTERS AND SETTERS
 	public Scene getMyScene(){ return this.myScene;}
-	public Stage getMyWindow(){return this.myWindow;}
+	public BorderPane getMyBorderPane() {return this.myRoot;}
+	public int getId(){ return this.myWorkspaceId; }
 	
-	public String getGUIProperty(String s) {
-		return myGUIProp.getProperty(s);
-	}
 }

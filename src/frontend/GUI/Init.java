@@ -4,13 +4,19 @@ import java.io.IOException;
 import java.util.Properties;
 
 import controller.Controller;
+import frontend.ComponentFactory;
 import frontend.FrontendManager;
-
+import frontend.menubar.MenubarComponent;
+import frontend.toobar.ToolbarComponent;
+import frontend.workspace.WorkSpaceManager;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import util.PropertyLoader;
@@ -26,18 +32,23 @@ public class Init {
 	private static final int SCENE_WIDTH = 300;
 	private Stage myStage;
 	private Scene myScene;
-	private Group myGroup;
+    private VBox myBox;
 	private ComboBox<String> myComboBox;
+	private Button myStartButton;
 	private Properties myGUIProp; 
 	
 	public Init(Stage s) throws IOException {
 		myStage = s;
-		myGroup = new Group();
-		myScene = new Scene(myGroup, SCENE_HEIGHT, SCENE_WIDTH);
-		myComboBox = makeLanguageBox();	
 		myGUIProp = PropertyLoader.load(GUI_FILE_NAME);
 		s.setTitle(myGUIProp.getProperty(TITLE));
-		makeStartButton();
+		myBox = new VBox();
+		myBox.setAlignment(Pos.CENTER);
+		myScene = new Scene(myBox, SCENE_HEIGHT, SCENE_WIDTH);
+		
+		myComboBox = makeLanguageBox();	
+		myBox.getChildren().add(myComboBox);
+		myStartButton = makeStartButton();
+		myBox.getChildren().add(myStartButton);
 		display();
 	}
 	
@@ -56,10 +67,6 @@ public class Init {
 			  comboBox.getItems().add(value);
 		}
 		comboBox.setValue(prop.getProperty(LANG_DEFAULT));
-		comboBox.setTranslateX(SCENE_WIDTH * 2/3);
-		comboBox.setTranslateY(SCENE_HEIGHT/3);
-
-    	myGroup.getChildren().add(comboBox);
     	return comboBox;
     }
     
@@ -70,19 +77,28 @@ public class Init {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					Properties prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
-//					FrontendManager fm = new FrontendManager(myGUIProp, prop, myStage);
-					Controller theControl = new Controller(myGUIProp, prop, myStage);
-					myStage.setScene(theControl.getFrontendManager().getMyScene());
+					initMainScene();
+					display();
+//					myStage.setResizable(false);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		});
-		startButton.setTranslateX(SCENE_WIDTH * 2/3);
-		startButton.setTranslateY(SCENE_HEIGHT/2);
-		myGroup.getChildren().add(startButton);
     	return startButton;
+    }
+    
+    private void initMainScene() throws IOException {
+    	Properties prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
+		Controller theControl = new Controller(myGUIProp, prop, myStage);
+        myBox = new VBox();
+		myScene = new Scene(myBox, 1000, 800);
+		MenubarComponent menubarComp = ComponentFactory.makeNewMenubar(theControl);
+		myBox.getChildren().add(menubarComp.getVisual());
+		ToolbarComponent toolbarComp = ComponentFactory.makeNewToolbar(theControl);
+		myBox.getChildren().add(toolbarComp.getVisual());
+		
+		myBox.getChildren().add(theControl.getWorkSpaceManager().getTabPane());
     }
 }

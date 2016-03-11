@@ -2,7 +2,6 @@ package frontend;
 
 import java.util.Observable;
 import java.util.Observer;
-import backend.*;
 import controller.Controller;
 import backend.data.CommandHistory;
 
