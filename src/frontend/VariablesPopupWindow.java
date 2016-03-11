@@ -16,8 +16,8 @@ public class VariablesPopupWindow extends PopupWindow {
 	
 	public VariablesPopupWindow(String myDisplay, Controller control){
 		super();
-		initBox(myDisplay);
 		myController = control;
+		initBox(myDisplay);
 	}
 	
 	/**

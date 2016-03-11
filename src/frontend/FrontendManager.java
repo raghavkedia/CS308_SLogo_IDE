@@ -43,17 +43,11 @@ public class FrontendManager {
 	
 	private void initComponents(){
 		myDisplay = ComponentFactory.makeNewDisplay(500, 500, myController);
-		
 		myConsole = ComponentFactory.makeNewConsole(1000, 150, myController);
-
 		myHistory = ComponentFactory.makeNewHistory(250, 450, myController);
-		
 		myOutput = ComponentFactory.makeNewConsole(50, 50, myController);
-		
 		myVariables = ComponentFactory.makeNewVariables(250, 450, myController);
-		
 		myUDC = ComponentFactory.makeNewUDC(250, 450, myController);
-		
 		myCharactersList = ComponentFactory.makeNewActiveCharacterList(250, 450, myController);
 //		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);				
 		myPortraits = new ArrayList<Portrait>();

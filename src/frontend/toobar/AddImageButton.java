@@ -23,6 +23,7 @@ class AddImageButton extends Button {
 						c.setName(Integer.toString(Portrait.getAndIncrementId()));
 //						c.setImage(new Image("file://"+imgFile.toString()));
 						c.setImagePath("file://"+imgFile.toString());
+//						System.out.println("file://"+imgFile.toString());
 						c.setVisability(true);
 						c.setPenState(true);
 						c.setPenColor("000000");

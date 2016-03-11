@@ -41,10 +41,6 @@ public class ComponentFactory {
 		return new VariablesPopupWindow(s, control);
 	}
 	
-	public static PenPropertiesPopupWindow makeNewPenPropertiesPopupWindow(Controller control){
-		return new PenPropertiesPopupWindow(control);
-	}
-	
 	public static CharacterPopupWindow makeNewCharactersPopupWindow(String charId, Controller control){
 		return new CharacterPopupWindow(charId, control);
 	}

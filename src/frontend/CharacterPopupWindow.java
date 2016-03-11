@@ -29,6 +29,10 @@ public class CharacterPopupWindow extends PopupWindow {
 		boolean isVisible = myController.isCharIdVisible(charId);
 		boolean isPenDown = myController.isCharIdPenDown(charId);
 		
+		Text position = new Text();
+		String posText = myController.getCharPositionString(charId);
+		position.setText(posText);
+		
 		Text activeness = new Text();
 		String activenessText = isActive? "Active: Yes":"Active: No";
 		activeness.setText(activenessText);
@@ -69,6 +73,7 @@ public class CharacterPopupWindow extends PopupWindow {
 		ComboBox<String> changePenPattern = new ComboBox<String>();
 		changePenPattern.getItems().addAll("Dashed", "Dotted", "Solid");
 		
+		myBox.getChildren().add(position);
 		myBox.getChildren().add(activeness); 
 		myBox.getChildren().add(setActive); 
 		myBox.getChildren().add(changeActiveness);
