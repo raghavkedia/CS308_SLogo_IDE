@@ -201,7 +201,7 @@ public class CommandFactory {
 		return a;
 	};
 	private TurtleOperation SetPenColor = (String key, double a, double b) -> {
-		if(myColorMap.indexExists((int)a)){
+		if(myColorMap.indexExists((int) a)){
 			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));
 		}
 		myCharacters.getCharacter(key).setColorIndex((int)a);
@@ -210,7 +210,7 @@ public class CommandFactory {
 		return a;
 	};
 	private TurtleOperation SetShape = (String key, double a, double b) -> {
-		if(myShapeMap.indexExists((int)a)){
+		if(myShapeMap.indexExists((int) a)){
 			throw new InvalidIndexShapeError(myErrorResources.getString("InvalidIndexShapeError"));
 		}
 		myCharacters.getCharacter(key).setShapeIndex((int)a);
