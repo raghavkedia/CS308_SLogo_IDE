@@ -175,6 +175,7 @@ public class CommandFactory {
 		//set clear screen
 		myProperties.setClearScreen(true);
 		myCharacters.getCharacter(key).removeLines();
+		myCharacters.getCharacter(key).hasUpdated();
 		return findDistanceFromHome(key);
 	};
 	private TurtleOperation XCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordX();

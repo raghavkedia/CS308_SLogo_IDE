@@ -39,6 +39,7 @@ public class Character extends Observable implements Getable, Setable{
 		//do we need to do something about initial pen color
 		myStamps = new ArrayList<double[]>();
 		myShapeIndex = 1;
+		myLinesList = new ArrayList<Line>();
 	}
 	
 	public int getColorIndex(){
