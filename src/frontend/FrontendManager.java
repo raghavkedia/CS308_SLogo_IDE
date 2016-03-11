@@ -31,7 +31,7 @@ public class FrontendManager {
 	private Display myDisplay;
 	private History myHistory;
 	private Variables myVariables;
-	private Console myConsole, myOutput, myPortraiteStateOuput;
+	private Console myConsole, myOutput;
 	private Properties myProp, myGUIProp ;
 	private List<Portrait> myPortraits;
 	private Portrait currentPortrait; // all commands typed to the console will be executed on this portrait
@@ -99,18 +99,18 @@ public class FrontendManager {
 		myRoot.setLeft(UDCandACL);
 //		myRoot.setLeft(myVariables.getVisual());              
 
-		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
+//		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);
         SplitPane splitPane1 = new SplitPane();
         splitPane1.setOrientation(Orientation.VERTICAL);
 //      splitPane1.setPrefSize(200, 200);
 
-        splitPane1.getItems().addAll(myOutput.getVisual(), myPortraiteStateOuput.getVisual());
+//        splitPane1.getItems().addAll(myOutput.getVisual(), myPortraiteStateOuput.getVisual());
          
         SplitPane splitPane2 = new SplitPane();
         splitPane2.setOrientation(Orientation.HORIZONTAL);
 //      splitPane2.setPrefSize(300, 200);
 
-        splitPane2.getItems().addAll(myConsole.getVisual(), splitPane1);
+        splitPane2.getItems().addAll(myConsole.getVisual(), myOutput.getVisual());
        
         myRoot.setBottom(splitPane2);
 	}
@@ -192,7 +192,7 @@ public class FrontendManager {
     	myDisplay.addPortrait(p);
 //    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
 //    	myDisplay.addImage(p, c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
-    	myPortraiteStateOuput.setText("my x : " + c.getCoordX() + ", my y : " + c.getCoordY()+ ", myAngle :" +  c.getMyAngle());
+//    	myPortraiteStateOuput.setText("my x : " + c.getCoordX() + ", my y : " + c.getCoordY()+ ", myAngle :" +  c.getMyAngle());
     }
     
     public void clearCharacters(){
@@ -206,7 +206,13 @@ public class FrontendManager {
     
     //ALL CHARACTER LIST
     public void clearAllChars(){ myCharactersList.clearAll();}
-    public void addChar(Character c){ myCharactersList.addToAllChars(c.getName()); }
+    public void addChar(Character c){ 
+    	String id = "myID: " + c.getName();
+    	String xcord = ", x: " +  c.getCoordX();
+    	String ycord = ", y: " +  c.getCoordY();
+    	String angle = ", angle: " +  c.getMyAngle();
+    	myCharactersList.addToAllChars(id + xcord + ycord + angle); 
+   }
 
     public String getBackgroundRGB(){
     	Color c = myDisplay.getColor();
