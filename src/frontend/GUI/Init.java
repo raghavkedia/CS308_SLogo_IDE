@@ -43,12 +43,19 @@ public class Init {
 		HELP_TITLE("help_title"),
 		HELP_URL("help_url"),
 		PORTRAIT_TITLE("portrait_title"),
+	
+
+		WORKSPACE_TABNAME("workspace_tabname"),
 		FILE_MENU("file_menu"),
 		FILE_MENU_LOAD("file_menu_load"),
 		FILE_MENU_SAVE("file_menu_save"),
+		FILE_LOAD_TITLE("file_load_tilte"),
+		FILE_SAVE_TITLE("file_save_title"),
 		SETTING_MENU("setting_menu"),
 		SETTING_MENU_LOAD("setting_menu_load"),
-		SETTING_MENU_SAVE("setting_menu_save"),		
+		SETTING_MENU_SAVE("setting_menu_save"),
+		SETTING_LOAD_TITLE("setting_load_tilte"),
+		SETTING_SAVE_TITLE("setting_save_title"),
 		;
 		private final String key;
 		
