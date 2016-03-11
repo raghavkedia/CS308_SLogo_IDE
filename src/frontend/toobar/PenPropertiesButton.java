@@ -8,10 +8,11 @@ import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import frontend.PopupWindow;
+import frontend.GUI.Init.GUIString;
 
 public class PenPropertiesButton extends Button{
 	PenPropertiesButton(Controller control){
-		this.setText("change pen properties");
+		this.setText(control.getGUIProperty(GUIString.PEN.getKey()));
 		this.setOnAction(
 				e ->{
 			        PenPropertiesPopupWindow popup = ComponentFactory.makeNewPenPropertiesPopupWindow(control);

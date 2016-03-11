@@ -1,14 +1,14 @@
 package frontend.toobar;
 
 import controller.Controller;
+import frontend.GUI.Init.GUIString;
 import frontend.GUI.WebHelp;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 class HelpButton extends Button {
 	HelpButton(Controller control) {
-//		String buttonLabel = FrontendManagerAPI.getGUIProperty("help_Name");
-		this.setText("help");
+		this.setText(control.getGUIProperty(GUIString.HELP.getKey()));
 		this.setOnAction(
 				e -> {
 					String url = control.getGUIProperty("help_url");
