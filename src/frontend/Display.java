@@ -2,6 +2,7 @@ package frontend;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import controller.Controller;
 import javafx.scene.Node;
@@ -64,13 +65,13 @@ public class Display extends VisualComponent{
 	 * @param x2 - ending x coordinate
 	 * @param y2 - ending y coordinate
 	 */
-	public void drawLine(double x1, double y1, double x2, double y2){
+	public void drawLine(double x1, double y1, double x2, double y2, String charId){
 		double[] newInitialCoords = mapCoords(x1, y1);
 		double[] newEndCoords = mapCoords(x2, y2);
 		Line newLine = new Line(newInitialCoords[0], newInitialCoords[1], newEndCoords[0], newEndCoords[1]);
-		newLine.setStroke(myController.getPenColor());
-		newLine.setStrokeWidth(myController.getLineThickness());
-		switch (myController.getPenPattern()){
+		newLine.setStroke(myController.getPenColor(charId));
+		newLine.setStrokeWidth(myController.getLineThickness(charId));
+		switch (myController.getPenPattern(charId)){
 			case DASHED:
 				newLine.getStrokeDashArray().addAll(25d, 20d, 5d, 20d);
 				break;
@@ -84,12 +85,11 @@ public class Display extends VisualComponent{
 	}
 	
 	public void clearChars(){
-		for (int i=0; i<myPane.getChildren().size(); i++){
-			Node n = myPane.getChildren().get(i);
-			for (Portrait p : myPortraits){
-				if (p.getMyPortrait() == n){
-					myPane.getChildren().remove(n);
-					break;
+		for (Portrait p : myPortraits){
+			for (int i=myPane.getChildren().size()-1; i>=0; i--){
+				Node n = myPane.getChildren().get(i);
+				if (p.getMyPortrait().equals(n)){
+					myPane.getChildren().remove(i);
 				}
 			}
 		}
@@ -98,34 +98,21 @@ public class Display extends VisualComponent{
 	
 	public void addPortrait(Portrait p){
 		this.myPortraits.add(p);
-
-
-		this.addImage(p.getMyPortrait(), p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getAngle() );
-
-		String charName = p.getMyChar().getName();
-		if (p.getMyChar().getPenState() && myPreviousX.keySet().contains(charName)){
-			drawLine(myPreviousX.get(charName), myPreviousY.get(charName), p.getMyChar().getCoordX(), p.getMyChar().getCoordY());
+		if (p.getMyChar().getVisability()){
+			this.addImage(p, p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getMyChar().getMyAngle(), p.getMyChar().getVisability());
 		}
-		myPreviousX.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordX());
-		myPreviousY.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordY());
-
-	}
-	
-	public void addPortrait(Portrait p, double x, double y, double angle){
-		this.myPortraits.add(p);
-
-
-		this.addImage(p.getMyPortrait(), x, y, angle);
-
+			
 		String charName = p.getMyChar().getName();
+		
 		if (p.getMyChar().getPenState() && myPreviousX.keySet().contains(charName)){
-			drawLine(myPreviousX.get(charName), myPreviousY.get(charName), p.getMyChar().getCoordX(), p.getMyChar().getCoordY());
+			drawLine(myPreviousX.get(charName), myPreviousY.get(charName), p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getMyChar().getName());
 		}
 		myPreviousX.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordX());
 		myPreviousY.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordY());
 	}
 	
-	public void addImage(ImageView img, double x, double y, double angle){
+	public void addImage(Portrait p, double x, double y, double angle, boolean visible){
+		ImageView img = p.getMyPortrait();
 		if (!myPane.getChildren().contains(img)){
 			myPane.getChildren().add(img);
 		}
@@ -155,7 +142,7 @@ public class Display extends VisualComponent{
 		return out;
 	}
 	
-	public void setLineColor(Color c){myController.setPenColor(c);}
+//	public void setLineColor(Color c){myController.setPenColor(c);}
 	public void setBackgroundColor(Color c){
 		super.setColor(c);
 		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));

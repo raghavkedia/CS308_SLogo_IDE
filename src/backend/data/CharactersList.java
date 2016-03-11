@@ -40,6 +40,14 @@ public class CharactersList extends Observable implements Observer{
 		return activeCharacters;
 	}
 	
+	public List<Character> getAllActiveCharacters(){
+		ArrayList<Character> out = new ArrayList<Character>();
+		for (String charName : characters.keySet()){
+			if (activeCharacters.contains(charName)) out.add(characters.get(charName));
+		}
+		return out;
+	}
+	
 	public void addActiveCharcter(String id){
 		activeCharacters.add(id);
 	}
