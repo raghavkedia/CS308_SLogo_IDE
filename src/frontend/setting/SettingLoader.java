@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import frontend.FrontendManager;
+import frontend.setting.SettingSaver.SettingString;
 import javafx.scene.paint.Color;
 import util.PropertyLoader;
 
@@ -25,7 +26,7 @@ public class SettingLoader implements IFrontEndSettingLoader{
 	}
 	@Override
 	public void loadBGCol() {
-		String bgCol = myProps.getProperty(SettingSaver.BG_COL_KEY);
+		String bgCol = myProps.getProperty(SettingString.BG_COL_KEY.getKey());
 		Color c = Color.web(bgCol);
 		myFrontendManager.changeBackgroundColor(c);
 	}

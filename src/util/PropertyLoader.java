@@ -10,6 +10,7 @@ import java.util.Properties;
 public class PropertyLoader {
 	public static final String PATH = "resources/";
 	public static final String EXTENSION = ".properties";
+	public static final String ERROR_MESSAGE = "No such property file";
 
 	public static Properties load(File file) throws IOException {
 		InputStream input = new FileInputStream(file);
@@ -24,7 +25,7 @@ public class PropertyLoader {
 	
 	public static Properties convertToProp(InputStream input) throws IOException {
 		if (input == null) {
-			throw new FileNotFoundException("No such file");
+			throw new FileNotFoundException(ERROR_MESSAGE);
 		}
 		Properties prop = new Properties();
 		prop.load(input);

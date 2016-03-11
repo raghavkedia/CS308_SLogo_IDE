@@ -9,8 +9,20 @@ import util.PropertySaver;
 public class SettingSaver implements IFrontEndSettingSaver {
 	private FrontendManager myFrontendManager;
 	private Properties myProps;
-	public static final String BG_COL_KEY = "background_color";
 	
+	public enum SettingString {
+		BG_COL_KEY("background_color")
+		;
+		private final String key;
+		
+		private SettingString(String keyName) {
+			this.key = keyName;
+		}		
+		
+		public String getKey() {
+			return this.key;
+		}		
+	}
 	
 	public SettingSaver(FrontendManager frontendManager, File file) {
 		myFrontendManager = frontendManager;
@@ -23,6 +35,6 @@ public class SettingSaver implements IFrontEndSettingSaver {
 	public void saveBGCol() {
 		String bgCol = myFrontendManager.getBackgroundRGB();
 //		System.out.println("my current rgb " + bgCol + ", " + bgCol.length());
-		myProps.setProperty(BG_COL_KEY, bgCol);
+		myProps.setProperty(SettingString.BG_COL_KEY.getKey(), bgCol);
 	}
 }
