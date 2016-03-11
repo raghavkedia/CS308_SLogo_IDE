@@ -8,10 +8,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class Variables extends ListVisual implements IClickable{
+public class AllCharactersList extends ListVisual implements IClickable{
 	Controller myController;
 	
-	public Variables(double width, double height, Controller control){
+	public AllCharactersList(double width, double height, Controller control){
 		super(width, height);
 		this.myList.setItems(myData);
 		myController = control;
@@ -23,8 +23,8 @@ public class Variables extends ListVisual implements IClickable{
 	 * Adds a String to the list of items.
 	 * @param newVar - String received from backend
 	 */
-	public void addToVariables(String newVar){
-		myData.add(newVar);
+	public void addToAllChars(String newChar){
+		myData.add(newChar);
 	}
 	
 	public void clearAll(){
@@ -54,7 +54,7 @@ public class Variables extends ListVisual implements IClickable{
 	 */
 	@Override
 	public void respondToClick() {
-        PopupWindow popup = ComponentFactory.makeNewVariablesPopupWindow(myList.getSelectionModel().getSelectedItem(), myController);
-        ComponentFactory.initNewPopup(popup, 300, 200);
+		CharacterPopupWindow popup = ComponentFactory.makeNewCharactersPopupWindow(myList.getSelectionModel().getSelectedItem(), myController);
+		ComponentFactory.initNewPopup(popup, 300, 400);
 	}
 }

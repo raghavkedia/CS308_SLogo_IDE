@@ -20,9 +20,15 @@ public class CharacterListObserver implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
+		updateCharacterDisplay();
+	}
+	
+	public void updateCharacterDisplay(){
 		myController.clearCharactersFromFrontend();
+		myController.clearAllChars();
 		for (Character c : myObservable.getCharacters()){
 			myController.addPortrait(c);
+			myController.addChar(c);
 		}
 	}
 

@@ -51,6 +51,7 @@ public class PenPropertiesPopupWindow extends PopupWindow{
 								myController.setPenPattern(PenPattern.SOLID);	
 						}
 					}
+					
 				});
 		
 		myBox.getChildren().add(penColorLabel);

@@ -9,7 +9,7 @@ class PenColButton extends ColorPicker {
 		this.setOnAction(
 			 e -> {
 				 Color c = this.getValue();
-				 control.changeLineColor(c);
+//				 control.changeLineColor(c);
 			 });
 	}
 }
