@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import controller.Controller;
 import frontend.ComponentFactory;
+import frontend.ExceptionWindow.IOExceptionWindow;
 import frontend.menubar.MenubarComponent;
 import frontend.toobar.ToolbarComponent;
 import javafx.event.EventHandler;
@@ -95,22 +96,28 @@ public class Init {
 			return this.value;
 		}		
 	}	
-	public Init(Stage s) throws IOException {
+	public Init(Stage s) {
 		myStage = s;
-		myGUIProp = PropertyLoader.load(GUI_FILE_NAME);
-		s.setTitle(myGUIProp.getProperty(GUIString.TITLE.key));
-		myBox = new VBox();
-		myBox.setAlignment(Pos.CENTER);
-		myScene = new Scene(myBox, Dimension.INIT_SCENE_HEIGHT.getDim(), Dimension.INIT_SCENE_WIDTH.getDim());
-		
-		myComboBox = makeLanguageBox();	
-		myBox.getChildren().add(myComboBox);
-		
-		String myStartButtonLabel = myGUIProp.getProperty(GUIString.START.key);
-		myStartButton = ComponentFactory.makeButton(myStartButtonLabel, initMainScene());
-		myBox.getChildren().add(myStartButton);
-		
-		display();
+		try {
+			myGUIProp = PropertyLoader.load(GUI_FILE_NAME);
+			s.setTitle(myGUIProp.getProperty(GUIString.TITLE.key));
+			myBox = new VBox();
+			myBox.setAlignment(Pos.CENTER);
+			myScene = new Scene(myBox, Dimension.INIT_SCENE_HEIGHT.getDim(), Dimension.INIT_SCENE_WIDTH.getDim());
+			
+	
+			myComboBox = makeLanguageBox();
+	
+			myBox.getChildren().add(myComboBox);
+			
+			String myStartButtonLabel = myGUIProp.getProperty(GUIString.START.key);
+			myStartButton = ComponentFactory.makeButton(myStartButtonLabel, initMainScene());
+			myBox.getChildren().add(myStartButton);
+			
+			display();
+	    } catch (IOException e) {
+	    	IOExceptionWindow.display(e);
+		}
 	}
 	
 	private void display() {
@@ -146,7 +153,7 @@ public class Init {
 			public void handle(ActionEvent event) {
 		    	Properties prop;
 				try {
-					prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
+					prop = PropertyLoader.load(LANG_PATH + myComboBox.getValue());
 					Controller theControl = new Controller(myGUIProp, prop, myStage);
 			        myBox = new VBox();
 					myScene = new Scene(myBox, Dimension.MAIN_SCENE_HEIGHT.getDim(), Dimension.MAIN_SCENE_WIDTH.getDim());
@@ -158,8 +165,7 @@ public class Init {
 					myBox.getChildren().add(theControl.getWorkSpaceManager().getTabPane());
 					display();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					IOExceptionWindow.display(e);
 				}
 			}
     	};
