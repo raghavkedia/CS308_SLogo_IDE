@@ -6,13 +6,9 @@ import java.util.Properties;
 import controller.Controller;
 import frontend.ComponentFactory;
 import frontend.FrontendManager;
-<<<<<<< HEAD
-
-=======
 import frontend.menubar.MenubarComponent;
 import frontend.toobar.ToolbarComponent;
 import frontend.workspace.WorkSpaceManager;
->>>>>>> d0a3f95c59932a96011d84b0630684def693a5ae
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -81,16 +77,9 @@ public class Init {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-<<<<<<< HEAD
-					Properties prop = PropertyLoader.load(LANG_PATH  + myComboBox.getValue());
-//					FrontendManager fm = new FrontendManager(myGUIProp, prop, myStage);
-					Controller theControl = new Controller(myGUIProp, prop, myStage);
-					myStage.setScene(theControl.getFrontendManager().getMyScene());
-=======
 					initMainScene();
 					display();
 //					myStage.setResizable(false);
->>>>>>> d0a3f95c59932a96011d84b0630684def693a5ae
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
