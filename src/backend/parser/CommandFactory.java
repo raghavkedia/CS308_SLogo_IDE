@@ -16,6 +16,7 @@ import backend.data.ShapeMap;
 import backend.data.UserDefinedCommands;
 import backend.data.Variable;
 import backend.data.VariablesList;
+import exceptions.InvalidCharacterError;
 import exceptions.InvalidIndexColorError;
 import exceptions.InvalidIndexShapeError;
 import exceptions.InvalidParameterError;
@@ -91,13 +92,13 @@ public class CommandFactory {
 
 	}
 
-	private double findDistanceFromHome(String key) {
+	private double findDistanceFromHome(String key) throws InvalidCharacterError{
 		double result = MathUtil.findDistance(0, myCharacters.getCharacter(key).getCoordX(), 0, myCharacters.getCharacter(key).getCoordY());
 		myCharacters.getCharacter(key).setCurrCoord(0, 0);
 		return result;
 	}
 
-	private double findDistanceFromHome() {
+	private double findDistanceFromHome() throws InvalidCharacterError{
 		double result = 0;
 		for (String key : myCharacters.getActiveCharacters()) {
 			result = MathUtil.findDistance(0, myCharacters.getCharacter(key).getCoordX(), 0, myCharacters.getCharacter(key).getCoordY());
@@ -207,6 +208,7 @@ public class CommandFactory {
 		return myCharacters.getCharacter(key).getShapeIndex();
 	};
 	private TurtleOperation SetPenSize = (String key, double a, double b) -> {
+		
 		myCharacters.getCharacter(key).setPenWidth(a);
 		return a;
 	};
@@ -242,18 +244,23 @@ public class CommandFactory {
 		return result;
 	}
 
-	interface MultipleParameterOperation {
-		double operation(double a, double b);
+	interface MultipleParameterOperation{
+		double operation(double a, double b) throws SlogoError;
 	}
 
-	private double operate(MultipleParameterOperation mathOperation, double a, double b) {
+	private double operate(MultipleParameterOperation mathOperation, double a, double b) throws SlogoError{
 		return mathOperation.operation(a, b);
 	}
 
 	private MultipleParameterOperation Sum = (double a, double b) -> a + b;
 	private MultipleParameterOperation Difference = (double a, double b) -> a - b;
 	private MultipleParameterOperation Product = (double a, double b) -> a * b;
-	private MultipleParameterOperation Quotient = (double a, double b) -> a / b;
+	private MultipleParameterOperation Quotient = (double a, double b) -> {
+		if(b == 0){
+			throw new InvalidQuotientError(myErrorResources.getString("QuotientError"));
+		}
+		return a / b;
+	};
 	private MultipleParameterOperation Remainder = (double a, double b) -> a % b;
 	private MultipleParameterOperation Power = (double a, double b) -> Math.pow(a, b);
 	private MultipleParameterOperation LessThan = (double a, double b) -> a < b ? 1 : 0;
@@ -261,7 +268,7 @@ public class CommandFactory {
 	private MultipleParameterOperation Equal = (double a, double b) -> a == b ? 1 : 0;
 	private MultipleParameterOperation NotEqual = (double a, double b) -> a != b ? 1 : 0;
 
-	private double executeMath(MultipleParameterOperation operation, List<Double> myResults) {
+	private double executeMath(MultipleParameterOperation operation, List<Double> myResults) throws SlogoError{
 		double result = myResults.get(0);
 		myResults.remove(0);
 		if (myResults.isEmpty()) {
