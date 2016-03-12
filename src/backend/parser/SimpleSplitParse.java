@@ -28,6 +28,10 @@ public class SimpleSplitParse implements Parseable {
 		return null;
 	}
 
+	/*
+	 * Runs the input by cleaning the strings and calling the tree builder to build and execute the tree. Gets the output
+	 * from tree builder and returns the statement.
+	 */
 	@Override
 	public String runInput(String input, Data myData, ResourceBundle myResources) throws SlogoError {
 		input = input.replaceAll(END_LINE_STRING, END_LINE_STRING + " ");

@@ -48,199 +48,10 @@ public class CommandFactory {
 		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
 		
 	}
-
-	private void translateCoor(double [] transCoords, Character myCharacter) {
-		double translateX = transCoords[0] * Math.cos(MathUtil.convertDegrees(myCharacter.getMyAngle())) 
-				+ transCoords[1] * Math.sin(MathUtil.convertDegrees(myCharacter.getMyAngle()));
-		double translateY = transCoords[1] * Math.cos(MathUtil.convertDegrees(myCharacter.getMyAngle()));
-		myCharacter.setCurrCoord(myCharacter.getCoordX() + translateX,
-			myCharacter.getCoordY() + translateY);
-	}
-
-
-	private double findDistanceFromHome(String key) throws InvalidCharacterError{
-		double result = MathUtil.findDistance(0, myCharacters.getCharacter(key).getCoordX(), 0, myCharacters.getCharacter(key).getCoordY());
-		myCharacters.getCharacter(key).setCurrCoord(0, 0);
-		return result;
-	}
-
-	private double setBackground(int index) throws InvalidIndexColorError{
-		if(!myColorMap.indexExists(index)){
-			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));
-		}
-		String color = myColorMap.getColor(index);
-		myProperties.setBackgroundColor(color);
-		return (double) index;
-	}
-	private double SetPalette(int index, double r, double g, double b){
-		myColorMap.addColor(index, r, g, b);
-		return index;
-	}
-	interface TurtleOperation {
-		double operationBinary(String key, double value, double b) throws SlogoError;
-	}
-
-	private double operate(TurtleOperation turtleOperation, String key, double a, double b) throws SlogoError{
-		return turtleOperation.operationBinary(key, a, b);
-	}
-
-	private TurtleOperation Forward = (String key, double a, double b) -> {
-		translateCoor(new double[]{0, a}, myCharacters.getCharacter(key));
-		return a;
-	};
-	private TurtleOperation Back = (String key, double a, double b) -> {
-		translateCoor(new double[]{0, -1 * a}, myCharacters.getCharacter(key));
-		return a;
-	};
-	private TurtleOperation Left = (String key, double a, double b) -> {
-		myCharacters.getCharacter(key).setMyAngle((myCharacters.getCharacter(key).getMyAngle() - a) % 360);
-		return a;
-	};
-	private TurtleOperation Right = (String key, double a, double b) -> {
-		myCharacters.getCharacter(key).setMyAngle((myCharacters.getCharacter(key).getMyAngle() + a) % 360);
-		return a;
-	};
-	private TurtleOperation SetHeading = (String key, double a, double b) -> {
-		double result = Math.abs((myCharacters.getCharacter(key).getMyAngle() - a) % 360);
-		myCharacters.getCharacter(key).setMyAngle(a);
-		return result;
-	};
-	private TurtleOperation SetTowards = (String key, double a, double b) -> {
-		double newAngle = 
-				90 - Math.atan2(b - myCharacters.getCharacter(key).getCoordY(), a - myCharacters.getCharacter(key).getCoordX());
-		double result = Math.abs((newAngle - myCharacters.getCharacter(key).getMyAngle()) % 360);
-		myCharacters.getCharacter(key).setMyAngle(newAngle % 360);
-		return result;
-	};
-	private TurtleOperation SetPosition = (String key, double a, double b) -> {
-		double result = MathUtil.findDistance(a, myCharacters.getCharacter(key).getCoordX(), b, myCharacters.getCharacter(key).getCoordY());
-		myCharacters.getCharacter(key).setCurrCoord((int) Math.round(a), (int) Math.round(b));
-		return result;
-	};
-	private TurtleOperation PenDown = (String key, double a, double b) -> {
-		myCharacters.getCharacter(key).setPenState(true);
-		return 1;
-	};
-	private TurtleOperation PenUp = (String key, double a, double b) -> {
-		myCharacters.getCharacter(key).setPenState(false);
-		return 0;
-	};
-	private TurtleOperation ShowTurtle = (String key, double a, double b) -> {
-		myCharacters.getCharacter(key).setVisability(true);
-		return 1;
-	};
-	private TurtleOperation HideTurtle = (String key, double a, double b) -> {
-		myCharacters.getCharacter(key).setVisability(false);
-		return 0;
-	};
-	private TurtleOperation Home = (String key, double a, double b) -> findDistanceFromHome(key);
-	private TurtleOperation ClearScreen = (String key, double a, double b) -> {
-		myCharacters.getCharacter(key).removeLines();
-		executeForCharacters(SetHeading, new ArrayList<Double>(){{
-			add(0.0);
-			add(0.0);
-		}});
-		double result = findDistanceFromHome(key);
-		myProperties.setClearScreen(true);
-		myProperties.hasUpdated();
-		return result;
-	};
-	private TurtleOperation XCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordX();
-	private TurtleOperation YCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordY();
-	private TurtleOperation Heading = (String key, double a, double b) -> myCharacters.getCharacter(key).getMyAngle();
-	private TurtleOperation IsPenDown = (String key, double a, double b) -> myCharacters.getCharacter(key).getPenState() ? 1 : 0;;
-	private TurtleOperation IsShowing = (String key, double a, double b) -> myCharacters.getCharacter(key).getVisability() ? 1 : 0;
-	private TurtleOperation Stamp = (String key, double a, double b) -> {
-		myCharacters.getCharacter(key).addStamp(myCharacters.getCharacter(key).getCoordX(), myCharacters.getCharacter(key).getCoordY());
-		//needs to return index
-		return 0;
-	};
-	private TurtleOperation ClearStamps = (String key, double a, double b) -> {
-		return myCharacters.getCharacter(key).clearStamps();
-	};
-	private TurtleOperation GetPenColor = (String key, double a, double b) -> {
-		return myCharacters.getCharacter(key).getColorIndex();
-	};
-	private TurtleOperation GetShape = (String key, double a, double b) -> {
-		return myCharacters.getCharacter(key).getShapeIndex();
-	};
-	private TurtleOperation SetPenSize = (String key, double a, double b) -> {
-		
-		myCharacters.getCharacter(key).setPenWidth(a);
-		return a;
-	};
-	private TurtleOperation SetPenColor = (String key, double a, double b) -> {
-		if(myColorMap.indexExists((int) a)){
-			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));
-		}
-		myCharacters.getCharacter(key).setColorIndex((int) a);
-		String penColor = myColorMap.getColor((int) a);
-		myCharacters.getCharacter(key).setPenColor(penColor);
-		return a;
-	};
-	private TurtleOperation SetShape = (String key, double a, double b) -> {
-		if(myShapeMap.indexExists((int) a)){
-			throw new InvalidIndexShapeError(myErrorResources.getString("InvalidIndexShapeError"));
-		}
-		myCharacters.getCharacter(key).setShapeIndex((int)a);
-		String imagePath = myShapeMap.getImagePath((int) a);
-		myCharacters.getCharacter(key).setImagePath(imagePath);
-		return a;
-	};
 	
-	private double executeForCharacters(TurtleOperation operation, List<Double> myResults) throws SlogoError{
-		double result = 0;
-		double a = myResults.size() > 0 ? myResults.get(0) : 0;
-		double b = myResults.size() > 1 ? myResults.get(1) : 0;
-
-		for (String key : myCharacters.getActiveCharacters()) {
-			result = operate(operation, key, a, b);
-		}
-		myCharacters.hasUpdated();
-		return result;
-	}
-
-	interface MultipleParameterOperation{
-		double operation(double a, double b) throws SlogoError;
-	}
-
-	private double operate(MultipleParameterOperation mathOperation, double a, double b) throws SlogoError{
-		return mathOperation.operation(a, b);
-	}
-
-	private MultipleParameterOperation Sum = (double a, double b) -> a + b;
-	private MultipleParameterOperation Difference = (double a, double b) -> a - b;
-	private MultipleParameterOperation Product = (double a, double b) -> a * b;
-	private MultipleParameterOperation Quotient = (double a, double b) -> {
-		if(b == 0){
-			throw new InvalidQuotientError(myErrorResources.getString("QuotientError"));
-		}
-		return a / b;
-	};
-	private MultipleParameterOperation Remainder = (double a, double b) -> a % b;
-	private MultipleParameterOperation Power = (double a, double b) -> Math.pow(a, b);
-	private MultipleParameterOperation LessThan = (double a, double b) -> a < b ? 1 : 0;
-	private MultipleParameterOperation GreaterThan = (double a, double b) -> a > b ? 1 : 0;
-	private MultipleParameterOperation Equal = (double a, double b) -> a == b ? 1 : 0;
-	private MultipleParameterOperation NotEqual = (double a, double b) -> a != b ? 1 : 0;
-
-	private double executeMath(MultipleParameterOperation operation, List<Double> myResults) throws SlogoError{
-		double result = myResults.get(0);
-		myResults.remove(0);
-		for (Double d : myResults) {
-			result = operate(operation, result, d);
-		}
-		return result;
-	}
-
-	private List<Double> convertAllNodesToDoubles(List<ExpressionNode> myNodes) throws SlogoError {
-		List<Double> executed = new ArrayList<Double>();
-		for (ExpressionNode n : myNodes) {
-			executed.add(n.execute());
-		}
-		return executed;
-	}
-
+	/*
+	 * Generates a double by getting inputs from the node that calls this method and executing according to defined rules.
+	 */
 	public double generateResult(Command type, String myName, List<ExpressionNode> myChildren, List<ExpressionNode> parameters) throws SlogoError {
 		double result = 0;
 		List<String> previousActive = new ArrayList<String>(myCharacters.getActiveCharacters());
@@ -470,6 +281,197 @@ public class CommandFactory {
 		Variable myVariable = myVariablesList.getVariable(variableName) != null ? myVariablesList.getVariable(variableName) : new Variable(variableName, null);
 		myVariablesList.addVariable(myVariable);
 		return myVariable;
+	}
+	
+	private double executeForCharacters(TurtleOperation operation, List<Double> myResults) throws SlogoError{
+		double result = 0;
+		double a = myResults.size() > 0 ? myResults.get(0) : 0;
+		double b = myResults.size() > 1 ? myResults.get(1) : 0;
+
+		for (String key : myCharacters.getActiveCharacters()) {
+			result = operate(operation, key, a, b);
+		}
+		myCharacters.hasUpdated();
+		return result;
+	}
+
+	interface MultipleParameterOperation{
+		double operation(double a, double b) throws SlogoError;
+	}
+	private void translateCoor(double [] transCoords, Character myCharacter) {
+		double translateX = transCoords[0] * Math.cos(MathUtil.convertDegrees(myCharacter.getMyAngle())) 
+				+ transCoords[1] * Math.sin(MathUtil.convertDegrees(myCharacter.getMyAngle()));
+		double translateY = transCoords[1] * Math.cos(MathUtil.convertDegrees(myCharacter.getMyAngle()));
+		myCharacter.setCurrCoord(myCharacter.getCoordX() + translateX,
+				myCharacter.getCoordY() + translateY);
+	}
+	
+	
+	private double findDistanceFromHome(String key) throws InvalidCharacterError{
+		double result = MathUtil.findDistance(0, myCharacters.getCharacter(key).getCoordX(), 0, myCharacters.getCharacter(key).getCoordY());
+		myCharacters.getCharacter(key).setCurrCoord(0, 0);
+		return result;
+	}
+	
+	private double setBackground(int index) throws InvalidIndexColorError{
+		if(!myColorMap.indexExists(index)){
+			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));
+		}
+		String color = myColorMap.getColor(index);
+		myProperties.setBackgroundColor(color);
+		return (double) index;
+	}
+	private double SetPalette(int index, double r, double g, double b){
+		myColorMap.addColor(index, r, g, b);
+		return index;
+	}
+	interface TurtleOperation {
+		double operationBinary(String key, double value, double b) throws SlogoError;
+	}
+	
+	private double operate(TurtleOperation turtleOperation, String key, double a, double b) throws SlogoError{
+		return turtleOperation.operationBinary(key, a, b);
+	}
+	
+	private TurtleOperation Forward = (String key, double a, double b) -> {
+		translateCoor(new double[]{0, a}, myCharacters.getCharacter(key));
+		return a;
+	};
+	private TurtleOperation Back = (String key, double a, double b) -> {
+		translateCoor(new double[]{0, -1 * a}, myCharacters.getCharacter(key));
+		return a;
+	};
+	private TurtleOperation Left = (String key, double a, double b) -> {
+		myCharacters.getCharacter(key).setMyAngle((myCharacters.getCharacter(key).getMyAngle() - a) % 360);
+		return a;
+	};
+	private TurtleOperation Right = (String key, double a, double b) -> {
+		myCharacters.getCharacter(key).setMyAngle((myCharacters.getCharacter(key).getMyAngle() + a) % 360);
+		return a;
+	};
+	private TurtleOperation SetHeading = (String key, double a, double b) -> {
+		double result = Math.abs((myCharacters.getCharacter(key).getMyAngle() - a) % 360);
+		myCharacters.getCharacter(key).setMyAngle(a);
+		return result;
+	};
+	private TurtleOperation SetTowards = (String key, double a, double b) -> {
+		double newAngle = 
+				90 - Math.atan2(b - myCharacters.getCharacter(key).getCoordY(), a - myCharacters.getCharacter(key).getCoordX());
+		double result = Math.abs((newAngle - myCharacters.getCharacter(key).getMyAngle()) % 360);
+		myCharacters.getCharacter(key).setMyAngle(newAngle % 360);
+		return result;
+	};
+	private TurtleOperation SetPosition = (String key, double a, double b) -> {
+		double result = MathUtil.findDistance(a, myCharacters.getCharacter(key).getCoordX(), b, myCharacters.getCharacter(key).getCoordY());
+		myCharacters.getCharacter(key).setCurrCoord((int) Math.round(a), (int) Math.round(b));
+		return result;
+	};
+	private TurtleOperation PenDown = (String key, double a, double b) -> {
+		myCharacters.getCharacter(key).setPenState(true);
+		return 1;
+	};
+	private TurtleOperation PenUp = (String key, double a, double b) -> {
+		myCharacters.getCharacter(key).setPenState(false);
+		return 0;
+	};
+	private TurtleOperation ShowTurtle = (String key, double a, double b) -> {
+		myCharacters.getCharacter(key).setVisability(true);
+		return 1;
+	};
+	private TurtleOperation HideTurtle = (String key, double a, double b) -> {
+		myCharacters.getCharacter(key).setVisability(false);
+		return 0;
+	};
+	private TurtleOperation Home = (String key, double a, double b) -> findDistanceFromHome(key);
+	private TurtleOperation ClearScreen = (String key, double a, double b) -> {
+		myCharacters.getCharacter(key).removeLines();
+		executeForCharacters(SetHeading, new ArrayList<Double>(){{
+			add(0.0);
+			add(0.0);
+		}});
+		double result = findDistanceFromHome(key);
+		myProperties.setClearScreen(true);
+		myProperties.hasUpdated();
+		return result;
+	};
+	private TurtleOperation XCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordX();
+	private TurtleOperation YCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordY();
+	private TurtleOperation Heading = (String key, double a, double b) -> myCharacters.getCharacter(key).getMyAngle();
+	private TurtleOperation IsPenDown = (String key, double a, double b) -> myCharacters.getCharacter(key).getPenState() ? 1 : 0;;
+	private TurtleOperation IsShowing = (String key, double a, double b) -> myCharacters.getCharacter(key).getVisability() ? 1 : 0;
+	private TurtleOperation Stamp = (String key, double a, double b) -> {
+		myCharacters.getCharacter(key).addStamp(myCharacters.getCharacter(key).getCoordX(), myCharacters.getCharacter(key).getCoordY());
+		//needs to return index
+		return 0;
+	};
+	private TurtleOperation ClearStamps = (String key, double a, double b) -> {
+		return myCharacters.getCharacter(key).clearStamps();
+	};
+	private TurtleOperation GetPenColor = (String key, double a, double b) -> {
+		return myCharacters.getCharacter(key).getColorIndex();
+	};
+	private TurtleOperation GetShape = (String key, double a, double b) -> {
+		return myCharacters.getCharacter(key).getShapeIndex();
+	};
+	private TurtleOperation SetPenSize = (String key, double a, double b) -> {
+		
+		myCharacters.getCharacter(key).setPenWidth(a);
+		return a;
+	};
+	private TurtleOperation SetPenColor = (String key, double a, double b) -> {
+		if(myColorMap.indexExists((int) a)){
+			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));
+		}
+		myCharacters.getCharacter(key).setColorIndex((int) a);
+		String penColor = myColorMap.getColor((int) a);
+		myCharacters.getCharacter(key).setPenColor(penColor);
+		return a;
+	};
+	private TurtleOperation SetShape = (String key, double a, double b) -> {
+		if(myShapeMap.indexExists((int) a)){
+			throw new InvalidIndexShapeError(myErrorResources.getString("InvalidIndexShapeError"));
+		}
+		myCharacters.getCharacter(key).setShapeIndex((int)a);
+		String imagePath = myShapeMap.getImagePath((int) a);
+		myCharacters.getCharacter(key).setImagePath(imagePath);
+		return a;
+	};
+
+	private double operate(MultipleParameterOperation mathOperation, double a, double b) throws SlogoError{
+		return mathOperation.operation(a, b);
+	}
+
+	private MultipleParameterOperation Sum = (double a, double b) -> a + b;
+	private MultipleParameterOperation Difference = (double a, double b) -> a - b;
+	private MultipleParameterOperation Product = (double a, double b) -> a * b;
+	private MultipleParameterOperation Quotient = (double a, double b) -> {
+		if(b == 0){
+			throw new InvalidQuotientError(myErrorResources.getString("QuotientError"));
+		}
+		return a / b;
+	};
+	private MultipleParameterOperation Remainder = (double a, double b) -> a % b;
+	private MultipleParameterOperation Power = (double a, double b) -> Math.pow(a, b);
+	private MultipleParameterOperation LessThan = (double a, double b) -> a < b ? 1 : 0;
+	private MultipleParameterOperation GreaterThan = (double a, double b) -> a > b ? 1 : 0;
+	private MultipleParameterOperation Equal = (double a, double b) -> a == b ? 1 : 0;
+	private MultipleParameterOperation NotEqual = (double a, double b) -> a != b ? 1 : 0;
+
+	private double executeMath(MultipleParameterOperation operation, List<Double> myResults) throws SlogoError{
+		double result = myResults.get(0);
+		myResults.remove(0);
+		for (Double d : myResults) {
+			result = operate(operation, result, d);
+		}
+		return result;
+	}
+
+	private List<Double> convertAllNodesToDoubles(List<ExpressionNode> myNodes) throws SlogoError {
+		List<Double> executed = new ArrayList<Double>();
+		for (ExpressionNode n : myNodes) {
+			executed.add(n.execute());
+		}
+		return executed;
 	}
 
 }
