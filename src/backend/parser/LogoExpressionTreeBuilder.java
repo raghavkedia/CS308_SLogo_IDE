@@ -71,16 +71,11 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 	
 	public double executeExpression(List<String> myStrings) throws SlogoError {
 		Stack<ExpressionNode> myStack = new Stack<ExpressionNode>();
-		String currentString = getNextStringAndRemoveFromList(myStrings);
-		ExpressionNode curr = convertToNode(currentString);
-		List<ExpressionNode> toExecute = new ArrayList<ExpressionNode>();
+		ExpressionNode curr = convertToNode(getNextStringAndRemoveFromList(myStrings));
 		while (true) {
 			myStrings.remove(curr);
 			if (isSatisfied(curr)) {
 				if (myStack.isEmpty()) {
-					if (!toExecute.contains(curr)) {
-						toExecute.add(curr);
-					}
 					curr = getNextNode(myStrings, curr);
 				}
 				else {
