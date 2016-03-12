@@ -1,9 +1,6 @@
 package frontend.listVisual;
 
 import controller.Controller;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
 
 public class History extends ListVisual{

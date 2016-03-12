@@ -1,12 +1,7 @@
 package frontend.listVisual;
 
 import controller.Controller;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+
 
 public class UDC extends ListVisual {
 	

@@ -43,21 +43,8 @@ public class Display extends VisualComponent{
 	}
 	
 	public Display(double width, double height, Portrait defaultPortrait, Controller control){
-		super.setColor(Color.WHITE);
-		myPane = new Pane();
-		myPane.setMinSize(width, height);
-		myPane.setPrefSize(width, height);
-		myPane.setMaxSize(width, height);
-		myWidth = width;
-		myHeight = height;
-		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
-		super.setVisual(myPane);
-		this.myPortraits = new ArrayList<Portrait>();
-		myPreviousX = new HashMap<String, Double>();
-		myPreviousY = new HashMap<String, Double>();
+		this(width, height, control);
 		this.myPortraits.add(defaultPortrait);
-		myController = control;
-		myLines = new ArrayList<Line>();
 	}
 	
 	/**

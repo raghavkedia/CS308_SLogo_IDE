@@ -167,18 +167,14 @@ public class FrontendManager {
     
 
     //USER DEFINED COMMANDS
-    public void clearUDC(){myUDC.getMyData().clear();}
+    public void clearUDC(){myUDC.clearAll();}
     public void addToUDC(String s){myUDC.addToData(s);}
     
     //ALL CHARACTER LIST
     public void clearAllChars(){ myCharactersList.clearAll();}
+    
     public void addChar(Character c){ 
-//    	String id = "myID: " + c.getName();
-//    	String xcord = ", x: " +  c.getCoordX();
-//    	String ycord = ", y: " +  c.getCoordY();
-//    	String angle = ", angle: " +  c.getMyAngle();
-    	String name = c.getName();
-    	myCharactersList.addToData(name); 
+    	myCharactersList.addToData(c); 
    }
 
     public String getBackgroundRGB(){

@@ -25,9 +25,6 @@ public abstract class ListVisual extends VisualComponent implements IClickable{
 		initMouseHandler();
 	}
 	
-	public ObservableList<String> getMyData(){
-		return myData;
-	}
 	
 	public void addToData(String content){
 		myData.add(content);
@@ -58,5 +55,6 @@ public abstract class ListVisual extends VisualComponent implements IClickable{
 	//Getter
 	protected ListView<String> getMyList() {return myList;}
 	protected Controller getMyController() {return myController;}
-
+	
+	public int size() {return myData.size();}
 }
