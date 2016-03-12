@@ -3,6 +3,7 @@ package frontend;
 import java.util.Properties;
 
 import controller.Controller;
+import exceptions.InvalidCharacterError;
 import frontend.listVisual.AllCharactersList;
 import frontend.listVisual.History;
 import frontend.listVisual.UDC;
@@ -45,7 +46,7 @@ public class ComponentFactory {
 		return new VariablesPopupWindow(s, control);
 	}
 	
-	public static CharacterPopupWindow makeNewCharactersPopupWindow(String charId, Controller control){
+	public static CharacterPopupWindow makeNewCharactersPopupWindow(String charId, Controller control) throws InvalidCharacterError{
 		return new CharacterPopupWindow(charId, control);
 	}
 	

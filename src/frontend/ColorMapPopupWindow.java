@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 /**
- * Subclass of PopupWindow which is used to allow the user to interactively change variable values.
+ * Subclass of PopupWindow which is used to allow the user to interactively change ColorMap values.
  * @author richardliu
  *
  */
