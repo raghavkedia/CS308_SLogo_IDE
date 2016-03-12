@@ -6,7 +6,7 @@ import frontend.GUI.FileWindow;
 import frontend.GUI.Init.GUIString;
 import frontend.setting.SettingLoader;
 import javafx.scene.control.MenuItem;
-import util.PropertyLoader;
+import util.PropertyHandler;
 
 public class SettingLoaderMenuItem  extends MenuItem {
 
@@ -15,7 +15,7 @@ public class SettingLoaderMenuItem  extends MenuItem {
 		this.setOnAction(
 				e ->{
 					String title = controller.getGUIProperty(GUIString.SETTING_LOAD_TITLE.getKey());
-					File propFile = FileWindow.choose(title, "Property Files", "*" + PropertyLoader.EXTENSION);
+					File propFile = FileWindow.choose(title, "Property Files", "*" + PropertyHandler.EXTENSION);
 					if (propFile != null) {
 				        try {
 						    new SettingLoader(controller.getFrontendManager(), propFile);

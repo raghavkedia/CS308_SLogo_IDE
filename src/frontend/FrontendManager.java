@@ -4,6 +4,10 @@ import backend.*;
 import controller.Controller;
 import backend.data.Character;
 import exceptions.SlogoError;
+import frontend.listVisual.AllCharactersList;
+import frontend.listVisual.History;
+import frontend.listVisual.UDC;
+import frontend.listVisual.Variables;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
@@ -96,11 +100,6 @@ public class FrontendManager {
 	
     //METHODS
     
-    //HISTORY
-    
-    public void resetHistoryPointer(){
-    	myHistory.resetHistoryPointer();
-    }
     
     //OUTPUT
     
@@ -127,7 +126,7 @@ public class FrontendManager {
     
     //VARIABLES
     public void addToVariables(String s){
-    	myVariables.addToVariables(s);
+    	myVariables.addToData(s);
     }
     
     public void clearAllVars(){
@@ -136,11 +135,11 @@ public class FrontendManager {
     
     //HISTORY
     public void clearHistory(){
-    	myHistory.getMyData().clear();
+    	myHistory.clearAll();
     }
     
     public void addToHistory(String s){
-    	myHistory.getMyData().add(s);
+    	myHistory.addToData(s);
     }
     
     //DISPLAY
@@ -152,14 +151,10 @@ public class FrontendManager {
     	myDisplay.setBackgroundColor(c);
     }
     
-//    public void setLineColor(Color c){myDisplay.setLineColor(c);}
     
     public void addPortrait(Character c){
     	Portrait p = new Portrait(c);
     	myDisplay.addPortrait(p);
-//    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
-//    	myDisplay.addImage(p, c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
-//    	myPortraiteStateOuput.setText("my x : " + c.getCoordX() + ", my y : " + c.getCoordY()+ ", myAngle :" +  c.getMyAngle());
     }
     
     public void clearAllLines(){
@@ -173,7 +168,7 @@ public class FrontendManager {
 
     //USER DEFINED COMMANDS
     public void clearUDC(){myUDC.getMyData().clear();}
-    public void addToUDC(String s){myUDC.getMyData().add(s);}
+    public void addToUDC(String s){myUDC.addToData(s);}
     
     //ALL CHARACTER LIST
     public void clearAllChars(){ myCharactersList.clearAll();}
@@ -183,7 +178,7 @@ public class FrontendManager {
 //    	String ycord = ", y: " +  c.getCoordY();
 //    	String angle = ", angle: " +  c.getMyAngle();
     	String name = c.getName();
-    	myCharactersList.addToAllChars(name); 
+    	myCharactersList.addToData(name); 
    }
 
     public String getBackgroundRGB(){

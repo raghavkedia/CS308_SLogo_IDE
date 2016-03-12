@@ -1,10 +1,13 @@
 package frontend.setting;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
 import frontend.FrontendManager;
-import util.PropertySaver;
+import frontend.ExceptionWindow.IOExceptionWindow;
+import util.PropertyHandler;
+
 
 public class SettingSaver implements IFrontEndSettingSaver {
 	private FrontendManager myFrontendManager;
@@ -28,7 +31,11 @@ public class SettingSaver implements IFrontEndSettingSaver {
 		myFrontendManager = frontendManager;
 		myProps = new Properties();
 		saveBGCol();
-		PropertySaver.save(myProps, file);
+		try {
+			PropertyHandler.save(myProps, file);
+		} catch (IOException e) {
+			IOExceptionWindow.display(e);
+		}
 	}
     
 	@Override

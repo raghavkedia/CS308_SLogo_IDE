@@ -16,7 +16,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import util.PropertyLoader;
+import util.PropertyHandler;
+
 
 /**
  * Init class to let user to choose command language and start the program
@@ -88,7 +89,7 @@ public class Init {
 		;
 		private final int value;
 		
-		private Dimension(int val) {
+		Dimension(int val) {
 			this.value = val;
 		}	
 		
@@ -99,7 +100,7 @@ public class Init {
 	public Init(Stage s) {
 		myStage = s;
 		try {
-			myGUIProp = PropertyLoader.load(GUI_FILE_NAME);
+			myGUIProp = PropertyHandler.load(GUI_FILE_NAME);
 			s.setTitle(myGUIProp.getProperty(GUIString.TITLE.key));
 			myBox = new VBox();
 			myBox.setAlignment(Pos.CENTER);
@@ -131,7 +132,7 @@ public class Init {
 	
     private ComboBox<String> makeLanguageBox() throws IOException {
     	ComboBox<String> comboBox = new ComboBox<String>();
-		Properties prop = PropertyLoader.load(LANG_OPTION);
+		Properties prop = PropertyHandler.load(LANG_OPTION);
 		prop.stringPropertyNames().stream()
 		                          .forEach(key -> {
 		                        	  String value = prop.getProperty(key);
@@ -153,7 +154,7 @@ public class Init {
 			public void handle(ActionEvent event) {
 		    	Properties prop;
 				try {
-					prop = PropertyLoader.load(LANG_PATH + myComboBox.getValue());
+					prop = PropertyHandler.load(LANG_PATH + myComboBox.getValue());
 					Controller theControl = new Controller(myGUIProp, prop, myStage);
 			        myBox = new VBox();
 					myScene = new Scene(myBox, Dimension.MAIN_SCENE_HEIGHT.getDim(), Dimension.MAIN_SCENE_WIDTH.getDim());

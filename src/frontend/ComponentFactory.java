@@ -3,6 +3,10 @@ package frontend;
 import java.util.Properties;
 
 import controller.Controller;
+import frontend.listVisual.AllCharactersList;
+import frontend.listVisual.History;
+import frontend.listVisual.UDC;
+import frontend.listVisual.Variables;
 import frontend.menubar.MenubarComponent;
 import frontend.toobar.ToolbarComponent;
 import javafx.event.ActionEvent;
