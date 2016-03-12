@@ -3,7 +3,6 @@ package backend.parser;
 import java.util.ArrayList;
 import java.util.List;
 
-import backend.data.Variable;
 import exceptions.SlogoError;
 
 public class UserCommandNode implements ExpressionNode {

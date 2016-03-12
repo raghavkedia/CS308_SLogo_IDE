@@ -55,7 +55,6 @@ public class CommandFactory {
 		double translateY = transCoords[1] * Math.cos(MathUtil.convertDegrees(myCharacter.getMyAngle()));
 		myCharacter.setCurrCoord(myCharacter.getCoordX() + translateX,
 			myCharacter.getCoordY() + translateY);
-
 	}
 
 
@@ -303,17 +302,9 @@ public class CommandFactory {
 		case LISTSTART:
 			break;
 		case MAKEUSERINSTRUCTION:
-			//maybe check?
 			ExpressionNode myUserCommand = myChildren.get(0);
 			if (myUserCommand instanceof UserCommandNode) {
-				for (int k = 0; k < myChildren.get(1).getMyChildren().size() -1 ; k++) {
-					if (myChildren.get(1).getMyChildren().get(k).getMyCommandType() == Command.VARIABLE) {
-						((UserCommandNode) myUserCommand).addParameter(myChildren.get(1).getMyChildren().get(k));
-					}
-					else {
-						return 0;
-					}
-				}
+				setParametersAndVariables(myChildren, myUserCommand);
 				((UserCommandNode) myUserCommand).setMyTree(myChildren.get(2));
 			}
 			myUserDefinedCommands.addUserDefinedCommand(myUserCommand.getMyName(), myUserCommand);
@@ -383,7 +374,6 @@ public class CommandFactory {
 		case YCOORDINATE:
 			return executeForCharacters(YCoordinate, convertAllNodesToDoubles(myChildren));
 		case ASK:
-			//check again that all children of [ node are constants, make method for this?
 			changeActiveCharactersTo(myChildren.get(0).getMyChildren().subList(0, myChildren.get(0).getMyChildren().size() - 1));
 			result = myChildren.get(1).execute();
 			returnActiveCharactersToPrevious(previousActive);
@@ -407,9 +397,8 @@ public class CommandFactory {
 		case LISTEND:
 			break;
 		case TELL:
-			//check that all children of that [ node are constants
-			changeActiveCharactersTo(myChildren.get(0).getMyChildren().subList(0, myChildren.get(0).getMyChildren().size()- 2));
-			return Double.valueOf(myCharacters.getActiveCharacters().get(myCharacters.getActiveCharacters().size()-1));
+			changeActiveCharactersTo(myChildren.get(0).getMyChildren().subList(0, myChildren.get(0).getMyChildren().size()- 1));
+			return Double.valueOf(myCharacters.getActiveCharacters().get(myCharacters.getActiveCharacters().size() - 1));
 		case TURTLES:
 			return myCharacters.getNumCharacters();
 		case USERCOMMAND:
@@ -447,6 +436,17 @@ public class CommandFactory {
 			break;
 		}
 		return 0;
+	}
+
+	private void setParametersAndVariables(List<ExpressionNode> myChildren, ExpressionNode myUserCommand) throws InvalidParametersError {
+		for (int k = 0; k < myChildren.get(1).getMyChildren().size() -1 ; k++) {
+			if (myChildren.get(1).getMyChildren().get(k).getMyCommandType() == Command.VARIABLE) {
+				((UserCommandNode) myUserCommand).addParameter(myChildren.get(1).getMyChildren().get(k));
+			}
+			else {
+				throw new InvalidParametersError(myErrorResources.getString("InvalidParameter"));
+			}
+		}
 	}
 
 	private void changeActiveCharactersTo(List<ExpressionNode> myNodeList) throws SlogoError {

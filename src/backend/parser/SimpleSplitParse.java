@@ -25,7 +25,6 @@ public class SimpleSplitParse implements Parseable {
 	}
 
 	public Collection<String> stringParse(String input) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
