@@ -30,7 +30,7 @@ public class ColorMapPopupWindow extends PopupWindow{
 		for (int i=0; i<5; i++){
 			int index = i;
 			Text colorNum = new Text("Index "+i);
-			Color c = Color.web(myController.getColorFromMap(i));
+			Color c = Color.web(myController.getColorFromMap(index));
 			ColorPicker cPicker = new ColorPicker(c);
 			cPicker.setOnMouseClicked(
 					e -> {

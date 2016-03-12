@@ -191,6 +191,10 @@ public class Controller {
     public String getImagePathFromMap(int id){
     	return myBackend.getShapeMap(myId).getImagePath(id);
     }
+    
+    public void setImagePathInMap(String imgPath, int id){
+    	myBackend.getShapeMap(myId).addShape(id, imgPath);
+    }
 
 	
     //GETTERS AND SETTERS
