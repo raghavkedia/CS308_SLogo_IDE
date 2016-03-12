@@ -1,8 +1,8 @@
 package backend.parser;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface ExpressionTreeBuilder {
 	
-	public double executeExpressions(Collection<ExpressionNode> myNodes) throws Exception;
+	public double executeExpression(List<String> myStrings) throws Exception;
 }
