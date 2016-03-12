@@ -4,6 +4,7 @@ import backend.*;
 import controller.Controller;
 import backend.data.Character;
 import exceptions.SlogoError;
+import frontend.GUI.Init.Dimension;
 import frontend.listVisual.AllCharactersList;
 import frontend.listVisual.History;
 import frontend.listVisual.UDC;
@@ -39,20 +40,19 @@ public class FrontendManager {
 		myController = c;
 		myWorkspaceId = id;
 		myRoot = new BorderPane();
-		myRoot.setPrefSize(1000, 700);
 		initObserver(backend);
 		initComponents();
 		setBorderPane();
 	}
 	
 	private void initComponents(){
-		myDisplay = ComponentFactory.makeNewDisplay(500, 500, myController);
-		myConsole = ComponentFactory.makeNewConsole(1000, 150, myController);
-		myHistory = ComponentFactory.makeNewHistory(250, 450, myController);
-		myOutput = ComponentFactory.makeNewConsole(50, 50, myController);
-		myVariables = ComponentFactory.makeNewVariables(250, 450, myController);
-		myUDC = ComponentFactory.makeNewUDC(250, 450, myController);
-		myCharactersList = ComponentFactory.makeNewActiveCharacterList(250, 450, myController);				
+		myDisplay = ComponentFactory.makeNewDisplay(Dimension.DISPLAY.getHeight(), Dimension.DISPLAY.getWidth(), myController);
+		myConsole = ComponentFactory.makeNewConsole(Dimension.CONSOLE.getHeight(), Dimension.CONSOLE.getWidth(), myController);
+		myHistory = ComponentFactory.makeNewHistory(Dimension.HISTORY.getHeight(), Dimension.HISTORY.getWidth(),myController);
+		myOutput = ComponentFactory.makeNewConsole(Dimension.OUTPUT.getHeight(), Dimension.OUTPUT.getWidth(), myController);
+		myVariables = ComponentFactory.makeNewVariables(Dimension.VARIABLE.getHeight(), Dimension.VARIABLE.getWidth(),myController);
+		myUDC = ComponentFactory.makeNewUDC(Dimension.UDC.getHeight(), Dimension.UDC.getWidth(), myController);
+		myCharactersList = ComponentFactory.makeNewActiveCharacterList(Dimension.CHARACTERLIST.getHeight(), Dimension.CHARACTERLIST.getWidth(), myController);				
 		myPortraits = new ArrayList<Portrait>();
 	}
 	

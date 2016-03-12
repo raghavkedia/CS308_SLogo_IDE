@@ -82,20 +82,30 @@ public class Init {
 	 *
 	 */
 	public enum Dimension {
-		INIT_SCENE_HEIGHT(500),
-		INIT_SCENE_WIDTH(300),
-		MAIN_SCENE_HEIGHT(1000),
-		MAIN_SCENE_WIDTH(800),
+		INIT_SCENE(500,300),
+		MAIN_SCENE(1000,800),
+		DISPLAY(500, 500),
+		CONSOLE(500, 200),
+		OUTPUT(500, 200),
+		HISTORY(250, 450),
+		VARIABLE(250, 450),
+		UDC(250, 250),
+		CHARACTERLIST(250, 450),
 		;
-		private final int value;
+		private final int height;
+		private final int width;
 		
-		Dimension(int val) {
-			this.value = val;
+		Dimension(int h, int w) {
+			this.height = h;
+			this.width = w;
 		}	
 		
-		public int getDim() {
-			return this.value;
+		public int getHeight() {
+			return this.height;
 		}		
+		public int getWidth() {
+			return this.width;
+		}
 	}	
 	public Init(Stage s) {
 		myStage = s;
@@ -104,7 +114,7 @@ public class Init {
 			s.setTitle(myGUIProp.getProperty(GUIString.TITLE.key));
 			myBox = new VBox();
 			myBox.setAlignment(Pos.CENTER);
-			myScene = new Scene(myBox, Dimension.INIT_SCENE_HEIGHT.getDim(), Dimension.INIT_SCENE_WIDTH.getDim());
+			myScene = new Scene(myBox, Dimension.INIT_SCENE.getHeight(), Dimension.INIT_SCENE.getWidth());
 			
 	
 			myComboBox = makeLanguageBox();
@@ -157,7 +167,7 @@ public class Init {
 					prop = PropertyHandler.load(LANG_PATH + myComboBox.getValue());
 					Controller theControl = new Controller(myGUIProp, prop, myStage);
 			        myBox = new VBox();
-					myScene = new Scene(myBox, Dimension.MAIN_SCENE_HEIGHT.getDim(), Dimension.MAIN_SCENE_WIDTH.getDim());
+					myScene = new Scene(myBox, Dimension.MAIN_SCENE.getHeight(), Dimension.MAIN_SCENE.getWidth());
 					MenubarComponent menubarComp = ComponentFactory.makeNewMenubar(theControl);
 					myBox.getChildren().add(menubarComp.getVisual());
 					ToolbarComponent toolbarComp = ComponentFactory.makeNewToolbar(theControl);
