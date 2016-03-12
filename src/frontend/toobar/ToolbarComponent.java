@@ -21,6 +21,7 @@ public class ToolbarComponent extends VisualComponent{
 		myToolbar.getItems().add(ToolbarFactory.makeHelpButton(myController));
 		myToolbar.getItems().add(ToolbarFactory.makeCreateWorkSpaceButton(myController));
 		myToolbar.getItems().add(new ColorMapButton(myController));
+		myToolbar.getItems().add(new ShapeMapButton(myController));
 //		myToolbar.getItems().add(ToolbarFactory.makePenPropertiesButton(myController));
 		
 		super.setVisual(myToolbar);
