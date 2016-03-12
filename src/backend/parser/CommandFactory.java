@@ -65,14 +65,14 @@ public class CommandFactory {
 		return result;
 	}
 
-	private double findDistanceFromHome() throws InvalidCharacterError{
-		double result = 0;
-		for (String key : myCharacters.getActiveCharacters()) {
-			result = MathUtil.findDistance(0, myCharacters.getCharacter(key).getCoordX(), 0, myCharacters.getCharacter(key).getCoordY());
-			myCharacters.getCharacter(key).setCurrCoord(0, 0);
-		}
-		return result;
-	}
+//	private double findDistanceFromHome() throws InvalidCharacterError{
+//		double result = 0;
+//		for (String key : myCharacters.getActiveCharacters()) {
+//			result = MathUtil.findDistance(0, myCharacters.getCharacter(key).getCoordX(), 0, myCharacters.getCharacter(key).getCoordY());
+//			myCharacters.getCharacter(key).setCurrCoord(0, 0);
+//		}
+//		return result;
+//	}
 	private double setBackground(int index) throws InvalidIndexColorError{
 		if(!myColorMap.indexExists(index)){
 			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));

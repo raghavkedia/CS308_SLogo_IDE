@@ -15,6 +15,7 @@ import backend.data.VariablesList;
 import exceptions.SlogoError;
 
 public class SimpleSplitParse implements Parseable {
+	private static final String RESULT_STATEMENT = "The result is ";
 	private static final String KEEP_END_LINE = "\\\\n";
 	private static final String END_LINE_STRING = "\n";
 	private static final String END_LINE = "\\n";
@@ -36,17 +37,21 @@ public class SimpleSplitParse implements Parseable {
 	@Override
 	public String runInput(String input, Data myData, ResourceBundle myResources) throws SlogoError {
 		input = input.replaceAll(END_LINE_STRING, END_LINE_STRING + " ");
-		Collection<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
+		List<String> myStrings = cleanStrings(input.toLowerCase().replaceAll(END_LINE_STRING, KEEP_END_LINE).split("\\s+"));
 		CommandFactory myFactory = new CommandFactory(myData.getCharacterList(), myData.getVariablesList(), myData.getUserDefinedCommands(), 
 				myData.getProperties(), myData.getColorMap(), myData.getShapeMap());
-		Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory, myData.getUserDefinedCommands());
-		LogoExpressionTreeBuilder myTreeBuilder = new LogoExpressionTreeBuilder();
-		double result = myNodes.size() != 0 ? myTreeBuilder.executeExpressions(myNodes) : 0;
-		String statement = "The result is " + result;
+		//Collection<ExpressionNode> myNodes = convertToNodes(myStrings, myFactory, myData.getUserDefinedCommands());
+		LogoExpressionTreeBuilder myTreeBuilder = new LogoExpressionTreeBuilder(language, myFactory, myData.getUserDefinedCommands());
+		//double result = myNodes.size() != 0 ? myTreeBuilder.executeExpressions(myNodes) : 0;
+		double result = 0;
+		while (!myStrings.isEmpty()) {
+			result = myTreeBuilder.executeExpression(myStrings);
+		}
+		String statement = RESULT_STATEMENT + result;
 		return statement;
 	}
 
-	private Collection<String> cleanStrings(String[] mySplitString) {
+	private List<String> cleanStrings(String[] mySplitString) {
 		boolean foundComment = false;
 		for (int k = 0; k < mySplitString.length; k++) {
 			if (Pattern.matches("#", mySplitString[k])) {
@@ -64,7 +69,7 @@ public class SimpleSplitParse implements Parseable {
 			}
 
 		}
-		Collection<String> myStrings = new ArrayList<String>(Arrays.asList(mySplitString));
+		List<String> myStrings = new ArrayList<String>(Arrays.asList(mySplitString));
 		myStrings.removeIf(p -> p.equals(""));
 		return myStrings;
 	}
