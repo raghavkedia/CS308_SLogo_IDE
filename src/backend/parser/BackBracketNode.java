@@ -19,7 +19,7 @@ public class BackBracketNode implements ExpressionNode{
 
 	@Override
 	public Command getMyCommandType() {
-		return Command.ListEnd;
+		return Command.LISTEND;
 	}
 
 	@Override

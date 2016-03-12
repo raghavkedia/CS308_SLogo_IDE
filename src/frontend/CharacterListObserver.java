@@ -1,6 +1,7 @@
 package frontend;
 
 import controller.Controller;
+import exceptions.InvalidCharacterError;
 import backend.*;
 import backend.data.Character;
 import backend.data.CharactersList;
@@ -20,10 +21,15 @@ public class CharacterListObserver implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		updateCharacterDisplay();
+		try {
+			updateCharacterDisplay();
+		} catch (InvalidCharacterError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void updateCharacterDisplay(){
+	public void updateCharacterDisplay() throws InvalidCharacterError{
 		myController.clearCharactersFromFrontend();
 		myController.clearAllChars();
 		for (Character c : myObservable.getCharacters()){

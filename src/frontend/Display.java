@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import controller.Controller;
+import exceptions.InvalidCharacterError;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -67,8 +68,9 @@ public class Display extends VisualComponent{
 	 * @param y1 - starting y coordinate
 	 * @param x2 - ending x coordinate
 	 * @param y2 - ending y coordinate
+	 * @throws InvalidCharacterError 
 	 */
-	public void drawLine(double x1, double y1, double x2, double y2, String charId){
+	public void drawLine(double x1, double y1, double x2, double y2, String charId) throws InvalidCharacterError{
 		double[] newInitialCoords = mapCoords(x1, y1);
 		double[] newEndCoords = mapCoords(x2, y2);
 		Line newLine = new Line(newInitialCoords[0], newInitialCoords[1], newEndCoords[0], newEndCoords[1]);
@@ -123,7 +125,7 @@ public class Display extends VisualComponent{
 		this.myPortraits.clear();
 	}
 	
-	public void addPortrait(Portrait p){
+	public void addPortrait(Portrait p) throws InvalidCharacterError{
 		this.myPortraits.add(p);
 		if (p.getMyChar().getVisability()){
 			this.addImage(p, p.getMyChar().getCoordX(), p.getMyChar().getCoordY(), p.getMyChar().getMyAngle(), p.getMyChar().getVisability());

@@ -36,7 +36,7 @@ public class ForwardBracketNode implements ExpressionNode {
 
 	@Override
 	public Command getMyCommandType() {
-		return Command.ListStart;
+		return Command.LISTSTART;
 	}
 
 	@Override

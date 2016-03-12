@@ -19,12 +19,14 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 	private CommandFactory myFactory;
 	private UserDefinedCommands myUserDefinedCommands;
 	private String language;
+	private Tokenizer myTokenizer;
 	
 	public LogoExpressionTreeBuilder(String language, CommandFactory myFactory, UserDefinedCommands userDefinedCommands) {
 		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
 		this.myFactory = myFactory;
 		this.language = language;
 		myUserDefinedCommands = userDefinedCommands;
+		myTokenizer = new Tokenizer(language);
 	}
 	
 	public double executeExpressions(Collection<ExpressionNode> myNodes) throws SlogoError {
@@ -113,7 +115,6 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 	
 	private ExpressionNode convertToNode(String myString) throws SlogoError{
 		ExpressionNodeFactory myNodeFactory = new ExpressionNodeFactory(myFactory, myUserDefinedCommands);
-		Tokenizer myTokenizer = new Tokenizer(language);
 		return myNodeFactory.createNode(myTokenizer.createToken(myString));
 	}
 	
