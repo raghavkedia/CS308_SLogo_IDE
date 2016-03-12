@@ -55,7 +55,6 @@ public class CommandFactory {
 		double translateY = transCoords[1] * Math.cos(MathUtil.convertDegrees(myCharacter.getMyAngle()));
 		myCharacter.setCurrCoord(myCharacter.getCoordX() + translateX,
 			myCharacter.getCoordY() + translateY);
-
 	}
 
 
@@ -65,14 +64,6 @@ public class CommandFactory {
 		return result;
 	}
 
-//	private double findDistanceFromHome() throws InvalidCharacterError{
-//		double result = 0;
-//		for (String key : myCharacters.getActiveCharacters()) {
-//			result = MathUtil.findDistance(0, myCharacters.getCharacter(key).getCoordX(), 0, myCharacters.getCharacter(key).getCoordY());
-//			myCharacters.getCharacter(key).setCurrCoord(0, 0);
-//		}
-//		return result;
-//	}
 	private double setBackground(int index) throws InvalidIndexColorError{
 		if(!myColorMap.indexExists(index)){
 			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));
@@ -236,9 +227,6 @@ public class CommandFactory {
 	private double executeMath(MultipleParameterOperation operation, List<Double> myResults) throws SlogoError{
 		double result = myResults.get(0);
 		myResults.remove(0);
-		if (myResults.isEmpty()) {
-			//throws not enough arguments
-		}
 		for (Double d : myResults) {
 			result = operate(operation, result, d);
 		}
@@ -314,17 +302,9 @@ public class CommandFactory {
 		case LISTSTART:
 			break;
 		case MAKEUSERINSTRUCTION:
-			//maybe check?
 			ExpressionNode myUserCommand = myChildren.get(0);
 			if (myUserCommand instanceof UserCommandNode) {
-				for (int k = 0; k < myChildren.get(1).getMyChildren().size() -1 ; k++) {
-					if (myChildren.get(1).getMyChildren().get(k).getMyCommandType() == Command.VARIABLE) {
-						((UserCommandNode) myUserCommand).addParameter(myChildren.get(1).getMyChildren().get(k));
-					}
-					else {
-						return 0;
-					}
-				}
+				setParametersAndVariables(myChildren, myUserCommand);
 				((UserCommandNode) myUserCommand).setMyTree(myChildren.get(2));
 			}
 			myUserDefinedCommands.addUserDefinedCommand(myUserCommand.getMyName(), myUserCommand);
@@ -394,7 +374,6 @@ public class CommandFactory {
 		case YCOORDINATE:
 			return executeForCharacters(YCoordinate, convertAllNodesToDoubles(myChildren));
 		case ASK:
-			//check again that all children of [ node are constants, make method for this?
 			changeActiveCharactersTo(myChildren.get(0).getMyChildren().subList(0, myChildren.get(0).getMyChildren().size() - 1));
 			result = myChildren.get(1).execute();
 			returnActiveCharactersToPrevious(previousActive);
@@ -418,9 +397,8 @@ public class CommandFactory {
 		case LISTEND:
 			break;
 		case TELL:
-			//check that all children of that [ node are constants
-			changeActiveCharactersTo(myChildren.get(0).getMyChildren().subList(0, myChildren.get(0).getMyChildren().size()- 2));
-			return Double.valueOf(myCharacters.getActiveCharacters().get(myCharacters.getActiveCharacters().size()-1));
+			changeActiveCharactersTo(myChildren.get(0).getMyChildren().subList(0, myChildren.get(0).getMyChildren().size()- 1));
+			return Double.valueOf(myCharacters.getActiveCharacters().get(myCharacters.getActiveCharacters().size() - 1));
 		case TURTLES:
 			return myCharacters.getNumCharacters();
 		case USERCOMMAND:
@@ -460,6 +438,17 @@ public class CommandFactory {
 		return 0;
 	}
 
+	private void setParametersAndVariables(List<ExpressionNode> myChildren, ExpressionNode myUserCommand) throws InvalidParametersError {
+		for (int k = 0; k < myChildren.get(1).getMyChildren().size() -1 ; k++) {
+			if (myChildren.get(1).getMyChildren().get(k).getMyCommandType() == Command.VARIABLE) {
+				((UserCommandNode) myUserCommand).addParameter(myChildren.get(1).getMyChildren().get(k));
+			}
+			else {
+				throw new InvalidParametersError(myErrorResources.getString("InvalidParameter"));
+			}
+		}
+	}
+
 	private void changeActiveCharactersTo(List<ExpressionNode> myNodeList) throws SlogoError {
 		List<Double> turtleIDs = new ArrayList<Double>(convertAllNodesToDoubles(myNodeList));
 		myCharacters.getActiveCharacters().clear();
@@ -482,263 +471,5 @@ public class CommandFactory {
 		myVariablesList.addVariable(myVariable);
 		return myVariable;
 	}
-
-//	public double generateResults(Command type, List<Double> myResults) throws SlogoError{
-//		double result = 0;
-//		double leftValue = 0;
-//		double rightValue = 0;
-//		switch(type) {
-//		case Forward:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				translateCoor(new double[]{0, myResults.get(0)}, myCharacters.getCharacter(key));	
-//			}
-//			myCharacters.hasUpdated();
-//			return myResults.get(0);
-//		case Back:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				translateCoor(new double[]{0, -1 * myResults.get(0)}, myCharacters.getCharacter(key));
-//			}
-//			myCharacters.hasUpdated();
-//			return myResults.get(0);
-//		case Left:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				myCharacters.getCharacter(key).setMyAngle((myCharacters.getCharacter(key).getMyAngle() - myResults.get(0)) % 360);
-//			}
-//			myCharacters.hasUpdated();
-//			return myResults.get(0);
-//		case Right:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				myCharacters.getCharacter(key).setMyAngle((myCharacters.getCharacter(key).getMyAngle() + myResults.get(0)) % 360);
-//			}
-//			myCharacters.hasUpdated();
-//			return myResults.get(0);
-//		case SetHeading:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				result = Math.abs((myCharacters.getCharacter(key).getMyAngle() - myResults.get(0)) % 360);
-//				myCharacters.getCharacter(key).setMyAngle(myResults.get(0));
-//			}
-//			myCharacters.hasUpdated();
-//			return result;
-//		case SetTowards:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				double newAngle = 
-//						90 - Math.atan2(myResults.get(1) - myCharacters.getCharacter(key).getCoordY(), myResults.get(0) - myCharacters.getCharacter(key).getCoordX());
-//				result = Math.abs((newAngle - myCharacters.getCharacter(key).getMyAngle()) % 360);
-//				myCharacters.getCharacter(key).setMyAngle(newAngle % 360);
-//			}
-//			myCharacters.hasUpdated();
-//			return result;
-//		case SetPosition:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				result = MathUtil.findDistance(myResults.get(0), myCharacters.getCharacter(key).getCoordX(), myResults.get(1), myCharacters.getCharacter(key).getCoordY());
-//				myCharacters.getCharacter(key).setCurrCoord((int) Math.round(myResults.get(0)), (int) Math.round(myResults.get(1)));
-//			}
-//			myCharacters.hasUpdated();
-//			return result;
-//		case PenDown:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				myCharacters.getCharacter(key).setPenState(true);
-//			}
-//			myCharacters.hasUpdated();
-//			return 1;
-//		case PenUp:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				myCharacters.getCharacter(key).setPenState(false);
-//			}
-//			myCharacters.hasUpdated();
-//			return 0;
-//		case ShowTurtle:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				myCharacters.getCharacter(key).setVisability(true);
-//			}
-//			myCharacters.hasUpdated();
-//			return 1;
-//		case HideTurtle:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				myCharacters.getCharacter(key).setVisability(false);
-//			}
-//			myCharacters.hasUpdated();
-//			return 0;
-//		case Home:
-//			result = findDistanceFromHome();
-//			myCharacters.hasUpdated();
-//			return result;
-//		case ClearScreen:
-//			result = findDistanceFromHome();
-//			myCharacters.hasUpdated();
-//			//How to do this? for erasing all lines? deleting list?
-//			break;
-//		case XCoordinate:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				result = myCharacters.getCharacter(key).getCoordX();
-//			}
-//			return result;
-//		case YCoordinate:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				result = myCharacters.getCharacter(key).getCoordY();
-//			}
-//			return result;
-//		case Heading:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				result = myCharacters.getCharacter(key).getMyAngle();
-//			}
-//			return result;
-//		case IsPenDown:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				result = myCharacters.getCharacter(key).getPenState() ? 1 : 0;
-//			}
-//			return result;
-//		case IsShowing:
-//			for (String key : myCharacters.getActiveCharacters()) {
-//				result = myCharacters.getCharacter(key).getVisability() ? 1 : 0;
-//			}
-//			return result;
-//		case Sum:
-//			if(myResults.size() < 2){
-//				throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
-//			}
-//			for (Double d : myResults) {
-//				result += d;
-//			}
-//			return result;
-//		case Difference:
-//			if(myResults.size() < 2){
-//				throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
-//			}
-//			result = myResults.get(0);
-//			myResults.remove(0);
-//			for (Double d : myResults) {
-//				result -= d;
-//			}
-//			return result;
-//		case Product:
-//			if(myResults.size() < 2){
-//				throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
-//			}
-//			result = myResults.get(0);
-//			myResults.remove(0);
-//			for (Double d : myResults) {
-//				result = result * d;
-//			}
-//			return result;
-//		case Quotient:
-//			if(myResults.size() < 2){
-//				throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
-//			}
-//			result = myResults.get(0);
-//			myResults.remove(0);
-//			for (Double d : myResults) {
-//				if(d == 0){
-//					throw new InvalidQuotientError(myErrorResources.getString("QuotientError"));
-//				}
-//				result = result / d;
-//			}
-//			return result;
-//		case Remainder:
-//			if(myResults.size() < 2){
-//				throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
-//			}
-//			result = myResults.get(0);
-//			myResults.remove(0);
-//			for (Double d : myResults) {
-//				result = result % d;
-//			}
-//			return result;
-//		case Minus:
-//			return -1 * myResults.get(0);
-//		case Random:
-//			return Math.floor(Math.random() * myResults.get(0));
-//		case Sine:
-//			return Math.sin(MathUtil.convertDegrees(myResults.get(0)));
-//		case Cosine:
-//			return Math.cos(MathUtil.convertDegrees(myResults.get(0)));
-//		case Tangent:
-//			return Math.tan(MathUtil.convertDegrees(myResults.get(0)));
-//		case ArcTangent:
-//			//may throw exception here
-//			return Math.atan(MathUtil.convertDegrees(myResults.get(0)));
-//		case NaturalLog:
-//			if(myResults.get(0) == 0){
-//				throw new InvalidParameterError(myErrorResources.getString("InvalidParameter") + "cannot take natural log of 0!");
-//			}
-//			//may also throw exception here
-//			return Math.log(myResults.get(0));
-//		case Power:
-//			if(myResults.size() != 2){
-//				throw new InvalidParametersError(myErrorResources.getString("WrongNumberOfParameters"));
-//			}
-//			double base = myResults.get(0); 
-//			double exp = myResults.get(1);
-//			return Math.pow(base, exp);
-//		case Pi:
-//			return Math.PI;
-//		case LessThan:
-//			if(myResults.size() != 2){
-//				throw new InvalidParametersError(myErrorResources.getString("WrongNumberOfParameters"));
-//			}
-//			leftValue =  myResults.get(0);
-//			rightValue = myResults.get(1);
-//			return (leftValue < rightValue ? 1 : 0);
-//		case GreaterThan:
-//			if(myResults.size() != 2){
-//				throw new InvalidParametersError(myErrorResources.getString("WrongNumberOfParameters"));
-//			}
-//			leftValue =  myResults.get(0);
-//			rightValue = myResults.get(1);
-//			return (leftValue > rightValue ? 1 : 0);
-//		case Equal:
-//			if(myResults.size() != 2){
-//				throw new InvalidParametersError(myErrorResources.getString("WrongNumberOfParameters"));
-//			}
-//			leftValue =  myResults.get(0);
-//			rightValue = myResults.get(1);
-//			return(leftValue == rightValue ? 1 : 0);
-//		case NotEqual:
-//			if(myResults.size() != 2){
-//				throw new InvalidParametersError(myErrorResources.getString("WrongNumberOfParameters"));
-//			}
-//			leftValue =  myResults.get(0);
-//			rightValue = myResults.get(1);
-//			return (leftValue != rightValue ? 1 : 0);
-//		case And:
-//			if(myResults.size() < 2){
-//				throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
-//			}
-//			leftValue =  myResults.get(0);
-//			rightValue = myResults.get(1);
-//			return (((leftValue != 0) && (rightValue != 0)) ? 1 : 0);
-//		case Or:
-//			if(myResults.size() < 2){
-//				throw new TooFewParametersError(myErrorResources.getString("TooFewParameters"));
-//			}
-//			leftValue =  myResults.get(0);
-//			rightValue = myResults.get(1);
-//			return (((leftValue != 0) || (rightValue != 0)) ? 1 : 0);
-//		case Not:
-//			return (myResults.get(0) == 0 ? 1 : 0);
-//		case MakeVariable:
-//			return myResults.get(myResults.size() - 1);
-//		case Repeat:
-//			double times = myResults.get(0);
-//			int repeatTimes = (int) Math.floor(times);
-//			for (int k = 0; k < repeatTimes; k++) {
-//				result = myResults.get(1);
-//			}
-//			return myResults.get(myResults.size() - 1);
-//		case DoTimes:
-//			return myResults.get(myResults.size() - 1);
-//		case For:
-//			return myResults.get(myResults.size() - 1); 
-//		case If:
-//			return myResults.get(myResults.size() - 1);
-//		case IfElse:
-//			return myResults.get(myResults.size() - 1);
-//		case MakeUserInstruction:
-//			return myResults.get(myResults.size() - 1);
-//		default:
-//			break;
-//		}
-//		return 0;
-//	}
 
 }

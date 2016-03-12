@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import backend.parser.ExpressionNodeFactory.NodeType;
-import exceptions.InvalidCommandError;
 import exceptions.SlogoError;
 import exceptions.SyntaxError;
 
@@ -59,11 +58,6 @@ public class Tokenizer {
 					previousToken = new Token(NodeType.USERCOMMAND, Command.USERCOMMAND, s, 0);
 					return previousToken;
 				}
-//				else {
-//					throw new InvalidCommandError(myErrorResources.getString("InvalidCommand"));					
-//				}
-				//check user commands
-				//throw exception
 			}
 			previousToken = new Token(NodeType.COMMAND, myCommand, s, 0);
 			return previousToken; 

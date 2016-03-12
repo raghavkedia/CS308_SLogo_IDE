@@ -1,11 +1,7 @@
 package backend.parser;
 
-import java.util.Map;
 import java.util.ResourceBundle;
-
 import backend.data.UserDefinedCommands;
-import backend.data.Variable;
-import backend.data.VariablesList;
 import exceptions.InvalidCommandError;
 
 public class ExpressionNodeFactory {
