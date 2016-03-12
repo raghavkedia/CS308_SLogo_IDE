@@ -4,6 +4,10 @@ import backend.*;
 import controller.Controller;
 import backend.data.Character;
 import exceptions.SlogoError;
+import frontend.listVisual.AllCharactersList;
+import frontend.listVisual.History;
+import frontend.listVisual.UDC;
+import frontend.listVisual.Variables;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
@@ -157,9 +161,6 @@ public class FrontendManager {
     public void addPortrait(Character c){
     	Portrait p = new Portrait(c);
     	myDisplay.addPortrait(p);
-//    	myDisplay.addImage(p.getMyPortrait(), c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
-//    	myDisplay.addImage(p, c.getCoordX(), c.getCoordY(), c.getMyAngle(), c.getPenState());
-//    	myPortraiteStateOuput.setText("my x : " + c.getCoordX() + ", my y : " + c.getCoordY()+ ", myAngle :" +  c.getMyAngle());
     }
     
     public void clearAllLines(){

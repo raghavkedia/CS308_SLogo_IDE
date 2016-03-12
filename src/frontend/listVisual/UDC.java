@@ -1,4 +1,4 @@
-package frontend;
+package frontend.listVisual;
 
 import controller.Controller;
 import javafx.event.EventHandler;
@@ -9,14 +9,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class UDC extends ListVisual {
-
-Controller myController;
 	
-	public UDC(double width, double height, Controller control){
-		super(width, height);
-		this.myList.setItems(myData);
-		myController = control;		
-		initMouseHandler();
+	public UDC(double width, double height, Controller controller){
+		super(width, height, controller);
 	}
 	
 	/**
@@ -24,8 +19,8 @@ Controller myController;
 	 */
 	@Override
 	public void respondToClick() {
-		String selected = myList.getSelectionModel().getSelectedItem();
-		myController.displayInConsole(selected);
+		String selected = getMyList().getSelectionModel().getSelectedItem();
+		getMyController().displayInConsole(selected);
 	}
 
 }

@@ -1,5 +1,7 @@
-package frontend;
+package frontend.listVisual;
 
+import controller.Controller;
+import frontend.VisualComponent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -7,20 +9,20 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
-/**
- * Wrapper class for a JavaFX ListView.
- * @author richardliu
- *
- */
-abstract class ListVisual extends VisualComponent implements IClickable{
-	protected ListView<String> myList;
-	protected ObservableList<String> myData = FXCollections.observableArrayList();
 
+public abstract class ListVisual extends VisualComponent implements IClickable{
+	private ListView<String> myList;
+	private ObservableList<String> myData;
+	private Controller myController;
 	
-	public ListVisual(double width, double height){
-		myList = new ListView<String>();
-		myList.setPrefSize(width, height);
+	public ListVisual(double width, double height, Controller controller){
+		this.myList = new ListView<String>();
+		this.myList.setPrefSize(width, height);
 		this.setVisual(myList);
+		this.myData =  FXCollections.observableArrayList();
+		this.myList.setItems(myData);
+		this.myController = controller;
+		initMouseHandler();
 	}
 	
 	public ObservableList<String> getMyData(){
@@ -52,5 +54,9 @@ abstract class ListVisual extends VisualComponent implements IClickable{
 	    });
 		
 	}
+	
+	//Getter
+	protected ListView<String> getMyList() {return myList;}
+	protected Controller getMyController() {return myController;}
 
 }

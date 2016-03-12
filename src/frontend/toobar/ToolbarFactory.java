@@ -30,8 +30,4 @@ public class ToolbarFactory {
 	public static Button makeCreateWorkSpaceButton(Controller c) {
 		return new CreateWorkSpaceButton(c);
 	}
-	
-	public static Button makePenPropertiesButton(Controller c) {
-		return new PenPropertiesButton(c);
-	}
 }
