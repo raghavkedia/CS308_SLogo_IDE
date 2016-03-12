@@ -3,15 +3,18 @@ package util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
-public class PropertyLoader {
+public class PropertyHandler {
 	public static final String PATH = "resources/";
 	public static final String EXTENSION = ".properties";
 	public static final String ERROR_MESSAGE = "No such property file";
 
+	//Loading Methods
 	public static Properties load(File file) throws IOException {
 		InputStream input = new FileInputStream(file);
 		return convertToProp(input);
@@ -19,11 +22,11 @@ public class PropertyLoader {
 	
 	public static Properties load(String fileName) throws IOException {
 		fileName = PATH + fileName + EXTENSION;
-     	InputStream input = PropertyLoader.class.getClassLoader().getResourceAsStream(fileName);
+     	InputStream input = PropertyHandler.class.getClassLoader().getResourceAsStream(fileName);
 		return convertToProp(input);
 	}
 	
-	public static Properties convertToProp(InputStream input) throws IOException {
+	private static Properties convertToProp(InputStream input) throws IOException {
 		if (input == null) {
 			throw new FileNotFoundException(ERROR_MESSAGE);
 		}
@@ -32,14 +35,10 @@ public class PropertyLoader {
 		input.close();
 		return prop;
 	}
-//	
-//	public static void main(String[] args) {
-//		try {
-//			Properties prop = PropertyLoader.load("default");
-//			System.out.println(prop.getProperty("background_color").length());
-//		
-//		} catch (IOException e) {
-//			System.out.println("No file");
-//		}
-//	}
+	
+	//Saving Methods
+	public static void save(Properties props, File file) throws IOException {
+	      OutputStream out = new FileOutputStream(file);
+	      props.store(out, "This is an optional header comment string");	    
+	}
 }

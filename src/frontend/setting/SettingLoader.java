@@ -5,9 +5,10 @@ import java.io.IOException;
 import java.util.Properties;
 
 import frontend.FrontendManager;
+import frontend.ExceptionWindow.IOExceptionWindow;
 import frontend.setting.SettingSaver.SettingString;
 import javafx.scene.paint.Color;
-import util.PropertyLoader;
+import util.PropertyHandler;
 
 public class SettingLoader implements IFrontEndSettingLoader{
 	private FrontendManager myFrontendManager;
@@ -17,11 +18,10 @@ public class SettingLoader implements IFrontEndSettingLoader{
 	public SettingLoader(FrontendManager frontendManager, File file) {
 		myFrontendManager = frontendManager;
 		try {
-			myProps = PropertyLoader.load(file);
+			myProps = PropertyHandler.load(file);
 			loadBGCol();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			IOExceptionWindow.display(e);
 		}
 	}
 	@Override

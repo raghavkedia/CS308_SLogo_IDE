@@ -7,7 +7,8 @@ import frontend.GUI.FileWindow;
 import frontend.GUI.Init.GUIString;
 import frontend.setting.SettingSaver;
 import javafx.scene.control.MenuItem;
-import util.PropertyLoader;
+import util.PropertyHandler;
+
 
 public class SettingSaverMenuItem extends MenuItem {
 
@@ -16,7 +17,7 @@ public class SettingSaverMenuItem extends MenuItem {
 		this.setOnAction(
 				e ->{
 					String title = controller.getGUIProperty(GUIString.SETTING_SAVE_TITLE.getKey());
-					String ext = "*" + PropertyLoader.EXTENSION;
+					String ext = "*" + PropertyHandler.EXTENSION;
 	                File file = FileWindow.save(title, "Property Files", ext);
 					new SettingSaver(controller.getFrontendManager(), file);
 				});
