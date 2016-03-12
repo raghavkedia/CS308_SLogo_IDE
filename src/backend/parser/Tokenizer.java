@@ -25,19 +25,19 @@ public class Tokenizer {
 	
 	public Token createToken(String s) throws SlogoError{
 		if (Pattern.matches(mySyntaxResources.getString("Constant"), s)) {
-			previousToken = new Token(NodeType.Constant, null, s, Double.valueOf(s));
+			previousToken = new Token(NodeType.CONSTANT, null, s, Double.valueOf(s));
 			return previousToken;
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Variable"), s)) {
-			previousToken = new Token(NodeType.Variable, Command.Variable, s, 0);
+			previousToken = new Token(NodeType.VARIABLE, Command.VARIABLE, s, 0);
 			return previousToken;
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("ListStart"), s)) {
-			previousToken = new Token(NodeType.ListStart, null, null, 0);
+			previousToken = new Token(NodeType.LISTSTART, null, null, 0);
 			return previousToken;
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("ListEnd"), s)) {
-			previousToken = new Token(NodeType.ListEnd, null, null, 0);
+			previousToken = new Token(NodeType.LISTEND, null, null, 0);
 			return previousToken;
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), s)) {
@@ -46,17 +46,17 @@ public class Tokenizer {
 			while (myKeys.hasMoreElements()) {
 				String myKey = myKeys.nextElement();
 				if (Pattern.matches(myLanguageResources.getString(myKey), s)) {
-					myCommand = Command.valueOf(myKey);
+					myCommand = Command.valueOf(myKey.toUpperCase());
 					break;
 				}
 			}
 			if (myCommand == null) {
-				if (previousToken != null && previousToken.getMyCommand() == Command.MakeUserInstruction) {
-					previousToken = new Token(NodeType.Command, Command.UserCommand, s, 0);
+				if (previousToken != null && previousToken.getMyCommand() == Command.MAKEUSERINSTRUCTION) {
+					previousToken = new Token(NodeType.COMMAND, Command.USERCOMMAND, s, 0);
 					return previousToken;
 				}
 				else {
-					previousToken = new Token(NodeType.UserCommand, Command.UserCommand, s, 0);
+					previousToken = new Token(NodeType.USERCOMMAND, Command.USERCOMMAND, s, 0);
 					return previousToken;
 				}
 //				else {
@@ -65,7 +65,7 @@ public class Tokenizer {
 				//check user commands
 				//throw exception
 			}
-			previousToken = new Token(NodeType.Command, myCommand, s, 0);
+			previousToken = new Token(NodeType.COMMAND, myCommand, s, 0);
 			return previousToken; 
 			
 		}

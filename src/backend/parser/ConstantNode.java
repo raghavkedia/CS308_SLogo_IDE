@@ -24,7 +24,7 @@ public class ConstantNode implements ExpressionNode{
 
 	@Override
 	public Command getMyCommandType() {
-		return Command.Constant;
+		return Command.CONSTANT;
 	}
 
 	@Override
