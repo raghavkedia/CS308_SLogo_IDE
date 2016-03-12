@@ -8,48 +8,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class UDC extends ListVisual implements IClickable{
+public class UDC extends ListVisual {
 
 Controller myController;
 	
 	public UDC(double width, double height, Controller control){
 		super(width, height);
 		this.myList.setItems(myData);
-		myController = control;
-		
+		myController = control;		
 		initMouseHandler();
 	}
 	
-	/**
-	 * Adds a String to the list of items.
-	 * @param newCommand - String received from backend
-	 */
-	public void addToUDC(String newCommand){
-		myData.add(newCommand);
-	}
-	
-	public void clearAll(){
-		myData.clear();
-	}
-	
-	/**
-	 * This method creates a mouse onclick event for each of the list items.
-	 */
-	public void initMouseHandler(){
-		myList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-	        @Override
-	        public void handle(MouseEvent mouseEvent) {
-	            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-	                if(mouseEvent.getClickCount() == 2){
-	                    respondToClick();
-	                }
-	            }
-	        }
-	    });
-		
-	}
-
 	/**
 	 * On a double click, display the clicked item in the Console.
 	 */

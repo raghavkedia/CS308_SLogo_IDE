@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AllCharactersList extends ListVisual implements IClickable{
+public class AllCharactersList extends ListVisual {
 	Controller myController;
 	
 	public AllCharactersList(double width, double height, Controller control){
@@ -19,36 +19,6 @@ public class AllCharactersList extends ListVisual implements IClickable{
 		initMouseHandler();
 	}
 	
-	/**
-	 * Adds a String to the list of items.
-	 * @param newVar - String received from backend
-	 */
-	public void addToAllChars(String newChar){
-		myData.add(newChar);
-	}
-	
-	public void clearAll(){
-		myData.clear();
-	}
-	
-	/**
-	 * This method creates a mouse onclick event for each of the list items.
-	 */
-	public void initMouseHandler(){
-		myList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-	        @Override
-	        public void handle(MouseEvent mouseEvent) {
-	            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-	                if(mouseEvent.getClickCount() == 2){
-	                    respondToClick();
-	                }
-	            }
-	        }
-	    });
-		
-	}
-
 	/**
 	 * On a double click, create a PopupWindow to change variables.
 	 */

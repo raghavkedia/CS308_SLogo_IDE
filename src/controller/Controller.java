@@ -62,7 +62,7 @@ public class Controller {
     	String output = null;
     	try {
 			output = myBackend.executeCommand(s, myId);
-			myFrontend.resetHistoryPointer();
+//			myFrontend.resetHistoryPointer();
 		} catch (SlogoError e) {
 			// TODO Auto-generated catch block
 			output = e.getMessage();
