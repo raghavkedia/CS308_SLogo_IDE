@@ -17,7 +17,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class Controller {
-	private InterpreturInterface myBackend;
+	private BackendManager myBackend;
     private FrontendManager myFrontend;
     
 //	private ArrayList<InterpreturInterface> myBackendList;
@@ -36,6 +36,8 @@ public class Controller {
 
 		myStage = s;
 		myWorkSpace = new WorkSpaceManager(GUIProp, myProp, myBackend, this);
+		initColorMap();
+		initShapeMap();
 	}
 	
 
@@ -135,16 +137,11 @@ public class Controller {
     //BACKEND
     public void addNewChar(Character c){myBackend.getCharacterList(myId).addCharacter(c);}
     
-    public void setPenPattern(PenPattern pattern, String charId){
-//    	myBackend.getProperties(myId).setPenPattern(pattern);
-    	myBackend.getCharacterList(myId).getCharacter(charId).setPenPattern(pattern);
-	}
+    public void setPenPattern(PenPattern pattern, String charId){myBackend.getCharacterList(myId).getCharacter(charId).setPenPattern(pattern);}
     public void setPenColor(Color c, String charId){myBackend.getCharacterList(myId).getCharacter(charId).setPenColor(toRGBCode(c));}
 	public void setLineThickness(double newWidth, String charId) {myBackend.getCharacterList(myId).getCharacter(charId).setPenWidth(newWidth);}
     
-	public Color getPenColor(String charId){
-		return Color.web(myBackend.getCharacterList(myId).getCharacter(charId).getPenColor()); 
-	}
+	public Color getPenColor(String charId){return Color.web(myBackend.getCharacterList(myId).getCharacter(charId).getPenColor()); }
 	public double getLineThickness(String charId){ return myBackend.getCharacterList(myId).getCharacter(charId).getPenWidth();}
     public PenPattern getPenPattern(String charId){return myBackend.getCharacterList(myId).getCharacter(charId).getPenPattern();}
     
@@ -160,6 +157,40 @@ public class Controller {
     public void setCharIdPenDown(String charId, boolean isPenDown){ myBackend.getCharacterList(myId).getCharacter(charId).setPenState(isPenDown); }
     public void setCharIdVisible(String charId, boolean isVisible){ myBackend.getCharacterList(myId).getCharacter(charId).setVisability(isVisible);}
     public static String toRGBCode( Color color ){ return String.format( "#%02X%02X%02X",(int)( color.getRed() * 255 ),(int)( color.getGreen() * 255 ),(int)( color.getBlue() * 255 ) );}
+    
+    public String getCharPositionString(String charId){
+    	return "X: "+myBackend.getCharacterList(myId).getCharacter(charId).getCoordX()+
+    			",Y: "+myBackend.getCharacterList(myId).getCharacter(charId).getCoordY()+
+    			",Heading: "+myBackend.getCharacterList(myId).getCharacter(charId).getMyAngle();
+    }
+    
+    public void initColorMap(){
+    	myBackend.getColorMap(myId).addColor(0, toRGBCode(Color.BLACK));
+    	myBackend.getColorMap(myId).addColor(1, toRGBCode(Color.WHITE));
+    	myBackend.getColorMap(myId).addColor(2, toRGBCode(Color.BLUE));
+    	myBackend.getColorMap(myId).addColor(3, toRGBCode(Color.RED));
+    	myBackend.getColorMap(myId).addColor(4, toRGBCode(Color.GREEN));
+    }
+    
+    public void initShapeMap(){
+    	myBackend.getShapeMap(myId).addShape(0, "T1.png");
+    	myBackend.getShapeMap(myId).addShape(1, "T2.png");
+    	myBackend.getShapeMap(myId).addShape(2, "T3.png");
+    	myBackend.getShapeMap(myId).addShape(3, "T4.png");
+    	myBackend.getShapeMap(myId).addShape(4, "T5.png");
+    }
+    
+    public String getColorFromMap(int id){
+    	return myBackend.getColorMap(myId).getColor(id);
+    }
+    
+    public void setColorInMap(Color c, int i){
+    	myBackend.getColorMap(myId).addColor(i, toRGBCode(c));
+    }
+    
+    public String getImagePathFromMap(int id){
+    	return myBackend.getShapeMap(myId).getImagePath(id);
+    }
 
 	
     //GETTERS AND SETTERS

@@ -45,7 +45,6 @@ public class ComponentFactory {
 		return new VariablesPopupWindow(s, control);
 	}
 	
-	
 	public static CharacterPopupWindow makeNewCharactersPopupWindow(String charId, Controller control){
 		return new CharacterPopupWindow(charId, control);
 	}

@@ -5,9 +5,11 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import backend.data.CharactersList;
+import backend.data.ColorMap;
 import backend.data.CommandHistory;
 import backend.data.Data;
 import backend.data.Properties;
+import backend.data.ShapeMap;
 import backend.data.UserDefinedCommands;
 import backend.data.VariablesList;
 import backend.parser.Parseable;
@@ -67,10 +69,15 @@ public class BackendManager implements InterpreturInterface{
 		// TODO Auto-generated method stub
 		return myWorkSpaces.get(workSpaceID).getUserDefinedCommands();
 	}	
+	public ColorMap getColorMap(int workSpaceID){
+		return myWorkSpaces.get(workSpaceID).getColorMap();
+	}
+	public ShapeMap getShapeMap(int workSpaceID){
+		return myWorkSpaces.get(workSpaceID).getShapeMap();
+	}
 	public void addWorkSpace(int newID){
 		myWorkSpaces.put(newID, new Data());
 	}
-
 	
 	public Properties getProperties(int workSpaceID){
 		return myWorkSpaces.get(workSpaceID).getProperties();

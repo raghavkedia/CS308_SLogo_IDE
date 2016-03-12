@@ -20,10 +20,14 @@ public class ColorMap {
 		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
 	}
 	
-	public void addColor(int index, double r, double g, double b){
-		Color color = new Color((float) r, (float) g, (float) b);
-		String hex = Integer.toHexString( color.getRGB() & 0x00ffffff );
-		myColorMap.put(index, hex);
+//	public void addColor(int index, double r, double g, double b){
+//		Color color = new Color((float) r, (float) g, (float) b);
+//		String hex = Integer.toHexString( color.getRGB() & 0x00ffffff );
+//		myColorMap.put(index, hex);
+//	}
+	
+	public void addColor(int index, String color){
+		myColorMap.put(index, color);
 	}
 	
 	public boolean indexExists(int index){
