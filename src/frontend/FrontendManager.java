@@ -3,6 +3,7 @@ package frontend;
 import backend.*;
 import controller.Controller;
 import backend.data.Character;
+import exceptions.InvalidCharacterError;
 import exceptions.SlogoError;
 import frontend.GUI.Init.Dimension;
 import frontend.listVisual.AllCharactersList;
@@ -135,7 +136,12 @@ public class FrontendManager {
     
     //DISPLAY
     public void drawLine(double x1, double y1, double x2, double y2, String charId){
-    	myDisplay.drawLine(x1, y1, x2, y2, charId);
+    	try {
+			myDisplay.drawLine(x1, y1, x2, y2, charId);
+		} catch (InvalidCharacterError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     public void changeBackgroundColor(Color c){
@@ -143,7 +149,7 @@ public class FrontendManager {
     }
     
     
-    public void addPortrait(Character c){
+    public void addPortrait(Character c) throws InvalidCharacterError{
     	Portrait p = new Portrait(c);
     	myDisplay.addPortrait(p);
     }

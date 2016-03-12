@@ -24,9 +24,9 @@ public class UserCommandNode implements ExpressionNode {
 
 	@Override
 	public double execute() throws SlogoError {
-		double result = myFactory.generateResult(getMyCommandType(), myName, myChildren, myParameters);
-//		double result = myTree.execute();
-//		myChildren.clear();
+		myFactory.generateResult(getMyCommandType(), myName, myChildren, myParameters);
+		double result = myTree.execute();
+		myChildren.clear();
 		return result;
 	}
 
@@ -40,7 +40,7 @@ public class UserCommandNode implements ExpressionNode {
 
 	@Override
 	public Command getMyCommandType() {
-		return Command.UserCommand;
+		return Command.USERCOMMAND;
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class UserCommandNode implements ExpressionNode {
 	}
 	
 	public void addParameter(ExpressionNode n) {
-		if (n.getMyCommandType() == Command.Variable) {
+		if (n.getMyCommandType() == Command.VARIABLE) {
 			myParameters.add(n);
 		}
 		else {

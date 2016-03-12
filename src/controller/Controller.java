@@ -8,6 +8,7 @@ import java.util.Properties;
 import backend.*;
 import backend.data.Character;
 import backend.data.Data.PenPattern;
+import exceptions.InvalidCharacterError;
 import exceptions.SlogoError;
 import frontend.FrontendManager;
 import frontend.workspace.IWorkSpace;
@@ -101,8 +102,8 @@ public class Controller {
     	myFrontend.changeBackgroundColor(c);
     	myBackend.getProperties(myId).setBackgroundColor(toRGBCode(c));
     }
-    public void changeLineColor(Color c, String charId){myBackend.getCharacterList(myId).getCharacter(charId).setPenColor(toRGBCode(c));}
-    public void addPortrait(Character c){myFrontend.addPortrait(c);}
+    public void changeLineColor(Color c, String charId) throws InvalidCharacterError{myBackend.getCharacterList(myId).getCharacter(charId).setPenColor(toRGBCode(c));}
+    public void addPortrait(Character c) throws InvalidCharacterError{myFrontend.addPortrait(c);}
     public void clearCharactersFromFrontend(){myFrontend.clearCharacters();}
     public void clearAllLines(){
     	myFrontend.clearAllLines();
@@ -135,28 +136,34 @@ public class Controller {
     //BACKEND
     public void addNewChar(Character c){myBackend.getCharacterList(myId).addCharacter(c);}
     
-    public void setPenPattern(PenPattern pattern, String charId){myBackend.getCharacterList(myId).getCharacter(charId).setPenPattern(pattern);}
-    public void setPenColor(Color c, String charId){myBackend.getCharacterList(myId).getCharacter(charId).setPenColor(toRGBCode(c));}
-	public void setLineThickness(double newWidth, String charId) {myBackend.getCharacterList(myId).getCharacter(charId).setPenWidth(newWidth);}
+    public void setPenPattern(PenPattern pattern, String charId) throws InvalidCharacterError{
+//    	myBackend.getProperties(myId).setPenPattern(pattern);
+    	myBackend.getCharacterList(myId).getCharacter(charId).setPenPattern(pattern);
+	}
+    public void setPenColor(Color c, String charId) throws InvalidCharacterError{myBackend.getCharacterList(myId).getCharacter(charId).setPenColor(toRGBCode(c));}
+	public void setLineThickness(double newWidth, String charId) throws InvalidCharacterError {myBackend.getCharacterList(myId).getCharacter(charId).setPenWidth(newWidth);}
     
-	public Color getPenColor(String charId){return Color.web(myBackend.getCharacterList(myId).getCharacter(charId).getPenColor()); }
-	public double getLineThickness(String charId){ return myBackend.getCharacterList(myId).getCharacter(charId).getPenWidth();}
-    public PenPattern getPenPattern(String charId){return myBackend.getCharacterList(myId).getCharacter(charId).getPenPattern();}
+	public Color getPenColor(String charId) throws InvalidCharacterError{
+		return Color.web(myBackend.getCharacterList(myId).getCharacter(charId).getPenColor()); 
+	}
+	public double getLineThickness(String charId) throws InvalidCharacterError{ return myBackend.getCharacterList(myId).getCharacter(charId).getPenWidth();}
+    public PenPattern getPenPattern(String charId) throws InvalidCharacterError{return myBackend.getCharacterList(myId).getCharacter(charId).getPenPattern();}
+
     
     public boolean isCharIdActive(String charId){ return myBackend.getCharacterList(myId).getActiveCharacters().contains(charId); }
-    public boolean isCharIdPenDown(String charId){ return myBackend.getCharacterList(myId).getCharacter(charId).getPenState(); }
-    public boolean isCharIdVisible(String charId){return myBackend.getCharacterList(myId).getCharacter(charId).getVisability();}
+    public boolean isCharIdPenDown(String charId) throws InvalidCharacterError{ return myBackend.getCharacterList(myId).getCharacter(charId).getPenState(); }
+    public boolean isCharIdVisible(String charId) throws InvalidCharacterError{return myBackend.getCharacterList(myId).getCharacter(charId).getVisability();}
     public void setCharIdActive(String charId, boolean isActive){
     	if (isActive && !myBackend.getCharacterList(myId).getActiveCharacters().contains(charId))
     		myBackend.getCharacterList(myId).getActiveCharacters().add(charId);
     	else if (!isActive && myBackend.getCharacterList(myId).getActiveCharacters().contains(charId))
     		myBackend.getCharacterList(myId).getActiveCharacters().remove(charId);
     }
-    public void setCharIdPenDown(String charId, boolean isPenDown){ myBackend.getCharacterList(myId).getCharacter(charId).setPenState(isPenDown); }
-    public void setCharIdVisible(String charId, boolean isVisible){ myBackend.getCharacterList(myId).getCharacter(charId).setVisability(isVisible);}
+    public void setCharIdPenDown(String charId, boolean isPenDown) throws InvalidCharacterError{ myBackend.getCharacterList(myId).getCharacter(charId).setPenState(isPenDown); }
+    public void setCharIdVisible(String charId, boolean isVisible) throws InvalidCharacterError{ myBackend.getCharacterList(myId).getCharacter(charId).setVisability(isVisible);}
     public static String toRGBCode( Color color ){ return String.format( "#%02X%02X%02X",(int)( color.getRed() * 255 ),(int)( color.getGreen() * 255 ),(int)( color.getBlue() * 255 ) );}
     
-    public String getCharPositionString(String charId){
+    public String getCharPositionString(String charId) throws InvalidCharacterError{
     	return "X: "+myBackend.getCharacterList(myId).getCharacter(charId).getCoordX()+
     			",Y: "+myBackend.getCharacterList(myId).getCharacter(charId).getCoordY()+
     			",Heading: "+myBackend.getCharacterList(myId).getCharacter(charId).getMyAngle();

@@ -10,7 +10,7 @@ import exceptions.InvalidCommandError;
 
 public class ExpressionNodeFactory {
 	public enum NodeType{
-		Command, UserCommand, Variable, Constant, ListStart, ListEnd;
+		COMMAND, USERCOMMAND, VARIABLE, CONSTANT, LISTSTART, LISTEND;
 	}
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private CommandFactory myFactory;
@@ -29,8 +29,8 @@ public class ExpressionNodeFactory {
 		Command myCommand = myToken.getMyCommand();
 		String myName = myToken.getMyName();
 		double myValue = myToken.getValue();
-		if (myNode == NodeType.Command) {
-			if (myCommand == Command.UserCommand) {
+		if (myNode == NodeType.COMMAND) {
+			if (myCommand == Command.USERCOMMAND) {
 				//list maybe?
 				UserCommandNode myUserCommand = new UserCommandNode(myName, myFactory);
 				userDefinedCommands.addUserDefinedCommand(myUserCommand.getMyName(), myUserCommand);
@@ -38,19 +38,19 @@ public class ExpressionNodeFactory {
 			}
 			return new CommandNode(myCommand, myName, myFactory);
 		} 
-		else if (myNode == NodeType.Variable) {
+		else if (myNode == NodeType.VARIABLE) {
 			return new CommandNode(myCommand, myName, myFactory);
 		}
-		else if (myNode == NodeType.Constant) {
+		else if (myNode == NodeType.CONSTANT) {
 			return new ConstantNode(myValue);
 		}
-		else if (myNode == NodeType.ListStart) {
+		else if (myNode == NodeType.LISTSTART) {
 			return new ForwardBracketNode();
 		}
-		else if (myNode == NodeType.ListEnd) {
+		else if (myNode == NodeType.LISTEND) {
 			return new BackBracketNode();
 		}
-		else if (myNode == NodeType.UserCommand) {
+		else if (myNode == NodeType.USERCOMMAND) {
 			UserCommandNode myUserCommandNode = (UserCommandNode) userDefinedCommands.getCommand(myName);
 			if (myUserCommandNode != null) {
 				myUserCommandNode.activateCommand();
