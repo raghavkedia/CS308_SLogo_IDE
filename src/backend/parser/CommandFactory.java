@@ -4,6 +4,7 @@ package backend.parser;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -16,6 +17,7 @@ import backend.data.ShapeMap;
 import backend.data.UserDefinedCommands;
 import backend.data.Variable;
 import backend.data.VariablesList;
+import exceptions.InvalidCharacterError;
 import exceptions.InvalidIndexColorError;
 import exceptions.InvalidIndexShapeError;
 import exceptions.InvalidParameterError;
@@ -91,13 +93,13 @@ public class CommandFactory {
 
 	}
 
-	private double findDistanceFromHome(String key) {
+	private double findDistanceFromHome(String key) throws InvalidCharacterError{
 		double result = MathUtil.findDistance(0, myCharacters.getCharacter(key).getCoordX(), 0, myCharacters.getCharacter(key).getCoordY());
 		myCharacters.getCharacter(key).setCurrCoord(0, 0);
 		return result;
 	}
 
-	private double findDistanceFromHome() {
+	private double findDistanceFromHome() throws InvalidCharacterError{
 		double result = 0;
 		for (String key : myCharacters.getActiveCharacters()) {
 			result = MathUtil.findDistance(0, myCharacters.getCharacter(key).getCoordX(), 0, myCharacters.getCharacter(key).getCoordY());
@@ -105,7 +107,10 @@ public class CommandFactory {
 		}
 		return result;
 	}
-	private double setBackground(int index){
+	private double setBackground(int index) throws InvalidIndexColorError{
+		if(!myColorMap.indexExists(index)){
+			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));
+		}
 		String color = myColorMap.getColor(index);
 		myProperties.setBackgroundColor(color);
 		return (double) index;
@@ -174,7 +179,14 @@ public class CommandFactory {
 	private TurtleOperation Home = (String key, double a, double b) -> findDistanceFromHome(key);
 	private TurtleOperation ClearScreen = (String key, double a, double b) -> {
 		myCharacters.getCharacter(key).removeLines();
-		return findDistanceFromHome(key);
+		executeForCharacters(SetHeading, new ArrayList<Double>(){{
+			add(0.0);
+			add(0.0);
+		}});
+		double result = findDistanceFromHome(key);
+		myProperties.setClearScreen(true);
+		myProperties.hasUpdated();
+		return result;
 	};
 	private TurtleOperation XCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordX();
 	private TurtleOperation YCoordinate = (String key, double a, double b) -> myCharacters.getCharacter(key).getCoordY();
@@ -196,11 +208,12 @@ public class CommandFactory {
 		return myCharacters.getCharacter(key).getShapeIndex();
 	};
 	private TurtleOperation SetPenSize = (String key, double a, double b) -> {
+		
 		myCharacters.getCharacter(key).setPenWidth(a);
 		return a;
 	};
 	private TurtleOperation SetPenColor = (String key, double a, double b) -> {
-		if(myColorMap.indexExists((int)a)){
+		if(myColorMap.indexExists((int) a)){
 			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));
 		}
 		myCharacters.getCharacter(key).setColorIndex((int) a);
@@ -209,7 +222,7 @@ public class CommandFactory {
 		return a;
 	};
 	private TurtleOperation SetShape = (String key, double a, double b) -> {
-		if(myShapeMap.indexExists((int)a)){
+		if(myShapeMap.indexExists((int) a)){
 			throw new InvalidIndexShapeError(myErrorResources.getString("InvalidIndexShapeError"));
 		}
 		myCharacters.getCharacter(key).setShapeIndex((int)a);
@@ -230,18 +243,23 @@ public class CommandFactory {
 		return result;
 	}
 
-	interface MultipleParameterOperation {
-		double operation(double a, double b);
+	interface MultipleParameterOperation{
+		double operation(double a, double b) throws SlogoError;
 	}
 
-	private double operate(MultipleParameterOperation mathOperation, double a, double b) {
+	private double operate(MultipleParameterOperation mathOperation, double a, double b) throws SlogoError{
 		return mathOperation.operation(a, b);
 	}
 
 	private MultipleParameterOperation Sum = (double a, double b) -> a + b;
 	private MultipleParameterOperation Difference = (double a, double b) -> a - b;
 	private MultipleParameterOperation Product = (double a, double b) -> a * b;
-	private MultipleParameterOperation Quotient = (double a, double b) -> a / b;
+	private MultipleParameterOperation Quotient = (double a, double b) -> {
+		if(b == 0){
+			throw new InvalidQuotientError(myErrorResources.getString("QuotientError"));
+		}
+		return a / b;
+	};
 	private MultipleParameterOperation Remainder = (double a, double b) -> a % b;
 	private MultipleParameterOperation Power = (double a, double b) -> Math.pow(a, b);
 	private MultipleParameterOperation LessThan = (double a, double b) -> a < b ? 1 : 0;
@@ -249,7 +267,7 @@ public class CommandFactory {
 	private MultipleParameterOperation Equal = (double a, double b) -> a == b ? 1 : 0;
 	private MultipleParameterOperation NotEqual = (double a, double b) -> a != b ? 1 : 0;
 
-	private double executeMath(MultipleParameterOperation operation, List<Double> myResults) {
+	private double executeMath(MultipleParameterOperation operation, List<Double> myResults) throws SlogoError{
 		double result = myResults.get(0);
 		myResults.remove(0);
 		if (myResults.isEmpty()) {
