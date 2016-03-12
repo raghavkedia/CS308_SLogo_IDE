@@ -52,8 +52,7 @@ public class FrontendManager {
 		myOutput = ComponentFactory.makeNewConsole(50, 50, myController);
 		myVariables = ComponentFactory.makeNewVariables(250, 450, myController);
 		myUDC = ComponentFactory.makeNewUDC(250, 450, myController);
-		myCharactersList = ComponentFactory.makeNewActiveCharacterList(250, 450, myController);
-//		myPortraiteStateOuput = ComponentFactory.makeNewConsole(200, 200, myController);				
+		myCharactersList = ComponentFactory.makeNewActiveCharacterList(250, 450, myController);				
 		myPortraits = new ArrayList<Portrait>();
 	}
 	
@@ -66,22 +65,14 @@ public class FrontendManager {
 		Node combinedLeft = combineComponent(Orientation.VERTICAL, myUDC.getVisual(), myCharactersList.getVisual());
 		myRoot.setLeft(combinedLeft);           
 
-//        SplitPane splitPane1 = new SplitPane();
-//        splitPane1.setOrientation(Orientation.VERTICAL);
-
-
-//      splitPane1.getItems().addAll(myOutput.getVisual(), myPortraiteStateOuput.getVisual());
-        
         Node combindedBottom = combineComponent(Orientation.HORIZONTAL, myConsole.getVisual(), myOutput.getVisual());
         myRoot.setBottom(combindedBottom);
 	}
 	
 	//BorderPane Display Helper Methods
-	
 	private Node combineComponent(Orientation ori, Node n1, Node n2) {
         SplitPane comb = new SplitPane();
         comb.setOrientation(ori);
-//      comb.setPrefSize(300, 200);
         comb.getItems().addAll(n1, n2);
         return comb;
 	}
@@ -111,8 +102,8 @@ public class FrontendManager {
     	myConsole.setText(s);
     }
     
-    //CONSOLE
-    public void clearConsole(){
+    //CONSOLE & OUTPUT
+    public void clearOutput(){
     	myOutput.clear();
     }
     
@@ -165,6 +156,10 @@ public class FrontendManager {
     	myDisplay.clearChars();
     }
     
+    public String getBackgroundRGB(){
+    	return myDisplay.getBackgroundRGB();
+    }
+    
 
     //USER DEFINED COMMANDS
     public void clearUDC(){myUDC.clearAll();}
@@ -177,15 +172,13 @@ public class FrontendManager {
     	myCharactersList.addToData(c); 
    }
 
-    public String getBackgroundRGB(){
-    	Color c = myDisplay.getColor();
-       	String hex = String.format( "#%02X%02X%02X",
-                (int)( c.getRed() * 255 ),
-                (int)( c.getGreen() * 255 ),
-                (int)( c.getBlue() * 255 ) );
-    	return hex;
+    public int getNumChar() {
+    	return myCharactersList.size();
     }
-
+    
+    public Map<Integer, Character> getCharMap() {
+    	return  myCharactersList.getCharMap();
+    }
     
     //GETTERS AND SETTERS	
 	public BorderPane getMyBorderPane() {return this.myRoot;}

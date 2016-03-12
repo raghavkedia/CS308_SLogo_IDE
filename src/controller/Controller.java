@@ -64,11 +64,9 @@ public class Controller {
     	String output = null;
     	try {
 			output = myBackend.executeCommand(s, myId);
-//			myFrontend.resetHistoryPointer();
 		} catch (SlogoError e) {
 			// TODO Auto-generated catch block
 			output = e.getMessage();
-			//e.printStackTrace();
 		}
     	
     	if (output != null){
@@ -76,7 +74,7 @@ public class Controller {
     	}
     }
     public void displayInConsole(String input){myFrontend.displayInConsole(input);}
-	public void clearConsole() { myFrontend.clearConsole(); }
+	public void clearOutput() { myFrontend.clearOutput(); }
 	public void executeConsole() {myFrontend.executeConsole();}
 	public String getConsoleText() { return myFrontend.getConsoleText();}
     

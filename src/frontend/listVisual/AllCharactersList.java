@@ -3,13 +3,15 @@ package frontend.listVisual;
 import controller.Controller;
 import frontend.CharacterPopupWindow;
 import frontend.ComponentFactory;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import backend.data.Character;
 
 public class AllCharactersList extends ListVisual {
-    private Map<Integer, String> myIDs;
+    private Map<Integer, Character> myCharacters;
     public static final String ID = "myID: ";
     public static final String X = ", x: ";
     public static final String Y = ", y: ";
@@ -18,11 +20,11 @@ public class AllCharactersList extends ListVisual {
     
 	public AllCharactersList(double width, double height, Controller controller) {
 		super(width, height, controller);
-		myIDs = new HashMap<Integer, String>();
+		myCharacters = new HashMap<Integer, Character>();
 	}
 
     public void addToData(Character c) {
-    	myIDs.put(size(), c.getName());
+    	myCharacters.put(size(), c);
     	String id = ID + c.getName();
     	String xcord = X +  c.getCoordX();
     	String ycord = Y +  c.getCoordY();
@@ -36,8 +38,12 @@ public class AllCharactersList extends ListVisual {
 	@Override
 	public void respondToClick() {
 		int index = getMyList().getSelectionModel().getSelectedIndex();
-		CharacterPopupWindow popup = ComponentFactory.makeNewCharactersPopupWindow(myIDs.get(index),
+		CharacterPopupWindow popup = ComponentFactory.makeNewCharactersPopupWindow(myCharacters.get(index).getName(),
 																				   getMyController());
 		ComponentFactory.initNewPopup(popup, 300, 700);
+	}
+	
+	public Map<Integer, Character> getCharMap() {
+		return Collections.unmodifiableMap(myCharacters);
 	}
 }

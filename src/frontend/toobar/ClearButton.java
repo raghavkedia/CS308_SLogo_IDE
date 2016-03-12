@@ -9,7 +9,7 @@ class ClearButton extends Button{
 		this.setText(control.getGUIProperty(GUIString.CLEAR.getKey()));
 		this.setOnAction(
 				 e -> {
-					 control.clearConsole();
+					 control.clearOutput();
 				 });
 	}
 }
