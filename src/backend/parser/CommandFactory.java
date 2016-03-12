@@ -203,7 +203,7 @@ public class CommandFactory {
 		if(myColorMap.indexExists((int)a)){
 			throw new InvalidIndexColorError(myErrorResources.getString("InvalidIndexColorError"));
 		}
-		myCharacters.getCharacter(key).setColorIndex((int)a);
+		myCharacters.getCharacter(key).setColorIndex((int) a);
 		String penColor = myColorMap.getColor((int) a);
 		myCharacters.getCharacter(key).setPenColor(penColor);
 		return a;
