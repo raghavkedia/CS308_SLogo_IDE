@@ -21,9 +21,18 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 		myTokenizer = new Tokenizer(language);
 	}
 	
+	/*
+	 * Executes expressions based on a list of strings. Will stop building tree as soon as it is possible.
+	 */
 	public double executeExpression(List<String> myStrings) throws SlogoError {
 		Stack<ExpressionNode> myStack = new Stack<ExpressionNode>();
 		ExpressionNode curr = convertToNode(getNextStringAndRemoveFromList(myStrings));
+		curr = buildTree(myStrings, myStack, curr);
+		return curr.execute();
+	}
+
+	private ExpressionNode buildTree(List<String> myStrings, Stack<ExpressionNode> myStack, ExpressionNode curr)
+			throws SlogoError, TooFewParametersError {
 		while (true) {
 			myStrings.remove(curr);
 			if (isSatisfied(curr)) {
@@ -47,7 +56,7 @@ public class LogoExpressionTreeBuilder implements ExpressionTreeBuilder {
 				break;
 			}
 		}
-		return curr.execute();
+		return curr;
 	}
 
 	private ExpressionNode getNextNode(List<String> myStrings, ExpressionNode curr) throws SlogoError {
