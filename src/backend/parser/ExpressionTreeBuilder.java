@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ExpressionTreeBuilder {
 	
-	public double executeExpression(List<String> myStrings) throws Exception;
+	public TreeResult executeExpression(List<String> myStrings) throws Exception;
 }
