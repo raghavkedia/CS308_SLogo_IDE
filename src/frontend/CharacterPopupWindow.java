@@ -29,15 +29,15 @@ public class CharacterPopupWindow extends PopupWindow {
 	 * @param display - The variable/ListView Cell that the user selected.
 	 * @throws InvalidCharacterError 
 	 */
-	public void initBox(String charId) throws InvalidCharacterError{
+	public void initBox(String args) throws InvalidCharacterError{
 		//Pen color, visibility, pen up/down, pen width, change image
 
-		boolean isActive = myController.isCharIdActive(charId);
-		boolean isVisible = myController.isCharIdVisible(charId);
-		boolean isPenDown = myController.isCharIdPenDown(charId);
+		boolean isActive = myController.isCharIdActive(args);
+		boolean isVisible = myController.isCharIdVisible(args);
+		boolean isPenDown = myController.isCharIdPenDown(args);
 		
 		Text position = new Text();
-		String posText = myController.getCharPositionString(charId);
+		String posText = myController.getCharPositionString(args);
 		position.setText(posText);
 		
 		Text activeness = new Text();
@@ -71,10 +71,10 @@ public class CharacterPopupWindow extends PopupWindow {
 		else changePenState.getSelectionModel().select("Pen Up");
 		
 		Text penColorLabel = new Text("Change Pen Color");
-		ColorPicker changePenColor = new ColorPicker(myController.getPenColor(charId));
+		ColorPicker changePenColor = new ColorPicker(myController.getPenColor(args));
 		
 		Text penThicknessLabel = new Text("Change Pen Thickness");
-		TextField changePenThickness = new TextField(""+myController.getLineThickness(charId)); //get current thickness
+		TextField changePenThickness = new TextField(""+myController.getLineThickness(args)); //get current thickness
 		
 		Text penPatternLabel = new Text("Change Pen Pattern");
 		ComboBox<String> changePenPattern = new ComboBox<String>();
@@ -103,15 +103,15 @@ public class CharacterPopupWindow extends PopupWindow {
 					boolean newActive = changeActiveness.getSelectionModel().getSelectedItem().equals("Not Active")? false:true;
 					boolean newVisible = changeVisibility.getSelectionModel().getSelectedItem().equals("Not Visible")? false:true;
 					boolean newPenDown = changePenState.getSelectionModel().getSelectedItem().equals("Pen Up")? false:true;
-					myController.setCharIdActive(charId, newActive);
+					myController.setCharIdActive(args, newActive);
 					try {
-						myController.setCharIdVisible(charId, newVisible);
+						myController.setCharIdVisible(args, newVisible);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					try {
-						myController.setCharIdPenDown(charId, newPenDown);
+						myController.setCharIdPenDown(args, newPenDown);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -119,7 +119,7 @@ public class CharacterPopupWindow extends PopupWindow {
 					
 					if (changePenColor.getValue() != null){
 						try {
-							myController.changeLineColor(changePenColor.getValue(), charId);
+							myController.changeLineColor(changePenColor.getValue(), args);
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -127,7 +127,7 @@ public class CharacterPopupWindow extends PopupWindow {
 					}
 					if (changePenThickness.getText() != null){
 						try {
-							myController.setLineThickness(Double.parseDouble(changePenThickness.getText()), charId);
+							myController.setLineThickness(Double.parseDouble(changePenThickness.getText()), args);
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -137,7 +137,7 @@ public class CharacterPopupWindow extends PopupWindow {
 						switch(changePenPattern.getValue()){
 							case "Solid":
 							try {
-								myController.setPenPattern(PenPattern.SOLID, charId);
+								myController.setPenPattern(PenPattern.SOLID, args);
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -145,7 +145,7 @@ public class CharacterPopupWindow extends PopupWindow {
 								break;
 							case "Dashed":
 							try {
-								myController.setPenPattern(PenPattern.DASHED, charId);
+								myController.setPenPattern(PenPattern.DASHED, args);
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -153,7 +153,7 @@ public class CharacterPopupWindow extends PopupWindow {
 								break;
 							case "Dotted":
 							try {
-								myController.setPenPattern(PenPattern.DOTTED, charId);
+								myController.setPenPattern(PenPattern.DOTTED, args);
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -161,7 +161,7 @@ public class CharacterPopupWindow extends PopupWindow {
 								break;
 							default:
 							try {
-								myController.setPenPattern(PenPattern.SOLID, charId);
+								myController.setPenPattern(PenPattern.SOLID, args);
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();

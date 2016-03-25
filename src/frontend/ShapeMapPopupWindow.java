@@ -26,14 +26,14 @@ public class ShapeMapPopupWindow extends PopupWindow{
 	public ShapeMapPopupWindow(Controller control){
 		super();
 		myController = control;
-		initBox();
+		initBox("");
 	}
 	
 	/**
 	 * Creates the visual VBox for the class.
 	 * @param display - The variable/ListView Cell that the user selected.
 	 */
-	public void initBox(){
+	public void initBox(String args){
 		loadImages();
 	}
 	

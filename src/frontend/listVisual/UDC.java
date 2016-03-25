@@ -2,7 +2,6 @@ package frontend.listVisual;
 
 import controller.Controller;
 
-
 public class UDC extends ListVisual {
 	
 	public UDC(double width, double height, Controller controller){

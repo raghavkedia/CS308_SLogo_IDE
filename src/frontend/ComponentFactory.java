@@ -42,11 +42,11 @@ public class ComponentFactory {
 		return new Variables(width, height, control);
 	}
 	
-	public static VariablesPopupWindow makeNewVariablesPopupWindow(String s, Controller control){
+	public static IPopup makeNewVariablesPopupWindow(String s, Controller control){
 		return new VariablesPopupWindow(s, control);
 	}
 	
-	public static CharacterPopupWindow makeNewCharactersPopupWindow(String charId, Controller control) throws InvalidCharacterError{
+	public static IPopup makeNewCharactersPopupWindow(String charId, Controller control) throws InvalidCharacterError{
 		return new CharacterPopupWindow(charId, control);
 	}
 	
@@ -58,10 +58,10 @@ public class ComponentFactory {
 		return new MenubarComponent(control);
 	}
 	
-	public static void initNewPopup(PopupWindow pw, double width, double height){
+	public static void initNewPopup(IPopup popup, double width, double height){
 		Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
-        Scene dialogScene = new Scene(pw.getMyBox(), width, height);
+        Scene dialogScene = new Scene(popup.getMyBox(), width, height);
         dialog.setScene(dialogScene);
         dialog.show();
 	}

@@ -4,6 +4,7 @@ import controller.Controller;
 import exceptions.InvalidCharacterError;
 import frontend.CharacterPopupWindow;
 import frontend.ComponentFactory;
+import frontend.IPopup;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class AllCharactersList extends ListVisual {
 	@Override
 	public void respondToClick() {
 		int index = getMyList().getSelectionModel().getSelectedIndex();
-		CharacterPopupWindow popup;
+		IPopup popup;
 		try {
 			popup = ComponentFactory.makeNewCharactersPopupWindow(myCharacters.get(index).getName(),
 																					   getMyController());

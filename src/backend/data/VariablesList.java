@@ -23,7 +23,6 @@ public class VariablesList extends Observable implements Observer{
 		setChanged();
 		notifyObservers();
 	}
-	
 	public Map<String, Variable> getVariables(){
 		return variables;
 	}

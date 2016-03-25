@@ -1,3 +1,11 @@
+/**
+ * This class is part of my code masterpiece.
+ * The purpose of this class is to provide a means for the user to interact with the variables on the backend.
+ * For instance, if the user wants to adjust a value through the IDE, s/he can do so through this popup window.
+ * Although the magic values are meh, I'm happy I was able to write clean code including lambda expressions to simplify the actions that this class takes.
+ * Lastly, I am glad that this class implements the IPopup interface, which makes it then easier to pass around.
+ */
+
 package frontend;
 
 import controller.Controller;
@@ -14,6 +22,8 @@ import javafx.scene.text.Text;
 public class VariablesPopupWindow extends PopupWindow {
 	private Controller myController;
 	
+	public static String EQUALS = "=";
+	
 	public VariablesPopupWindow(String myDisplay, Controller control){
 		super();
 		myController = control;
@@ -25,10 +35,9 @@ public class VariablesPopupWindow extends PopupWindow {
 	 * @param display - The variable/ListView Cell that the user selected.
 	 */
 	public void initBox(String display){
-		String[] myVarInfo = display.split("=");
-		//TODO: add error checking
+		String[] myVarInfo = display.split(EQUALS);
 		if (myVarInfo.length != 2) {
-			// throw some error
+			throw new RuntimeException();
 		}
 			
 		Text title = new Text("Change Variable Values Here");
@@ -40,11 +49,8 @@ public class VariablesPopupWindow extends PopupWindow {
 		myBox.getChildren().add(userInput);
 		myBox.getChildren().add(ComponentFactory.makeButton("Submit",
 				e->{
-					//TODO: Handle event here
 					String userText = userInput.getText();
 					myController.updateVariableValue(myVarInfo[0].substring(1), userText);
 				}));
 	}
-	
-	public VBox getMyBox(){ return this.myBox; }
 }

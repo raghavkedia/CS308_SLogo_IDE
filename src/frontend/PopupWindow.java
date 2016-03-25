@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
  * @author richardliu
  *
  */
-public abstract class PopupWindow extends VisualComponent{
+public abstract class PopupWindow extends VisualComponent implements IPopup{
 	protected VBox myBox;
 	
 	public PopupWindow(){

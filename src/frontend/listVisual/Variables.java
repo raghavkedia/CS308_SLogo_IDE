@@ -1,7 +1,15 @@
+/**
+ * This class is part of my code masterpiece.
+ * The responsibility of this class is to programmatically determine how to display the component that shows the variables and values.
+ * This class also determines how the component responds to user interaction.
+ * Variables extends ListVisual, which implements the interface IClickable.
+ */
+
 package frontend.listVisual;
 
 import controller.Controller;
 import frontend.ComponentFactory;
+import frontend.IPopup;
 import frontend.PopupWindow;
 
 
@@ -17,7 +25,7 @@ public class Variables extends ListVisual {
 	 */
 	@Override
 	public void respondToClick() {
-        PopupWindow popup = ComponentFactory.makeNewVariablesPopupWindow(getMyList().getSelectionModel().getSelectedItem(), getMyController());
-        ComponentFactory.initNewPopup(popup, POPUP_HEIGHT, POPUP_WIDTH);
+        IPopup popup = ComponentFactory.makeNewVariablesPopupWindow(getMyList().getSelectionModel().getSelectedItem(), getMyController());
+        ComponentFactory.initNewPopup(popup, (double) POPUP_HEIGHT, (double) POPUP_WIDTH);
 	}
 }

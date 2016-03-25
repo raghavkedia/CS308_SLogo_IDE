@@ -19,14 +19,14 @@ public class ColorMapPopupWindow extends PopupWindow{
 	public ColorMapPopupWindow(Controller control){
 		super();
 		myController = control;
-		initBox();
+		initBox("");
 	}
 	
 	/**
 	 * Creates the visual VBox for the class.
 	 * @param display - The variable/ListView Cell that the user selected.
 	 */
-	public void initBox(){
+	public void initBox(String args){
 		for (int i=0; i<5; i++){
 			int index = i;
 			Text colorNum = new Text("Index "+i);
@@ -42,4 +42,5 @@ public class ColorMapPopupWindow extends PopupWindow{
 	}
 	
 	public VBox getMyBox(){ return this.myBox; }
+
 }
