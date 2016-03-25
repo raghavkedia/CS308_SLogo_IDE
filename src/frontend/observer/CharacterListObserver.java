@@ -1,4 +1,7 @@
-package frontend;
+// This entire file is part of my masterpiece.
+// Jiangzhen Yu
+
+package frontend.observer;
 
 import controller.Controller;
 import exceptions.InvalidCharacterError;
@@ -14,10 +17,10 @@ import java.util.Observer;
  */
 
 public class CharacterListObserver implements Observer{
-	CharactersList myObservable;
-	Controller myController;
+	private CharactersList myObservable;
+	private Controller myController;
 	
-	CharacterListObserver(CharactersList subject, Controller c){
+	public CharacterListObserver(CharactersList subject, Controller c){
 		myObservable = subject;
 		subject.addObserver(this);
 		this.myController = c;

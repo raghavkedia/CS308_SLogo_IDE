@@ -1,6 +1,10 @@
-package frontend;
+// This entire file is part of my masterpiece.
+// Jiangzhen Yu
+
+package frontend.popUp;
 
 import controller.Controller;
+import frontend.ComponentFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;

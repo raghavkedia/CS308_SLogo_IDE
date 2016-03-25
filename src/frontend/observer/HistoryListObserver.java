@@ -1,4 +1,7 @@
-package frontend;
+// This entire file is part of my masterpiece.
+// Jiangzhen Yu
+
+package frontend.observer;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -12,10 +15,10 @@ import backend.data.CommandHistory;
  */
 
 public class HistoryListObserver implements Observer{
-	CommandHistory myHistory;
-	Controller myController;
+	private CommandHistory myHistory;
+	private Controller myController;
 	
-	HistoryListObserver(CommandHistory subject, Controller c){
+	public HistoryListObserver(CommandHistory subject, Controller c){
 		this.myHistory = subject;
 		myHistory.addObserver(this);
 		this.myController = c;

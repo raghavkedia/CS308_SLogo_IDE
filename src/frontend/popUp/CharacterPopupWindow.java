@@ -1,8 +1,11 @@
-package frontend;
+// This entire file is part of my masterpiece.
+// Jiangzhen Yu
+package frontend.popUp;
 
 import backend.data.Data.PenPattern;
 import controller.Controller;
 import exceptions.InvalidCharacterError;
+import frontend.ComponentFactory;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;

@@ -1,4 +1,7 @@
-package frontend;
+// This entire file is part of my masterpiece.
+// Jiangzhen Yu
+
+package frontend.observer;
 
 import controller.Controller;
 import backend.data.UserDefinedCommands;
@@ -7,10 +10,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class UDCObserver implements Observer{
-	UserDefinedCommands myObservable;
-	Controller myController;
+	private UserDefinedCommands myObservable;
+	private Controller myController;
 	
-	UDCObserver(UserDefinedCommands subject, Controller c){
+	public UDCObserver(UserDefinedCommands subject, Controller c){
 		myObservable = subject;
 		subject.addObserver(this);
 		this.myController = c;

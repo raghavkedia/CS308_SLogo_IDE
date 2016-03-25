@@ -1,9 +1,9 @@
 package frontend.toobar;
 
 import controller.Controller;
-import frontend.ColorMapPopupWindow;
 import frontend.ComponentFactory;
-import frontend.ShapeMapPopupWindow;
+import frontend.popUp.ColorMapPopupWindow;
+import frontend.popUp.ShapeMapPopupWindow;
 import javafx.scene.control.Button;
 
 public class ShapeMapButton extends Button{

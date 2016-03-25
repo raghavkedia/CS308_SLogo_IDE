@@ -1,4 +1,7 @@
-package frontend;
+// This entire file is part of my masterpiece.
+// Jiangzhen Yu
+
+package frontend.popUp;
 
 import controller.Controller;
 import javafx.scene.control.ColorPicker;

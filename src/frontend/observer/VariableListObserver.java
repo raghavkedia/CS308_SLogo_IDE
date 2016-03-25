@@ -1,8 +1,10 @@
-package frontend;
+// This entire file is part of my masterpiece.
+// Jiangzhen Yu
+
+package frontend.observer;
 
 import java.util.Observable;
 import java.util.Observer;
-import backend.*;
 import controller.Controller;
 import backend.data.VariablesList;
 
@@ -12,10 +14,10 @@ import backend.data.VariablesList;
  *
  */
 public class VariableListObserver implements Observer{
-	VariablesList myObservable;
-	Controller myController;
+	private VariablesList myObservable;
+	private Controller myController;
 	
-	VariableListObserver(VariablesList subject, Controller c){
+	public VariableListObserver(VariablesList subject, Controller c){
 		myObservable = subject;
 		subject.addObserver(this);
 		this.myController = c;

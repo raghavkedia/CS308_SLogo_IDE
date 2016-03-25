@@ -1,9 +1,9 @@
 package frontend.toobar;
 
 import controller.Controller;
-import frontend.ColorMapPopupWindow;
 import frontend.ComponentFactory;
 import frontend.GUI.Init.GUIString;
+import frontend.popUp.ColorMapPopupWindow;
 import javafx.scene.control.Button;
 
 public class ColorMapButton extends Button{

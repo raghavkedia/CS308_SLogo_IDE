@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Jiangzhen Yu
+
 package frontend;
 
 import backend.*;
@@ -10,6 +13,11 @@ import frontend.listVisual.AllCharactersList;
 import frontend.listVisual.History;
 import frontend.listVisual.UDC;
 import frontend.listVisual.Variables;
+import frontend.observer.CharacterListObserver;
+import frontend.observer.HistoryListObserver;
+import frontend.observer.PropertiesObserver;
+import frontend.observer.UDCObserver;
+import frontend.observer.VariableListObserver;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
@@ -70,11 +78,15 @@ public class FrontendManager {
         myRoot.setBottom(combindedBottom);
 	}
 	
-	//BorderPane Display Helper Methods
-	private Node combineComponent(Orientation ori, Node n1, Node n2) {
+	/**
+	 * BorderPane Display Helper Methods
+	 * @param node: node Var-args that deal with an indeterminate number of javaFx nodes. 
+	 */
+	
+	private Node combineComponent(Orientation ori, Node...node) {
         SplitPane comb = new SplitPane();
         comb.setOrientation(ori);
-        comb.getItems().addAll(n1, n2);
+        comb.getItems().addAll(node);
         return comb;
 	}
 	

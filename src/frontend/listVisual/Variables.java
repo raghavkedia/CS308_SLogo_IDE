@@ -2,7 +2,7 @@ package frontend.listVisual;
 
 import controller.Controller;
 import frontend.ComponentFactory;
-import frontend.PopupWindow;
+import frontend.popUp.PopupWindow;
 
 
 public class Variables extends ListVisual {

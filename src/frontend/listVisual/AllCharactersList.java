@@ -2,8 +2,8 @@ package frontend.listVisual;
 
 import controller.Controller;
 import exceptions.InvalidCharacterError;
-import frontend.CharacterPopupWindow;
 import frontend.ComponentFactory;
+import frontend.popUp.CharacterPopupWindow;
 
 import java.util.Collections;
 import java.util.HashMap;
