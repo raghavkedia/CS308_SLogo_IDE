@@ -36,7 +36,7 @@ public class VariableListObserver implements Observer{
 	public void update(Observable o, Object arg) {
 		myController.clearVariablesFrontend();
 		
-		if (o.getClass().equals("VariablesList")){
+		if (o.getClass().getName().equals("java.backend.VariablesList")){
 			VariablesList myObserved = (VariablesList) o;
 			
 			for (String key : myObserved.getVariables().keySet()){
