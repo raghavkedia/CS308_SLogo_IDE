@@ -19,11 +19,20 @@ public class Portrait extends VisualComponent{
 		myID = myChar.hashCode();
 	}
 
+	/**
+	 * Sets the X and Y coordinates of a portrait.
+	 * @param newX
+	 * @param newY
+	 */
 	void setCoor(double newX, double newY) {
 		myPortrait.setX(newX);
 		myPortrait.setY(newY);
 	}
 	
+	/**
+	 * Sets the angle/heading of the portrait.
+	 * @param angle
+	 */
 	void rotate(double angle){
 		this.myPortrait.setRotate(angle);
 	}

@@ -1,6 +1,7 @@
 package frontend.listVisual;
 
 import controller.Controller;
+import exceptions.InvalidCharacterError;
 import frontend.CharacterPopupWindow;
 import frontend.ComponentFactory;
 
@@ -38,9 +39,16 @@ public class AllCharactersList extends ListVisual {
 	@Override
 	public void respondToClick() {
 		int index = getMyList().getSelectionModel().getSelectedIndex();
-		CharacterPopupWindow popup = ComponentFactory.makeNewCharactersPopupWindow(myCharacters.get(index).getName(),
-																				   getMyController());
-		ComponentFactory.initNewPopup(popup, 300, 700);
+		CharacterPopupWindow popup;
+		try {
+			popup = ComponentFactory.makeNewCharactersPopupWindow(myCharacters.get(index).getName(),
+																					   getMyController());
+
+			ComponentFactory.initNewPopup(popup, 300, 700);
+		} catch (InvalidCharacterError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public Map<Integer, Character> getCharMap() {

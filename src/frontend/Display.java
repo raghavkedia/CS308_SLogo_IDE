@@ -28,9 +28,6 @@ public class Display extends VisualComponent{
 	public Display(double width, double height, Controller control){
 		super.setColor(Color.WHITE);
 		myPane = new Pane();
-//		myPane.setMinSize(width, height);
-//		myPane.setPrefSize(width, height);
-//		myPane.setMaxSize(width, height);
 		myWidth = width;
 		myHeight = height;
 		myPane.setBackground(new Background(new BackgroundFill(super.getColor(), null, null)));
@@ -78,11 +75,17 @@ public class Display extends VisualComponent{
 		drawAllLines();
 	}
 	
+	/**
+	 * Removes all lines from the Display.
+	 */
 	public void clearAllLines(){
 		clearLinesDrawn();
 		myLines.clear();
 	}
 	
+	/**
+	 * Temporarily removes lines from the Pane object, but not from the myLines list.
+	 */
 	public void clearLinesDrawn(){
 		for (Line l : myLines){
 			for (int i=myPane.getChildren().size()-1; i>=0; i--){
@@ -94,12 +97,18 @@ public class Display extends VisualComponent{
 		}
 	}
 	
+	/**
+	 * Draws all lines in the myLines list on the Pane.
+	 */
 	public void drawAllLines(){
 		for (Line l : myLines){
 			myPane.getChildren().add(l);
 		}
 	}
 	
+	/**
+	 * Removes all the character images from the Pane display.
+	 */
 	public void clearChars(){
 		for (Portrait p : myPortraits){
 			for (int i=myPane.getChildren().size()-1; i>=0; i--){
@@ -112,6 +121,11 @@ public class Display extends VisualComponent{
 		this.myPortraits.clear();
 	}
 	
+	/**
+	 * Adds a portrait to the list, and determines whether or not it will be shown.
+	 * @param p
+	 * @throws InvalidCharacterError
+	 */
 	public void addPortrait(Portrait p) throws InvalidCharacterError{
 		this.myPortraits.add(p);
 		if (p.getMyChar().getVisability()){
@@ -127,6 +141,14 @@ public class Display extends VisualComponent{
 		myPreviousY.put(p.getMyChar().getName(), (double) p.getMyChar().getCoordY());
 	}
 	
+	/**
+	 * Physically displays an image of a portrait in the Pane
+	 * @param p
+	 * @param x
+	 * @param y
+	 * @param angle
+	 * @param visible
+	 */
 	public void addImage(Portrait p, double x, double y, double angle, boolean visible){
 		ImageView img = p.getMyPortrait();
 		if (!myPane.getChildren().contains(img)){

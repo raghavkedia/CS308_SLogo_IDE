@@ -20,8 +20,6 @@ import javafx.stage.Stage;
 public class Controller {
 	private BackendManager myBackend;
     private FrontendManager myFrontend;
-    
-//	private ArrayList<InterpreturInterface> myBackendList;
 	private int myId;
 
 	private IWorkSpace myWorkSpace;
@@ -30,10 +28,6 @@ public class Controller {
 	public Controller(Properties GUIProp, Properties myProp, Stage s){
 		myId = 0;
 		myBackend = new BackendManager();
-
-//		myFrontend = new FrontendManager(GUIProp, myProp, myBackend, this, myId);
-//		myFrontendList = new ArrayList<FrontendManager>();
-//		myFrontendList.add(myFrontend);
 
 		myStage = s;
 		myWorkSpace = new WorkSpaceManager(GUIProp, myProp, myBackend, this);

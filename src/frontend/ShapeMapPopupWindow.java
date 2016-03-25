@@ -15,7 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
- * Subclass of PopupWindow which is used to allow the user to interactively change variable values.
+ * Subclass of PopupWindow which is used to allow the user to interactively change ShapeMap values.
  * @author richardliu
  *
  */

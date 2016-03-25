@@ -2,12 +2,16 @@ package frontend;
 
 import controller.Controller;
 import exceptions.InvalidCharacterError;
-import backend.*;
 import backend.data.Character;
 import backend.data.CharactersList;
-
 import java.util.Observable;
 import java.util.Observer;
+
+/**
+ * An Observer class for the CharacterList from backend.Data 
+ * @author richardliu
+ *
+ */
 
 public class CharacterListObserver implements Observer{
 	CharactersList myObservable;

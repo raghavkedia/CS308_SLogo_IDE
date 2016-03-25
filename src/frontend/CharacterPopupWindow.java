@@ -10,6 +10,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * PopupWindow for when you click on a Character from the AllCharactersList
+ * @author richardliu
+ *
+ */
 public class CharacterPopupWindow extends PopupWindow {
 	private Controller myController;
 	
