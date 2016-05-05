@@ -11,13 +11,15 @@ public class Properties extends Observable{
 	
 	private String myBackgroundColor;
 	private boolean clearScreen;
+	private boolean boundScreen;
 	
 	public Properties() {
 		// TODO Auto-generated constructor stub
 
 		myBackgroundColor = "";
 		clearScreen = false;
-		
+		//initially keep screen bounded
+		boundScreen = true;
 	}
 	
 	public String getBackgroundColor(){
@@ -39,6 +41,14 @@ public class Properties extends Observable{
 	public void hasUpdated(){
 		setChanged();
 		notifyObservers(this);
+	}
+
+	public boolean boundScreen() {
+		return boundScreen;
+	}
+
+	public void setBoundScreen(boolean boundScreen) {
+		this.boundScreen = boundScreen;
 	}
 	
 }

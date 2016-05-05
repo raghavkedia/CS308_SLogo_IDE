@@ -27,6 +27,9 @@ import javafx.scene.image.Image;
 import util.MathUtil;
 
 public class CommandFactory {
+	
+	private static final int WINDOW_RETURN_VALUE = 2;
+	private static final int FENCE_RETURN_VALUE = 3;
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private CharactersList myCharacters;
 	private VariablesList myVariablesList;
@@ -35,6 +38,8 @@ public class CommandFactory {
 	private ColorMap myColorMap;
 	private ShapeMap myShapeMap;
 	private ResourceBundle myErrorResources;
+	private ResourceBundle myDimensionResources;
+	
 	
 	public CommandFactory(CharactersList myCharacters, VariablesList myVariablesList, 
 			UserDefinedCommands myUserDefinedCommands, Properties myProperties, ColorMap myColorMap,
@@ -46,6 +51,7 @@ public class CommandFactory {
 		this.myProperties = myProperties;
 		this.myColorMap = myColorMap;
 		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
+		myDimensionResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "GUI");
 		
 	}
 	
@@ -56,6 +62,12 @@ public class CommandFactory {
 		double result = 0;
 		List<String> previousActive = new ArrayList<String>(myCharacters.getActiveCharacters());
 		switch(type) {
+		case WINDOW:
+			myProperties.setBoundScreen(false);
+			return WINDOW_RETURN_VALUE;
+		case FENCE:
+			myProperties.setBoundScreen(true);
+			return FENCE_RETURN_VALUE;
 		case AND:
 			return executeMath(Product, convertAllNodesToDoubles(myChildren)) != 0 ? 1 : 0;
 		case ARCTANGENT:
@@ -298,12 +310,27 @@ public class CommandFactory {
 	interface MultipleParameterOperation{
 		double operation(double a, double b) throws SlogoError;
 	}
+	
+	private double[] boundCoord(double x, double y){
+		double[] newCoord = new double[2];
+		newCoord[0] = Math.signum(x) * Math.min(Math.abs(x), Double.parseDouble(myDimensionResources.getString("x_axis")));
+		newCoord[1] = Math.signum(y) * Math.min(Math.abs(y), Double.parseDouble(myDimensionResources.getString("y_axis")));
+		return newCoord;
+	}
+ 	
 	private void translateCoor(double [] transCoords, Character myCharacter) {
 		double translateX = transCoords[0] * Math.cos(MathUtil.convertDegrees(myCharacter.getMyAngle())) 
 				+ transCoords[1] * Math.sin(MathUtil.convertDegrees(myCharacter.getMyAngle()));
 		double translateY = transCoords[1] * Math.cos(MathUtil.convertDegrees(myCharacter.getMyAngle()));
-		myCharacter.setCurrCoord(myCharacter.getCoordX() + translateX,
-				myCharacter.getCoordY() + translateY);
+		double[] newCoord = new double[2];
+		newCoord[0] = myCharacter.getCoordX() + translateX;
+		newCoord[1] = myCharacter.getCoordY() + translateY;
+		
+		if(myProperties.boundScreen()){
+			newCoord = boundCoord(newCoord[0], newCoord[1]);
+		}
+		
+		myCharacter.setCurrCoord(newCoord[0], newCoord[1]);
 	}
 	
 	
