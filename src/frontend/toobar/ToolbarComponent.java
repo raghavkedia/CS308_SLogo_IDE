@@ -23,6 +23,7 @@ public class ToolbarComponent extends VisualComponent{
 		myToolbar.getItems().add(new ShapeMapButton(myController));
 //		myToolbar.getItems().add(ToolbarFactory.makePenPropertiesButton(myController));
 		myToolbar.getItems().add(ToolbarFactory.makeHelpButton(myController));
+		myToolbar.getItems().add(new TurtleImageViewButton(myController));
 		
 		super.setVisual(myToolbar);
 	}
