@@ -24,12 +24,9 @@ public class TurtleImageViewPopupWindow extends PopupWindow {
 
     public void initBox(String args){
         ListView<HBox> turtleList = new TurtleImageViewList(myController);
-        for (backend.data.Character c : myController.getFrontendManager().getCharMap().values()){
-
-        }
-        ScrollPane scroller = new ScrollPane();
-        scroller.setContent(turtleList);
-        super.myBox.getChildren().add(scroller);
+//        ScrollPane scroller = new ScrollPane();
+//        scroller.setContent(turtleList);
+        super.myBox.getChildren().add(turtleList);
     }
 
     public VBox getMyBox(){ return this.myBox; }

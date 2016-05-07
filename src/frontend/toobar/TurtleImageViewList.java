@@ -2,10 +2,8 @@ package frontend.toobar;
 
 import controller.Controller;
 import backend.data.Character;
-import frontend.GUI.Init;
-import frontend.listVisual.ListVisual;
+import exceptions.InvalidCharacterError;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -53,16 +51,29 @@ public class TurtleImageViewList extends ListView<HBox> {
         int index = super.getSelectionModel().getSelectedIndex();
 
         FileChooser fc = new FileChooser();
-        fc.setTitle(myController.getGUIProperty(Init.GUIString.PORTRAIT_TITLE.getKey()));
+        fc.setTitle("Change Image");
         fc.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Image Files (.png)", "*.png"));
         File imgFile = fc.showOpenDialog(myController.getMyStage());
         if (imgFile != null) {
-
+            Character selectedChar = myCharacters.get(index);
+            selectedChar.setImagePath("file://"+imgFile.getPath());
+            updateList();
         }
     }
 
-    public void update(){
-        super.getChildren().clear();
+    public void updateList(){
+        myController.clearCharactersFromFrontend();
+        myController.clearAllChars();
+        for (Character c : myCharacters){
+            try {
+                myController.addPortrait(c);
+            } catch (InvalidCharacterError e){
+                e.printStackTrace();
+            }
+            myController.addChar(c);
+        }
+
+        super.getItems().clear();
         populateList();
     }
 }
