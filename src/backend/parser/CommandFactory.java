@@ -1,15 +1,12 @@
 package backend.parser;
 
-import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import backend.data.Character;
 import backend.data.CharactersList;
 import backend.data.ColorMap;
-import backend.data.Data;
 import backend.data.Properties;
 import backend.data.ShapeMap;
 import backend.data.UserDefinedCommands;
@@ -18,15 +15,15 @@ import backend.data.VariablesList;
 import exceptions.InvalidCharacterError;
 import exceptions.InvalidIndexColorError;
 import exceptions.InvalidIndexShapeError;
-import exceptions.InvalidParameterError;
 import exceptions.InvalidParametersError;
 import exceptions.InvalidQuotientError;
 import exceptions.SlogoError;
-import exceptions.TooFewParametersError;
-import javafx.scene.image.Image;
+import frontend.GUI.Init.Dimension;
 import util.MathUtil;
 
 public class CommandFactory {
+	private static final int FENCE_RETURN = 3;
+	private static final int WINDOW_RETURN = 2;
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private CharactersList myCharacters;
 	private VariablesList myVariablesList;
@@ -34,6 +31,7 @@ public class CommandFactory {
 	private Properties myProperties;
 	private ColorMap myColorMap;
 	private ShapeMap myShapeMap;
+	private Command displayState;
 	private ResourceBundle myErrorResources;
 	
 	public CommandFactory(CharactersList myCharacters, VariablesList myVariablesList, 
@@ -46,13 +44,13 @@ public class CommandFactory {
 		this.myProperties = myProperties;
 		this.myColorMap = myColorMap;
 		myErrorResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "ErrorMessages");
-		
 	}
 	
 	/*
 	 * Generates a double by getting inputs from the node that calls this method and executing according to defined rules.
 	 */
 	public double generateResult(Command type, String myName, List<ExpressionNode> myChildren, List<ExpressionNode> parameters) throws SlogoError {
+		this.displayState = myProperties.getDisplayBound();
 		double result = 0;
 		List<String> previousActive = new ArrayList<String>(myCharacters.getActiveCharacters());
 		switch(type) {
@@ -243,6 +241,12 @@ public class CommandFactory {
 			return executeForCharacters(SetShape, convertAllNodesToDoubles(myChildren));
 		case STAMP:
 			return executeForCharacters(Stamp, convertAllNodesToDoubles(myChildren));
+		case WINDOW:
+			myProperties.setDisplayBound(Command.WINDOW);
+			return WINDOW_RETURN;
+		case FENCE:
+			myProperties.setDisplayBound(Command.FENCE);
+			return FENCE_RETURN;
 		default:
 			break;
 		}
@@ -298,12 +302,34 @@ public class CommandFactory {
 	interface MultipleParameterOperation{
 		double operation(double a, double b) throws SlogoError;
 	}
-	private void translateCoor(double [] transCoords, Character myCharacter) {
+	
+	private void translateCoor(double [] transCoords, Character myCharacter, Command displayState) {
 		double translateX = transCoords[0] * Math.cos(MathUtil.convertDegrees(myCharacter.getMyAngle())) 
 				+ transCoords[1] * Math.sin(MathUtil.convertDegrees(myCharacter.getMyAngle()));
 		double translateY = transCoords[1] * Math.cos(MathUtil.convertDegrees(myCharacter.getMyAngle()));
-		myCharacter.setCurrCoord(myCharacter.getCoordX() + translateX,
-				myCharacter.getCoordY() + translateY);
+		double newX = myCharacter.getCoordX() + translateX;
+		double newY = myCharacter.getCoordY() + translateY;
+		if (displayState == Command.FENCE) {
+			newX = revertCoordinateToEdge(newX, Dimension.DISPLAY.getWidth(), -1 * Dimension.DISPLAY.getWidth());
+			newY = revertCoordinateToEdge(newY, Dimension.DISPLAY.getHeight(), -1 * Dimension.DISPLAY.getHeight());
+		}
+		myCharacter.setCurrCoord(newX, newY);
+	}
+	
+	private double revertCoordinateToEdge(double d, double upperBound, double lowerBound) {
+		if (checkBounds(d, Dimension.DISPLAY.getWidth(), 0)) {
+			return setToClosestEdge(d, Dimension.DISPLAY.getWidth(), 0);
+		}
+		return d; 
+	}
+
+	private double setToClosestEdge(double d, double upperBound, double lowerBound) {
+		return (double) ((Math.abs(d - upperBound) < Math.abs(d - lowerBound)) ? 
+				upperBound :  lowerBound);
+	}
+
+	private boolean checkBounds(double d, double upperBound, double lowerBound) {
+		return d > upperBound || d < lowerBound;
 	}
 	
 	
@@ -334,11 +360,11 @@ public class CommandFactory {
 	}
 	
 	private TurtleOperation Forward = (String key, double a, double b) -> {
-		translateCoor(new double[]{0, a}, myCharacters.getCharacter(key));
+		translateCoor(new double[]{0, a}, myCharacters.getCharacter(key), displayState);
 		return a;
 	};
 	private TurtleOperation Back = (String key, double a, double b) -> {
-		translateCoor(new double[]{0, -1 * a}, myCharacters.getCharacter(key));
+		translateCoor(new double[]{0, -1 * a}, myCharacters.getCharacter(key), displayState);
 		return a;
 	};
 	private TurtleOperation Left = (String key, double a, double b) -> {
